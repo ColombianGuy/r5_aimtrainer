@@ -682,6 +682,11 @@ void function PilotBlood_Passive_Body( entity player ) //monitor for passive abi
 	
 	if( Gamemode() == eGamemodes.fs_duckhunt || Gamemode() == eGamemodes.fs_infected || Playlist() == ePlaylists.fs_movementgym )
 		healthRegenRate = 2.0
+
+	if (Flowstate_Is4DMode())
+	{
+		tickTime = 0.05
+	}
 	
 	//(mk):
 	// when a player's passive is removed with the global function TakePassive,

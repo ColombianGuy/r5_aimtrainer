@@ -262,5 +262,13 @@ WeaponData
 		{
 			"offhand_active_slot"       "altHand"
         }
+
+		4d
+		{
+			"charge_time"				"0.001"
+			"charge_cooldown_time"							"0.001"
+			"charge_cooldown_delay"   						"0.0"
+			"regen_ammo_refill_rate"	"200" // half a second cd
+		}
 	}
 }

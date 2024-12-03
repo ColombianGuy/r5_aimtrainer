@@ -93,6 +93,9 @@ const bool IS_FLOWSTATE_SCRIPT = true
 
 void function ReMap_Init()
 {
+    
+    AddCallback_OnClientConnected( MapEditor_CreateTextInfoPanel_Internal )
+    
     PrecacheModel( BALLON_BASE_MDL )
     PrecacheModel( BALLON_MDL )
 
@@ -265,6 +268,8 @@ void function WallTriggerEnter( entity trigger , entity ent )
 
 entity function MapEditor_CreateProp( asset a, vector pos, vector ang, bool mantle = false, float fade = 5000, int realm = -1, float scale = 1, bool addToArray = false )
 {
+    //
+    int actualRealm = realm
 	// printt( a )
 	// return null
     entity e = CreatePropDynamic( a, pos, ang, SOLID_VPHYSICS, fade )
@@ -276,12 +281,26 @@ entity function MapEditor_CreateProp( asset a, vector pos, vector ang, bool mant
 
     if( mantle ) e.AllowMantle()
     
+    if (Flowstate_Is4DMode())
+    {
+        switch (realm)
+        {
+            case 0:
+                Highlight_SetNeutralHighlight( e, "survival_item_rare" )
+                realm = -1
+                break
+            case 1:
+                Highlight_SetNeutralHighlight( e, "survival_item_heirloom" )
+                realm = -1
+                break
+        }
+    }
     if (realm > -1)
     {
         e.RemoveFromAllRealms()
         e.AddToRealm( realm )
     }
-    
+
     e.SetScriptName("editor_placed_prop")
     e.e.gameModeId = realm
     e.SetModelScale( scale )
@@ -426,10 +445,15 @@ void function OpenPlainDoorAtSpawn( entity door )
     door.SetUsePrompts( "#SURVIVAL_CLOSE_DOOR", "#SURVIVAL_CLOSE_DOOR" )
 }
 
-entity function MapEditor_CreateTrigger( vector origin, vector angles, float radius, float totalheight, bool debugdraw = false, bool addToArray = false)
+entity function MapEditor_CreateTrigger( vector origin, vector angles, float radius, float totalheight, bool debugdraw = false, bool addToArray = false, int realm = -1 )
 {
     // Set up the trigger
     entity trigger = CreateEntity( "trigger_cylinder" )
+    if (realm > -1)
+    {
+        trigger.RemoveFromAllRealms()
+        trigger.AddToRealm(realm)
+    }
     trigger.SetRadius( radius )
     trigger.SetAboveHeight( totalheight )
     trigger.SetBelowHeight( totalheight )
@@ -625,7 +649,21 @@ void function MapEditor_CreateTextInfoPanel( string title, string text, vector o
 {
     TextInfoPanelArray.append( [ title, text, origin, angles, showPin, textScale ] )
 
-    AddCallback_OnClientConnected( MapEditor_CreateTextInfoPanel_Internal )
+    foreach (entity player in GetPlayerArray())
+    {
+        string sendPanelText
+        for ( int textType = 0 ; textType < 2 ; textType++ )
+        {
+            sendPanelText = textType == 0 ? title : text
+
+            for ( int i = 0; i < sendPanelText.len(); i++ )
+            {
+                Remote_CallFunction_NonReplay( player, "Dev_BuildTextInfoPanel", textType, sendPanelText[i] )
+            }
+        }
+
+        Remote_CallFunction_NonReplay( player, "Dev_CreateTextInfoPanel", origin.x, origin.y, origin.z, angles.x, angles.y, angles.z, showPin, textScale )
+    }
 }
 
 void function MapEditor_CreateTextInfoPanel_Internal( entity player )

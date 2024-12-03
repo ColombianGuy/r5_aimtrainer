@@ -32,6 +32,8 @@ void function MpWeaponLSTAR_Init()
 
 var function OnWeaponPrimaryAttack_weapon_lstar( entity weapon, WeaponPrimaryAttackParams attackParams )
 {
+	if (weapon.HasMod("4d_ult"))
+		return OnWeaponPrimaryAttack_Vinson(weapon, attackParams)
 	return LSTARPrimaryAttack( weapon, attackParams, true )
 }
 
@@ -101,6 +103,8 @@ int function LSTAR_Proto_TitanAttack( entity weapon, WeaponPrimaryAttackParams a
 void function OnWeaponCooldown_weapon_lstar( entity weapon, bool temp )
 {
 	// weapon overheated!
+	if (weapon.GetWeaponSettingFloat( eWeaponVar.charge_time ) <= 0)
+		return
 	if ( weapon.GetWeaponChargeFraction() == 1.0 )  // only works if charge_cooldown_delay is > 0
 	{
 		weapon.EmitWeaponSound_1p3p( LSTAR_BURNOUT_SOUND_1P, LSTAR_BURNOUT_SOUND_3P )

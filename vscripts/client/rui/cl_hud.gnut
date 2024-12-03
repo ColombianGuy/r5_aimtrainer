@@ -391,8 +391,29 @@ void function DamageFlyout( float damageAmount, vector damagePosition, entity vi
 		flyoutData.lastDamageFlyoutDamage = 0
 	}
 
-	float distance = Distance( victim.GetOrigin(), GetLocalViewPlayer().EyePosition() )
-	vector damageFlyoutDisplayPosition = GraphCappedVector( distance, 0, 256, victim.GetWorldSpaceCenter(), victim.GetOrigin() + <0, 0, victim.GetBoundingMaxs().z> )
+	vector victimOrigin = victim.GetOrigin()
+	vector offset = <0,0,0>
+	if (Flowstate_Is4DMode())
+	{
+		vector playerPos = GetLocalViewPlayer().GetOrigin()
+		int playerDimension = ((playerPos.x > 0) ? 1 : 0)
+		int victimDimension = ((victimOrigin.x > 0) ? 1 : 0)
+		if (playerDimension != victimDimension)
+		{
+			if (victimDimension == 1)
+			{
+				offset -= <30000,0,0>
+			}
+			else
+			{
+				offset += <30000,0,0>
+			}
+		}
+	}
+
+	float distance = Distance( victim.GetOrigin() + offset, GetLocalViewPlayer().EyePosition() )
+	vector damageFlyoutDisplayPosition = GraphCappedVector( distance, 0, 256, victim.GetWorldSpaceCenter() + offset, victim.GetOrigin() + <0, 0, victim.GetBoundingMaxs().z> + offset )
+
 
 	if ( victim.GetScriptName() in file.modifyDamageFlyoutForScriptNameCallbacks )
 	{

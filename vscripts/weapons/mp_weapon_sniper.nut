@@ -44,6 +44,9 @@ void function OnClientAnimEvent_weapon_sniper( entity weapon, string name )
 
 int function FireWeaponPlayerAndNPC( entity weapon, WeaponPrimaryAttackParams attackParams, bool playerFired )
 {
+	if (weapon.HasMod("4d_ult"))
+		return expect int(OnWeaponPrimaryAttack_Vinson( weapon, attackParams ))
+	
 	bool shouldCreateProjectile = false
 	if ( IsServer() || weapon.ShouldPredictProjectiles() )
 		shouldCreateProjectile = true

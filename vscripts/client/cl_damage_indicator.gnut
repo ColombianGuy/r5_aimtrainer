@@ -754,6 +754,25 @@ void function ShowDamageArrow( entity player, vector damageOrigin, int arrowType
 
 	float time = Time()
 
+	if (Flowstate_Is4DMode())
+	{
+		vector victimOrigin = player.GetOrigin()
+		
+		int playerDimension = ((victimOrigin.x) > 0 ? 1 : 0)
+		int victimDimension = ((damageOrigin.x) > 0 ? 1 : 0)
+		if (playerDimension != victimDimension)
+		{
+			if (victimDimension == 01)
+			{
+				damageOrigin -= <30000,0,0>
+			}
+			else
+			{
+				damageOrigin += <30000,0,0>
+			}
+		}
+	}
+
 	arrow.s.arrowData.damageOrigin = damageOrigin
 	arrow.s.arrowData.grenade = null
 	arrow.s.arrowData.grenadeRadius = 0.0

@@ -281,6 +281,8 @@ WeaponData
 	"viewmodel_ads_centerpoint_attachment"      "ADS_CENTER_SIGHT_MASTIFF"               
          
       
+	// 4d variable. means nothing outside of it.
+	"4d_fire_in_both_dimensions"			"1"
 
 	Mods
 	{
@@ -357,6 +359,23 @@ WeaponData
             "viewkick_yaw_base"   							"-0.25"      //"-0.35"
             "viewkick_yaw_random" 							"0.35"      //"0.5"
         }
+
+		"4d_ult"
+		{
+			"fire_mode"						"offhandHybrid"
+			"reload_enabled"				"0" // fixes cd not working when empty
+			"ammo_per_shot"					"3"
+			"ammo_min_to_fire"					"3"
+			"ammo_clip_size"				"6"
+			"regen_ammo_refill_rate"		"0.25" // 8s
+			"offhand_default_inventory_slot"						"4"
+			"damage_near_value"				"25"
+			"damage_far_value"				"25"
+			"damage_very_far_value"				"25"
+			"offhand_hybrid_switch_on_attack"				"0"
+			"blast_pattern_zero_distance"	"*1.5" // makes it much tighter.
+			"is_burn_mod"					"1"
+		}
 	}
 
 		// UI

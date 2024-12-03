@@ -76,6 +76,8 @@ global function Flowstate_ShowMatchFoundUI
 global function UiToClient_ConfirmRest
 global function FS_Scenarios_SetRingCloseTimeForMinimap
 
+global function FS4DIntroSequence
+
 const string CIRCLE_CLOSING_IN_SOUND = "UI_InGame_RingMoveWarning" //"survival_circle_close_alarm_01"
 
 struct {
@@ -1769,6 +1771,10 @@ void function DM_HintCatalog(int index, int eHandle)
 		}
 		break
 
+		case 4:
+		DM_QuickHint( "You have to kill the two dummies at the same time before you can continue!", true, 3 )
+		break
+
 		case -1:
 		if(file.activeQuickHint != null)
 		{
@@ -2410,4 +2416,68 @@ void function UiToClient_ConfirmRest( string arg )
 		player.ClientCommand( arg )
 		
 	SpamWarning( 10, "confirmed rest? arg: \"" + arg + "\"" )
+}
+
+void function FS4DIntroSequence()
+{
+	thread void function() : ()
+	{
+		var rui = RuiCreate( $"ui/cockpit_console_text_top_right.rpak", clGlobal.topoFullScreen, RUI_DRAW_HUD, 0)
+		RuiSetInt( rui, "maxLines", 1 );
+		RuiSetInt( rui, "lineNum", 0 );
+		RuiSetFloat2( rui, "msgPos", <0.45, 0.4875, 0> )
+		RuiSetString( rui, "msgText", "EladNLG Presents" )
+		RuiSetFloat3( rui, "msgColor", <1, 1, 1> )
+		RuiSetFloat( rui, "msgFontSize", 24.0)
+		RuiSetFloat( rui, "msgAlpha", 0.9 )
+		RuiSetFloat( rui, "thicken", 0.0 )
+
+		float endTime = Time() + 6
+		while (Time() < endTime)
+		{
+			float timeLeft = endTime - Time()
+			RuiSetFloat( rui, "msgAlpha", 0.9 * min(1, timeLeft) )
+			wait 0.001
+		}
+		RuiDestroy( rui )
+
+		rui = RuiCreate( $"ui/cockpit_console_text_top_left.rpak", clGlobal.topoFullScreen, RUI_DRAW_HUD, 0)
+		RuiSetInt( rui, "maxLines", 1 );
+		RuiSetInt( rui, "lineNum", 0 );
+		RuiSetFloat2( rui, "msgPos", <0.55, 0.475, 0> )
+		RuiSetString( rui, "msgText", "Powered by flowstate\nand r5reloaded" )
+		RuiSetFloat3( rui, "msgColor", <1, 1, 1> )
+		RuiSetFloat( rui, "msgFontSize", 24.0)
+		RuiSetFloat( rui, "msgAlpha", 0.9 )
+		RuiSetFloat( rui, "thicken", 0.0 )
+		
+		endTime = Time() + 6
+		while (Time() < endTime)
+		{
+			float timeLeft = endTime - Time()
+			RuiSetFloat( rui, "msgAlpha", 0.9 * min(1, timeLeft) )
+			wait 0.001
+		}
+		RuiDestroy( rui )
+
+		
+		rui = RuiCreate( $"ui/cockpit_console_text_center.rpak", clGlobal.topoFullScreen, RUI_DRAW_HUD, 0)
+		RuiSetInt( rui, "maxLines", 1 );
+		RuiSetInt( rui, "lineNum", 0 );
+		RuiSetFloat2( rui, "msgPos", <0.0, 0.0, 0> )
+		RuiSetString( rui, "msgText", "4d apex" )
+		RuiSetFloat3( rui, "msgColor", <1, 1, 1> )
+		RuiSetFloat( rui, "msgFontSize", 144.0)
+		RuiSetFloat( rui, "msgAlpha", 0.9 )
+		RuiSetFloat( rui, "thicken", 0.0 )
+		
+		endTime = Time() + 6
+		while (Time() < endTime)
+		{
+			float timeLeft = endTime - Time()
+			RuiSetFloat( rui, "msgAlpha", 0.9 * min(1, timeLeft) )
+			wait 0.001
+		}
+		RuiDestroy( rui )
+	}()
 }

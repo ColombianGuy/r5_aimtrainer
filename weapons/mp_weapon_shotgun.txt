@@ -389,7 +389,11 @@ WeaponData
                     
          
                                                                                           
-         
+         4d
+		 {
+			"damage_near_value"   							"8"
+			"damage_far_value"								"8"
+		 }
       
 	}
 

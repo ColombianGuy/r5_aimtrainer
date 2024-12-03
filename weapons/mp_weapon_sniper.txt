@@ -31,6 +31,7 @@
 
 	// Script - Callbacks
 	"OnClientAnimEvent"                        "OnClientAnimEvent_weapon_sniper"
+	"OnWeaponPrimaryAttack"					   "OnWeaponPrimaryAttack_Vinson" // effectively doesnt change anything outside of 4d. just cant be set in a weapon mod, so its done here.
 
 	// Behavior - Firing
 	//
@@ -272,6 +273,9 @@
 	// HACK when "optic_toggle" mod is equipped, toggles between default and this optic
 	"script_optic_toggle_name"              "optic_ranged_aog_variable"
 
+	// 4d variable. means nothing outside of it.
+	"4d_fire_in_both_dimensions"			"1"
+
 	"Mods"
 	{
 	    crate
@@ -347,6 +351,27 @@
 
 			"spread_air_hip"                                  "0"
 			"spread_air_ads"                                  "0.0"
+		}
+
+		"4d_ult"
+		{
+			"fire_mode"						"offhandHybrid"
+			"reload_enabled"				"0" // fixes cd not working when empty
+			"ammo_per_shot"					"300"
+			"ammo_min_to_fire"					"300"
+			"ammo_clip_size"				"600"
+			"regen_ammo_refill_rate"		"20" // 8s
+			"disable_zoomed_rechamber"		"0"
+			"fire_rate"						"0.75"
+			"rechamber_time"				"0.0"
+			"offhand_default_inventory_slot"						"4"
+			"damage_near_value"				"200"
+			"damage_far_value"				"200"
+			"damage_very_far_value"				"200"
+			"damage_headshot_scale"			"4.995"
+			"offhand_hybrid_switch_on_attack"				"0"
+			"viewkick_ads_weaponFraction_vmScale"      "0.2" // avoids the weapon flying off the screen
+			"is_burn_mod"					"1"
 		}
 	}
 

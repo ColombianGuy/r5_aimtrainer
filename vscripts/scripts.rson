@@ -1047,6 +1047,7 @@ Scripts:
 When: "SERVER"
 Scripts:
 [
+	gamemodes/fs_tdm/_4d_tutorial.nut
 	gamemodes/fs_tdm/_gamemode_fsdm.nut
 	gamemodes/fs_realistic_ttv/_realistic_mode.nut
 	gamemodes/fs_tdm/_gamemode_fsdm_oddball.nut
@@ -1076,6 +1077,9 @@ Scripts:
 	custom_maps/_custom_maps_7.nut
 	custom_maps/_custom_maps_8.nut
 	custom_maps/_custom_deafps_maps.nut
+
+	// 4d specific
+	custom_maps/_custom_maps_4d.nut
 	
 	//mkos LG patches & map based patches
 	custom_maps/_LG_Duel.nut

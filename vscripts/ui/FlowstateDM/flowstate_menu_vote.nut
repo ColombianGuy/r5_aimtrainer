@@ -72,7 +72,12 @@ void function Open_FSDM_VotingPhase()
 	
 	if( IsConnected() )
 	{
-		switch( Playlist() )
+		if (Flowstate_Is4DMode())
+		{
+			Hud_SetText( Hud_GetChild( file.menu, "TextCredits2" ), "4D APEX" )
+			Hud_SetText( Hud_GetChild( file.menu, "TextCredits" ), "Made by @EladNLG. Effect and Cause better." )
+		}
+		else switch( Playlist() )
 		{
 			case ePlaylists.fs_prophunt:
 				Hud_SetText( Hud_GetChild( file.menu, "TextCredits2" ), "FS PROPHUNT" )

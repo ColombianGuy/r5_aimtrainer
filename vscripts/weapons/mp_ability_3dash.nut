@@ -16,6 +16,8 @@ void function MpAbility3Dash_Init()
 
 void function OnWeaponActivate_ability_3dash( entity weapon )
 {
+	if (Flowstate_Is4DMode())
+		return
 	#if SERVER
 		entity player = weapon.GetWeaponOwner()
 		EmitSoundOnEntityExceptToPlayer(player, player, "Wraith_PhaseGate_Portal_Open")
@@ -48,6 +50,18 @@ bool function OnWeaponChargeBegin_ability_3dash( entity weapon )
 
 void function DashPlayer(entity player, float chargeTime)
 {
+	if (Flowstate_Is4DMode())
+	{
+		if (player.GetOrigin().x > 0)
+		{
+			player.SetOrigin(player.GetOrigin() - <30000,0,0>)
+		}
+		else
+		{
+			player.SetOrigin(player.GetOrigin() + <30000,0,0>)
+		}
+		return
+	}
 	player.Zipline_Stop()
 	if ( MapName() == eMaps.mp_rr_ashs_redemption ) return
 	player.Zipline_Stop()
@@ -73,6 +87,10 @@ void function DashPlayer(entity player, float chargeTime)
 void function OnWeaponChargeEnd_ability_3dash( entity weapon )
 {
 	entity player = weapon.GetWeaponOwner()
+	if (Flowstate_Is4DMode())
+	{
+		weapon.EmitWeaponSound_1p3p( "Pilot_PhaseShift_End_1P", "Pilot_PhaseShift_End_3P" )
+	}
 	#if SERVER
 		foreach ( effect in weapon.w.statusEffects )
 		{

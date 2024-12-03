@@ -117,6 +117,9 @@ struct {
 
 var function OnWeaponPrimaryAttack_weapon_mastiff( entity weapon, WeaponPrimaryAttackParams attackParams )
 {
+	if (weapon.HasMod("4d_ult"))
+		return expect int(OnWeaponPrimaryAttack_Vinson( weapon, attackParams ))
+
 	return FireMastiff( attackParams, true, weapon )
 }
 

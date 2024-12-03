@@ -91,6 +91,17 @@ void function Set_FSDM_ScoreboardScreen()
 
 		if( Playlist() == ePlaylists.fs_prophunt )
 			Hud_SetText( Hud_GetChild( file.menu, "ScoreboardText" ), "PROPHUNT SCOREBOARD")
+
+		if ( Flowstate_Is4DMode() )
+		{
+			Hud_SetText( Hud_GetChild( file.menu, "TextCredits2" ), "4D APEX" )
+			Hud_SetText( Hud_GetChild( file.menu, "TextCredits" ), "Made by @EladNLG. Effect and Cause better." )
+		}
+		else
+		{
+			Hud_SetText( Hud_GetChild( file.menu, "TextCredits2" ), "FLOWSTATE SCRIPTS" )
+			Hud_SetText( Hud_GetChild( file.menu, "TextCredits" ), "Made by @CafeFPS. Powered by R5Reloaded." )
+		}
 		
 		while(file.FSDM_Scoreboard.len() == 0) //defensive fix
 			WaitFrame()

@@ -20,6 +20,7 @@ global function Flowstate_IsTrackerSupportedMode
 global function Flowstate_PlayerDoesRespawn
 global function Flowstate_MapHasTrain
 global function Flowstate_IsHaloMode
+global function Flowstate_Is4DMode
 global function Flowstate_ModeDisablesRagdolls
 
 ////////////////////////////////////////////////////////////////////////////////////mkos//
@@ -112,6 +113,7 @@ global enum ePlaylists
 	fs_rankupmapmovementpractice, //42
 	fs_ithurtsmovementmappractice, //43
 	fs_9k, //44
+	fs_4d, //45
 	fs_realistic_ttv, //45
 	
 	_PLAYLISTS_COUNT //LAST
@@ -377,6 +379,7 @@ void function AllModeConditionals_Init()
 	MapHasTrain_Init()
 	GamemodeHasSinglePlayerChampion()
 	IsHaloGamemode_Init()
+	Is4DGamemode_Init()
 	RagdollsDisabled_Init() //must be after IsHaloGamemode_Init()
 }
 
@@ -395,6 +398,7 @@ struct
 	bool dissolveDrops			= false
 	bool bIsHaloGamemode		= false
 	bool bRagdollsDisabled		= false
+	bool is4DMode				= false
 	
 } modeSettings
 
@@ -543,6 +547,13 @@ void function IsHaloGamemode_Init()
 	modeSettings.bIsHaloGamemode = result
 }
 
+void function Is4DGamemode_Init()
+{
+	printt("\n\n\n4DGamemode_Init")
+	printt("4d_enable: " + GetCurrentPlaylistVarBool( "4d_enable", false ))
+	modeSettings.is4DMode = GetCurrentPlaylistVarBool( "4d_enable", false )
+}
+
 void function RagdollsDisabled_Init()
 {
 	const array<int> playlistDisablesRagdolls =
@@ -604,4 +615,9 @@ bool function Flowstate_IsHaloMode()
 bool function Flowstate_ModeDisablesRagdolls()
 {
 	return modeSettings.bRagdollsDisabled
+}
+
+bool function Flowstate_Is4DMode()
+{
+	return modeSettings.is4DMode
 }

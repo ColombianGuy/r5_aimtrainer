@@ -475,6 +475,8 @@ WeaponData
  	"viewmodel_ads_rui_bottomleft_attachment"	"RUI_BL_CROSSHAIR_LSTAR"
 	"viewmodel_ads_centerpoint_attachment"      "ADS_CENTER_SIGHT_LSTAR"              
 
+	"4d_fire_in_both_dimensions"			"1"
+
 	Mods
 	{
 	    crate
@@ -583,6 +585,30 @@ WeaponData
         {
             "ui1_enable"			"0"
         }
+
+		"4d_ult"
+		{
+			"fire_mode"						"offhandHybrid"
+			"reload_enabled"				"0" // fixes cd not working when empty
+			"regen_ammo_refill_rate"		"2" // 8s
+			"regen_ammo_refill_start_delay"	"0.5"
+			"charge_time"					"0w"
+			"charge_cooldown_time"			"2.5"
+			"charge_overheats_when_full"                    "0"
+			"ammo_clip_size"				"35"
+			"ammo_min_to_fire"				"1"
+			"regen_ammo_refill_rate"		"2"
+			"offhand_default_inventory_slot"						"4"
+			"damage_near_value"				"21"
+			"damage_far_value"				"21"
+			"damage_very_far_value"				"21"
+			"charge_weapon_fires_while_charging"	"0"
+			"offhand_hybrid_switch_on_attack"				"0"
+			"cooldown_time"				"0.0"
+			//"viewkick_ads_weaponFraction_vmScale"      "0.2" // avoids the weapon flying off the screen
+			"is_burn_mod"					"1"
+			"cooldown_type"									"ammo_timed"
+		}
 	}
 
 	// THIS IS A BUNCH OF DIRTY HACKS! We can't put actual primitive values for ui args, so we have to link it to some value.

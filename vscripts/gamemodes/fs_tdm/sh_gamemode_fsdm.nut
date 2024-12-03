@@ -95,6 +95,47 @@ void function Sh_CustomTDM_Init()
     // Map locations
     switch( MapName() )
     {
+	case eMaps.mp_rr_arena_empty:
+		if (Flowstate_Is4DMode())
+		{
+			Shared_RegisterLocation(
+				NewLocationSettings(
+				"4D4Room",
+					[
+						NewLocPair( < -15400, -816, 384 >, < 0, 45, 0 > )
+						NewLocPair( < 14600, -816, 384 >, < 0, 45, 0 > )
+						NewLocPair( < -14872, -304, 384 >, < 0, -135, 0 > )
+						NewLocPair( < 15128, -304, 384 >, < 0, -135, 0 > )
+						NewLocPair( < -14632, -48, 384 >, < 0, -135, 0 > )
+						NewLocPair( < 15368, -48, 384 >, < 0, -135, 0 > )
+						NewLocPair( < -16680, -1840, 384 >, < 0, 0, 0 > )
+						NewLocPair( < 13320, -1840, 384 >, < 0, 0, 0 > )
+						NewLocPair( < -16664, -304, 384 >, < 0, -89.9998, 0 > )
+						NewLocPair( < 13336, -304, 384 >, < 0, -89.9998, 0 > )
+						NewLocPair( < -17192, -2608, 128 >, < 0, 89.9998, 0 > )
+						NewLocPair( < 12808, -2608, 128 >, < 0, 89.9998, 0 > )
+						NewLocPair( < -16424, -2096, 384 >, < 0, -179.9997, 0 > )
+						NewLocPair( < 13576, -2096, 384 >, < 0, -179.9997, 0 > )
+						NewLocPair( < -17192, -1568, 128 >, < 0, -89.9998, 0 > )
+						NewLocPair( < 12808, -1568, 128 >, < 0, -89.9998, 0 > )
+						NewLocPair( < -16936, -560, 384 >, < 0, 0, 0 > )
+						NewLocPair( < 13064, -560, 384 >, < 0, 0, 0 > )
+						NewLocPair( < -15656, -1072, 384 >, < 0, 45, 0 > )
+						NewLocPair( < 14344, -1072, 384 >, < 0, 45, 0 > )
+						NewLocPair( < -14632, -1072, 384 >, < 0, 135, 0 > )
+						NewLocPair( < 15368, -1072, 384 >, < 0, 135, 0 > )
+						NewLocPair( < -15656, -48, 384 >, < 0, -44.9999, 0 > )
+						NewLocPair( < 14344, -48, 384 >, < 0, -44.9999, 0 > )
+						NewLocPair( < -15400, -304, 384 >, < 0, -44.9999, 0 > )
+						NewLocPair( < 14600, -304, 384 >, < 0, -44.9999, 0 > )
+						NewLocPair( < -14872, -816, 384 >, < 0, 135, 0 > )
+						NewLocPair( < 15128, -816, 384 >, < 0, 135, 0 > )
+					],
+					<0, 0, 3000>
+				)
+			)
+		}
+		break
 	case eMaps.mp_rr_olympus_mu1:
         Shared_RegisterLocation(
             NewLocationSettings(
