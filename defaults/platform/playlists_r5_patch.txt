@@ -23,6 +23,7 @@ playlists
 
 				enable_mirage_revive_cloak_upgrade					0
 
+				bangalore_smoke_highlight							1
 				redish_highlight_los								1 //Enables redish highlight at player range
 				redish_highlight_los_range							30 //Highlight range, in meters
 				redish_highlight_los_color							"190 20 20" //Server hosts can modify highlight color, so cool
@@ -589,6 +590,7 @@ playlists
 				mp_rr_desertlands_64k_x_64k_nx					1
 				mp_rr_canyonlands_mu1_night						1
 				mp_rr_olympus_mu1								1
+				mp_rr_desertlands_mu2						  	1
 			} } }
 		}
 
@@ -964,8 +966,6 @@ playlists
 				
 				//Flowstate by CafeFPS
 				
-				enable_small_pheonix			   				0
-				
 				default_shield_hp				  				75
 				survival_shields				   				1
 				skydive_ziplines_enabled		   				1
@@ -1056,8 +1056,6 @@ playlists
 				//Flowstate by CafeFPS
 
 				bleedout_enabled								1
-				
-				enable_small_pheonix			   				0
 				
 				default_shield_hp				 				75
 				survival_shields				   				1
@@ -1194,8 +1192,6 @@ playlists
 				survival_infinite_ammo			 				1
 				survival_custom_deploy			 				1
 				
-				enable_small_pheonix			   				0
-	
 				//For FFA classic mode
 				//specific weapons and abilities settings
 				respawn_kit_enabled 							1
@@ -1311,8 +1307,6 @@ playlists
 				
 				survival_infinite_ammo			 				1
 				survival_custom_deploy			 				1
-				
-				enable_small_pheonix			   				0
 					
 				//For FFA classic mode
 				//specific weapons and abilities settings
@@ -1762,8 +1756,6 @@ playlists
 				survival_infinite_ammo			 				1
 				survival_custom_deploy			 				1
 				
-				enable_small_pheonix			   				0
-					
 				//For FFA classic mode
 				//specific weapons and abilities settings
 				respawn_kit_enabled 							1
@@ -1916,8 +1908,6 @@ playlists
 				flowstateBattleLogEnable 						0
 				flowstateChatLogEnable 							0
 				
-				enable_small_pheonix			   				0
-				
 				default_shield_hp				  				0
 				survival_shields				   				1
 				skydive_ziplines_enabled		   				1
@@ -2036,8 +2026,6 @@ playlists
 				
 				//Flowstate by CafeFPS
 				
-				enable_small_pheonix			   				0
-				
 				default_shield_hp				  				125
 				survival_shields				   				1
 				skydive_ziplines_enabled		   				1
@@ -2073,8 +2061,7 @@ playlists
 				flowstate_seconds_to_wait_without_players_before_restarting		3600 // 3600 : 1 hour
 
 				fs_scenarios_start_skydiving 					1 //only works when dropship is enabled
-				fs_scenarios_maxIndividualMatchTime				300
-				
+
 				//Teams Distribution
 				fs_scenarios_playersPerTeam						3 //Max is 5
 				fs_scenarios_teamAmount							5 //Then we can just hardcode this //This should be consistent with the designed spawns to avoid issues.
@@ -2093,8 +2080,7 @@ playlists
 				bleedout_enabled								1
 				
 				fs_scenarios_show_death_recap_onkilled			1
-				fs_scenarios_zonewars_ring_mode					1
-				fs_scenarios_zonewars_ring_ringclosingspeed 	0.8
+				fs_scenarios_zonewars_ring_ringclosingspeed 	1.0
 				fs_scenarios_ring_damage_step_time				1.5
 				fs_scenarios_game_start_time_delay				5.0
 				fs_scenarios_ring_damage						25.0
@@ -2116,7 +2102,7 @@ playlists
 				disable_core_stats								0
 				COMMAND_RATE_LIMIT								0.200 //Rate limiting for all custom client commands
 						
-				afk_to_rest_bool								1 // makes player rest when afk instead of kick, but requires: flowstate_afk_kick_enable 1
+				afk_to_rest_bool								0 // makes player rest when afk instead of kick, but requires: flowstate_afk_kick_enable 1
 				enable_ping_kick								0 // 0 disables ping kick for this mode
 				enable_afk_thread 								1 //0 disables afk thread for this mode
 				superglide_counter_msg							1 // Shows players superglide count
@@ -2151,7 +2137,7 @@ playlists
 				default_lock1v1_setting							1 // default setting for player preference
 				give_random_legend_on_spawn			 			0 // gives both opponents same random legend -- make sure to disable flowstate_give_random_custom_models_toall
 				enable_voice									0
-				default_enable_input_banner_setting	 			1
+				default_enable_input_banner_setting	 			0
 				custom_match_ending_title						"Match complete"
 				custom_match_ending_message						"Don't leave. Server is going to change maps."
 				give_weapon_stack_count_amount					3 // Gives extra ammo stacks for the random given weapon - DOES NOT WORK WITH: survival_infinite_ammo 1
@@ -2223,7 +2209,6 @@ playlists
 				
 				//Flowstate by CafeFPS
 				
-				enable_small_pheonix			   				0
 				
 				default_shield_hp				  				125
 				survival_shields				   				1
@@ -2415,8 +2400,6 @@ playlists
 				
 				//Flowstate by CafeFPS
 				
-				enable_small_pheonix			   				0
-
 				flowstateForceCharacter 						1	//It enables the following settings
 				// 11 blisk, 12 fade, 13 amogus, 14 rhapsody, 15 ash, 16 jack cooper, 17 loba, 18 revenant, 19 ballistic, 20 marvin, 21 pete
 				flowstateChosenCharacter 						8	// 0 Bang// 1 Bloodhound// 2 Caustic// 3 Gibby// 4 Lifeline// 5 Mirage// 6 Octane// 7 Pathy// 8 Wraith// 9 Watty// 10 Crypto
@@ -2530,8 +2513,6 @@ playlists
 				replay_new_ui 									1
 				
 				//Flowstate by CafeFPS
-
-				enable_small_pheonix			   				0
 
 				flowstateForceCharacter 						1	//It enables the following settings
 				// 11 blisk, 12 fade, 13 amogus, 14 rhapsody, 15 ash, 16 jack cooper, 17 loba, 18 revenant, 19 ballistic, 20 marvin, 21 pete
@@ -2680,8 +2661,6 @@ playlists
 				
 				//Flowstate by CafeFPS
 				
-				enable_small_pheonix			   				0
-
 				flowstateForceCharacter 						1	//It enables the following settings
 				// 11 blisk, 12 fade, 13 amogus, 14 rhapsody, 15 ash, 16 jack cooper, 17 loba, 18 revenant, 19 ballistic, 20 marvin, 21 pete
 				flowstateChosenCharacter 						8	// 0 Bang// 1 Bloodhound// 2 Caustic// 3 Gibby// 4 Lifeline// 5 Mirage// 6 Octane// 7 Pathy// 8 Wraith// 9 Watty// 10 Crypto
@@ -2828,8 +2807,6 @@ playlists
 				//GENERAL SETTINGS
 				flowstateBattleLogEnable 						0
 				flowstateChatLogEnable 							0
-				
-				enable_small_pheonix			   				0
 				
 				is_halo_gamemode								1
 
@@ -3279,6 +3256,7 @@ playlists
 				mp_rr_canyonlands_64k_x_64k						1
 				mp_rr_canyonlands_mu1						  	1
 				mp_rr_canyonlands_mu1_night						1
+				mp_rr_desertlands_mu2						  	1
 			} } }
 		}
 		
@@ -4101,6 +4079,7 @@ playlists
 				mp_rr_canyonlands_mu1						  	1
 				mp_rr_canyonlands_mu2						 	1
 				mp_rr_canyonlands_mu1_night						1
+				mp_rr_desertlands_mu2			 				1
 				mp_rr_desertlands_64k_x_64k						1
 				mp_rr_desertlands_64k_x_64k_nx				 	1
 				mp_rr_desertlands_64k_x_64k_tt				 	1
@@ -4216,6 +4195,9 @@ playlists
 				"VALVE_REJECT_BANNED"				 			"You have been banned from this server."
 				"DISCONNECT_BANNED"				   				"The client's game account has been banned."
 
+				"WPN_ARC_TOOL_RUI_READY"                         "READY"
+				"WPN_ARC_TOOL_RUI_DANGER"                        "DANGER"
+				"WPN_ARC_TOOL_RUI_CHARGING"                      "CHARGING"
 				"DISCONNECT_SEND_RELIABLEOVERFLOW"				"Connection to server overflowed (code:river)."
 				"DISCONNECT_SEND_OVERFLOW"						"Connection to server overflowed (code:dam)."
 				"DISCONNECT_NETCHAN_OVERFLOW"		 			"Connection to server overflowed (code:vulkan)."
