@@ -25,6 +25,7 @@ playlists
 
 				bangalore_smoke_highlight							1
 				redish_highlight_los								1 //Enables redish highlight at player range
+				redish_highlight_los_npcs							0
 				redish_highlight_los_range							30 //Highlight range, in meters
 				redish_highlight_los_color							"190 20 20" //Server hosts can modify highlight color, so cool
 				

@@ -2071,7 +2071,8 @@ void function RedishThingo_GetPlayersToHighlight( entity player, array<entity> o
 	allTargets.extend( GetEntArrayByScriptName( DECOY_SCRIPTNAME ) )
 	allTargets.extend( GetEntArrayByScriptName( CONTROLLED_DECOY_SCRIPTNAME ) )
 	allTargets.extend( GetEntArrayByScriptName( DECOY_ULTIMATE_SCRIPTNAME ) )
-	allTargets.extend( GetNPCArrayOfEnemies( player.GetTeam() ) )
+	if( GetCurrentPlaylistVarBool( "redish_highlight_los_npcs", false ) )
+		allTargets.extend( GetNPCArrayOfEnemies( player.GetTeam() ) )
 
 	TraceResults results
 	foreach ( entity otherPlayer in allTargets )
