@@ -2125,7 +2125,7 @@ void function ChangeFullMapZoomFactor( float delta )
 
 bool function FS_ShouldHookMapKey() 
 {
-	if( Flowstate_IsHaloMode() && GetGameState() == eGameState.Playing
+	if( Flowstate_IsHaloMode() && Playlist() != ePlaylists.fs_haloMod_survival && GetGameState() == eGameState.Playing
 		|| Gamemode() == eGamemodes.CUSTOM_CTF && GetGameState() == eGameState.Playing 
 		|| Playlist() == ePlaylists.fs_1v1 
 		|| Playlist() == ePlaylists.fs_lgduels_1v1  
@@ -2420,7 +2420,7 @@ void function AddInWorldMinimapPlaneLine( var screen )
 
 void function AddInWorldMinimapObjectiveInternal( entity ent, var screen )
 {
-	if ( !IsValid( ent ) || Gamemode() == eGamemodes.fs_snd || Flowstate_IsHaloMode() )
+	if ( !IsValid( ent ) || Gamemode() == eGamemodes.fs_snd || Flowstate_IsHaloMode() && Playlist() != ePlaylists.fs_haloMod_survival )
 		return
 
 	int customState    = ent.Minimap_GetCustomState()
@@ -2572,7 +2572,7 @@ void function AddInWorldMinimapObjectInternal( entity ent, var screen, asset def
 		file.playerArrows[ent] <- rui
 	}
 	
-	if ( ent.IsPlayer() && Gamemode() == eGamemodes.fs_snd || ent.IsPlayer() && Flowstate_IsHaloMode() ) //add enabled var and refresh funct so if we change location to a map one it works
+	if ( ent.IsPlayer() && Gamemode() == eGamemodes.fs_snd || ent.IsPlayer() && Flowstate_IsHaloMode() && Playlist() != ePlaylists.fs_haloMod_survival ) //add enabled var and refresh funct so if we change location to a map one it works
 	{
 		foreach(player, savedRui in file.playerArrows)
 		{
@@ -2719,7 +2719,7 @@ void function MinimapPackage_PlayerInit( entity ent, var rui )
 
 void function AddMinimapLabel( string title, float xPos, float yPos, float width = 200, float scale = 1.0 )
 {
-	if( Flowstate_IsHaloMode() )
+	if( Flowstate_IsHaloMode() && Playlist() != ePlaylists.fs_haloMod_survival )
 		return
 
 	foreach ( topo in file.minimapTopos )
@@ -5069,7 +5069,7 @@ bool function HealthkitUseOnHold()
 
 void function HealthkitButton_Down( entity player )
 {
-	if ( !CommsMenu_CanUseMenu( player ) || Flowstate_IsHaloMode() )
+	if ( !CommsMenu_CanUseMenu( player ) || Flowstate_IsHaloMode() && Playlist() != ePlaylists.fs_haloMod_survival )
 		return
 
 	if ( !IsFiringRangeGameMode() )
@@ -5088,7 +5088,7 @@ void function HealthkitButton_Down( entity player )
 
 void function HealthkitButton_Up( entity player )
 {
-	if ( !IsCommsMenuActive() || Flowstate_IsHaloMode() )
+	if ( !IsCommsMenuActive() || Flowstate_IsHaloMode() && Playlist() != ePlaylists.fs_haloMod_survival )
 		return
 
 	if ( CommsMenu_GetCurrentCommsMenu() != eCommsMenuStyle.INVENTORY_HEALTH_MENU )

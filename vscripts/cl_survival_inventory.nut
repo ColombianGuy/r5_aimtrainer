@@ -2300,7 +2300,7 @@ void function UpdateHealHint( entity player )
 
 bool function ShouldShowHealHint( entity player )
 {
-	if( Flowstate_IsHaloMode() )
+	if( Flowstate_IsHaloMode() && Playlist() != ePlaylists.fs_haloMod_survival )
 		return false
 	
 	if ( !IsAlive( player ) )

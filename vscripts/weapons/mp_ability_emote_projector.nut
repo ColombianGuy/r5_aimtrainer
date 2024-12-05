@@ -208,7 +208,7 @@ void function HoloSpray_OnUse( int propEhandle, int choice )
 		entity prop = GetEntityFromEncodedEHandle( propEhandle )
 		
 		vector origin = prop.GetOrigin()
-		vector angles =  VectorToAngles( prop.GetOrigin() - GetLocalClientPlayer().GetOrigin() )
+		vector angles =  VectorToAngles( prop.GetOrigin() - GetLocalViewPlayer().GetOrigin() )
 		float width = 40
 		float height = 40
 		

@@ -357,6 +357,10 @@ asset function GetModeEmblemImage( string playlistName )
 		case "fs_movementgym":
 		emblemImage = $"rui/flowstatecustom/movementgym"
 		break
+
+		case "fs_1v1_coaching":
+		emblemImage = $"rui/flowstatecustom/1v1" //change to district img
+		break
 		
 		case "fs_1v1":
 		emblemImage = $"rui/flowstatecustom/1v1"
@@ -397,6 +401,10 @@ asset function GetModeEmblemImage( string playlistName )
 		
 		case "fs_realistic_ttv":
 		emblemImage = $""
+		break
+		
+		case "fs_haloMod_survival":
+		emblemImage = $"rui/hiswattson/ltm"
 		break
 	}
 

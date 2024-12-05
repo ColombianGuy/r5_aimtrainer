@@ -46,18 +46,18 @@
 	"sprintcycle_time"								"0"
 
 	// Damage
-	"damage_near_value"                        "115"
-	"damage_far_value"                         "115"
-	"damage_very_far_value"                    "115"
-	"damage_near_value_titanarmor"             "115"
-	"damage_far_value_titanarmor"              "115"
-	"damage_very_far_value_titanarmor"         "115"
+	"damage_near_value"                        "80"
+	"damage_far_value"                         "80"
+	"damage_very_far_value"                    "80"
+	"damage_near_value_titanarmor"             "80"
+	"damage_far_value_titanarmor"              "80"
+	"damage_very_far_value_titanarmor"         "80"
 
 	"damage_rodeo"                             "400"
 
-	"damage_headshot_scale"			           "2.5"
+	"damage_headshot_scale"			           "2.25"
 
-	//"damage_leg_scale"                         "0.8"
+	"damage_leg_scale"                         "0.8"
 
 	// Viewmodel
 	"viewmodel_shake_forward"                  "0.07"

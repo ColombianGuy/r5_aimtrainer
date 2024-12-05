@@ -929,6 +929,23 @@ bool function GetWeaponInfoFileKeyField_GlobalBool( string ref, string variable 
 	return expect bool( val )
 }
 
+#if SERVER
+#if DEVELOPER
+void function PrintExtraWeaponMods( entity player )
+{
+	array mods = player.GetExtraWeaponMods()
+	printt( "--- --- ---" )
+	printt( "Extra Weapon Mods:" )
+	int i = 1
+	foreach ( mod in mods )
+	{
+		printt( "mod " + i + ": " + mod )
+		i++
+	}
+	printt( "--- --- ---" )
+}
+#endif
+#endif
 
 #if SERVER
 void function GiveExtraWeaponMod( entity player, string mod )

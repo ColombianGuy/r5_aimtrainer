@@ -363,7 +363,8 @@ void function OnLocalPlayerShoot( entity player, vector origin, vector direction
 		while( Time() < endtime )
 			WaitFrame()
 		
-		EffectStop( localFx, false, true )
+		if( EffectDoesExist( localFx ) )
+			EffectStop( localFx, false, true )
 	}()
 }
 

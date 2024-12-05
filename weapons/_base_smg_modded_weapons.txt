@@ -1,3 +1,5 @@
+#base "_base_character_mods.txt"
+
 WeaponData
 {
     MP_BASE

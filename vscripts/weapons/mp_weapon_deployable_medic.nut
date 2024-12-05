@@ -783,7 +783,7 @@ bool function CanBeHealedByDroneMedic( entity player )
 bool function IsEntityInDeathField(entity ent)
 {
 	//DeathFieldData deathFieldData = SURVIVAL_GetDeathFieldData()
-	return !(SURVIVAL_PosInsideDeathField( ent.GetOrigin() ) ) //|| StatusEffect_HasSeverity( ent, eStatusEffect.ring_immunity ) || StatusEffect_HasSeverity( ent, eStatusEffect.in_void_ring )) // first part = is safe
+	return !(SURVIVAL_PosInsideDeathField( ent.GetOrigin() ) || StatusEffect_GetSeverity( ent, eStatusEffect.ring_immunity ) > 0.0 ) //|| StatusEffect_HasSeverity( ent, eStatusEffect.in_void_ring )) // first part = is safe
 }
       
 

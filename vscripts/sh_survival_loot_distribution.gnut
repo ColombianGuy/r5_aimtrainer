@@ -82,6 +82,24 @@ bool function IsPackedGroup(string groupRef)
 
 string function SURVIVAL_GetWeightedItemFromGroup(string groupRef)
 {
+	if( Playlist() == ePlaylists.fs_haloMod_survival )
+	{
+		string theRef
+		
+		for(int i = 0; i < 1; i++)
+		{
+			theRef = FS_HaloSurvival_GetRandomItemFromPool().ref
+			
+			if( !IsEnabledForGroundLoot( theRef ) )
+			{
+				i--
+				continue
+			}
+		}
+		
+		return theRef
+	}
+	
     groupRef = groupRef.tolower()
     if(!IsPackedGroup(groupRef))
         return groupRef

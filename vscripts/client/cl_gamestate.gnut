@@ -162,6 +162,12 @@ void function SetCommonScoreRUIVars( var rui )
 			RuiSetString( rui, "squadsRemainingTextPlural", "PLAYERS ONLINE" )
 			break
 
+			case ePlaylists.fs_1v1_coaching:
+			RuiSetString( rui, "gameModeString", "FS 1v1 COACHING" )
+			RuiSetString( rui, "squadsRemainingTextSingular", "PLAYER ONLINE" )
+			RuiSetString( rui, "squadsRemainingTextPlural", "PLAYERS ONLINE" )
+			break
+			
 			case ePlaylists.fs_1v1:
 			RuiSetString( rui, "gameModeString", "FS 1v1" )
 			RuiSetString( rui, "squadsRemainingTextSingular", "PLAYER ONLINE" )
@@ -260,6 +266,12 @@ void function SetCommonScoreRUIVars( var rui )
 			RuiSetString( rui, "squadsRemainingTextPlural", "PLAYERS ONLINE" )
 			RuiSetVisible(rui, true)
 			break
+			
+			case ePlaylists.flowstate_pkknockback:
+			RuiSetString( rui, "squadsRemainingTextSingular", "PLAYER ALIVE" )
+			RuiSetString( rui, "squadsRemainingTextPlural", "PLAYERS ALIVE" )
+			RuiSetString( rui, "gameModeString", "KNOCKBACK KNOCKOUT" )
+			break
 		}
 	}
 	else
@@ -287,6 +299,9 @@ void function SetCommonScoreRUIVars( var rui )
 		} else if( Playlist() == ePlaylists.fs_survival_duos )
 		{
 			RuiSetString( rui, "gameModeString", "APEX DUOS" )
+		} else if( Playlist() == ePlaylists.fs_haloMod_survival )
+		{
+			RuiSetString( rui, "gameModeString", "FS Halo BR" )
 		}
 	}
 }

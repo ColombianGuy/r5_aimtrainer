@@ -18,33 +18,14 @@ WeaponData
             "reloadempty_time_late5"			"*0.60"
             "move_speed_modifier"				"*1.15"
 		}
-               
-                 
-   
-                                            
-                                               
-                                               
-                                               
 
-                                         
-                                               
-                                               
-                                            
-   
-      
+        gibbyv1
+        {
+            "reload_time"                           "*0.5"
+        }
 
-               
-              
-   
-                                                                  
-                                                                  
-                                                                  
-                                                                  
-                                                                  
-                                                                  
-         
-         4d
-         {
+        4d
+        {
 			"spread_stand_hip" "*0.40"
 			"spread_stand_hip_run" "*0.40"
 			"spread_stand_hip_sprint" "*0.40"
@@ -60,7 +41,11 @@ WeaponData
 			"spread_kick_on_fire_stand_hip" "*0.40"
 			"spread_kick_on_fire_crouch_hip" "*0.40"
 			"spread_kick_on_fire_air_hip" "*0.40"
-         }
+        }
       
+        gibby_ads_shield_faster_zoom_in
+        {
+            "zoom_time_in"                            "*0.5"
+        }
 	}
 }

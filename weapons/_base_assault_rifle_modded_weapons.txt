@@ -1,5 +1,7 @@
 //Made by @CafeFPS
 
+#base "_base_character_mods.txt"
+
 WeaponData
 {
    "aimassist_adspull_weaponclass"					"precise"

@@ -15,12 +15,12 @@ var function OnWeaponPrimaryAttack_cloak( entity weapon, WeaponPrimaryAttackPara
 		if ( ownerPlayer.GetCinematicEventFlags() & CE_FLAG_INTRO )
 			return false
 
-		if ( weapon.HasMod( "survival_finite_ordnance" ) )
-		{
-			entity activeWeapon = ownerPlayer.GetActiveWeapon( eActiveInventorySlot.mainHand )
-			if ( activeWeapon != null && activeWeapon.IsWeaponOffhand() )
-				return false
-		}
+		// if ( weapon.HasMod( "survival_finite_ordnance" ) )
+		// {
+			// entity activeWeapon = ownerPlayer.GetActiveWeapon( eActiveInventorySlot.mainHand )
+			// if ( activeWeapon != null && activeWeapon.IsWeaponOffhand() )
+				// return false
+		// }
 	}
 
 	PlayerUsedOffhand( ownerPlayer, weapon )

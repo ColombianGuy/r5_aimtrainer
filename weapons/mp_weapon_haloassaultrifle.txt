@@ -138,7 +138,7 @@ WeaponData
 
 	// Behavior
 	"fire_rate"   									"11.2"
-	"reload_time" 									"2"
+	"reload_time" 									"2.0"
 	"reload_time_late1"								"1.2"
 	"reloadempty_time"								"3.1"
 	"reloadempty_time_late1"						"2.0"

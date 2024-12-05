@@ -115,6 +115,8 @@ global enum ePlaylists
 	fs_9k, //44
 	fs_4d, //45
 	fs_realistic_ttv, //45
+	fs_1v1_coaching, //46
+	fs_haloMod_survival, //47
 	
 	_PLAYLISTS_COUNT //LAST
 }
@@ -159,7 +161,8 @@ const array<int> playlist1v1Types = [
 	
 	ePlaylists.fs_1v1,
 	ePlaylists.fs_lgduels_1v1,
-	ePlaylists.fs_vamp_1v1
+	ePlaylists.fs_vamp_1v1,
+	ePlaylists.fs_1v1_coaching
 ]
 
 const array<int> gamemode1v1Types = [
@@ -540,7 +543,8 @@ void function IsHaloGamemode_Init()
 	[
 		ePlaylists.fs_haloMod,
 		ePlaylists.fs_haloMod_ctf,
-		ePlaylists.fs_haloMod_oddball
+		ePlaylists.fs_haloMod_oddball,
+		ePlaylists.fs_haloMod_survival
 	]
 	
 	bool result = GetCurrentPlaylistVarBool( "is_halo_gamemode", false ) || haloPlaylists.contains( Playlist() )

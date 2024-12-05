@@ -13,10 +13,12 @@ global function SURVIVAL_Loot_GetLootTypeFromString
 global function SURVIVAL_Loot_GetAttachmentType_Enum
 global function SURVIVAL_Loot_GetByTier
 global function SURVIVAL_Loot_GetSortedStringArrayFromSupportedAttachmentsString
+global function FS_HaloSurvival_GetRandomItemFromPool
 
 global function SURVIVAL_Loot_IsUniqueAmmoWeapon
 global function GetCustomHopupArray
 global function IsNewLootEnabled
+global function IsEnabledForGroundLoot
 
 #if CLIENT
 global function GetRarityColor
@@ -260,16 +262,22 @@ void function SURVIVAL_Loot_All_InitShared()
 	file.disabledRefs.clear()
 	file.disabledRefs = split( GetCurrentPlaylistVarString( "survival_disabled_loot", " " ), " " )
 
-	SURVIVAL_Loot_RegFromDataTable( GetDataTable( $"datatable/flowstate_all_new.rpak" ) )
-	SURVIVAL_Loot_RegFromDataTable( GetDataTable( $"datatable/survival_loot_sdk.rpak" ) )
-	
-	if( GetCurrentPlaylistVarBool( "is_halo_gamemode", false ) )
-		SURVIVAL_Loot_RegFromDataTable( GetDataTable( $"datatable/flowstate_all_new_halomod.rpak" ) )
-	
-	if( Gamemode() == eGamemodes.fs_snd )
-		SURVIVAL_Loot_RegFromDataTable( GetDataTable( $"datatable/flowstate_all_new_snd.rpak" ) )
-
-	RegisterCustomWeapons()
+	if( Playlist() == ePlaylists.fs_haloMod_survival ) 
+	{
+		SURVIVAL_Loot_RegFromDataTable( GetDataTable( $"datatable/flowstate_all_new_halomod_survival_groundloot.rpak" ) )
+	} else
+	{
+		SURVIVAL_Loot_RegFromDataTable( GetDataTable( $"datatable/flowstate_all_new.rpak" ) )
+		SURVIVAL_Loot_RegFromDataTable( GetDataTable( $"datatable/survival_loot_sdk.rpak" ) )
+		
+		if( GetCurrentPlaylistVarBool( "is_halo_gamemode", false ) )
+			SURVIVAL_Loot_RegFromDataTable( GetDataTable( $"datatable/flowstate_all_new_halomod.rpak" ) )
+		
+		if( Gamemode() == eGamemodes.fs_snd )
+			SURVIVAL_Loot_RegFromDataTable( GetDataTable( $"datatable/flowstate_all_new_snd.rpak" ) )
+		
+		RegisterCustomWeapons()
+	}
 
 	#if(UI)
 		RegisterSignal( "GatherFriendInfo" )
@@ -280,8 +288,37 @@ void function SURVIVAL_Loot_All_InitShared()
 	file.initialized = true
 }
 
+bool function IsEnabledForGroundLoot( string ref )
+{
+	if( Playlist() == ePlaylists.fs_haloMod_survival )
+	{
+		switch( ref )
+		{
+			case "armor_pickup_lv2":
+			case "armor_pickup_lv3":
+			case "armor_pickup_lv5":
+			case "armor_pickup_lv6":
+			case "armor_pickup_lv7":
+			
+			return false
+		}
+	}
+	
+	return true
+}
+
 bool function IsNewLootEnabled( string ref )
 {
+	if( Playlist() == ePlaylists.fs_haloMod_survival )
+	{
+		switch( ref )
+		{
+			case "mp_weapon_energysword":
+
+			return false
+		}
+	}
+		
 	switch( ref )
 	{
 		case "armor_pickup_lv4_all_fast":
@@ -292,6 +329,7 @@ bool function IsNewLootEnabled( string ref )
 		break
 
 		case "":
+
 		// case "mp_weapon_smart_pistol":
 		case "mp_weapon_wingman_n":
 		
@@ -993,6 +1031,11 @@ void function CreateCustomHopup(CustomHopupData hopupData)
 table< string, LootData > function SURVIVAL_Loot_GetLootDataTable()
 {
 	return file.lootData
+}
+
+LootData function FS_HaloSurvival_GetRandomItemFromPool()
+{
+	return file.lootData[ file.lootIndexToString[ RandomIntRangeInclusive( 0, file.lootIndexToString.len() - 1 ) ] ]
 }
 
 array<LootData> function SURVIVAL_Loot_GetByType( int lootType )

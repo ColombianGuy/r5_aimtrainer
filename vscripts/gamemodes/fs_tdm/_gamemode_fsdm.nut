@@ -81,6 +81,7 @@ global function PrintKillHistoryFor
 global function _GetAppropriateSpawnLocation
 global function Flowstate_IsRealisticMode
 global function Halo_GotoNextPlaylist
+global function HaloMod_HandlePlayerModel
 
 #if DEVELOPER
 	global function DEV_NextRound
@@ -4560,8 +4561,6 @@ void function HaloMod_HandlePlayerModel( entity player )
 	
 	if( player.p.assignedMasterChief == -1 )
 	{
-		printt( "new master chief assigned, color:", assignedColor, player )
-
 		if( RandomInt( 50 ) == 1 )
 			assignedColor = 420
 		else
@@ -4578,6 +4577,8 @@ void function HaloMod_HandlePlayerModel( entity player )
 		}
 
 		player.p.assignedMasterChief = assignedColor
+		
+		printt( "new master chief assigned, color:", assignedColor, player )
 	} else
 		assignedColor = player.p.assignedMasterChief
 
@@ -4618,15 +4619,16 @@ void function HaloMod_HandlePlayerModel( entity player )
 		player.SetArmsModelOverride( $"mdl/Humans/pilots/ptpov_master_chief_blue.rmdl" )
 		break
 
+		case 420:
 		case 7:
 		player.SetBodyModelOverride( $"mdl/Humans/pilots/w_master_chief.rmdl" )
 		player.SetArmsModelOverride( $"mdl/Humans/pilots/ptpov_master_chief.rmdl" )
 		break
 		
-		case 420:
-		player.SetBodyModelOverride( $"mdl/flowstate_custom/w_haloelite.rmdl" )
-		player.SetArmsModelOverride( $"mdl/flowstate_custom/ptpov_haloelite.rmdl" )
-		break
+		// case 420:
+		// player.SetBodyModelOverride( $"mdl/flowstate_custom/w_haloelite.rmdl" )
+		// player.SetArmsModelOverride( $"mdl/flowstate_custom/ptpov_haloelite.rmdl" )
+		// break
 	}
 
 	// #if DEVELOPER

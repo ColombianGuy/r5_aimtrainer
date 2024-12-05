@@ -170,7 +170,7 @@ void function GamemodeSurvival_Init()
 		AddClientCommandCallback("lsm_restart", ClientCommand_restartServer)
 		AddClientCommandCallback("playerRequestsSword", ClientCommand_GiveSword)
 
-		AddClientCommandCallback("forceChampionScreen", ClientCommand_ForceChampionScreen)
+		// AddClientCommandCallback("forceChampionScreen", ClientCommand_ForceChampionScreen)
 		AddClientCommandCallback("forceGameOverScreen", ClientCommand_ForceGameOverScreen)
 		AddClientCommandCallback("forceRingMovement", ClientCommand_ForceRingMovement )
 		
@@ -715,6 +715,23 @@ void function Survival_RunSinglePlanePath_Thread( array< PlanePathData > paths, 
 	DispatchSpawn( plane )
 	plane.SetParent( mover )
 	plane.Show()
+
+	if( Playlist() == ePlaylists.fs_haloMod_survival )
+	{
+		entity pelican = CreateEntity( "prop_script" )
+		pelican.kv.solid = 0
+		pelican.kv.fadedist = -1
+		pelican.SetValueForModelKey( $"mdl/flowstate_custom/pelican.rmdl" )
+		pelican.kv.SpawnAsPhysicsMover = 0
+		pelican.SetOrigin( path.clampedPlaneStart )
+		pelican.SetAngles( path.angles )
+		DispatchSpawn( pelican )
+		pelican.SetParent( plane )
+		pelican.SetModelScale( 13.0 )
+		pelican.SetAbsOrigin( path.clampedPlaneStart + <0,0,-100> )
+		plane.Hide()
+	}
+	
 	file.plane.baseEnt           = plane
 
 	plane.EndSignal( "OnDestroy" )
@@ -1348,6 +1365,7 @@ int function CodeCallback_KillDamagePlayerOrNPC( entity ent, var damageInfo, int
 	return 0
 }
 
+
 bool function ShouldDoBleedout( entity damagedEnt )
 {
 	#if DEVELOPER
@@ -1638,6 +1656,18 @@ void function OnPlayerKilled_DropLoot( entity player, entity attacker, var damag
 		thread SURVIVAL_Death_DropLoot( player, damageInfo )
 }
 
+
+void function Flowstate_TryUpgradeEvoOnKill( entity victim, entity attacker, var damageInfo )
+{
+	if( !GetCurrentPlaylistVarBool( "flowstate_evo_shields", false ) )
+		return
+
+	if( !IsAlive( attacker ) )
+		return
+	
+	EvoCurrentShieldToNextTier( damageInfo, attacker )
+}
+
 void function OnPlayerKilled( entity victim, entity attacker, var damageInfo )
 {
 	if ( !IsValid( victim ) || !IsValid( attacker ) || !victim.IsPlayer() )
@@ -1652,7 +1682,8 @@ void function OnPlayerKilled( entity victim, entity attacker, var damageInfo )
 		victimEHandle = victim ? victim.GetEncodedEHandle() : -1
 	}
 
-
+	Flowstate_TryUpgradeEvoOnKill( victim, attacker, damageInfo )
+	
 	SetPlayerEliminated( victim )
 
 	if ( Flowstate_PlayerDoesRespawn() )
@@ -2439,9 +2470,15 @@ void function Survival_PlayerCharacterSetup( entity player, ItemFlavor character
 	ClearExtraWeaponMods( player )
 	Survival_SetupWeaponMods( player )
 
-	asset setFile = CharacterClass_GetSetFile( character )
-
-	player.SetPlayerSettingsWithMods( setFile, [] )
+	if( Playlist() == ePlaylists.fs_haloMod_survival )
+	{
+		asset setFile = CharacterClass_GetSetFile( GetItemFlavorByGUID( ConvertItemFlavorGUIDStringToGUID( "SAID00898565421" ) ) ) //Give bloodhound always in halo mod survival
+		player.SetPlayerSettingsWithMods( setFile, [] )
+	} else
+	{
+		asset setFile = CharacterClass_GetSetFile( character )
+		player.SetPlayerSettingsWithMods( setFile, [] )
+	}
 
 	// GiveLoadoutRelatedWeapons( player )
 

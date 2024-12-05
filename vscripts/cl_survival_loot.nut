@@ -260,7 +260,7 @@ int function Survival_Health_GetSelectedHealthPickupType()
 
 void function UseSelectedHealthPickupType( entity player )
 {
-	if( Flowstate_IsHaloMode() ) //Make a system aruond this for a third ability, hook UpdateDpadHud as well to show an icon and a cooldown one
+	if( Flowstate_IsHaloMode() && Playlist() != ePlaylists.fs_haloMod_survival ) //Make a system aruond this for a third ability, hook UpdateDpadHud as well to show an icon and a cooldown one
 	{
 		printt("Hooked to do something hehe find how to execute the weapon on the consumable slot, so we can add a third ability")
 		ActivateOffhandWeaponByIndex( OFFHAND_SLOT_FOR_CONSUMABLES )
@@ -319,12 +319,12 @@ void function ServerToClient_OnStartedUsingHealthPack( int kitType )
 	LootData lootData    = kitData.lootData
 
 	float waitScale = 1.0
-	// if ( PlayerHasPassive( GetLocalViewPlayer(), ePassives.PAS_FAST_HEAL ) && (kitData.healAmount > 0) )
-		// waitScale = 0.5
-	// else if ( PlayerHasPassive( GetLocalViewPlayer(), ePassives.PAS_MEDIC ) && (kitData.healAmount > 0) )
-		// waitScale = 0.75
-	// else
-		// waitScale = 1.0
+	if ( PlayerHasPassive( GetLocalViewPlayer(), ePassives.PAS_FAST_HEAL ) && (kitData.healAmount > 0) )
+		waitScale = 0.5
+	else if ( PlayerHasPassive( GetLocalViewPlayer(), ePassives.PAS_MEDIC ) && (kitData.healAmount > 0) )
+		waitScale = 0.75
+	else
+		waitScale = 1.0
 	float waitTime  = (kitData.interactionTime * waitScale)
 
 	RuiSetBool( file.healthUseProgressRui, "isVisible", true )

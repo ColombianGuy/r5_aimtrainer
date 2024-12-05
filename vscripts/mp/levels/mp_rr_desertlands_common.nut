@@ -469,7 +469,7 @@ void function CodeCallback_PlayerLeaveUpdraftTrigger( entity trigger, entity pla
 #if SERVER
 void function AddTrainToMinimap( entity mover )
 {
-	if( Flowstate_IsHaloMode() )
+	if( Flowstate_IsHaloMode() && Playlist() != ePlaylists.fs_haloMod_survival )
 		return
 
 	entity minimapObj = CreatePropScript( $"mdl/dev/empty_model.rmdl", mover.GetOrigin() )

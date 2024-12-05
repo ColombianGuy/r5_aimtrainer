@@ -522,7 +522,7 @@ void function OnWeaponActivate_Consumable( entity weapon )
 					useData.statusEffectHandles.append( StatusEffect_AddEndless( weaponOwner, eStatusEffect.move_slow, 0.479 ) )
 				else if( PlayerHasPassive( weaponOwner, ePassives.PAS_SUPPORT ) || modName == "ultimate_battery" )
 					useData.statusEffectHandles.append( StatusEffect_AddEndless( weaponOwner, eStatusEffect.move_slow, 0.183 ) )
-	
+
 				useData.statusEffectHandles.append( StatusEffect_AddEndless( weaponOwner, eStatusEffect.disable_wall_run_and_double_jump, 1.0 ) )
 			}
 		}
@@ -1087,6 +1087,16 @@ float function CalculateTotalHealFromItem( entity player, ConsumableInfo info )
 
 float function CalculateTotalShieldFromItem( entity player, ConsumableInfo info )
 {
+	if( Playlist()  == ePlaylists.fs_haloMod_survival )
+	{
+		float maxShields = min( 200.0, info.shieldAmount )
+
+		if( PlayerHasPassive( player, ePassives.PAS_BONUS_SMALL_HEAL ) )
+			maxShields += info.shieldBonus[ ePassives.PAS_BONUS_SMALL_HEAL ]
+		
+		return maxShields
+	}
+	
 	if( PlayerHasPassive( player, ePassives.PAS_BONUS_SMALL_HEAL ) )
 		return info.shieldAmount + info.shieldBonus[ ePassives.PAS_BONUS_SMALL_HEAL ]
 	
@@ -1233,9 +1243,9 @@ int function GetSelectedConsumableTypeForPlayer( entity player )
 
 void function Consumable_SetSelectedConsumableType( int type )
 {
-	#if DEVELOPER
-		DumpStack()
-	#endif 
+	// #if DEVELOPER
+		// DumpStack()
+	// #endif 
 	if( GetLocalClientPlayer().GetPlayerNetInt( "selectedHealthPickupType" ) == type ) //player has that consumable equipped already.. Cafe
 		return
 	

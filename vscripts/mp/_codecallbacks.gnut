@@ -756,13 +756,7 @@ void function PlayerTookDamage( entity player, var damageInfo, entity attacker, 
 	vector attackerOrigin = <0,0,0>
 	if ( IsValid( attacker ) )
 		attackerOrigin = attacker.GetOrigin()
-	
-	//Fake evo shields
-	if( file.flowstate_evo_shields && Gamemode() == eGamemodes.SURVIVAL && isKillShot && IsValid( attacker ) && attacker.IsPlayer() && IsAlive( attacker ) )
-	{
-		thread EvoCurrentShieldToNextTier( damageInfo, attacker )
-	}
-	
+
 	array<string> weaponMods = GetWeaponModsFromDamageInfo( damageInfo )
 
 	local eModSourceID = null
@@ -787,6 +781,148 @@ void function PlayerTookDamage( entity player, var damageInfo, entity attacker, 
 	{
 		TellClientPlayerTookDamage( player, damageInfo, attacker, eModSourceID, damageType, damageSourceId )
 	}
+	
+	entity weapon = DamageInfo_GetWeapon( damageInfo )
+	
+	if( IsValid( weapon ) && weapon.HasMod( "blood_harvest" ) )
+	{
+		BloodHarvest_OnPlayerDamaged( player, damageInfo )
+	}
+
+	if( IsValid( weapon ) && weapon.HasMod( "incendiary_rounds" ) )
+	{
+		thread function () : ( attacker, weapon, player, damageSourceId)
+		{
+			Signal( player, "DamagedPlayerOrNPC" )
+			EndSignal( player, "DamagedPlayerOrNPC" )
+			EndSignal( player, "OnDeath" )
+			EndSignal( player, "OnDestroy" )
+			
+			entity fx = StartParticleEffectOnEntity_ReturnEntity( player, GetParticleSystemIndex( $"P_fire_loop_sm" ), FX_PATTACH_ABSORIGIN_FOLLOW, 0 )
+			
+			entity fire = CreateEntity( "trigger_cylinder" )
+			fire.SetRadius( 75 )
+			fire.SetAboveHeight( 72 )
+			fire.SetBelowHeight( 0 )
+			fire.SetOrigin( player.GetOrigin() )
+			DispatchSpawn( fire )
+			fire.SetOwner( attacker )
+			fire.SetEnterCallback( NPCOrPlayerWillStartBurning )
+			fire.SetParent( player )
+			
+			OnThreadEnd(
+				function() : ( fx, fire )
+				{
+					if(IsValid(fx))
+						fx.Destroy()
+
+					if(IsValid(fire))
+						fire.Destroy()
+				}
+			)
+			
+			float endTime = Time() + 3
+			
+			while( true )
+			{
+				if( Time() >= endTime )
+					break
+				
+				wait 0.15
+				
+				if( !IsValid( player ) || !IsValid( attacker ) )
+					break
+				
+				player.TakeDamage( 1, attacker, null, { scriptType = DF_DOOMED_HEALTH_LOSS, damageSourceId = damageSourceId } )
+			}
+		}()
+	}
+	
+	// if( IsValid( attacker ) && !player.IsPhaseShifted() )
+	// {
+		// PhaseShift( player, 0.0, 5 )
+	// }
+}
+
+void function BloodHarvest_OnPlayerDamaged(entity victim, var damageInfo)
+{
+	if ( !IsValid(victim) || !victim.IsPlayer() || !IsAlive( victim ) ) 
+		return
+
+	entity attacker = InflictorOwner( DamageInfo_GetAttacker(damageInfo) )
+	
+	if( !IsValid( attacker ) || !attacker.IsPlayer() || !IsAlive( attacker ) )
+		return
+
+	int sourceId = DamageInfo_GetDamageSourceIdentifier( damageInfo )
+	float damage = DamageInfo_GetDamage( damageInfo ) / 3
+
+	float attshield = float( attacker.GetShieldHealth() )
+	float atthealth = float( attacker.GetHealth() )
+	
+	if ( atthealth < attacker.GetMaxHealth() )
+	{
+		attacker.SetHealth( min( atthealth + damage, float( attacker.GetMaxHealth() ) ) )
+	} 
+	else if ( attshield < attacker.GetShieldHealthMax() )
+	{
+		attacker.SetShieldHealth( min( attshield + damage, float( attacker.GetShieldHealthMax() ) ) )
+	}
+}
+
+void function NPCOrPlayerWillStartBurning( entity trigger, entity player )
+{
+	thread EntWillStartBurning_Thread(trigger, player)
+}
+
+void function EntWillStartBurning_Thread(entity trigger, entity player)
+{
+	if(!IsValid(player) || IsValid(player) && !player.IsPlayer() && !player.IsNPC() || 
+		player == trigger.GetOwner() ) 
+		return
+
+			Signal( player, "DamagedPlayerOrNPC" )
+			EndSignal( player, "DamagedPlayerOrNPC" )
+			EndSignal( player, "OnDeath" )
+			EndSignal( player, "OnDestroy" )
+			
+			entity fx = StartParticleEffectOnEntity_ReturnEntity( player, GetParticleSystemIndex( $"P_fire_loop_sm" ), FX_PATTACH_ABSORIGIN_FOLLOW, 0 )
+			
+			entity fire = CreateEntity( "trigger_cylinder" )
+			fire.SetRadius( 75 )
+			fire.SetAboveHeight( 72 )
+			fire.SetBelowHeight( 0 )
+			fire.SetOrigin( player.GetOrigin() )
+			DispatchSpawn( fire )
+			fire.SetOwner(player)
+			fire.SetEnterCallback( NPCOrPlayerWillStartBurning )
+			fire.SetParent( player )
+			
+			OnThreadEnd(
+				function() : ( fx, fire )
+				{
+					if(IsValid(fx))
+						fx.Destroy()
+
+					if(IsValid(fire))
+						fire.Destroy()
+				}
+			)
+			
+			float endTime = Time() + 3
+			
+			while( true )
+			{
+				if( Time() >= endTime )
+					break
+				
+				wait 0.15
+				
+				if( !IsValid( player ) )
+					break
+				
+				player.TakeDamage( 1, trigger.GetOwner(), null, { scriptType = DF_DOOMED_HEALTH_LOSS } )
+			}
 }
 
 void function EvoCurrentShieldToNextTier( var damageInfo, entity attacker )

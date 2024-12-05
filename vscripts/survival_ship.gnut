@@ -1,6 +1,5 @@
 global function SurvivalShip_Init
 
-global function Survival_CreatePlane
 global function GetPlayersJumpingWithJumpmaster
 
 global function SURVIVAL_GetAirburstHeight
@@ -212,7 +211,13 @@ void function ClearPlayerPlaneViewMode( entity player )
 
 	Signal( player, "ClearedPlayerPlaneViewMode" )
 
-	GiveLoadoutRelatedWeapons( player ) //Cafe was here
+	if( Playlist() == ePlaylists.fs_haloMod_survival )
+	{
+		GiveLoadoutRelatedWeapons_HaloMod( player ) //Cafe was here
+	} else
+	{
+		GiveLoadoutRelatedWeapons( player ) //Cafe was here
+	}
 }
 
 array<entity> function GetPlayersJumpingWithJumpmaster( entity jumpMaster )
@@ -291,7 +296,6 @@ void function JumpFromPlane( entity player, bool forcedOut = false )
 		driverViewVector = AnglesToForward( viewAngles )
 		player.SnapEyeAngles( viewAngles )
 		
-		GiveBasicSurvivalItems( player ) //Cafe was here	
 		if ( !player.GetPlayerNetBool( "isJumpmaster" ) )
 		{
 			thread PlayerSkyDive( player, driverViewVector, [], player )
@@ -310,26 +314,13 @@ void function JumpFromPlane( entity player, bool forcedOut = false )
 	foreach ( jumpingPlayer in jumpingPlayers )
 	{
 		thread PlayerSkyDive( jumpingPlayer, driverViewVector, jumpingPlayers, player )
-		GiveBasicSurvivalItems( player ) //Cafe was here	
+		GiveBasicSurvivalItems( jumpingPlayer ) //Cafe was here	
 	}
 }
 
 void function SURVIVAL_SetMapDelta( float maxDelta )
 {
     file.maxDelta = maxDelta
-}
-
-entity function Survival_CreatePlane( vector origin, vector angles )
-{
-	entity script_mover = CreateEntity( "script_mover_lightweight" )
-	script_mover.kv.solid = 0
-	script_mover.kv.fadedist = -1
-	script_mover.SetValueForModelKey( SURVIVAL_PLANE_MODEL )
-	script_mover.kv.SpawnAsPhysicsMover = 0
-	script_mover.SetOrigin( origin )
-	script_mover.SetAngles( angles )
-	DispatchSpawn( script_mover )	
-	return script_mover
 }
 
 void function GiveBasicSurvivalItems( entity player )
@@ -364,6 +355,9 @@ void function GiveBasicSurvivalItems( entity player )
 	if( Playlist() == ePlaylists.fs_ltm_mortalevoshields )
 	{
 		Message(player, "MORTAL EVOSHIELDS", "Kill enemies to evolve your shields infinitely.", 8) // todo move this to localization. Cafe
+	} else if( Playlist() == ePlaylists.fs_haloMod_survival )
+	{
+		Message(player, "HALO BR", "Brought to you by HisWattson and CafeFPS, enjoy!", 8) // todo move this to localization. Cafe
 	}
 }
 

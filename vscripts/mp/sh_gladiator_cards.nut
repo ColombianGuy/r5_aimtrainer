@@ -1557,7 +1557,7 @@ void function ActualUpdateNestedGladiatorCard( NestedGladiatorCardHandle handle 
 			characterOrNull = handle.overrideCharacter
 
 		LoadoutEntry characterSlot = Loadout_CharacterClass()
-		if ( characterOrNull == null && havePlayer && LoadoutSlot_IsReady( handle.currentOwnerEHI, characterSlot ) && !Flowstate_IsHaloMode() )
+		if ( characterOrNull == null && havePlayer && LoadoutSlot_IsReady( handle.currentOwnerEHI, characterSlot ) && !Flowstate_IsHaloMode() || characterOrNull == null && havePlayer && LoadoutSlot_IsReady( handle.currentOwnerEHI, characterSlot ) && Playlist() == ePlaylists.fs_haloMod_survival )
 			characterOrNull = LoadoutSlot_GetItemFlavor( handle.currentOwnerEHI, characterSlot )
 		else if ( characterOrNull == null && havePlayer && Flowstate_IsHaloMode() )
 		{
@@ -1590,7 +1590,7 @@ void function ActualUpdateNestedGladiatorCard( NestedGladiatorCardHandle handle 
 					}
 
 					LoadoutEntry stanceSlot = Loadout_GladiatorCardStance( character )
-					if ( stanceOrNull == null && havePlayer && LoadoutSlot_IsReady( handle.currentOwnerEHI, stanceSlot ) && !Flowstate_IsHaloMode() )
+					if ( stanceOrNull == null && havePlayer && LoadoutSlot_IsReady( handle.currentOwnerEHI, stanceSlot ) && !Flowstate_IsHaloMode() || stanceOrNull == null && havePlayer && LoadoutSlot_IsReady( handle.currentOwnerEHI, stanceSlot ) && Playlist() == ePlaylists.fs_haloMod_survival )
 						stanceOrNull = LoadoutSlot_GetItemFlavor( handle.currentOwnerEHI, stanceSlot )
 					else if( stanceOrNull == null && havePlayer && Flowstate_IsHaloMode() )
 					{
@@ -1604,7 +1604,7 @@ void function ActualUpdateNestedGladiatorCard( NestedGladiatorCardHandle handle 
 					frameOrNull = handle.overrideFrame
 
 				LoadoutEntry frameSlot = Loadout_GladiatorCardFrame( character )
-				if ( frameOrNull == null && havePlayer && LoadoutSlot_IsReady( handle.currentOwnerEHI, frameSlot ) && !Flowstate_IsHaloMode() )
+				if ( frameOrNull == null && havePlayer && LoadoutSlot_IsReady( handle.currentOwnerEHI, frameSlot ) && !Flowstate_IsHaloMode() || frameOrNull == null && havePlayer && LoadoutSlot_IsReady( handle.currentOwnerEHI, frameSlot ) && Playlist() == ePlaylists.fs_haloMod_survival )
 				{
 					frameOrNull = LoadoutSlot_GetItemFlavor( handle.currentOwnerEHI, frameSlot )
 				}
@@ -2174,7 +2174,7 @@ void function DoGladiatorCardCharacterCapture( CharacterCaptureState ccs )
 
 	asset setFile   = CharacterClass_GetSetFile( ccs.character )
 	asset bodyModel = GetGlobalSettingsAsset( setFile, "bodyModel" )
-	if( Flowstate_IsHaloMode() )
+	if( Flowstate_IsHaloMode() && Playlist() != ePlaylists.fs_haloMod_survival )
 	{
 		ccs.model.SetModel( $"mdl/Humans/pilots/w_master_chief.rmdl" ) //todo get correct model from player ( dif color )
 	} else

@@ -841,7 +841,7 @@ void function WeaponStatusSetWeaponInspect( bool inspect )
 	RuiSetBool( file.weapon_hud_rui, "weaponInspect", inspect )
 	array<var> additionalWeaponInspectRuis
 	additionalWeaponInspectRuis.append( GetCryptoAnimatedTacticalRui() )
-	additionalWeaponInspectRuis.append( GetBubbleBunkerRui() )
+	// additionalWeaponInspectRuis.append( GetBubbleBunkerRui() )
 	foreach ( rui in additionalWeaponInspectRuis )
 	{
 		if ( rui != null )

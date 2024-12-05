@@ -998,6 +998,8 @@ void function OnDeathBoxSpawned( entity deathbox, entity attacker, int damageSou
 	//		return
 	//}
 
+	AddEntityCallback_OnGrappled( deathbox, GrappleGrabBanner )
+
 	entity respawnBeacon = CreateWaypoint_RespawnBanner( player, deathbox )
 	player.SetPlayerNetInt( "respawnStatus", eRespawnStatus.WAITING_FOR_PICKUP )
 	player.SetPlayerNetTime( "respawnStatusEndTime", Time() + RESPAWN_DNA_LIFETIME )
@@ -1005,6 +1007,35 @@ void function OnDeathBoxSpawned( entity deathbox, entity attacker, int damageSou
 	thread DelayedDestroyDNA( respawnBeacon, RESPAWN_DNA_LIFETIME )
 	thread DeathBoxThink_RespawnBeacon( deathbox, respawnBeacon )
 }
+
+
+void function GrappleGrabBanner( entity player, entity hitent, vector hitpos, vector hitNormal )
+{
+	if( !GetCurrentPlaylistVarBool( "enable_grapple_recovers_banner", false ) )
+		return
+	
+	player.EndSignal( "OnDeath" )
+	hitent.EndSignal( "OnDestroy" )
+
+	if ( hitent.GetUsableValue() == 0 )
+		return
+
+	if ( player.HasGrapple() && player.IsGrappleActive() )
+	{
+		player.Grapple( <0,0,0> )
+	}
+
+	PlayGrappleAttachedAnimation( player, "ptpov_cloudcity_grapple_switch" )
+
+	DeathBoxOnUse( hitent, player, 0 )
+
+	entity proxy = player.GetPredictedFirstPersonProxy()
+	proxy.EndSignal( "OnDestroy" )
+	proxy.WaitSignal( "GrappleYank" )
+
+	hitent.Signal( "OnPlayerUse", { player = player } )
+}
+
 
 void function DeathBoxThink_RespawnBeacon( entity box, entity dna ) // todo(dh) rename?
 {
