@@ -262,6 +262,9 @@ void function cmd_outlist( string tag, array<string> args, entity activator )
 
 void function Chat_Init()
 {
+	if( Playlist() == ePlaylists.fs_haloMod_survival )
+		return
+	
 	//Init options first
 	file.chatInterval 				= GetCurrentPlaylistVarFloat( "chat_interval", 12 )
 	file.chatThreshhold 			= GetCurrentPlaylistVarInt( "chat_threshhold", 5 )

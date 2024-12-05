@@ -943,6 +943,7 @@ void function ClientCodeCallback_PlayerDidDamage( PlayerDidDamageParams params )
 		playHitSound = true
 		showCrosshairHitIndicator = true
 	}
+
 	else if ( isOvershieldShot )
 	{
 		vector armorColor = OVERSHIELD_COLOR
@@ -2377,12 +2378,15 @@ void function __UpdateMuteData( string uid, bool isMuted, bool byServer, bool by
 
 void function RunMuteClears( entity player ) //Used end of game.
 {
+	if( Playlist() == ePlaylists.fs_haloMod_survival )
+		return
+	
 	array<string> candidates
 	foreach( string uid, MuteData data in file.mutedPlayers )
 	{
-		#if DEVELOPER
-			printt( uid, data.muted, data.server, data.client )
-		#endif 
+		// #if DEVELOPER
+			// printt( uid, data.muted, data.server, data.client )
+		// #endif 
 		
 		if( data.muted && data.server && !data.client )
 			candidates.append( uid )
