@@ -196,6 +196,40 @@ void function GamemodeSurvival_Init()
 	
 	if( GetCurrentPlaylistVarBool( "deathfield_starts_in_prematch", false ) )
 		thread SURVIVAL_RunArenaDeathField()
+	
+	if( Playlist() == ePlaylists.fs_haloMod_survival )
+	{
+		BannerAssets_SetAllGroupsFunc
+		(
+			void function()
+			{
+				BannerAssets_RegisterAudioGroup
+				(
+					"halo_audio",
+					false //(audio interruptable, false = queued for audio from this group. )
+				)
+			}
+		)
+		
+		BannerAssets_SetAllAssetsFunc
+		(
+			void function()
+			{
+				array<string> haloAudio = WorldDrawAsset_GetAssetArrayByCategory( "halo" )
+
+				foreach( assetRef in haloAudio )
+				{
+					BannerAssets_GroupAppendAsset
+					(
+						"halo_audio",
+						WorldDrawAsset_AssetRefToID( assetRef )
+					)
+				}
+			}
+		)
+		
+		BannerAssets_Init()
+	}
 }
 
 #if DEVELOPER

@@ -444,6 +444,9 @@ void function ClGamemodeSurvival_Init()
 
 	if ( IsSoloMode() )
 		SetCommsDialogueEnabled( false ) //
+	
+	if( Playlist() == ePlaylists.fs_haloMod_survival )
+		RegisterSignal("NewKillChangeRui")
 }
 
 
