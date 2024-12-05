@@ -1169,12 +1169,6 @@ void function InitMenuEntities()
 	CharacterSkin_Apply( model, characterSkin )
 	model.SetAlive( true )
 		
-	entity lobbyLight = CreateClientSideDynamicLight( Vector(file.playCharacter.model.GetOrigin().x, file.playCharacter.model.GetOrigin().y, file.playCharacter.model.GetOrigin().z + 80) + file.playCharacter.model.GetForwardVector() * 40, < 0, 0, 0 >, DLIGHT_WHITE, 200 )
-	lobbyLight.SetLightExponent( 2 )
-
-	entity lobbyLight2 = CreateClientSideDynamicLight( Vector(file.playCharacter.model.GetOrigin().x, file.playCharacter.model.GetOrigin().y, file.playCharacter.model.GetOrigin().z) + file.playCharacter.model.GetRightVector() * 50 + file.playCharacter.model.GetForwardVector() * 50, < 0, 0, 0 >, DLIGHT_RICH_BROWN, 200 )
-	lobbyLight2.SetLightExponent( 4 )
-		
 	refEnt = GetEntByScriptName( "customize_character_ref" )
 	ModelData_SetBaseOrigin( file.customizeCharacter, refEnt.GetOrigin() )
 
