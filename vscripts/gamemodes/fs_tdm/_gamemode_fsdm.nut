@@ -7535,22 +7535,8 @@ void function Halo_GotoNextPlaylist()
 		int nextPlaylistIndex = CYCLE_HALO_PLAYLISTS_ARR[ nextIndex ]
 		nextPlaylist = AllPlaylistsArray()[ nextPlaylistIndex ]
 	}
-
-	string serverName = "_invalidHostname"
-	string serverDesc
-		
-	if ( IsDedicated() )
-	{
-		serverName = GetConVarString( "hostname" )
-		serverDesc = GetConVarString( "hostdesc" )
-	}
-	else //TODO(mk): Listen server get server name/desc
-	{
-		serverName = GetCurrentPlaylistVarString( "halo_servername", "[ HALO ] " + GetServerID() )
-		serverDesc = GetCurrentPlaylistVarString( "halo_serverdesc", "Listen server - auto Halo playlist cycle" )
-	}
-		
-	CreateServer( serverName, serverDesc, GetMapName(), nextPlaylist, 0 )
+	
+	GameRules_ChangeMap( GetMapName(), nextPlaylist )
 }
 
 void function FS_Hack_CreateBulletsCollisionVolume( vector origin, float large = 15000 )
