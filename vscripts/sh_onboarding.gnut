@@ -1343,7 +1343,6 @@ void function SetPlayerSettings( entity player, table settings )
 			SetEntityVar( player, k, v )
 		#else
 			//Thanks amos for this implementation <3. Cafe
-			//SetClassVarSynced( expect string( k ), expect float( v ).tostring() ) //for all players
 			player.SetClassVar( expect string( k ), expect float( v ).tostring() )
 		#endif
 	}
