@@ -48,11 +48,14 @@ struct
 // Use Tracker_IsStatsReadyFor( player ) to get a bool of the status for that player.
 
 void function Tracker_ClientStats_Init()
-{
+{		
 	RegisterSignal( "StatDataReceived" )
 	RegisterSignal( "RequestStatFailed" )
 	RegisterSignal( "PreloadStat" )
-
+	
+	if( GetCurrentPlaylistVarBool( "disable_r5rdev_clientstats", false ) )
+		return
+	
 	thread ClientStats_Think()
 	
 	#if DEVELOPER && DEBUG_CL_STATS
