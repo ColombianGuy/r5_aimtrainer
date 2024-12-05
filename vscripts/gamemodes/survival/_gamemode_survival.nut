@@ -1683,10 +1683,10 @@ void function OnPlayerKilled( entity victim, entity attacker, var damageInfo )
 	{
 		attackerEHandle = attacker ? attacker.GetEncodedEHandle() : -1
 		victimEHandle = victim ? victim.GetEncodedEHandle() : -1
+		
+		Flowstate_TryUpgradeEvoOnKill( victim, attacker, damageInfo )
 	}
 
-	Flowstate_TryUpgradeEvoOnKill( victim, attacker, damageInfo )
-	
 	SetPlayerEliminated( victim )
 
 	if ( Flowstate_PlayerDoesRespawn() )
