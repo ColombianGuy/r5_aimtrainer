@@ -26,26 +26,11 @@ void function LeaveMatch()
 void function LoadLobbyAfterLeave()
 {
 	#if LISTEN_SERVER
+	CancelMatchmaking()
+	ClientCommand( "LeaveMatch" )
+
 	// Wait a second for a smoother transition
 	wait 1
-
-	// Only execute these if we aren't running the listen server
-	if ( !IsServerActive() )
-	{
-		CancelMatchmaking()
-		ClientCommand( "disconnect" ) // also disconnect on client
-		ClientCommand( "LeaveMatch" )
-	}
-	else
-	{
-		// Shutdown and wait a frame so the state machine could shut the
-		// server down properly, else we crash in CClient::SendSnapshot.
-		DestroyServer()
-		WaitFrame()
-	}
-
-	// Set the main menus blackscreen visibility to true to cover it
-	SetMainMenuBlackScreenVisible(true)
 
 	// Create the lobby server
 	CreateServer("Lobby VM", "", "mp_lobby", "menufall", eServerVisibility.OFFLINE)
