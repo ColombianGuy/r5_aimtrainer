@@ -269,7 +269,7 @@ void function SmartAmmo_LockedOntoWarningHUD_Update()
 			RuiSetBool( file.lockon_hud, "eastLock", false )
 
 			//SrgbToLinear( <255,237,76> / 255.0 ) // can't get the ultimate highlight color from bakery becase it takes way too long to do every frame.
-			RuiSetFloat3( file.lockon_hud, "borderColor", SrgbToLinear( < 165, 3, 252 > / 255.0 ) )
+			RuiSetFloat3( file.lockon_hud, "borderColor", SrgbToLinear( <66, 215, 245> / 255.0 ) )
 		}
 		else if ( StatusEffect_GetSeverity( player, eStatusEffect.rhapsody_tactical ) > 0.0 )
 		{
