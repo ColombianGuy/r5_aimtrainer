@@ -262,7 +262,7 @@ void function cmd_outlist( string tag, array<string> args, entity activator )
 
 void function Chat_Init()
 {
-	if( Playlist() == ePlaylists.fs_haloMod_survival )
+	if( GetCurrentPlaylistVarBool( "disable_chat_monitor", false ) )
 		return
 	
 	//Init options first
