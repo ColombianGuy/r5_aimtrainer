@@ -662,13 +662,23 @@ void function SetMotdText( string text )
 	if( !GetConVarInt( "show_motd_on_server_first_join" ) )
 		return
 
-	string server = GetServerID()
+	// note(amos): GetServerID() cannot be used on the client
+	// it is a server only function that was accidentally
+	// registered for client too. Calling this here returns
+	// the server ID of your own listen server, so it will
+	// only show the message once during the duration of the
+	// process. in the future we need to work on the ability
+	// to send the server id to the client. commented, and
+	// directly calling OpenMOTD() for now.
+	OpenMOTD()
+
+	// string server = GetServerID()
 	
-	if( !( server in file.seenMotdForServer ) )
-	{
-		OpenMOTD()
-		file.seenMotdForServer[ server ] <- true
-	}
+	// if( !( server in file.seenMotdForServer ) )
+	// {
+	// 	OpenMOTD()
+	// 	file.seenMotdForServer[ server ] <- true
+	// }
 }
 
 void function OpenMOTD()
