@@ -21,6 +21,7 @@ playlists
 				//// General Flowstate Custom Settings										///////
 				///////////////////////////////////////////////////////////////////////////////////
 
+				enable_grapple_recovers_banner						0
 				enable_mirage_revive_cloak_upgrade					0
 
 				bangalore_smoke_highlight							1
@@ -988,7 +989,7 @@ playlists
 				respawn_kit_ultimate 							"mp_weapon_jump_pad"
 
 				//GENERAL SETTINGS PROPHUNT
-				Admins											"r5r_ColombiaFPS"
+				Admins											"r5r_CafeFPS"
 				flowstateResetKills 							1
 
 				flowstateKickHighPingPlayer						0
@@ -2876,6 +2877,75 @@ playlists
 			} } }
 		}
 
+		fs_haloMod_survival
+		{
+			inherit defaults
+			vars
+			{
+				visible											1
+				
+				name										   	"HALO BR"
+				abbreviation								   	"HALO BR"
+				description										"HALO BR"
+			
+				deathbox_ondeath_enabled 						1 //( 0 will throw loot around player ) // survival only
+				battlechatter_enabled						  	0
+
+				enable_nessies								 	0
+				
+				// match teams will not fill with more than one party, up to max_teams of size max_team_size (or less) -- not exceeding max_players
+				max_team_size									3
+				max_players										60
+				min_players										45
+				
+				// waiting_for_players_timeout_seconds			40
+
+				bangalore_smoke_highlight							0
+				redish_highlight_los								0
+				
+				// debug
+				
+				// Skip intros:
+				waiting_for_players_spawning_enabled		   	0
+				waiting_for_players_countdown_seconds		5
+				waiting_for_players_timeout_seconds			0
+				character_select_time_max					0.0
+				character_select_time_min					0.0
+				survival_enable_gladiator_intros			   	0
+				
+				//Flowstate by CafeFPS
+				
+				bleedout_enabled								1
+				
+				survival_shields							   	1
+				is_ranked_game								 	0
+				player_revive_enabled						  	1
+				enable_apex_screens								1
+				skydive_ziplines_enabled					   	1
+				charselect_intro_countdown_duration				0.0
+				
+				r5reloaded_AnimatedCharacterSelect				0
+				flowstate_spectator_team_only					1
+				
+				survival_server_restart_after_end				1
+				flowstate_enable_bullet_slow					1
+				
+				flowstate_give_character_passive				1
+				flowstate_modified_movement						0
+				
+				is_halo_gamemode								1
+				flowstate_evo_shields							1 //enables mortal evoshields ltm
+				enable_grapple_recovers_banner					1
+			}
+			gamemodes { survival { maps {
+				mp_rr_desertlands_64k_x_64k						1
+				mp_rr_desertlands_64k_x_64k_nx				 	1
+				mp_rr_canyonlands_64k_x_64k						1
+				mp_rr_canyonlands_mu1						  	1
+				mp_rr_canyonlands_mu1_night						1
+				mp_rr_desertlands_mu2						  	1
+			} } }
+		}
 		fs_haloMod_oddball
 		{
 			inherit defaults
