@@ -38,7 +38,8 @@ struct
 	BubbleShieldDamageStruct titanDamageStruct
 	BubbleShieldDamageStruct pilotDamageStruct
 	BubbleShieldDamageStruct aiDamageStruct
-
+	
+	array<entity> allBubbleTriggers
 }file
 
 
@@ -296,13 +297,13 @@ entity function CreateBubbleShieldWithSettings_MasterChief( int team, vector ori
 		entity friendlyColoredFX = StartParticleEffectInWorld_ReturnEntity( GetParticleSystemIndex( BUBBLE_BUNKER_SHIELD_FX ), coloredFXOrigin, <0, 0, 0> )
 		SetTeam( friendlyColoredFX, team )
 		friendlyColoredFX.kv.VisibilityFlags = ENTITY_VISIBLE_TO_FRIENDLY
-		EffectSetControlPointVector(  friendlyColoredFX, 1, <102, 66, 245> ) //FRIENDLY_COLOR_FX )
+		EffectSetControlPointVector(  friendlyColoredFX, 1, <66, 215, 245> ) //FRIENDLY_COLOR_FX )
 		friendlyColoredFX.SetParent( bubbleShield )
 		
 		entity enemyColoredFX = StartParticleEffectInWorld_ReturnEntity( GetParticleSystemIndex( BUBBLE_BUNKER_SHIELD_FX ), coloredFXOrigin, <0, 0, 0> )
 		SetTeam( enemyColoredFX, team )
 		enemyColoredFX.kv.VisibilityFlags = ENTITY_VISIBLE_TO_ENEMY
-		EffectSetControlPointVector(  enemyColoredFX, 1, <168, 50, 50> ) //ENEMY_COLOR_FX )
+		EffectSetControlPointVector(  enemyColoredFX, 1, <204, 98, 98> ) //ENEMY_COLOR_FX )
 		enemyColoredFX.SetParent( bubbleShield )
 		
 		bubbleShieldFXs.append( friendlyColoredFX )
@@ -421,6 +422,8 @@ void function BubbleShieldDamageEnemies( entity bubbleShield, entity bubbleShiel
 	
 	DispatchSpawn( trigger )
 	
+	file.allBubbleTriggers.append( trigger )
+	
 	trigger.SearchForNewTouchingEntity() //JFS: trigger.GetTouchingEntities() will not return entities already in the trigger unless this is called. See bug 202843
 
 	/*DebugDrawCylinder( trigger.GetOrigin(), <270,0,0>, TITAN_BUBBLE_SHIELD_INVULNERABILITY_RANGE, TITAN_BUBBLE_SHIELD_CYLINDER_TRIGGER_HEIGHT, 255, 255, 255, true, 20.0 )
@@ -428,6 +431,9 @@ void function BubbleShieldDamageEnemies( entity bubbleShield, entity bubbleShiel
 	OnThreadEnd(
 	function() : ( trigger )
 		{
+			if( file.allBubbleTriggers.contains( trigger ) )
+				file.allBubbleTriggers.removebyvalue( trigger )
+			
 			trigger.Destroy()
 		}
 	)
@@ -461,6 +467,8 @@ void function GibbyOp_OnEnter( entity trigger, entity ent )
 		printw("debug bubble trigger not having owner pls" )
 		return
 	}
+	
+	// We don't need to check for extra teammates bubble here, it's ok if it tries to apply
 	
 	if( ent.GetTeam() == owner.GetTeam() ) //is gibby team
 	{
@@ -509,7 +517,20 @@ void function GibbyOp_OnLeave( entity trigger, entity ent )
 		return
 	}
 	
-	if( ent.GetTeam() == owner.GetTeam() ) //is gibby team
+	bool shouldRemoveStuff = true
+	
+	foreach( anotherTrigger in file.allBubbleTriggers )
+	{
+		if( !IsValid( anotherTrigger ) || anotherTrigger == trigger )
+			continue
+		
+		entity ownerTrigger = anotherTrigger.GetOwner()
+		
+		if( anotherTrigger.IsTouching( ent ) && IsValid( ownerTrigger ) && ent.GetTeam() == owner.GetTeam() ) //Don't remove passives if player is inside another teammate's bubble and this one is being destroyed
+			shouldRemoveStuff = false
+	}
+	
+	if( ent.GetTeam() == owner.GetTeam() && shouldRemoveStuff ) //is gibby team
 	{
 		#if DEVELOPER
 		printw( ent, " removed bubble mods" )
@@ -540,6 +561,7 @@ void function GibbyOp_OnLeave( entity trigger, entity ent )
 		
 		if( ent.GetPlayerNetBool( "hasDeathFieldImmunity" ) )
 			ent.SetPlayerNetBool( "hasDeathFieldImmunity", false )
+
 	}
 }
 

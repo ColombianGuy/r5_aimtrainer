@@ -164,6 +164,21 @@ global struct BurnCardPhaseRewindStruct
 	bool phaseRetreatShouldSave = true
 }
 
+global struct weaponShotRecord
+{
+	float shotTime
+	string weaponName
+	vector attackOrigin
+	vector attackDir
+}
+
+global struct recordingInfo
+{
+	LocPair &locPairData
+	entity player
+	array<weaponShotRecord> shots
+}
+
 // This struct is hooked up to entity.e in code
 global struct ServerEntityStruct
 {
@@ -1164,6 +1179,10 @@ global struct ServerPlayerStruct
 	
 	//updraft
 	bool isPlayerUpdrafting = false
+	
+	//coaching recordings
+	float recordingStartTime
+	array<weaponShotRecord> savedShots
 }
 
 global struct ChallengeScore
