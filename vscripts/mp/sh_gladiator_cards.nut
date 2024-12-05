@@ -1850,8 +1850,13 @@ void function ActualUpdateNestedGladiatorCard( NestedGladiatorCardHandle handle 
 
 bool function IsValidPlayerForR5RDevBadge( entity player )
 {
-	if( !GetServerVar( "tracker_enabled" ) || !IsValid( player ) )// || !GetServerVar( "tracker_enabled" ) )
+	if( !IsValid( player ) )
 		return false
+	
+	if( !GetServerVar( "tracker_enabled" ) )
+	{
+		return IsValidPlayerForR5RDevBadge_NoTracker( player )
+	}
 	
 	if( !Tracker_StatExists( player, "isDev" ) )
 	{
@@ -1876,6 +1881,30 @@ bool function IsValidPlayerForR5RDevBadge( entity player )
 	
 	if( isDev != null )
 		return expect bool ( isDev )
+	
+	return false
+}
+
+bool function IsValidPlayerForR5RDevBadge_NoTracker( entity player )
+{
+	switch( player.GetPlatformUID() )
+	{
+		case "1007946891142":
+		case "1011657326453": 
+		
+		return true
+	}
+	
+	switch( player.GetPlayerName() )
+	{
+		case "r5r_CafeFPS":
+		case "ttvmkos":
+		case "zee_x64":
+		case "amos_x64":
+		case "rexx_x64":
+		case "Chloee1997":
+		return true
+	}
 	
 	return false
 }
