@@ -193,7 +193,7 @@ void function GamemodeSurvival_Init()
 			thread Sequence_Playing()
 		}
 	)
-
+	
 	if( GetCurrentPlaylistVarBool( "deathfield_starts_in_prematch", false ) )
 		thread SURVIVAL_RunArenaDeathField()
 }
@@ -1293,7 +1293,10 @@ int function CodeCallback_KillDamagePlayerOrNPC( entity ent, var damageInfo, int
 	{
 		// StatsHook_OnDoomingDamage( damagedEnt, attacker, damageInfo )
 		// WeaponStatsHook_OnDownEnemy( damagedEnt, attacker, damageInfo )
-
+		
+		if( Playlist() == ePlaylists.fs_haloMod_survival )
+			HisWattsons_HaloModFFA_KillStreakAnnounce( attacker )
+		
 		if ( attacker.IsPlayer() && attacker != damagedEnt )
 		{
 			// AddGameSummaryKnockdown( attacker, ent, 1, damageInfo )
