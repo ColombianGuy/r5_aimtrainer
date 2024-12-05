@@ -6,8 +6,8 @@ WeaponData
 	"description" 									"#WPN_ARC_STAR_DESC"
 	"longdesc" 										"#WPN_ARC_STAR_LONGDESC"
 
-	"menu_icon"										"rui/ordnance_icons/grenade_arc"
-	"hud_icon"										"rui/ordnance_icons/grenade_arc"
+	"menu_icon"										"rui/halo/plasma"
+	"hud_icon"										"rui/halo/plasma"
 
 	"weapon_type_flags"								"WPT_GRENADE"
 	"weaponClass" 									"human"

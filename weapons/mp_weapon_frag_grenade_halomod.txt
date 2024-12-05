@@ -6,8 +6,8 @@ WeaponData
 	"description" 									"#WPN_FRAG_GRENADE_DESC"
 	"longdesc" 										"#WPN_FRAG_GRENADE_LONGDESC"
 
-	"menu_icon"										"rui/ordnance_icons/grenade_frag"
-	"hud_icon"										"rui/ordnance_icons/grenade_frag"
+	"menu_icon"										"rui/halo/frag"
+	"hud_icon"										"rui/halo/frag"
 
 	"weapon_type_flags"								"WPT_GRENADE"
 	"weaponClass"									"human"
