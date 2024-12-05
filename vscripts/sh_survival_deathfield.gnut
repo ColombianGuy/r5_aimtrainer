@@ -382,7 +382,9 @@ void function DeathFieldShrinkThink( DeathFieldData data, entity deathField )
 	#if DEVELOPER
 		svGlobal.levelEnt.EndSignal( "DeathField_ShrinkNow" )
 	#endif
-
+	
+	deathField.EndSignal( "OnDestroy" )
+	
 	OnThreadEnd(
 		function() : ( data, deathField )
 		{
@@ -755,6 +757,12 @@ void function DeathFieldDamage( DeathFieldData data, entity deathField )
 
 		foreach ( player in GetPlayerArray_Alive() )
 		{
+			if ( !player.DoesShareRealms( deathField ) )
+				continue
+
+			if ( HasDeathFieldImmunity( player ) )
+				continue
+			
 			if ( player.IsPhaseShifted() )
 				continue
 
