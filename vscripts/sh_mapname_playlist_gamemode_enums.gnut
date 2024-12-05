@@ -553,8 +553,8 @@ void function IsHaloGamemode_Init()
 
 void function Is4DGamemode_Init()
 {
-	printt("\n\n\n4DGamemode_Init")
-	printt("4d_enable: " + GetCurrentPlaylistVarBool( "4d_enable", false ))
+	// printt("\n\n\n4DGamemode_Init")
+	// printt("4d_enable: " + GetCurrentPlaylistVarBool( "4d_enable", false ))
 	modeSettings.is4DMode = GetCurrentPlaylistVarBool( "4d_enable", false )
 }
 

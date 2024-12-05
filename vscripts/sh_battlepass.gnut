@@ -286,23 +286,23 @@ void function ShBattlePass_LevelInit()
 			}
 		}
 
-#if DEVELOPER && CLIENT 
-		printt( "---------------- CHARACTER CHALLENGES ----------------" )
-		foreach ( zoneStatType, zoneTbl in zoneChallenges )
-		{
-			printt( "----" + zoneStatType.toupper() + "----" )
-			foreach ( zone, count in zoneTbl )
-			{
-				printt( zone + " - " + count )
-			}
-		}
+// #if DEVELOPER && CLIENT 
+		// printt( "---------------- CHARACTER CHALLENGES ----------------" )
+		// foreach ( zoneStatType, zoneTbl in zoneChallenges )
+		// {
+			// printt( "----" + zoneStatType.toupper() + "----" )
+			// foreach ( zone, count in zoneTbl )
+			// {
+				// printt( zone + " - " + count )
+			// }
+		// }
 
-		printt( "---------------- CHARACTER CHALLENGES TOTAL ----------------" )
-		foreach ( zone, count in zoneChallengesAll )
-		{
-			printt( zone + " - " + count )
-		}
-#endif
+		// printt( "---------------- CHARACTER CHALLENGES TOTAL ----------------" )
+		// foreach ( zone, count in zoneChallengesAll )
+		// {
+			// printt( zone + " - " + count )
+		// }
+// #endif
 
 		dupeCheck.clear()
 
