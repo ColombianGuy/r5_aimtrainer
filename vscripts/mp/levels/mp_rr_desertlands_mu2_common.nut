@@ -846,7 +846,7 @@ void function Updrafts_Init()
 	
 	foreach ( entity trigger in triggers )
 	{
-		Warning( "[+] Spawning Cafe's Updraft Trigger pos at " + trigger.GetOrigin() )
+		//Warning( "[+] Spawning Cafe's Updraft Trigger pos at " + trigger.GetOrigin() )
 
 		trigger.SetEnterCallback( PlayerEnterUpdraftTrigger )
 	}
