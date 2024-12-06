@@ -1601,8 +1601,8 @@ void function PIN_Init()
 	Tracker_SettingsInit()
 	Tracker_Init()
 	PlayerDataCallbacks_Init()
-	WeaponSettings_Init()
-	
+
+	AddCallback_EntitiesDidLoad( WeaponSettings_Init )
 	AddClientCommandCallbackNew( "requestStat", ClientCommand_RequestStat )
 	
 	if( !bRunTracker )
@@ -4031,7 +4031,8 @@ const table<int,string> hardcodedWorldspawnRefs = //unordered int requires looku
 	[ eDamageSourceId.deathField ] 			= "_DEATHFIELD",
 	[ eDamageSourceId.bleedout ] 			= "_BLEEDOUT",
 	[ eDamageSourceId.damagedef_suicide ] 	= "_SUICIDE",
-	[ eDamageSourceId.damagedef_despawn ]	= "_DESPAWN"
+	[ eDamageSourceId.damagedef_despawn ]	= "_DESPAWN",
+	[ eDamageSourceId.fall ]				= "_FALL"
 }
 
 string function _GetHardcodedWorldspawnRef( int ref )
