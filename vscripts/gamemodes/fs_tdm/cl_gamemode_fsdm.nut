@@ -77,6 +77,7 @@ global function UiToClient_ConfirmRest
 global function FS_Scenarios_SetRingCloseTimeForMinimap
 
 global function FS4DIntroSequence
+global function HaloBrIntroSequence
 
 const string CIRCLE_CLOSING_IN_SOUND = "UI_InGame_RingMoveWarning" //"survival_circle_close_alarm_01"
 
@@ -2472,6 +2473,71 @@ void function FS4DIntroSequence()
 		RuiSetFloat( rui, "thicken", 0.0 )
 		
 		endTime = Time() + 6
+		while (Time() < endTime)
+		{
+			float timeLeft = endTime - Time()
+			RuiSetFloat( rui, "msgAlpha", 0.9 * min(1, timeLeft) )
+			wait 0.001
+		}
+		RuiDestroy( rui )
+	}()
+}
+
+//sorry janu
+void function HaloBrIntroSequence()
+{
+	thread void function() : ()
+	{
+		var rui = RuiCreate( $"ui/cockpit_console_text_top_right.rpak", clGlobal.topoFullScreen, RUI_DRAW_HUD, 0)
+		RuiSetInt( rui, "maxLines", 1 );
+		RuiSetInt( rui, "lineNum", 0 );
+		RuiSetFloat2( rui, "msgPos", <0.45, 0.35, 0> )
+		RuiSetString( rui, "msgText", "HisWattson LLC Presents" )
+		RuiSetFloat3( rui, "msgColor", <1, 1, 1> )
+		RuiSetFloat( rui, "msgFontSize", 50.0)
+		RuiSetFloat( rui, "msgAlpha", 0.9 )
+		RuiSetFloat( rui, "thicken", 0.0 )
+
+		float endTime = Time() + 5
+		while (Time() < endTime)
+		{
+			float timeLeft = endTime - Time()
+			RuiSetFloat( rui, "msgAlpha", 0.9 * min(1, timeLeft) )
+			wait 0.001
+		}
+		RuiDestroy( rui )
+
+		rui = RuiCreate( $"ui/cockpit_console_text_top_left.rpak", clGlobal.topoFullScreen, RUI_DRAW_HUD, 0)
+		RuiSetInt( rui, "maxLines", 1 );
+		RuiSetInt( rui, "lineNum", 0 );
+		RuiSetFloat2( rui, "msgPos", <0.55, 0.32, 0> )
+		RuiSetString( rui, "msgText", "Designed by CafeFPS\nPowered by R5Reloaded" )
+		RuiSetFloat3( rui, "msgColor", <1, 1, 1> )
+		RuiSetFloat( rui, "msgFontSize", 50.0)
+		RuiSetFloat( rui, "msgAlpha", 0.9 )
+		RuiSetFloat( rui, "thicken", 0.0 )
+		
+		endTime = Time() + 5
+		while (Time() < endTime)
+		{
+			float timeLeft = endTime - Time()
+			RuiSetFloat( rui, "msgAlpha", 0.9 * min(1, timeLeft) )
+			wait 0.001
+		}
+		RuiDestroy( rui )
+
+		
+		rui = RuiCreate( $"ui/cockpit_console_text_center.rpak", clGlobal.topoFullScreen, RUI_DRAW_HUD, 0)
+		RuiSetInt( rui, "maxLines", 1 );
+		RuiSetInt( rui, "lineNum", 0 );
+		RuiSetFloat2( rui, "msgPos", <0.0, -0.22, 0> )
+		RuiSetString( rui, "msgText", "   HALO MOD\nBATTLE ROYALE" )
+		RuiSetFloat3( rui, "msgColor", <1, 1, 1> )
+		RuiSetFloat( rui, "msgFontSize", 110.0)
+		RuiSetFloat( rui, "msgAlpha", 0.9 )
+		RuiSetFloat( rui, "thicken", 0.0 )
+		
+		endTime = Time() + 5
 		while (Time() < endTime)
 		{
 			float timeLeft = endTime - Time()

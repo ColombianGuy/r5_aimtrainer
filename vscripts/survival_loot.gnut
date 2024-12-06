@@ -899,7 +899,16 @@ void function OnGroundLootSpawned( entity ent )
 		return
 	}
 	else
-		loot = SpawnGenericLoot( itemRef, newOrigin, <-1, -1, -1>, SURVIVAL_Loot_GetLootDataByRef( itemRef ).countPerDrop )
+	{
+		int count = SURVIVAL_Loot_GetLootDataByRef( itemRef ).countPerDrop
+		
+		if( Playlist() == ePlaylists.fs_haloMod_survival && SURVIVAL_Loot_GetLootDataByRef( itemRef ).lootType == eLootType.AMMO )
+		{
+			count *= 2
+		}
+		
+		loot = SpawnGenericLoot( itemRef, newOrigin, <-1, -1, -1>, count )
+	}
 
 	if ( loot == null )
 		return

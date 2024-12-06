@@ -357,7 +357,7 @@ void function GiveBasicSurvivalItems( entity player )
 		Message(player, "MORTAL EVOSHIELDS", "Kill enemies to evolve your shields infinitely.", 8) // todo move this to localization. Cafe
 	} else if( Playlist() == ePlaylists.fs_haloMod_survival )
 	{
-		Message(player, "HALO BR", "Brought to you by HisWattson and CafeFPS, enjoy!", 8) // todo move this to localization. Cafe
+		Remote_CallFunction_ByRef( player, "HaloBrIntroSequence" )
 	}
 }
 

@@ -1063,7 +1063,7 @@ Resource/UI/flowstate_customhudvgui.res
 		"wide"						"90"
 		"tall"						"90"
 		"xpos"						"-15"
-		"ypos"						"-115"
+		"ypos"						"-150"
 		"visible"					"0"
 		"enabled"					"1"
 		"scaleImage"				"1"

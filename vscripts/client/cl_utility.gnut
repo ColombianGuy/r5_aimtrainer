@@ -1741,6 +1741,13 @@ void function MapConVar_Init()
 	if( GetMapName() == "mp_flowstate" )
 		return
 
+	if( Playlist() == ePlaylists.fs_haloMod_survival && GetMapName() == "mp_rr_desertlands_64k_x_64k" )
+	{
+		SetConVarFloat( "mat_sky_scale", 2.0 )
+		SetConVarString( "mat_sun_color", "1.0 1.0 1.0 1.0" )
+		return
+	}
+	
 	switch( GetMapName() )
 	{
 		case "mp_rr_aqueduct_night":
