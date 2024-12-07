@@ -146,10 +146,11 @@ WeaponData
 	// Ammo
 	"ammo_clip_size"   								"30"
 
-    "ammo_default_total"							"100"
-    "ammo_stockpile_max"							"100"
-    "ammo_no_remove_from_stockpile"					"1"
+    "ammo_default_total"							"0"
+    "ammo_stockpile_max"							"30"
+    "ammo_no_remove_from_stockpile"					"0"
     "ammo_min_to_fire"								"1"
+	"uses_ammo_pool"								"1"
 
 	"damage_type" 									"bullet"
 
