@@ -2625,7 +2625,7 @@ void function Tracker_AddDamageEventsToDeleteQueue( int attacker_handle, int vic
 		// initialize vars..
 		float totalDamageToVictim = 0.0;
 		float timeWindow = deathtime;
-		bool REPORT_STATS = true;
+		bool bReportStats = true;
 		float fightStartTime = FLT_MAX;
 		float fightEndTime = 0.0; 
 		
@@ -2997,12 +2997,14 @@ void function Tracker_AddDamageEventsToDeleteQueue( int attacker_handle, int vic
 			// }
 		// }
 		
+		bool bIsChal = false
 		if( file.gamemode_type_1v1 )
 		{
 			soloGroupStruct group = returnSoloGroupOfPlayer( victim )
 			
 			if( IsValid( group ) && group.IsKeep )
 			{
+				bIsChal = true
 				addStatsToGroup( victim, group, victimTotalDamage, victimTotalHits, victimTotalShots, false )
 			}
 		}
@@ -3048,7 +3050,7 @@ void function Tracker_AddDamageEventsToDeleteQueue( int attacker_handle, int vic
 				a_OID = attacker.p.UID
 				iAttackerScore = attacker.p.season_score
 				
-				if ( REPORT_STATS && attacker != victim )
+				if ( bReportStats && attacker != victim )
 					AddToPlayerKills( a_OID )
 			}
 			else if( attacker.IsNPC() )
@@ -3072,7 +3074,7 @@ void function Tracker_AddDamageEventsToDeleteQueue( int attacker_handle, int vic
 					attName = DamageSourceIDToString( attackerID )			
 			}
 			
-			if ( REPORT_STATS )
+			if ( bReportStats )
 			{
 				AddToPlayerDeaths( victim )
 				AddToPlayerShots( v_OID, victimTotalShots )
@@ -3081,13 +3083,15 @@ void function Tracker_AddDamageEventsToDeleteQueue( int attacker_handle, int vic
 			
 			string victimcontroller = victimIsPlayer ? victim.p.input.tostring() : "1"
 			int iVictimScore = victimIsPlayer ? victim.p.season_score : 0
-
+			
+			int isChal = bIsChal ? 1 : 0
 			int pA = pingAttacker.tointeger()
 			int pV = pingVictim.tointeger()
-            logString += format("\n^^,%s,1,%d,%d,%s,%s,%s,%i,%d,%s,%d,%d,%s,%s,%i,%i\n&&,%s,%d,%s,%d,%s,%s,%i,%d,%s,%d,%d,%s,%s,%s,%i,%i\n",
+			int currentTimeStamp = GetUnixTimestamp()
+            logString += format("\n^^,%s,1,%d,%d,%s,%s,%s,%i,%d,%s,%d,%d,%s,%s,%i,%i,%i\n&&,%s,%d,%s,%d,%s,%s,%i,%d,%s,%d,%d,%s,%s,%s,%i,%i,%i\n",
                 a_OID, 					//0
                 GetNumTeamsRemaining(), //2
-                GetUnixTimestamp(), 	//3
+                currentTimeStamp, 	//3
                 v_OID, 					//4
                 team_of_killer, 		//5
                 team_of_killed, 		//6
@@ -3100,10 +3104,11 @@ void function Tracker_AddDamageEventsToDeleteQueue( int attacker_handle, int vic
 				victimName, 			//13
 				iAttackerScore,			//14
 				iVictimScore,			//15
+				isChal,					//16
                 v_OID, 				//0
                 aliveTeams, 		//1
                 a_OID, 				//2
-                GetUnixTimestamp(), //3
+                currentTimeStamp, 	//3
                 team_of_killer, 	//4
                 team_of_killed, 	//5
                 timeRemaining, 		//6
@@ -3115,10 +3120,11 @@ void function Tracker_AddDamageEventsToDeleteQueue( int attacker_handle, int vic
 				attName, 			//12
 				victimName, 		//13
 				iAttackerScore,		//14
-				iVictimScore		//15
+				iVictimScore,		//15
+				isChal 				//16
             );
 
-			if ( REPORT_STATS && file.bSafeLog )
+			if ( bReportStats && file.bSafeLog )
 			{
 				LogEvent__internal( logString, file.LogE )
 				
