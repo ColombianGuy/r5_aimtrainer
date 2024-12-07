@@ -1,0 +1,167 @@
+// "Gamematerial" "effect_name"
+
+
+ImpactTable
+{
+	Info
+	{
+		"whizby_sound_from_player"	"Bullets.EnergyNearmiss"
+		"whizby_sound_from_AI"		"Bullets.EnergyNearmiss_AIGruntGenerated"
+		"whizby_maxDistancePilot"	"300"
+		"whizby_maxDistanceTitan"	"600"
+	}
+
+	FX
+	{
+		"C" "P_impact_exp_arcball_default" //Concrete, rock, porcelain, boulder, gravel, asphalt, brick, concrete_block, plaster
+		"D" "P_impact_exp_arcball_default" //Dirt, slipperyslime, snow, carpet, cardboard, floatingstandable, ceiling_tile, papercup
+		"E" "P_impact_exp_arcball_default" // metal_titan
+
+		"F" "P_impact_exp_arcball_default" //flesh
+		"G" "P_impact_exp_arcball_default" //metalgrate, chainlink, chain
+		"H" "P_impact_exp_arcball_default" //alienflesh
+
+		"J" "P_impact_exp_arcball_default" //grass
+		"K" "P_impact_exp_arcball_default" //Mud
+		"L" "P_impact_exp_arcball_default" //plastic_barrel, plastic_box, item, rubber, rubbertire, jeeptire, slidingrubbertire, brakingrubbertire, slidingrubbertire_front, slidingrubbertire_rear
+		"M" "P_impact_exp_arcball_default" //Default, metal, metal_box, solidmetal, armorflesh, metal_bouncy, slippery_metal, shellcasing_small, shellcasing_large, metal_barrel, floating_metal_barrel, weapon
+		"N" "P_impact_exp_arcball_default"
+		"O" "P_impact_exp_arcball_default" //Foliage
+		"P" "P_impact_exp_arcball_default" //Computer
+
+		"R" "P_impact_exp_arcball_default" //metalpanel, grenade, canister
+		"S" "P_impact_exp_arcball_default" //water, slime
+		"T" "P_impact_exp_arcball_default" //tile
+		"U" "P_impact_exp_arcball_default" //glass_breakable
+
+		"V" "P_impact_exp_arcball_default" //Metal Vent
+		"W" "P_impact_exp_arcball_default" //Wood, Wood_lowdensity, Wood_Box, Wood_Crate, Wood_Plank, Wood_Solid, Wood_Furniture, Wood_Panel watermelon
+
+		"Y" "P_impact_exp_arcball_default" //glass, brokenglass, glassbottle, pottery
+		"Z" "P_impact_exp_arcball_default"  //sand
+
+		"0" "P_impact_exp_arcball_default"
+		"1" "P_impact_exp_arcball_default"
+		"2" "P_impact_exp_arcball_default"
+		"3" "P_impact_exp_arcball_default"
+		"4" "P_impact_exp_arcball_default"
+		"5" "P_impact_exp_arcball_default"
+		"6" "P_impact_exp_arcball_default"
+		"7" "P_impact_exp_arcball_default"
+		"8" "P_impact_exp_arcball_default"
+		"9" "P_impact_exp_arcball_default" //puddle
+
+		"airburst" "P_impact_exp_arcball_default"
+		"critical_hit" "P_impact_exp_arcball_default"
+	}
+
+	Sound
+	{
+		"C" "Explo_ProximityEMP_Impact_3P"
+		"D" "Explo_ProximityEMP_Impact_3P"
+		"E" "Explo_ProximityEMP_Impact_3P"
+
+		"F" "Explo_ProximityEMP_Impact_3P"
+		"G" "Explo_ProximityEMP_Impact_3P"
+		"H" "Explo_ProximityEMP_Impact_3P"
+
+		"J" "Explo_ProximityEMP_Impact_3P"
+		"K" "Explo_ProximityEMP_Impact_3P"
+		"L" "Explo_ProximityEMP_Impact_3P"
+		"M" "Explo_ProximityEMP_Impact_3P"
+		"N" "Explo_ProximityEMP_Impact_3P"
+		"O" "Explo_ProximityEMP_Impact_3P"
+		"P" "Explo_ProximityEMP_Impact_3P"
+
+		"R" "Explo_ProximityEMP_Impact_3P"
+		"S" "Explo_ProximityEMP_Impact_3P"
+		"T" "Explo_ProximityEMP_Impact_3P"
+		"U" "Explo_ProximityEMP_Impact_3P"
+
+		"V" "Explo_ProximityEMP_Impact_3P"
+		"W" "Explo_ProximityEMP_Impact_3P"
+		"X" "TitanBubbleShield.Explosive.BulletImpact_3P_vs_3P"
+		"Y" "Explo_ProximityEMP_Impact_3P"
+		"Z" "Explo_ProximityEMP_Impact_3P"
+
+		//"splash" "Water.BulletImpact"
+		//"slime_splash" "Water.BulletImpact"
+
+		"airburst" "Explo_ProximityEMP_Impact_3P"
+		"shieldhit" "TitanShield.Explosive.BulletImpact_3P_vs_3P"
+	}
+
+	Sound_attacker
+	{
+		"C" "Explo_ProximityEMP_Impact_1P"
+		"D" "Explo_ProximityEMP_Impact_1P"
+		"E" "explo_proximityemp_impact_1p_vs_3p"
+
+		"F" "Explo_ProximityEMP_Impact_1P"
+		"G" "Explo_ProximityEMP_Impact_1P"
+		"H" "Explo_ProximityEMP_Impact_1P"
+
+		"J" "Explo_ProximityEMP_Impact_1P"
+		"K" "Explo_ProximityEMP_Impact_1P"  // mud?
+		"L" "Explo_ProximityEMP_Impact_1P"
+		"M" "Explo_ProximityEMP_Impact_1P"
+		"N" "Explo_ProximityEMP_Impact_1P"	// sand?
+		"O" "Explo_ProximityEMP_Impact_1P"
+		"P" "Explo_ProximityEMP_Impact_1P"
+
+		"R" "Explo_ProximityEMP_Impact_1P"
+		"S" "Explo_ProximityEMP_Impact_1P"
+		"T" "Explo_ProximityEMP_Impact_1P"
+		"U" "Explo_ProximityEMP_Impact_1P"
+
+		"V" "Explo_ProximityEMP_Impact_1P"
+		"W" "Explo_ProximityEMP_Impact_1P"
+		"X"	"TitanBubbleShield.Explosive.BulletImpact_1P_vs_3P"
+		"Y" "Explo_ProximityEMP_Impact_1P"
+		"Z" "Explo_ProximityEMP_Impact_1P"
+
+		//"splash" "Water.BulletImpact"
+		//"slime_splash" "Water.BulletImpact"
+
+		"airburst" "Explo_ProximityEMP_Impact_1P"
+		"shieldhit" "TitanShield.Explosive.BulletImpact_1P_vs_3P"
+	}
+
+	Sound_victim
+	{
+		"C" "Explo_ProximityEMP_Impact_3P"
+		"D" "Explo_ProximityEMP_Impact_3P"
+		"E" "explo_proximityemp_impact_3p_vs_1p"
+
+		"F" "Explo_ProximityEMP_Impact_3P"
+		"G" "Explo_ProximityEMP_Impact_3P"
+		"H" "Explo_ProximityEMP_Impact_3P"
+
+		"J" "Explo_ProximityEMP_Impact_3P"
+		"K" "Explo_ProximityEMP_Impact_3P"
+		"L" "Explo_ProximityEMP_Impact_3P"
+		"M" "Explo_ProximityEMP_Impact_3P"
+		"N" "Explo_ProximityEMP_Impact_3P"
+		"O" "Explo_ProximityEMP_Impact_3P"
+		"P" "Explo_ProximityEMP_Impact_3P"
+
+		"R" "Explo_ProximityEMP_Impact_3P"
+		"S" "Explo_ProximityEMP_Impact_3P"
+		"T" "Explo_ProximityEMP_Impact_3P"
+		"U" "Explo_ProximityEMP_Impact_3P"
+
+		"V" "Explo_ProximityEMP_Impact_3P"
+		"W" "Explo_ProximityEMP_Impact_3P"
+		"X" "TitanBubbleShield.Explosive.BulletImpact_3P_vs_3P"
+		"Y" "Explo_ProximityEMP_Impact_3P"
+		"Z" "Explo_ProximityEMP_Impact_3P"
+
+		//"splash" "Water.BulletImpact"
+		//"slime_splash" "Water.BulletImpact"
+
+		"airburst" "Explo_ProximityEMP_Impact_3P"
+		"shieldhit" "TitanShield.Explosive.BulletImpact_3P_vs_1P"
+	}
+
+
+}

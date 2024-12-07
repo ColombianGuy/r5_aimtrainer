@@ -1,0 +1,173 @@
+// "Gamematerial" "effect_name"
+
+ImpactTable
+{
+
+	Info
+	{
+		"whizby_sound_from_player"	"Bullets.EnergyNearmiss"
+		"whizby_sound_from_AI"		"Bullets.EnergyNearmiss_AIGruntGenerated"
+		"whizby_maxDistancePilot"	"300"
+		"whizby_maxDistanceTitan"	"600"
+	}
+
+	FX
+	{
+		"C" "P_impact_exp_laserlite_default" // Concrete, rock, porcelain, boulder, gravel, asphalt, brick, concrete_block, plaster
+		"D" "P_impact_exp_laserlite_default" //Dirt, slipperyslime, snow, carpet, cardboard, floatingstandable, ceiling_tile, papercup
+		"E" "P_impact_exp_laserlite_default" // metal_titan
+
+		"F" "P_impact_exp_laserlite_default" //flesh
+		"G" "P_impact_exp_laserlite_default" //metalgrate, chainlink, chain
+		"H" "P_impact_exp_laserlite_default" //alienflesh
+
+		"J" "P_impact_exp_laserlite_default" //grass
+		"K" "P_impact_exp_laserlite_default" //Mud
+		"L" "P_impact_exp_laserlite_default" //plastic_barrel, plastic_box, item, rubber, rubbertire, jeeptire, slidingrubbertire, brakingrubbertire, slidingrubbertire_front, slidingrubbertire_rear
+		"M" "P_impact_exp_laserlite_default" //Default, metal, metal_box, solidmetal, armorflesh, metal_bouncy, slippery_metal, shellcasing_small, shellcasing_large, metal_barrel, floating_metal_barrel, weapon
+		"N" "P_impact_exp_laserlite_default"
+		"O" "P_impact_exp_laserlite_default" //Foliage
+		"P" "P_impact_exp_laserlite_default" //Computer
+
+		"R" "P_impact_exp_laserlite_default" //metalpanel, grenade, canister
+
+		"R" "P_impact_exp_laserlite_default" //metalpanel, grenade, canister
+		"S" "P_impact_exp_laserlite_default" //water, slime
+		"T" "P_impact_exp_laserlite_default" //tile
+		"U" "P_impact_exp_laserlite_default" //glass_breakable
+
+		"V" "P_impact_exp_laserlite_default" //Metal Vent
+		"W" "P_impact_exp_laserlite_default" //Wood, Wood_lowdensity, Wood_Box, Wood_Crate, Wood_Plank, Wood_Solid, Wood_Furniture, Wood_Panel watermelon
+
+		"Y" "P_impact_exp_laserlite_default" //glass, brokenglass, glassbottle, pottery
+		"Z" "P_impact_exp_laserlite_default"  //sand
+
+		"0" "P_impact_exp_laserlite_default"
+		"1" "P_impact_exp_laserlite_default"
+		"2" "P_impact_exp_laserlite_default"
+		"3" "P_impact_exp_laserlite_default"
+		"4" "P_impact_exp_laserlite_default"
+		"5" "P_impact_exp_laserlite_default"
+		"6" "P_impact_exp_laserlite_default"
+		"7" "P_impact_exp_laserlite_default"
+		"8" "P_impact_exp_laserlite_default"
+		"9" "P_impact_exp_laserlite_default" //puddle
+
+		"airburst" "P_impact_exp_laserlite_default"
+		"splash" "P_impact_exp_laserlite_default"
+		"slime_splash" "P_impact_exp_laserlite_default"
+
+		"shieldhit" "P_impact_exp_laserlite_default" // metal_titan
+		"critical_hit" "P_impact_exp_laserlite_default"
+	}
+
+	Sound
+	{
+		"C" "Titan_Tone_SonarLock_Impact_Pulse_3P"
+		"D" "Titan_Tone_SonarLock_Impact_Pulse_3P"
+		"E" "Titan_Tone_SonarLock_Impact_Pulse_3P"
+
+		"F" "Titan_Tone_SonarLock_Impact_Pulse_3P"
+		"G" "Titan_Tone_SonarLock_Impact_Pulse_3P"
+		"H" "Titan_Tone_SonarLock_Impact_Pulse_3P"
+
+		"J" "Titan_Tone_SonarLock_Impact_Pulse_3P"
+		"K" "Titan_Tone_SonarLock_Impact_Pulse_3P"
+		"L" "Titan_Tone_SonarLock_Impact_Pulse_3P"
+		"M" "Titan_Tone_SonarLock_Impact_Pulse_3P"
+		"N" "Titan_Tone_SonarLock_Impact_Pulse_3P"
+		"O" "Titan_Tone_SonarLock_Impact_Pulse_3P"
+		"P" "Titan_Tone_SonarLock_Impact_Pulse_3P"
+
+		"R" "Titan_Tone_SonarLock_Impact_Pulse_3P"
+		"S" "Titan_Tone_SonarLock_Impact_Pulse_3P"
+		"T" "Titan_Tone_SonarLock_Impact_Pulse_3P"
+		"U" "Titan_Tone_SonarLock_Impact_Pulse_3P"
+
+		"V" "Titan_Tone_SonarLock_Impact_Pulse_3P"
+		"W" "Titan_Tone_SonarLock_Impact_Pulse_3P"
+		"X"	"Titan_Tone_SonarLock_Impact_Pulse_3P"
+		"Y" "Titan_Tone_SonarLock_Impact_Pulse_3P"
+		"Z" "Titan_Tone_SonarLock_Impact_Pulse_3P"
+
+		//"splash" "Default.Energy.BulletImpact_3P_vs_3P"
+		//"slime_splash" "Default.Energy.BulletImpact_3P_vs_3P"
+
+		//"airburst" ""
+		"shieldhit" "Titan_Tone_SonarLock_Impact_Pulse_3P"
+	}
+
+	Sound_attacker
+	{
+		"C" "Titan_Tone_SonarLock_Impact_Pulse_1P"
+		"D" "Titan_Tone_SonarLock_Impact_Pulse_1P"
+		"E" "Titan_Tone_SonarLock_Impact_Pulse_1P"
+
+		"F" "Titan_Tone_SonarLock_Impact_Pulse_1P"
+		"G" "Titan_Tone_SonarLock_Impact_Pulse_1P"
+		"H" "Titan_Tone_SonarLock_Impact_Pulse_1P"
+
+		"J" "Titan_Tone_SonarLock_Impact_Pulse_1P"
+		"K" "Titan_Tone_SonarLock_Impact_Pulse_1P"
+		"L" "Titan_Tone_SonarLock_Impact_Pulse_1P"
+		"M" "Titan_Tone_SonarLock_Impact_Pulse_1P"
+		"N" "Titan_Tone_SonarLock_Impact_Pulse_1P"
+		"O" "Titan_Tone_SonarLock_Impact_Pulse_1P"
+		"P" "Titan_Tone_SonarLock_Impact_Pulse_1P"
+
+		"R" "Titan_Tone_SonarLock_Impact_Pulse_1P"
+		"S" "Titan_Tone_SonarLock_Impact_Pulse_1P"
+		"T" "Titan_Tone_SonarLock_Impact_Pulse_1P"
+		"U" "Titan_Tone_SonarLock_Impact_Pulse_1P"
+
+		"V" "Titan_Tone_SonarLock_Impact_Pulse_1P"
+		"W" "Titan_Tone_SonarLock_Impact_Pulse_1P"
+		"X"	"Titan_Tone_SonarLock_Impact_Pulse_1P"
+		"Y" "Titan_Tone_SonarLock_Impact_Pulse_1P"
+		"Z" "Titan_Tone_SonarLock_Impact_Pulse_1P"
+
+		//"splash" "Default.Energy.BulletImpact_1P_vs_3P"
+		//"slime_splash" "Default.Energy.BulletImpact_1P_vs_3P"
+
+		//"airburst" ""
+		"shieldhit" "Titan_Tone_SonarLock_Impact_Pulse_1P"
+	}
+
+	Sound_victim
+	{
+		"C" "Titan_Tone_SonarLock_Impact_Pulse_3P"
+		"D" "Titan_Tone_SonarLock_Impact_Pulse_3P"
+		"E" "Titan_Tone_SonarLock_Impact_Pulse_3P"
+
+		"F" "Titan_Tone_SonarLock_Impact_Pulse_3P"
+		"G" "Titan_Tone_SonarLock_Impact_Pulse_3P"
+		"H" "Titan_Tone_SonarLock_Impact_Pulse_3P"
+
+		"J" "Titan_Tone_SonarLock_Impact_Pulse_3P"
+		"K" "Titan_Tone_SonarLock_Impact_Pulse_3P"
+		"L" "Titan_Tone_SonarLock_Impact_Pulse_3P"
+		"M" "Titan_Tone_SonarLock_Impact_Pulse_3P"
+		"N" "Titan_Tone_SonarLock_Impact_Pulse_3P"
+		"O" "Titan_Tone_SonarLock_Impact_Pulse_3P"
+		"P" "Titan_Tone_SonarLock_Impact_Pulse_3P" // temp
+
+		"R" "Titan_Tone_SonarLock_Impact_Pulse_3P"
+		"S" "Titan_Tone_SonarLock_Impact_Pulse_3P"
+		"T" "Titan_Tone_SonarLock_Impact_Pulse_3P"
+		"U" "Titan_Tone_SonarLock_Impact_Pulse_3P"
+
+		"V" "Titan_Tone_SonarLock_Impact_Pulse_3P"
+		"W" "Titan_Tone_SonarLock_Impact_Pulse_3P"
+		"X"	"Titan_Tone_SonarLock_Impact_Pulse_3P"
+		"Y" "Titan_Tone_SonarLock_Impact_Pulse_3P"
+		"Z" "Titan_Tone_SonarLock_Impact_Pulse_3P"
+
+		//"splash" "Default.Energy.BulletImpact_3P_vs_3P"
+		//"slime_splash" "Default.Energy.BulletImpact_3P_vs_3P"
+
+		//"airburst" ""
+		"shieldhit" "Titan_Tone_SonarLock_Impact_Pulse_3P"
+	}
+
+
+}

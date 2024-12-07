@@ -1,0 +1,16 @@
+// "Gamematerial" "effect_name"
+
+
+ImpactTable
+{
+	FX_attacker_layered_MP
+	{
+		//"F" "P_impact_dragonbreath"
+		"F" "impact_metal"
+	}
+
+	FX_attacker_layered_SP
+	{
+		"F" "impact_metal"
+	}
+}

@@ -1,0 +1,232 @@
+// "Gamematerial" "effect_name"
+
+
+
+ImpactTable
+{
+
+	Info
+	{
+		"whizby_sound_from_player"	"Bullets.EnergyNearmiss"
+		"whizby_sound_from_AI"		"Bullets.EnergyNearmiss_AIGruntGenerated"
+		"whizby_maxDistancePilot"	"200"
+		"whizby_maxDistanceTitan"	"400"
+	}
+
+	FX
+	{
+		"C" "P_impact_titan_sniper_default" // Concrete, rock, porcelain, boulder, gravel, asphalt, brick, concrete_block, plaster
+		"D" "P_impact_titan_sniper_default" //Dirt, slipperyslime, snow, carpet, cardboard, floatingstandable, ceiling_tile, papercup
+		"E" "P_impact_titan_sniper_titan" // metal_titan
+
+		"F" "P_impact_titan_sniper_default" //flesh
+		"G" "P_impact_titan_sniper_default" //metalgrate, chainlink, chain
+		"H" "P_impact_titan_sniper_default" //alienflesh
+
+		"J" "P_impact_titan_sniper_default" //grass
+		"K" "P_impact_titan_sniper_default" //Mud
+		"L" "P_impact_titan_sniper_default" //plastic_barrel, plastic_box, item, rubber, rubbertire, jeeptire, slidingrubbertire, brakingrubbertire, slidingrubbertire_front, slidingrubbertire_rear
+		"M" "P_impact_titan_sniper_default" //Default, metal, metal_box, solidmetal, armorflesh, metal_bouncy, slippery_metal, shellcasing_small, shellcasing_large, metal_barrel, floating_metal_barrel, weapon
+		"N" "P_impact_titan_sniper_default" //Slime
+		"O" "P_impact_titan_sniper_default" //Foliage
+		"P" "P_impact_titan_sniper_titan" //Metal_Spectre
+
+		"R" "P_impact_titan_sniper_default" //metalpanel, grenade, canister
+
+		"R" "P_impact_titan_sniper_default" //metalpanel, grenade, canister
+		"S" "P_impact_titan_sniper_default" //water, slime
+		"T" "P_impact_titan_sniper_default" //tile
+		"U" "P_impact_titan_sniper_default" //glass_breakable
+
+		"V" "P_impact_titan_sniper_default" //Metal Vent
+		"W" "P_impact_titan_sniper_default" //Wood, Wood_lowdensity, Wood_Box, Wood_Crate, Wood_Plank, Wood_Solid, Wood_Furniture, Wood_Panel watermelon
+
+		"Y" "P_impact_titan_sniper_default" //glass, brokenglass, glassbottle, pottery
+		"Z" "P_impact_titan_sniper_default"  //sand
+
+		"0" "P_impact_titan_sniper_default"
+		"1" "P_impact_titan_sniper_default"
+		"2" "P_impact_titan_sniper_default"
+		"3" "P_impact_titan_sniper_default"
+		"4" "P_impact_titan_sniper_default"
+		"5" "P_impact_titan_sniper_default"
+		"6" "P_impact_titan_sniper_default"
+		"7" "P_impact_titan_sniper_default"
+		"8" "P_impact_titan_sniper_default"
+		"9" "P_impact_titan_sniper_default" //puddle
+
+		"airburst" "P_impact_titan_sniper_default"
+		"splash" "P_impact_titan_sniper_default"
+		"slime_splash" "P_impact_titan_sniper_default"
+
+		"shieldhit" "P_impact_titan_sniper_titan" // metal_titan
+		"critical_hit" "P_impact_titan_sniper_titan"
+	}
+
+	FX
+	{
+		"C" "impact_concrete_large"	//Concrete, rock, porcelain, boulder, gravel, asphalt, brick, concrete_block, plaster
+		"D" "impact_dirt_large"			//Dirt, slipperyslime, snow, carpet, cardboard, floatingstandable, ceiling_tile, papercup
+		"E" "impact_metal_titan"		// metal_titan
+
+		"F" "impact_flesh"					//flesh
+		"G" "impact_metal_large"		//metalgrate, chainlink, chain
+		"H" "impact_alienflesh"			//alienflesh
+
+		"J" "impact_dirt_large"			//grass
+		"K" "impact_mud_large" 		//Mud
+		"L" "impact_plastic_large"	//plastic_barrel, plastic_box, item, rubber, rubbertire, jeeptire, slidingrubbertire, brakingrubbertire, slidingrubbertire_front, slidingrubbertire_rear
+		"M" "impact_metal_large"		//Default, metal, metal_box, solidmetal, armorflesh, metal_bouncy, slippery_metal, shellcasing_small, shellcasing_large, metal_barrel, floating_metal_barrel, weapon
+		"N" "P_impact_slime_large" //Slime
+		"O" "impact_dirt_large"			//Foliage
+		"P" "impact_metal_large"		//Metal_Spectre
+
+		"R" "impact_concrete_large"	//metalpanel, grenade, canister
+		"S" "P_impact_water_LG"						//water, slime
+		"T" "impact_concrete_large"	//tile
+		"U" "impact_glass"					//glass_breakble
+
+		"V" "impact_metal_large"		//Metal Vent
+		"W" "impact_wood_large"			//Wood, Wood_lowdensity, Wood_Box, Wood_Crate, Wood_Plank, Wood_Solid, Wood_Furniture, Wood_Panel watermelon
+
+		"Y" "impact_glass"					//glass, brokenglass, glassbottle, pottery
+	    "Z" "impact_dirt"						//Sand
+
+		"0" "impact_dirt_large"
+		"1" "impact_concrete_large"
+		"2" "impact_dirt_large"
+		"3" "impact_concrete_large"
+		"4" "impact_concrete_large"
+		"5" "impact_concrete_large"
+		"6" "impact_concrete_large"
+		"7" "impact_concrete_large"
+		"8" "impact_concrete_large"
+		"9" "impact_puddle"					//puddle
+
+		"splash" "P_impact_water_LG" //brush water
+		"slime_splash" "P_impact_water_LG"
+		"shieldhit" "P_xo_armor_impact"
+		"critical_hit" "impact_metal_titan"
+	}
+
+	FX_victim
+	{
+		"F" "P_impact_titan_sniper_victim"
+		"shieldhit" "P_impact_titan_sniper_victim"
+		"E" "P_impact_titan_sniper_victim"		// metal_titan
+		"P" "P_impact_titan_sniper_victim"
+		"headshot_flesh" "P_impact_titan_sniper_victim"
+		"headshot_mechanical" "P_impact_titan_sniper_victim"
+
+	}
+
+
+	Sound
+	{
+		"C" "Default.Energy.BulletImpact_3P_vs_3P"
+		"D" "Default.Energy.BulletImpact_3P_vs_3P"
+		"E" "Titan.Energy.BulletImpact_3P_vs_3P"
+
+		"F" "Default.Energy.BulletImpact_3P_vs_3P"
+		"G" "Default.Energy.BulletImpact_3P_vs_3P"
+		"H" "Default.Energy.BulletImpact_3P_vs_3P"
+
+		"J" "Default.Energy.BulletImpact_3P_vs_3P"
+		"K" "Default.Energy.BulletImpact_3P_vs_3P"
+		"L" "Default.Energy.BulletImpact_3P_vs_3P"
+		"M" "Default.Energy.BulletImpact_3P_vs_3P"
+		"N" "Default.Energy.BulletImpact_3P_vs_3P"
+		"O" "Default.Energy.BulletImpact_3P_vs_3P"
+		"P" "Android.Energy.BulletImpact_3P_vs_3P"
+
+		"R" "Default.Energy.BulletImpact_3P_vs_3P"
+		"S" "Default.Energy.BulletImpact_3P_vs_3P"
+		"T" "Default.Energy.BulletImpact_3P_vs_3P"
+		"U" "Default.Energy.BulletImpact_3P_vs_3P"
+
+		"V" "Default.Energy.BulletImpact_3P_vs_3P"
+		"W" "Default.Energy.BulletImpact_3P_vs_3P"
+		"X"	"TitanBubbleShield.Energy.BulletImpact_3P_vs_3P"
+		"Y" "Default.Energy.BulletImpact_3P_vs_3P"
+		"Z" "Default.Energy.BulletImpact_3P_vs_3P"
+
+		//"splash" "Default.Energy.BulletImpact_3P_vs_3P"
+		//"slime_splash" "Default.Energy.BulletImpact_3P_vs_3P"
+
+		//"airburst" ""
+		"shieldhit" "TitanShield.Energy.BulletImpact_3P_vs_3P"
+	}
+
+	Sound_attacker
+	{
+		"C" "Default.Energy.BulletImpact_1P_vs_3P"
+		"D" "Default.Energy.BulletImpact_1P_vs_3P"
+		"E" "Titan.Energy.BulletImpact_1P_vs_3P"
+
+		"F" "Default.Energy.BulletImpact_1P_vs_3P"
+		"G" "Default.Energy.BulletImpact_1P_vs_3P"
+		"H" "Default.Energy.BulletImpact_1P_vs_3P"
+
+		"J" "Default.Energy.BulletImpact_1P_vs_3P"
+		"K" "Default.Energy.BulletImpact_1P_vs_3P"
+		"L" "Default.Energy.BulletImpact_1P_vs_3P"
+		"M" "Default.Energy.BulletImpact_1P_vs_3P"
+		"N" "Default.Energy.BulletImpact_1P_vs_3P"
+		"O" "Default.Energy.BulletImpact_1P_vs_3P"
+		"P" "Android.Energy.BulletImpact_1P_vs_3P"
+
+		"R" "Default.Energy.BulletImpact_1P_vs_3P"
+		"S" "Default.Energy.BulletImpact_1P_vs_3P"
+		"T" "Default.Energy.BulletImpact_1P_vs_3P"
+		"U" "Default.Energy.BulletImpact_1P_vs_3P"
+
+		"V" "Default.Energy.BulletImpact_1P_vs_3P"
+		"W" "Default.Energy.BulletImpact_1P_vs_3P"
+		"X"	"TitanBubbleShield.Energy.BulletImpact_1P_vs_3P"
+		"Y" "Default.Energy.BulletImpact_1P_vs_3P"
+		"Z" "Default.Energy.BulletImpact_1P_vs_3P"
+
+		//"splash" "Default.Energy.BulletImpact_1P_vs_3P"
+		//"slime_splash" "Default.Energy.BulletImpact_1P_vs_3P"
+
+		//"airburst" ""
+		"shieldhit" "TitanShield.Energy.BulletImpact_1P_vs_3P"
+	}
+
+	Sound_victim
+	{
+		"C" "Default.Energy.BulletImpact_3P_vs_3P"
+		"D" "Default.Energy.BulletImpact_3P_vs_3P"
+		"E" "Titan.Energy.BulletImpact_3P_vs_1P"
+
+		"F" "Default.Energy.BulletImpact_3P_vs_3P"
+		"G" "Default.Energy.BulletImpact_3P_vs_3P"
+		"H" "Default.Energy.BulletImpact_3P_vs_3P"
+
+		"J" "Default.Energy.BulletImpact_3P_vs_3P"
+		"K" "Default.Energy.BulletImpact_3P_vs_3P"
+		"L" "Default.Energy.BulletImpact_3P_vs_3P"
+		"M" "Default.Energy.BulletImpact_3P_vs_3P"
+		"N" "Default.Energy.BulletImpact_3P_vs_3P"
+		"O" "Default.Energy.BulletImpact_3P_vs_3P"
+		"P" "Android.Energy.BulletImpact_3P_vs_3P" // temp
+
+		"R" "Default.Energy.BulletImpact_3P_vs_3P"
+		"S" "Default.Energy.BulletImpact_3P_vs_3P"
+		"T" "Default.Energy.BulletImpact_3P_vs_3P"
+		"U" "Default.Energy.BulletImpact_3P_vs_3P"
+
+		"V" "Default.Energy.BulletImpact_3P_vs_3P"
+		"W" "Default.Energy.BulletImpact_3P_vs_3P"
+		"X"	"TitanBubbleShield.Energy.BulletImpact_3P_vs_1P"
+		"Y" "Default.Energy.BulletImpact_3P_vs_3P"
+		"Z" "Default.Energy.BulletImpact_3P_vs_3P"
+
+		//"splash" "Default.Energy.BulletImpact_3P_vs_3P"
+		//"slime_splash" "Default.Energy.BulletImpact_3P_vs_3P"
+
+		//"airburst" ""
+		"shieldhit" "TitanShield.Energy.BulletImpact_3P_vs_1P"
+	}
+
+}

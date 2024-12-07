@@ -1,0 +1,158 @@
+// "Gamematerial" "effect_name"
+
+ImpactTable
+{
+	FX
+	{
+		"C" "none"
+		"D" "none"
+		"E" "none"
+
+		"F" "none"
+		"G" "none"
+		"H" "none"
+
+		"J" "none"
+		"K" "none"
+		"L" "none"
+		"M" "none"
+		"N" "none"
+		"O" "none"
+		"P" "none"
+
+		"R" "none"
+		"S" "none"
+		"T" "none"
+		"U" "none"
+
+		"V" "none"
+		"W" "none"
+
+		"Y" "none"
+		"Z" "none"
+
+		"0" "none"
+		"1" "none"
+		"2" "none"
+		"3" "none"
+		"4" "none"
+		"5" "none"
+		"6" "none"
+		"7" "none"
+		"8" "none"
+		"9" "impact_puddle"
+
+		"airburst" "none"
+		"critical_hit" "none"
+	}
+
+	Sound
+	{
+		"C" "sentryfragdrone_unpack_3p"
+		"D" "sentryfragdrone_unpack_3p"
+		"E" "sentryfragdrone_unpack_3p"
+
+		"F" "sentryfragdrone_unpack_3p"
+		"G" "sentryfragdrone_unpack_3p"
+		"H" "sentryfragdrone_unpack_3p"
+
+		"J" "sentryfragdrone_unpack_3p"
+		"K" "sentryfragdrone_unpack_3p"
+		"L" "sentryfragdrone_unpack_3p"
+		"M" "sentryfragdrone_unpack_3p"
+		"N" "sentryfragdrone_unpack_3p"
+		"O" "sentryfragdrone_unpack_3p"
+		"P" "sentryfragdrone_unpack_3p"
+
+		"R" "sentryfragdrone_unpack_3p"
+		"S" "sentryfragdrone_unpack_3p"
+		"T" "sentryfragdrone_unpack_3p"
+		"U" "sentryfragdrone_unpack_3p"
+
+		"V" "sentryfragdrone_unpack_3p"
+		"W" "sentryfragdrone_unpack_3p"
+		"X"	"sentryfragdrone_unpack_3p"
+		"Y" "sentryfragdrone_unpack_3p"
+		"Z" "sentryfragdrone_unpack_3p"
+
+		//"splash" "Water.BulletImpact"
+		//"slime_splash" "Water.BulletImpact"
+
+		"airburst" "sentryfragdrone_unpack_3p"
+		"shieldhit" "sentryfragdrone_unpack_3p"
+	}
+
+	Sound_attacker
+	{
+		"C" "sentryfragdrone_unpack_3p"
+		"D" "sentryfragdrone_unpack_3p"
+		"E" "sentryfragdrone_unpack_3p"
+
+		"F" "sentryfragdrone_unpack_3p"
+		"G" "sentryfragdrone_unpack_3p"
+		"H" "sentryfragdrone_unpack_3p"
+
+		"J" "sentryfragdrone_unpack_3p"
+		"K" "sentryfragdrone_unpack_3p"  // mud?
+		"L" "sentryfragdrone_unpack_3p"
+		"M" "sentryfragdrone_unpack_3p"
+		"N" "sentryfragdrone_unpack_3p"	// sand?
+		"O" "sentryfragdrone_unpack_3p"
+		"P" "sentryfragdrone_unpack_3p"
+
+		"R" "sentryfragdrone_unpack_3p"
+		"S" "sentryfragdrone_unpack_3p"
+		"T" "sentryfragdrone_unpack_3p"
+		"U" "sentryfragdrone_unpack_3p"
+
+		"V" "sentryfragdrone_unpack_3p"
+		"W" "sentryfragdrone_unpack_3p"
+		"X"	"sentryfragdrone_unpack_3p"
+		"Y" "sentryfragdrone_unpack_3p"
+		"Z" "sentryfragdrone_unpack_3p"
+
+		//"splash" "Water.BulletImpact"
+		//"slime_splash" "Water.BulletImpact"
+
+		"airburst" "sentryfragdrone_unpack_3p"
+		"shieldhit" "sentryfragdrone_unpack_3p"
+	}
+
+	Sound_victim
+	{
+		"C" "sentryfragdrone_unpack_3p"
+		"D" "sentryfragdrone_unpack_3p"
+		"E" "sentryfragdrone_unpack_3p"
+
+		"F" "sentryfragdrone_unpack_3p"
+		"G" "sentryfragdrone_unpack_3p"
+		"H" "sentryfragdrone_unpack_3p"
+
+		"J" "sentryfragdrone_unpack_3p"
+		"K" "sentryfragdrone_unpack_3p"
+		"L" "sentryfragdrone_unpack_3p"
+		"M" "sentryfragdrone_unpack_3p"
+		"N" "sentryfragdrone_unpack_3p"
+		"O" "sentryfragdrone_unpack_3p"
+		"P" "sentryfragdrone_unpack_3p"
+
+		"R" "sentryfragdrone_unpack_3p"
+		"S" "sentryfragdrone_unpack_3p"
+		"T" "sentryfragdrone_unpack_3p"
+		"U" "sentryfragdrone_unpack_3p"
+
+		"V" "sentryfragdrone_unpack_3p"
+		"W" "sentryfragdrone_unpack_3p"
+		"X"	"sentryfragdrone_unpack_3p"
+		"Y" "sentryfragdrone_unpack_3p"
+		"Z" "sentryfragdrone_unpack_3p"
+
+		//"splash" "Water.BulletImpact"
+		//"slime_splash" "Water.BulletImpact"
+
+		"airburst" "sentryfragdrone_unpack_3p"
+		"shieldhit" "sentryfragdrone_unpack_3p"
+	}
+
+}
+

@@ -1,0 +1,58 @@
+// "Gamematerial" "effect_name"
+
+// "B" bloodyflesh
+// "X" plastic box, wade, ladder, woodladdder,
+// "I" player_control_clip
+
+ImpactTable
+{
+	FX
+	{
+		"C" "P_boost_jetwash_default" //Concrete, rock, porcelain, boulder, gravel, asphalt, brick, concrete_block, plaster
+		"D" "P_boost_jetwash_default" //Dirt, mud, sand, slipperyslime, snow, carpet, cardboard, floatingstandable, ceiling_tile, papercup
+		"E" "P_boost_jetwash_default" // metal_titan
+
+		"F" "P_boost_jetwash_default" //flesh
+		"G" "P_boost_jetwash_default" //metalgrate, chainlink, chain
+		"H" "P_boost_jetwash_default" //alienflesh
+
+		"J" "P_boost_jetwash_grass" //grass
+		"K" "P_boost_jetwash_default"
+		"L" "P_boost_jetwash_default" //plastic_barrel, plastic_box, item, rubber, rubbertire, jeeptire, slidingrubbertire, brakingrubbertire, slidingrubbertire_front, slidingrubbertire_rear
+		"M" "P_boost_jetwash_default" //Default, metal, metal_box, solidmetal, armorflesh, metal_bouncy, slippery_metal, shellcasing_small, shellcasing_large, metal_barrel, floating_metal_barrel, weapon
+		"N" "P_boost_jetwash_default"
+		"O" "P_boost_jetwash_grass" //Foliage
+		"P" "P_boost_jetwash_default" //Computer
+
+		"R" "P_boost_jetwash_default" //metalpanel, grenade, canister
+		"S" "P_boost_jetwash_water" //water, slime
+		"T" "P_boost_jetwash_default" //tile
+		"U" "P_boost_jetwash_default" //glass_breakable
+
+		"V" "P_boost_jetwash_default" //Metal Vent
+		"W" "P_boost_jetwash_default" //Wood, Wood_lowdensity, Wood_Box, Wood_Crate, Wood_Plank, Wood_Solid, Wood_Furniture, Wood_Panel watermelon
+
+		"X" "P_boost_jetwash_default" //xo_shield
+
+		"Y" "P_boost_jetwash_default" //glass, brokenglass, glassbottle, pottery
+		"Z" "P_boost_jetwash_sand"  //sand
+
+		"0" "P_boost_jetwash_default"
+		"1" "P_boost_jetwash_default"
+		"2" "P_boost_jetwash_default"
+		"3" "P_boost_jetwash_default"
+		"4" "P_boost_jetwash_default"
+		"5" "P_boost_jetwash_default"
+		"6" "P_boost_jetwash_default"
+		"7" "P_boost_jetwash_default"
+		"8" "P_boost_jetwash_default"
+		"9" "P_boost_jetwash_water" //puddle
+
+		"splash" "P_boost_jetwash_water"
+		"slime_splash" "P_boost_jetwash_water"
+
+		"airburst" "P_boost_jetwash_default"
+		"critical_hit" "P_boost_jetwash_default"
+	}
+}
+
