@@ -133,6 +133,7 @@ void function SetupWeapons()
 	// SetupDevCommand( "Dev: Arc Tool", "give sp_weapon_arc_tool" )
 	SetupDevCommand( "Dev: EPG", "give mp_weapon_epg" )
 	SetupDevCommand( "Dev: Sidewinder", "give mp_weapon_smr" )
+	SetupDevCommand( "Dev: Archer", "give mp_weapon_rocket_launcher" )
 	#endif
 }
 

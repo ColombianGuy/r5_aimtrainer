@@ -330,6 +330,7 @@ Scripts:
 	weapons/mp_weapon_zipline.nut
 	weapons/mp_weapon_alternator_smg.nut
 	weapons/mp_weapon_smr.nut
+	weapons/mp_weapon_rocket_launcher.nut
 
 	weapons/sh_deployable.gnut
 	weapons/sh_deployable_wall.gnut
