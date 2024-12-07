@@ -106,6 +106,12 @@ void function SetupWeapons()
 	SetupDevCommand( "Pistol: P2020", "give mp_weapon_semipistol" )
 	SetupDevCommand( "Pistol: RE-45", "give mp_weapon_autopistol" )
 	SetupDevCommand( "Pistol: Wingman", "give mp_weapon_wingman" )
+	
+	// Launchers
+	SetupDevCommand( "Launcher: EPG", "give mp_weapon_epg" )
+	SetupDevCommand( "Launcher: Sidewinder", "give mp_weapon_smr" )
+	SetupDevCommand( "Launcher: Archer", "give mp_weapon_rocket_launcher" )
+	SetupDevCommand( "Launcher: Softball", "give mp_weapon_softball" )
 
 	// Grenades
 	if( GetCurrentPlaylistVarBool( "is_halo_gamemode", false ) )
@@ -131,9 +137,6 @@ void function SetupWeapons()
 	SetupDevCommand( "Dev: Smart Pistol", "give mp_weapon_smart_pistol" )
 	SetupDevCommand( "Dev: Wingman Elite", "give mp_weapon_wingman_n" )
 	// SetupDevCommand( "Dev: Arc Tool", "give sp_weapon_arc_tool" )
-	SetupDevCommand( "Dev: EPG", "give mp_weapon_epg" )
-	SetupDevCommand( "Dev: Sidewinder", "give mp_weapon_smr" )
-	SetupDevCommand( "Dev: Archer", "give mp_weapon_rocket_launcher" )
 	#endif
 }
 
