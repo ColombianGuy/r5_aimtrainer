@@ -517,23 +517,24 @@ WeaponData
 	UiData1
 	{
 		"ui"							"ui/epg_ammo_counter"
-		"mesh"					"models/weapons/attachments/epg_rui_upper"
+		"mesh"							"models/weapons/attachments/epg_rui_upper"
 		Args
 		{
 			vis							player_zoomfrac
 			ammo						weapon_ammo
-			clipSize					weapon_clipSize
+			clipSize						weapon_clipSize
+			clipCount					weapon_ammoClipCount
 		}
 	}
 
-	"ui8_enable"		"0"
+	"ui8_enable"		"1"
 	UiData8
 	{
-		"ui"									"ui/pro_screen_panel"
+		"ui"							"ui/pro_screen_panel"
 		"mesh"							"models/weapons/attachments/pro_screen_rui_upper"
 		Args
 		{
-			proValue							proscreen_int0
+			proValue					proscreen_int1
 			proOwnedByPlayer			proscreen_owner_is_player
 		}
 	}
@@ -551,8 +552,8 @@ WeaponData
 			isReloading					weapon_is_reloading
 			teamColor					crosshair_team_color
 			isAmped						weapon_is_amped
-			crosshairMovementX          crosshair_movement_x
-			crosshairMovementY          crosshair_movement_y
+		    crosshairMovementX          crosshair_movement_x
+		    crosshairMovementY          crosshair_movement_y
 		}
 
 		Crosshair_1
