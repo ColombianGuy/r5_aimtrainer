@@ -1056,10 +1056,7 @@ global struct ServerPlayerStruct
 	float lastTimeEnteredCryptosDrone = -1
 
 	//Needler
-	int needles = 0
-	bool ongoingneedlesexplode = false
-	array<entity> proplist
-	entity particleonbody
+	table< entity, array< entity > > needlesData
 
 	int consecutiveKills
 	bool playerHasEnergySword = false
