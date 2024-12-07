@@ -2,10 +2,10 @@ WeaponData
 {
 	// General
 
-	"printname"   									"#WPN_SMR"
-	"shortprintname"								"#WPN_SMR_SHORT"
-	"description" 									"#WPN_SMR_DESC"
-	"longdesc"										"#WPN_SMR_LONGDESC"
+	"printname"   									"Sidewinder SMR" //SMR
+	"shortprintname"								"Sidewinder SMR"
+	"description" 									"Rapidly fires micro-missiles."
+	"longdesc"										"Rapidly fires micro-missiles."
 
 	"menu_icon"										"r2_ui/menus/loadout_icons/anti_titan/at_sidewinder"
 	"hud_icon"										"r2_ui/menus/loadout_icons/anti_titan/at_sidewinder"
