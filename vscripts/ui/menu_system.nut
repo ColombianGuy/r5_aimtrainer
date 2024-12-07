@@ -364,7 +364,8 @@ void function UpdateSystemPanel( var panel )
 			SetButtonData( panel, buttonIndex++, file.OpenScenariosStandings[ panel ] )
 		}
 		
-		SetButtonData( panel, buttonIndex++, file.OpenMOTD[ panel ] )
+		if( GetCurrentPlaylistVarBool( "enable_motd", true ) )
+			SetButtonData( panel, buttonIndex++, file.OpenMOTD[ panel ] )
 		
 		// if( GetCurrentPlaylistName() == "fs_duckhunt" && IsConnected() && file.SETHUNTERALLOWED )
 		// {
@@ -419,6 +420,10 @@ void function UpdateSystemPanel( var panel )
 	{
 		switch( Playlist() )
 		{
+			case ePlaylists.fs_haloMod_survival:
+			msgonbottom = "Halo Mod Battle Royale - Ping: " + MyPing() + " ms."
+			break
+			
 			case ePlaylists.fs_aimtrainer:
 			msgonbottom = "Flowstate Aim Trainer by @CafeFPS"
 			break
