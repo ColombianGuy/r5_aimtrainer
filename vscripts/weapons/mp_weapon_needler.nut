@@ -418,7 +418,9 @@ void function Needler_DelayedDamageToPlayer( entity attacker, entity hitEnt )
 	
 	wait NEEDLER_TIMETOEXPLODE
 
-	if( !(attacker in hitEnt.p.needlesData) || hitEnt.p.needlesData[attacker].len() == 0 ) //Safety check
+	if( !(attacker in hitEnt.p.needlesData) || 
+		hitEnt.p.needlesData[attacker].len() == 0 ||
+		GetGameState() != eGameState.Playing ) //Safety check
 		return
 	
 	float damagetodeal = hitEnt.p.needlesData[attacker].len()*NEEDLER_DAMAGE
