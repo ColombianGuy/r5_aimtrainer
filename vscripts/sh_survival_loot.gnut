@@ -921,6 +921,9 @@ void function OnClientConnected( entity player )
 	ValidateDataTable( player, "datatable/flowstate_weapon_mods.rpak" )
 	ValidateDataTable( player, "datatable/flowstate_all_new_groups.rpak" )
 	ValidateDataTable( player, "datatable/flowstate_weapon_attachment_data.rpak" )
+	
+	if( Playlist() == ePlaylists.fs_haloMod_survival ) 
+		ValidateDataTable( player, "datatable/flowstate_all_new_halomod_survival_groundloot.rpak" )
 }
 
 void function OnPlayerRespawned( entity player )
