@@ -442,8 +442,8 @@ void function ClGamemodeSurvival_Init()
 
 	AddCallback_OnEquipSlotTrackingIntChanged( "backpack", BackpackChanged )
 
-	if ( IsSoloMode() )
-		SetCommsDialogueEnabled( false ) //
+	if ( IsSoloMode() || Flowstate_IsHaloMode() )
+		SetCommsDialogueEnabled( false )
 	
 	if( Playlist() == ePlaylists.fs_haloMod_survival )
 		RegisterSignal("NewKillChangeRui")
