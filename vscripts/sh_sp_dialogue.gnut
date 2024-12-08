@@ -596,7 +596,7 @@ void function PlayDialogueForAnimEvent( entity ent, string dialogueName )
 {
 	if ( !( dialogueName in file.nameToGroupMap ) )
 	{
-		Warning(  ( "Dialogue line " + dialogueName + " is not registered" ) )
+		printt(  ( "Dialogue line " + dialogueName + " is not registered" ) )
 		return
 	}
 
