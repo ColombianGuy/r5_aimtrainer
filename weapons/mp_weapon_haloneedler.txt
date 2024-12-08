@@ -9,7 +9,7 @@ WeaponData
 	"longdesc"										"Guided Munitions Launcher"
 
 	"weapon_type_flags"								"WPT_PRIMARY"
-	"ammo_pool_type"								"bullet"
+	"ammo_pool_type"								"special"
 
 	"menu_icon"										"rui/flowstate_custom/weapon/halo_needler"
 	"hud_icon"										"rui/flowstate_custom/weapon/halo_needler"
