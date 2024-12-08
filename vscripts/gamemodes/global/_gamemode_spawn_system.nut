@@ -4,6 +4,7 @@ global function Flowstate_SpawnSystem_Init
 global function Flowstate_SpawnSystem_InitGamemodeOptions //gamemode must call
 
 global function SpawnSystem_ReturnAllSpawnLocations
+global function SpawnSystem_SortSpawnsByMetaData
 global LocPair &g_waitingRoomPanelLocation
 
 global function SetCallback_FlowstateSpawnsOffset
@@ -27,7 +28,6 @@ global function SpawnSystem_GenerateRandomSpawns
 global function SpawnSystem_SetValidateSpawnsOnLoad
 global function SpawnSystem_CreateLocPairObject
 global function SpawnSystem_GetPakInfoForKey
-
 
 #if DEVELOPER
 	global function DEV_SpawnType
@@ -552,6 +552,7 @@ array<SpawnData> function GenerateCustomSpawns( int eMap, int coreSpawnsLen = -1
 			}
 			else 
 			{
+				mAssert( false, "No valid player start spawn detected \n If this is intentional disable this Assert." )
 				Warning( "No valid player start spawn detected" )
 			}
 		
@@ -855,7 +856,7 @@ array<SpawnData> function SpawnSystem_CreateSpawnObjectArray( array<LocPair> spa
 
 table function GenerateDefaultSpawnData()
 {
-	return { name = "spawn" }
+	return { info = "spawn" }
 }
 
 bool function ValidateOptions( table<string,bool> options )
@@ -1039,7 +1040,6 @@ void function SpawnSystem_SetPanelLocation( vector origin, vector angles )
 			return SpawnSystem_CreateLocPairObject( [], false, null, panels )
 		}
 	)
-
 }
 
 void function __ResolveAndSetPakData( string info )
@@ -1054,7 +1054,7 @@ string function SpawnSystem_GetPakInfoForKey( string key )
 	if( key in file.pakData )
 		return file.pakData[ key ]
 		
-	return ""
+	return "_NOTFOUND"
 }
 
 void function SpawnSystem_SetMetaDataHandler( void functionref( SpawnData ) processFunc )
@@ -1065,6 +1065,47 @@ void function SpawnSystem_SetMetaDataHandler( void functionref( SpawnData ) proc
 void function SpawnSystem_SetValidateSpawnsOnLoad( bool setting )
 {
 	file.bValidateSpawns = setting
+}
+
+table< string, array< SpawnData > > function SpawnSystem_SortSpawnsByMetaData( array<SpawnData> spawns )
+{
+	table< string, array< SpawnData > > sorted
+	foreach( SpawnData data in spawns )
+	{
+		if( !( data.info in sorted ) )
+			sorted[ data.info ] <- [ data ]
+		else
+			sorted[ data.info ].append( data )
+	}
+	
+	#if DEVELOPER 
+		DEV_PrintSortedSpawns( sorted )
+	#endif 
+	
+	return sorted
+}
+
+void function DEV_PrintSortedSpawns( table< string, array< SpawnData > > printSpawns )
+{
+	printw( "=== DEV_PrintSortedSpawns ===" )
+	foreach( string setName, array<SpawnData> spawnDataz in printSpawns )
+	{
+		if( empty( setName ) )
+			setName = "_EMPTY_CLASS"
+			
+		int count = 0
+		printt( " " )
+		printt( " " )
+		printt( "=== Spawns for:", setName, "===" )	
+		foreach( SpawnData data in spawnDataz )
+		{		
+			count++
+			printt( count + ":", VectorToString( data.spawn.origin ), VectorToString( data.spawn.angles ) )
+		}
+	}
+	
+	printt( " " )
+	printt( " " )
 }
 
 //////////////////////////////////////////////////////////////////////
