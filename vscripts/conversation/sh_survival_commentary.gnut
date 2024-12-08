@@ -255,7 +255,9 @@ void function ShSurvivalCommentary_Init()
 {
 	RegisterCSVDialogue( $"datatable/dialogue/survival_host_dialogue.rpak" )
 	RegisterCommentaryBuckets( $"datatable/dialogue/survival_host_dialogue.rpak" )
-	RegisterCSVDialogue( $"datatable/battle_chatter_dialogue.rpak" )
+	
+	if( !ShouldModeDisableCharacterComms() )
+		RegisterCSVDialogue( $"datatable/battle_chatter_dialogue.rpak" )
 	
 	if( Playlist() == ePlaylists.winterexpress )
 	{
