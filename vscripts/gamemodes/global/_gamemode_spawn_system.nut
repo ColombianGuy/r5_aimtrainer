@@ -2043,20 +2043,29 @@ void function DEV_SetTeamCount( int count )
 {
 	bool bReload = false
 	
+	string info
 	if( count == 0 )
 	{
-		string modu = "Cannot set team count to 0. Did you mean -1 for all spawns same team?"
-		
-		printt( modu )
-		printm( modu )
+		info = "Cannot set team count to 0. Did you mean -1 for all spawns same team?"	
+		printt( info )
+		printm( info )
 		
 		return
 	}
 	
-	if( file.iTeamCount != count )
+	if( DEV_SpawnsPlaylist() == "fs_scenarios" )
 	{
-		bReload = true
+		if( count > SCENARIOS_MAX_ALLOWED_TEAMSIZE )
+		{
+			info = "Cannot set team count greater than " + SCENARIOS_MAX_ALLOWED_TEAMSIZE + " for scenarios gamemode."
+			printt( info )
+			printm( info )
+			return
+		}
 	}
+	
+	if( file.iTeamCount != count )
+		bReload = true
 	
 	file.iTeamCount = count
 	
@@ -2066,9 +2075,7 @@ void function DEV_SetTeamCount( int count )
 	printm( msg, count )
 	
 	if( bReload )
-	{
 		DEV_PrintSpawns( true )
-	}
 }
 
 int function GetTeamCount()
