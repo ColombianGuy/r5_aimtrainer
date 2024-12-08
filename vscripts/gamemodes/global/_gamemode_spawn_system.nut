@@ -1085,6 +1085,12 @@ table< string, array< SpawnData > > function SpawnSystem_SortSpawnsByMetaData( a
 	return sorted
 }
 
+//////////////////////////////////////////////////////////////////////
+//						  DEVELOPER FUNCTIONS						//
+//////////////////////////////////////////////////////////////////////
+
+#if DEVELOPER
+
 void function DEV_PrintSortedSpawns( table< string, array< SpawnData > > printSpawns )
 {
 	printw( "=== DEV_PrintSortedSpawns ===" )
@@ -1107,12 +1113,6 @@ void function DEV_PrintSortedSpawns( table< string, array< SpawnData > > printSp
 	printt( " " )
 	printt( " " )
 }
-
-//////////////////////////////////////////////////////////////////////
-//						  DEVELOPER FUNCTIONS						//
-//////////////////////////////////////////////////////////////////////
-
-#if DEVELOPER
 
 bool function IsValidSpawnIndex( int index )
 {
