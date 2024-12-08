@@ -351,6 +351,17 @@ void function GiveBasicSurvivalItems( entity player )
 	}
 	// todo: find why it's not playing fx on cockpit
 	// BroadcastItemPickup( player, "armor_pickup_lv1", eLootAction.EQUIP )
+
+	if( Playlist() == ePlaylists.fs_haloMod_survival )
+	{
+		GiveLoadoutRelatedWeapons_HaloMod( player ) //Cafe was here
+	} else
+	{
+		GiveLoadoutRelatedWeapons( player ) //Cafe was here
+	}
+	
+	if( player.p.respawnPodLanded )
+		return
 	
 	if( Playlist() == ePlaylists.fs_ltm_mortalevoshields )
 	{

@@ -1206,7 +1206,7 @@ void function RespawnBeacon_PutPlayerInDropship( entity player, entity ship, int
 	player.StopObserverMode()
 	ClearPlayerEliminated( player )
 	player.p.respawnPodLanded = true
-	DecideRespawnPlayer( player )
+	DecideRespawnPlayer_Retail( player )
 	ResetPlayerInventory( player )
 	player.SetOrigin( ship.GetOrigin() )
 
@@ -1231,6 +1231,8 @@ void function RespawnBeacon_PutPlayerInDropship( entity player, entity ship, int
 	GiveBasicSurvivalItems( player )
 
 	FallTempAirControl( player )
+	
+	Remote_CallFunction_ByRef( player, "UpdateRUITest" )
 	
 	if(!IsValid(player)) 
 		return
