@@ -28,8 +28,6 @@ WeaponData
 	"projectile_launch_speed"						"2000"
 	"projectile_gravity_scale"						"0.0001"
 
-	"damage_flags"									"DF_BULLET | DF_GIB"
-	
 	"OnClientAnimEvent"								"GlobalClientEventHandler"
 //	"OnWeaponPrimaryAttack"							"OnWeaponPrimaryAttack_GenericMissile_Player"
 //	"OnWeaponNpcPrimaryAttack"						"OnWeaponPrimaryAttack_GenericMissile_NPC"
@@ -37,28 +35,52 @@ WeaponData
 	"OnWeaponNpcPrimaryAttack"						"OnWeaponPrimaryAttack_GenericBoltWithDrop_NPC"
 	"OnWeaponActivate"								"OnWeaponActivate_updateViewmodelAmmo"
 
+	"damage_flags"									"DF_BULLET | DF_GIB"
+
+		// View Drift
+	"viewdrift_hipfire_stand_scale_pitch" 			"0.325"
+	"viewdrift_hipfire_crouch_scale_pitch"			"0.275"
+	"viewdrift_hipfire_air_scale_pitch"   			"0.5"
+	"viewdrift_hipfire_stand_scale_yaw"   			"0.12"
+	"viewdrift_hipfire_crouch_scale_yaw"  			"0.10"
+	"viewdrift_hipfire_air_scale_yaw" 				"0.22"
+	"viewdrift_hipfire_speed_pitch"   				"0.6"
+	"viewdrift_hipfire_speed_yaw" 					"1.22"
+
+	// View Drift
+		"viewdrift_ads_stand_scale_pitch" 				"0.7"
+		"viewdrift_ads_stand_scale_yaw"   				"0.75"
+		"viewdrift_ads_crouch_scale_pitch"  			"0.55"
+		"viewdrift_ads_crouch_scale_yaw"				"0.6"
+		"viewdrift_ads_air_scale_pitch"   				"1"
+		"viewdrift_ads_air_scale_yaw" 					"1.05"
+		"viewdrift_ads_speed_pitch"   					"0.65"
+		"viewdrift_ads_speed_yaw" 						"0.75"
+
 	// Menu
 	"menu_category"                                 "special"
 	"menu_anim_class"                               "medium"
-	"stat_damage" 									"48"
-	"stat_range"  									"60"
-	"stat_accuracy"   								"60"
+	"stat_damage" 									"83"
+	"stat_range"  									"100"
+	"stat_accuracy"   								"100"
 	"stat_rof"										"17"
 
 	// Models
 	"viewmodel"   									"mdl/weapons/epg/ptpov_epg.rmdl"
 	"playermodel" 									"mdl/weapons/epg/w_epg.rmdl"
-	"projectilemodel" 								"mdl/weapons/bullets/projectile_rocket_launcher_sram.rmdl"
+	"projectilemodel" 								"mdl/dev/empty_model.rmdl"
+
 		// Effects
 	"impact_effect_table" 							"exp_plasma_LG"
-	"projectile_trail_effect_0" 					"wpn_grenade_frag_blue"
-	"projectile_trail_effect_1" 					"P_plasma_proj_MD_DLight"
-	"projectile_trail_attachment" 					"exhaust"
+	"projectile_trail_effect_0" 					"P_plasma_proj_LG_DLight"
+//	"projectile_trail_effect_1" 					"P_plasma_proj_LG_DLight"
+//	"projectile_trail_attachment" 					"exhaust"
 	"vortex_absorb_effect"							"wpn_vortex_projectile_SuperSpec_FP"
 	"vortex_absorb_effect_third_person"				"wpn_vortex_projectile_SuperSpec"
 	"vortex_absorb_sound"							"Vortex_Shield_AbsorbRocket"
 	"vortex_absorb_sound_1p_vs_3p"					"Vortex_Shield_AbsorbRocket_1P_VS_3P"
 	"vortex_drain"									"0.0"
+	"vortex_refire_behavior"  						"explosive_round"
 	"projectile_adjust_to_gun_barrel"				"1"
 
 	"explosion_shake_radius"						"300"
@@ -66,8 +88,8 @@ WeaponData
 	"explosion_shake_frequency"						"35"
 	"explosion_shake_duration"						"0.5"
 
-	"fx_muzzle_flash_view"							""
-	"fx_muzzle_flash_world"							""
+	"fx_muzzle_flash_view"							"P_wpn_muzzleflash_epg_FP"
+	"fx_muzzle_flash_world"							"P_wpn_muzzleflash_epg"
 	"fx_muzzle_flash_attach"						"muzzle_flash"
 
 	// Sound
@@ -107,16 +129,16 @@ WeaponData
 		"ammo_no_remove_from_clip"                      "0"
         "ammo_no_remove_from_stockpile"                 "1"
 
-		"damage_near_value"   							"60"
-		"damage_far_value"								"60"
-		"damage_near_value_titanarmor"					"700"
-		"damage_far_value_titanarmor" 					"700"
-		"damage_rodeo" 									"60"
-		"damage_near_distance"							"60"
-		"damage_far_distance" 							"60"
+		"damage_near_value"   							"90"
+		"damage_far_value"								"90"
+		"damage_near_value_titanarmor"					"90"
+		"damage_far_value_titanarmor" 					"90"
+		"damage_rodeo" 									"100"
+		"damage_near_distance"							"2000"
+		"damage_far_distance" 							"2500"
 
-		"explosion_damage"								"40"
-		"explosion_damage_heavy_armor"					"700"
+		"explosion_damage"								"90"
+		"explosion_damage_heavy_armor"					"90"
 
 		"red_crosshair_range" 							"2000"
 
@@ -153,7 +175,7 @@ WeaponData
 
 	"zoom_time_in"									"0.2"
 	"zoom_time_out"   								"0.15"
-	"zoom_fov"										"45"
+	"zoom_fov"										"55"
 
 	"dof_zoom_nearDepthStart"						"6.750"
 	"dof_zoom_nearDepthEnd"							"15.000"
@@ -169,7 +191,7 @@ WeaponData
 
 	"fire_rate"   									"1.0"
 
-	"allow_headshots" 								"1"
+	"allow_headshots" 								"0"
 	"headshot_distance" 							"1000"
 	"damage_headshot_scale"							"1.25"
 
@@ -250,8 +272,10 @@ WeaponData
 	"viewkick_scale_min_ads"  						"0.5"
 	"viewkick_scale_max_ads"  						"1.5"
 	"viewkick_scale_valuePerShot" 					"1.0"
-	"viewkick_scale_valueLerpStart"   				"0"
-	"viewkick_scale_valueLerpEnd" 					"5"
+	"viewkick_scale_pitch_valueLerpStart"   				"0"
+	"viewkick_scale_yaw_valueLerpStart"   				"0"
+	"viewkick_scale_pitch_valueLerpEnd" 					"5"
+	"viewkick_scale_yaw_valueLerpEnd" 					"5"
 	"viewkick_scale_valueDecayDelay"  				"0.3"
 	"viewkick_scale_valueDecayRate"   				"40"
 
@@ -429,9 +453,7 @@ WeaponData
         }
        	extended_ammo
 		{
-			"ammo_stockpile_max"				"120"
-			"ammo_clip_size"   					"8"
-			"ammo_default_total"				"120"
+			"ammo_clip_size"   							"++4"
 		}
         delayed_shot
         {
@@ -467,8 +489,8 @@ WeaponData
 		{
 			"is_burn_mod"		"1"
 
-			"damage_near_value"   							"120"
-			"damage_far_value"								"120"
+			"damage_near_value"   							"++30"
+			"damage_far_value"								"++30"
 			"damage_near_value_titanarmor"					"900"
 			"damage_far_value_titanarmor" 					"900"
 			"explosion_damage"								"90"
@@ -500,17 +522,15 @@ WeaponData
 		{
 			"projectile_launch_speed"						"1750"
 		}
+        survival_finite_ammo
+        {
+            "ammo_default_total"							"0"
+            "ammo_stockpile_max"							"10"
+            "ammo_no_remove_from_stockpile"					"0"
 
-		rocket_arena
-		{
-			"projectile_launch_speed"						"1750"
-       		"impulse_force"									"17500"
-			"impulse_force_explosions"						"55000"
-
-			"damage_near_value"   							"35"
-			"damage_far_value"								"35"
-			"explosion_damage"								"35"
-		}
+            "low_ammo_fraction" 							"0.3"
+	   		"uses_ammo_pool"								"1"
+        }
 	}
 
 	"ui1_enable"		"1"
@@ -522,8 +542,7 @@ WeaponData
 		{
 			vis							player_zoomfrac
 			ammo						weapon_ammo
-			clipSize						weapon_clipSize
-			clipCount					weapon_ammoClipCount
+			clipSize					weapon_clipSize
 		}
 	}
 
@@ -534,7 +553,7 @@ WeaponData
 		"mesh"							"models/weapons/attachments/pro_screen_rui_upper"
 		Args
 		{
-			proValue					proscreen_int1
+			proValue					proscreen_int0
 			proOwnedByPlayer			proscreen_owner_is_player
 		}
 	}

@@ -214,6 +214,9 @@ void function SV_CL_Init()
 	PassiveMedic_Init() //Should be shared. Cafe
 	MpAbilityCryptoDrone_Init()
 	MpAbilityCryptoDroneEMP_Init()
+	// Titanfall GUNS - by LorryLeKral
+	MpWeaponSmartPistol_Init()
+	MpWeaponProximityMine_Init()
 	MpWeaponRocketLauncher_Init()
 
     // Zipline Utility

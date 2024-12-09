@@ -93,6 +93,7 @@ global function StartClusterExplosions
 global function TrapExplodeOnDamage
 global function PROTO_DelayCooldown
 global function PROTO_FlakCannonMissiles
+global function TrapDestroyOnRoundEnd
 global function GetBulletPassThroughTargets
 global function IsValidPassThroughTarget
 global function GivePlayerAmpedWeapon
@@ -1769,6 +1770,17 @@ bool function WeaponIsSmartPistolVariant( entity weapon )
 		return false
 
 	return (isSP == 1)
+}
+
+// NOTE: we should stop using this
+void function TrapDestroyOnRoundEnd( entity player, entity trapEnt )
+{
+	trapEnt.EndSignal( "OnDestroy" )
+
+	svGlobal.levelEnt.WaitSignal( "ClearedPlayers" )
+
+	if ( IsValid( trapEnt ) )
+		trapEnt.Destroy()
 }
 
 void function AddPlayerScoreForTrapDestruction( entity player, entity trapEnt )
@@ -3776,7 +3788,9 @@ void function EMPGrenade_EffectsPlayer( entity player, var damageInfo )
 	//vector origin = inflictor.GetOrigin()
 	
 	int dmgSource = DamageInfo_GetDamageSourceIdentifier( damageInfo )
-	
+	if ( dmgSource == eDamageSourceId.mp_weapon_proximity_mine || dmgSource == eDamageSourceId.mp_titanweapon_stun_laser )
+		strength *= 0.1
+
 	if( dmgSource == eDamageSourceId.mp_weapon_tesla_trap )
 		duration = 3
 	

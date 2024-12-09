@@ -15,17 +15,19 @@ global function OnWeaponNpcPrimaryAttack_weapon_rocket_launcher
 //14 //RUMBLE_FLAT_BOTH
 const LOCKON_RUMBLE_INDEX 	= 1 //RUMBLE_PISTOL
 const LOCKON_RUMBLE_AMOUNT	= 45
-const S2S_MISSILE_SPEED = 2500
+const S2S_MISSILE_SPEED = 2500.0
 const S2S_MISSILE_HOMING = 5000
 
-function MpWeaponRocketLauncher_Init()
+void function MpWeaponRocketLauncher_Init()
 {
 	RegisterSignal( "StopLockonRumble" )
 	RegisterSignal( "StopGuidedLaser" )
 }
 
+//void function MissileThink( entity weapon, entity missile )
 function MissileThink( weapon, missile )
 {
+	expect entity( weapon )
 	expect entity( missile )
 
 	#if SERVER
@@ -66,7 +68,7 @@ void function OnWeaponActivate_weapon_rocket_launcher( entity weapon )
 	if ( !hasGuidedMissiles )
 	{
 		SmartAmmo_SetAllowUnlockedFiring( weapon )
-		SmartAmmo_SetMissileSpeed( weapon, 1200 )
+		SmartAmmo_SetMissileSpeed( weapon, 1200.0 )
 		SmartAmmo_SetMissileHomingSpeed( weapon, 125 )
 
 		if ( weapon.HasMod( "burn_mod_rocket_launcher" ) )
@@ -143,18 +145,18 @@ var function OnWeaponPrimaryAttack_weapon_rocket_launcher( entity weapon, Weapon
 		WeaponFireMissileParams fireMissileParams
 		fireMissileParams.pos = attackParams.pos
 		fireMissileParams.dir = attackParams.dir
-		fireMissileParams.speed = 1200
-		fireMissileParams.scriptTouchDamageType = damageTypes.projectileImpact
+		fireMissileParams.speed = speed
+		fireMissileParams.scriptTouchDamageType = damageTypes.projectileImpact | DF_IMPACT
 		fireMissileParams.scriptExplosionDamageType = damageTypes.explosive
 		fireMissileParams.doRandomVelocAndThinkVars = false
-		fireMissileParams.clientPredicted = false
+		fireMissileParams.clientPredicted = shouldPredict
 		entity missile = weapon.FireWeaponMissile( fireMissileParams )
 
 		if ( missile )
 		{
-			if( "guidedMissileTarget" in weapon.s && IsValid( weapon.s.guidedMissileTarget ) )
+			if ( "guidedMissileTarget" in weapon.s && IsValid( weapon.s.guidedMissileTarget ) )
 			{
-				missile.SetMissileTarget( weapon.s.guidedMissileTarget, Vector( 0, 0, 0 ) )
+				missile.SetMissileTarget( weapon.s.guidedMissileTarget, <0,0,0> )
 				missile.SetHomingSpeeds( 300, 0 )
 			}
 
@@ -166,20 +168,30 @@ var function OnWeaponPrimaryAttack_weapon_rocket_launcher( entity weapon, Weapon
 #if SERVER
 var function OnWeaponNpcPrimaryAttack_weapon_rocket_launcher( entity weapon, WeaponPrimaryAttackParams attackParams )
 {
-    if( weapon.GetScriptInt0() )
-	    return
-
+	/*
 	// NPC can shoot the weapon at non-players, but when shooting at players it must be a titan
+	entity owner = weapon.GetWeaponOwner()
+	if ( IsValid( owner ) )
+	{
+		entity enemy = owner.GetEnemy()
+		if ( IsValid( enemy ) )
+		{
+			if ( enemy.IsPlayer() && !enemy.IsTitan() )
+				return
+		}
+	}
+	*/
+
+	const MISSILE_SPEED = 1800
+	weapon.EmitWeaponNpcSound( LOUD_WEAPON_AI_SOUND_RADIUS_MP, 0.2 )
 	WeaponFireMissileParams fireMissileParams
 	fireMissileParams.pos = attackParams.pos
 	fireMissileParams.dir = attackParams.dir
-	fireMissileParams.speed = 1800.0
+	fireMissileParams.speed = MISSILE_SPEED
 	fireMissileParams.scriptTouchDamageType = damageTypes.projectileImpact
 	fireMissileParams.scriptExplosionDamageType = damageTypes.explosive
 	fireMissileParams.doRandomVelocAndThinkVars = false
-	fireMissileParams.clientPredicted = PROJECTILE_NOT_PREDICTED
-
-	weapon.EmitWeaponNpcSound( LOUD_WEAPON_AI_SOUND_RADIUS_MP, 0.2 )
+	fireMissileParams.clientPredicted = false
 	entity missile = weapon.FireWeaponMissile( fireMissileParams )
 	if ( missile )
 	{
@@ -189,25 +201,11 @@ var function OnWeaponNpcPrimaryAttack_weapon_rocket_launcher( entity weapon, Wea
 			weapon.w.missileFiredCallback( missile, weapon.GetWeaponOwner() )
 		}
 	}
-
-	thread function() : (weapon)
-	{
-		weapon.SetScriptInt0(1)
-		wait weapon.GetWeaponSettingFloat( eWeaponVar.reload_time )
-
-		if( IsValid(weapon) )
-			weapon.SetScriptInt0(0)
-	}()
-
-
-	//weapon.SetWeaponPrimaryClipCount(0)
-
-
 }
 #endif // #if SERVER
 
 //GUIDED MISSILE FUNCTIONS
-function CalculateGuidancePoint( entity weapon, entity weaponOwner )
+void function CalculateGuidancePoint( entity weapon, entity weaponOwner )
 {
 	weaponOwner.EndSignal( "OnDestroy" )
 	weapon.EndSignal( "OnDestroy" )
@@ -252,7 +250,7 @@ function CalculateGuidancePoint( entity weapon, entity weaponOwner )
 	}
 }
 
-function InitializeGuidedMissile( entity weaponOwner, entity missile )
+void function InitializeGuidedMissile( entity weaponOwner, entity missile )
 {
 		missile.s.guidedMissile <- true
 		if ( "missileInFlight" in weaponOwner.s )
@@ -269,7 +267,7 @@ function InitializeGuidedMissile( entity weaponOwner, entity missile )
 }
 
 #if SERVER
-function playerHasMissileInFlight( entity weaponOwner, entity missile )
+void function playerHasMissileInFlight( entity weaponOwner, entity missile )
 {
 	weaponOwner.EndSignal( "OnDestroy" )
 

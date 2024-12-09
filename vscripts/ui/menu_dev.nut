@@ -293,6 +293,7 @@ void function SetupDefaultDevCommandsMP()
 
 		SetupDevMenu( "Abilities", SetDevMenu_Abilities )
 		SetupDevMenu( "Equip Weapon", SetDevMenu_Weapons )
+		SetupDevMenu( "Equip Titanfall Weapon", SetDevMenu_R2Weapons )
 		//SetupDevMenu( "MDLSpawner", SetDevMenu_ModelSpawner )
 
 		if ( IsSurvivalMenuEnabled() )
@@ -439,6 +440,10 @@ void function SetDevMenu_Abilities( var _ )
 void function SetDevMenu_Weapons( var _ )
 {
 	thread ChangeToThisMenu( SetupWeapons )
+}
+void function SetDevMenu_R2Weapons( var _ )
+{
+	thread ChangeToThisMenu( SetupTitanfallWeapons )
 }
 void function SetDevMenu_TDMPrimaryWeapons( var _ )
 {

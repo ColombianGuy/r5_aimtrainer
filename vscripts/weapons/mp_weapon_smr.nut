@@ -20,7 +20,6 @@ var function OnWeaponPrimaryAttack_weapon_smr( entity weapon, WeaponPrimaryAttac
 {
 	weapon.EmitWeaponNpcSound( LOUD_WEAPON_AI_SOUND_RADIUS_MP, 0.2 )
 
-	entity weaponOwner = weapon.GetWeaponOwner()
 	vector bulletVec = ApplyVectorSpread( attackParams.dir, weapon.GetAttackSpreadAngle() - 1.0 )
 	attackParams.dir = bulletVec
 
@@ -52,19 +51,19 @@ var function OnWeaponNpcPrimaryAttack_weapon_smr( entity weapon, WeaponPrimaryAt
 {
 	weapon.EmitWeaponNpcSound( LOUD_WEAPON_AI_SOUND_RADIUS_MP, 0.2 )
 
-		WeaponFireMissileParams fireMissileParams
-		fireMissileParams.pos = attackParams.pos
-		fireMissileParams.dir = attackParams.dir
-		fireMissileParams.speed = 1.0
-		fireMissileParams.scriptTouchDamageType = damageTypes.projectileImpact
-		fireMissileParams.scriptExplosionDamageType = damageTypes.explosive
-		fireMissileParams.doRandomVelocAndThinkVars = false
-		fireMissileParams.clientPredicted = false
-		entity missile = weapon.FireWeaponMissile( fireMissileParams )
-	if ( missile && !weapon.HasMod( "sp_s2s_settings" ) )
+	WeaponFireMissileParams fireMissileParams
+	fireMissileParams.pos = attackParams.pos
+	fireMissileParams.dir = attackParams.dir
+	fireMissileParams.speed = 1.0
+	fireMissileParams.scriptTouchDamageType = weapon.GetWeaponDamageFlags()
+	fireMissileParams.scriptExplosionDamageType = weapon.GetWeaponDamageFlags()
+	fireMissileParams.doRandomVelocAndThinkVars = true
+	fireMissileParams.clientPredicted = false
+	entity missile = weapon.FireWeaponMissile( fireMissileParams )
+	if ( missile )
 	{
 		EmitSoundOnEntity( missile, "Weapon_Sidwinder_Projectile" )
-		//missile.InitMissileForRandomDriftFromWeaponSettings( attackParams.pos, attackParams.dir )
+		missile.InitMissileForRandomDriftFromWeaponSettings( attackParams.pos, attackParams.dir )
 	}
 }
 #endif // #if SERVER

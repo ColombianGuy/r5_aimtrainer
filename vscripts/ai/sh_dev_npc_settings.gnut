@@ -6,6 +6,7 @@ global function SetupSurvivalLoot
 global function SetupSurvivalIncapShieldBot
 global function SetupAbilities
 global function SetupWeapons
+global function SetupTitanfallWeapons
 global function SetupEditor
 
 void function SetupChangeSurvivalCharacterClass()
@@ -106,12 +107,6 @@ void function SetupWeapons()
 	SetupDevCommand( "Pistol: P2020", "give mp_weapon_semipistol" )
 	SetupDevCommand( "Pistol: RE-45", "give mp_weapon_autopistol" )
 	SetupDevCommand( "Pistol: Wingman", "give mp_weapon_wingman" )
-	
-	// Launchers
-	SetupDevCommand( "Launcher: EPG", "give mp_weapon_epg" )
-	SetupDevCommand( "Launcher: Sidewinder", "give mp_weapon_smr" )
-	SetupDevCommand( "Launcher: Archer", "give mp_weapon_rocket_launcher" )
-	SetupDevCommand( "Launcher: Softball", "give mp_weapon_softball" )
 
 	// Grenades
 	if( GetCurrentPlaylistVarBool( "is_halo_gamemode", false ) )
@@ -129,14 +124,38 @@ void function SetupWeapons()
 	//SetupDevCommand( "Dev: Dev Tool", "give mp_weapon_mdlspawner" )
 	SetupDevCommand( "Dev: Dev Cubemap ", "give weapon_cubemap" )
 	SetupDevCommand( "Dev: Throwing Knife", "give mp_weapon_throwingknife" )
-	// SetupDevCommand( "Dev: Flight Core", "give mp_titanweapon_flightcore_rockets")
 	SetupDevCommand( "Dev: Titan Sword", "playerRequestsSword")
 	SetupDevCommand( "Dev: Sheila", "give mp_weapon_fs_sheila" )
-	// SetupDevCommand( "Dev: Satchel", "give mp_weapon_satchel")
 	SetupDevCommand( "Dev: Turret", "give mp_weapon_turret")
-	SetupDevCommand( "Dev: Smart Pistol", "give mp_weapon_smart_pistol" )
+	#endif
+}
+
+void function SetupTitanfallWeapons()
+{
+	#if UI
+	// Titanfall guns, ported by LorryLeKral with the help from @amosmodz
+	SetupDevCommand( "Titanfall 2: EPG", "give mp_weapon_epg" )
+	SetupDevCommand( "Titanfall 2: Sidewinder", "give mp_weapon_smr" )
+	SetupDevCommand( "Titanfall 2: Archer", "give mp_weapon_rocket_launcher" )
+	SetupDevCommand( "Titanfall 2: Softball", "give mp_weapon_softball" )
+	SetupDevCommand( "Titanfall 2: Car", "give mp_weapon_car" )
+	SetupDevCommand( "Titanfall 2: MGL", "give mp_weapon_mgl" )
+	SetupDevCommand( "Titanfall 2: ColdWar", "give mp_weapon_pulse_lmg" )
+	SetupDevCommand( "Titanfall 2: Thunderbolt", "give mp_weapon_arc_launcher" )
+	SetupDevCommand( "Titanfall 2: Smart Pistol", "give mp_weapon_smart_pistol" )
+	SetupDevCommand( "Titanfall 2: Arc Tool", "give sp_weapon_arc_tool" )
+	SetupDevCommand( " ", "give mp" )
+	SetupDevCommand( " ", "give mp" )
+	SetupDevCommand( " ", "give mp" )
+	SetupDevCommand( " ", "give mp" )
+	SetupDevCommand( " ", "give mp" )
+
+	// Dev
+	SetupDevCommand( "Dev: Flight Core", "give mp_titanweapon_flightcore_rockets")
+	SetupDevCommand( "Dev: Titan Sword", "playerRequestsSword")
+	SetupDevCommand( "Dev: Satchel", "give mp_weapon_satchel")
 	SetupDevCommand( "Dev: Wingman Elite", "give mp_weapon_wingman_n" )
-	// SetupDevCommand( "Dev: Arc Tool", "give sp_weapon_arc_tool" )
+	SetupDevCommand( "Dev: R101 Assault Rifle", "give mp_weapon_r101" )
 	#endif
 }
 

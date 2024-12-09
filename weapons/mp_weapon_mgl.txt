@@ -1,48 +1,55 @@
 WeaponData
 {
 	// General
-	"printname"   									"#WPN_SOFTBALL"
-	"shortprintname"								"#WPN_SOFTBALL_SHORT"
-	"description" 									"#WPN_SOFTBALL_DESC"
-	"longdesc"										"#WPN_SOFTBALL_LONGDESC"
+	"printname"   									"MGL Mag Launcher" //MGL
+	"shortprintname"								"MGL Mag Launcher" //MGL
+	"description" 									"Magnetic grenade launcher."
+	"longdesc"										"Magnetic grenade launcher."
 
-	"ammo_pool_type"								"explosive"
+	"menu_icon"										"r2_ui/menus/loadout_icons/anti_titan/at_mgl"
+	"hud_icon"										"r2_ui/menus/loadout_icons/anti_titan/at_mgl"
 
-	"menu_icon"										"r2_ui/menus/loadout_icons/primary_weapon/primary_softball"
-	"hud_icon"										"r2_ui/menus/loadout_icons/primary_weapon/primary_softball"
+	"ammo_pool_type"                           		"explosive"
 
 	"weaponClass" 									"human"
-	"body_type"										"heavy"
+	"weaponSubClass"								"rocket"
 	"fire_mode"   									"automatic"
 	"is_semi_auto"									"1"
 	"pickup_hold_prompt"  							"Hold [USE] [WEAPONNAME]"
 	"pickup_press_prompt" 							"[USE] [WEAPONNAME]"
 	"minimap_reveal_distance"						"32000"
+	"aimassist_adspull_weaponclass"					"broad"
+	"fast_swap_to"									"0"
 	"leveled_pickup"								"1"
 
-	"OnClientAnimEvent"								"GlobalClientEventHandler"
-	"OnWeaponPrimaryAttack"							"OnWeaponPrimaryAttack_weapon_softball"
-	"OnWeaponNpcPrimaryAttack"						"OnWeaponNpcPrimaryAttack_weapon_softball"
-	"OnProjectileCollision"							"OnProjectileCollision_weapon_softball"
+	"OnWeaponActivate"								"OnWeaponActivate_weapon_mgl"
+	"OnClientAnimEvent"								"OnClientAnimEvent_weapon_mgl"
+	"OnWeaponPrimaryAttack"							"OnWeaponPrimaryAttack_weapon_mgl"
+	"OnWeaponNpcPrimaryAttack"						"OnWeaponNpcPrimaryAttack_weapon_mgl"
+	"OnProjectileCollision"							"OnProjectileCollision_weapon_mgl"
 
 	// Menu
-	"menu_category"                                 "special"
+	"menu_category"                                 "at"
 	"menu_anim_class"                               "medium"
-	"stat_damage" 									"71"
-	"stat_range"  									"66"
-	"stat_accuracy"   								"65"
-	"stat_rof"										"19"
+	"stat_damage" 									"60"
+	"stat_range"  									"25"
+	"stat_accuracy"   								"35"
+	"stat_rof"										"50"
 
 	// Models
-	"viewmodel"   									"mdl/weapons/softball_at/ptpov_softball_at.rmdl"
-	"playermodel" 									"mdl/weapons/softball_at/w_softball_at.rmdl"
+	"viewmodel"   									"mdl/weapons/mgl_at/ptpov_mgl_at.rmdl"
+	"playermodel" 									"mdl/weapons/mgl_at/w_mgl_at.rmdl"
 	"projectilemodel" 								"mdl/weapons/bullets/mgl_grenade.rmdl"
+	"holstermodel"									"mdl/weapons/mgl_at/w_mgl_at.rmdl"
 	"holster_type"									"anti_titan"
 
+
 	// Effects
+	"bounce_effect_table"							"bounce_mgl"
 	"tracer_effect"   								"weapon_tracers_xo16"
-	"impact_effect_table" 							"exp_softball_grenade"
-	"projectile_trail_effect_0" 					"wpn_grenade_frag_softball"
+	"impact_effect_table" 							"exp_mgl"
+	"projectile_trail_effect_0" 					"wpn_grenade_frag_mag"
+
 	"vortex_absorb_effect"							"wpn_vortex_projectile_frag_FP"
 	"vortex_absorb_effect_third_person"				"wpn_vortex_projectile_frag"
 	"vortex_absorb_sound"							"Vortex_Shield_AbsorbBulletLarge"
@@ -50,58 +57,101 @@ WeaponData
 	"vortex_drain"									"0.0"
 	"projectile_adjust_to_gun_barrel"				"1"
 
-	"sound_zoom_in"									"Weapon_Softball_ADS_In"
-	"sound_zoom_out"								"Weapon_Softball_ADS_Out"
-	"sound_pickup"									"wpn_pickup_MG_1P"
-	"fire_sound_1_player_1p"						"Weapon_Softball_Fire_1P"
-	"fire_sound_1_player_3p"						"Weapon_Softball_Fire_3P"
-	"fire_sound_1_npc"								"Weapon_Softball_Fire_NPC"
+	"sound_zoom_in"									"Weapon_MGL_ADS_In"
+	"sound_zoom_out"								"Weapon_MGL_ADS_Out"
+	"sound_pickup"									"wpn_pickup_ATWeapon_1P"
+	"fire_sound_1_player_1p"						"weapon_mgl_fire_3p"
+	"fire_sound_1_player_3p"						"weapon_mgl_fire_3p"
+	"fire_sound_1_npc"								"Weapon_MGL_Fire_NPC"
 
-	"low_ammo_sound_name_1"							"Softball_LowAmmo_Shot1"
-	"low_ammo_sound_name_2"							"Softball_LowAmmo_Shot2"
-	"low_ammo_sound_name_3"							"Softball_LowAmmo_Shot3"
+	"low_ammo_sound_name_1"							"MGL_LowAmmo_Shot1"
+	"low_ammo_sound_name_2"							"MGL_LowAmmo_Shot2"
+	"low_ammo_sound_name_3"							"MGL_LowAmmo_Shot3"
 
 	"fx_muzzle_flash_view"							"P_wpn_muzzleflash_mgl_FP_FULL"
 	"fx_muzzle_flash_world"							"P_wpn_muzzleflash_mgl_FULL"
 	"fx_muzzle_flash_attach"						"muzzle_flash"
 
-	"show_grenade_indicator"						"1"
+	"burst_fire_count"								"2"
+	"burst_fire_delay"								"0.7"
 
-	// Ammo
-	"ammo_suck_behavior"							"primary_weapons"
 	"damage_type" 									"burn"
 
+	"projectile_launch_speed"						"1200"
+	"projectile_first_person_offset_fraction"		"2"
+	"projectile_launch_pitch_offset"				"6"
 	"npc_self_explosion_safety"						"0"
+	"npc_miss_fast_player"							"0"
 
-	"explosion_inner_radius"  						"30"
-	"explosionradius" 								"150"
-	"impulse_force"   								"17000"
+	"explosion_inner_radius"  						"50"
+	"explosionradius" 								"100"
+	"impulse_force"   								"700"
 
 	"critical_hit"									"0"
-	"critical_hit_damage_scale"						"1.5"
 
 	// Ammo
-	"ammo_clip_size"   								"4"
-	"ammo_size_segmented_reload"					"1"
+	"ammo_clip_size"   								"6"
 
-	//"projectile_killreplay_enabled"					"1"
+	"projectile_killreplay_enabled"					"1"
 
-    "damage_shield_scale"                           "1"
-    "ammo_min_to_fire"								"1"
-
-		"ammo_default_total"							"60"
-		"ammo_stockpile_max"							"60"
-        "ammo_no_remove_from_clip"                      "0"
-        "ammo_no_remove_from_stockpile"                 "1"
-
+	MP_BASE
+	{
+		"ammo_default_total"							"30"
+		"ammo_stockpile_max"							"30"
+		"ammo_no_remove_from_stockpile"					"0"
+		"ammo_min_to_fire"								"1"
 
 		// Damage - When Used by Players
-		"damage_near_value"   							"5"
-		"damage_far_value"								"5"
-		"damage_near_value_titanarmor"					"100"
-		"damage_far_value_titanarmor" 					"100"
-		"explosion_damage"								"90"
-		"explosion_damage_heavy_armor"					"90"
+		"damage_near_value"   							"20"
+		"damage_far_value"								"20"
+		"damage_near_value_titanarmor"					"330"
+		"damage_far_value_titanarmor" 					"330"
+		"explosion_damage"								"35"
+		"explosion_damage_heavy_armor"					"70"
+		"damage_near_distance"							"70"
+		"damage_far_distance" 							"1500"
+
+		"red_crosshair_range" 							"2000"
+
+		// Damage - When Used by NPCs
+		"npc_damage_near_value"   						"0"
+		"npc_damage_far_value"							"0"
+		//"npc_damage_near_value_titanarmor"				"0"
+		//"npc_damage_far_value_titanarmor" 				"0"
+		"npc_damage_near_distance"						"100"
+		"npc_damage_far_distance" 						"1500"
+
+		"npc_min_engage_range"							"100"
+		"npc_max_engage_range"							"2000"
+		"npc_min_engage_range_heavy_armor"				"500"
+		"npc_max_engage_range_heavy_armor"				"3500"
+		"npc_min_range"   								"0"
+		"npc_max_range"   								"8000"
+
+		"npc_min_burst"   								"3"
+		"npc_max_burst"   								"3"
+		"npc_rest_time_between_bursts_min"				"2.0"
+		"npc_rest_time_between_bursts_max"				"3.5"
+
+		//"enable_highlight_networking_on_creation"		"<KEEP_DEFAULT>"
+
+		//"damage_heavyarmor_nontitan_scale"				"0.5"
+	}
+
+	SP_BASE
+	{
+		"ammo_default_total"							"36"
+		"ammo_stockpile_max"							"36"
+		"ammo_no_remove_from_stockpile"					"0"
+		"ammo_min_to_fire"								"1"
+
+		// Damage - When Used by Players
+		"damage_near_value"   							"10"
+		"damage_far_value"								"10"
+		"damage_near_value_titanarmor"					"150"
+		"damage_far_value_titanarmor" 					"150"
+		"explosion_damage"								"45"
+		"explosion_damage_heavy_armor"					"150"
 		"damage_near_distance"							"100"
 		"damage_far_distance" 							"1500"
 
@@ -110,14 +160,15 @@ WeaponData
 		// Damage - When Used by NPCs
 		"npc_damage_near_value"   						"0"
 		"npc_damage_far_value"							"0"
-		"npc_damage_near_value_titanarmor"				"0"
-		"npc_damage_far_value_titanarmor" 				"0"
+		//"npc_damage_near_value_titanarmor"				"0"
+		//"npc_damage_far_value_titanarmor" 				"0"
+		"npc_damage_near_distance"						"100"
+		"npc_damage_far_distance" 						"1500"
 
-		// NPC
 		"npc_min_engage_range"							"100"
 		"npc_max_engage_range"							"2000"
-		"npc_min_engage_range_heavy_armor"				"500"
-		"npc_max_engage_range_heavy_armor"				"3500"
+		//"npc_min_engage_range_heavy_armor"				"500"
+		//"npc_max_engage_range_heavy_armor"				"3500"
 		"npc_min_range"   								"0"
 		"npc_max_range"   								"8000"
 
@@ -126,34 +177,43 @@ WeaponData
 		"npc_rest_time_between_bursts_min"				"0.5"
 		"npc_rest_time_between_bursts_max"				"1"
 
+		//"enable_highlight_networking_on_creation"		"1"
+
+		//"damage_heavyarmor_nontitan_scale"				"1"
+	}
+
+	// NPC
 	"proficiency_poor_spreadscale"					"10.0"
 	"proficiency_average_spreadscale" 				"10.0"
 	"proficiency_good_spreadscale"					"3.3"
 	"proficiency_very_good_spreadscale"   			"3.3"
+	"proficiency_perfect_spreadscale" 				"2.0"
 
-	"dof_zoom_nearDepthStart"						"2.000"
-	"dof_zoom_nearDepthEnd"							"8.500"
-	"dof_nearDepthStart"							"1.683"
-	"dof_nearDepthEnd"								"5.652"
+	"dof_zoom_nearDepthStart"						"3.683"
+	"dof_zoom_nearDepthEnd"							"11.000"
+	"dof_nearDepthStart"							"3.683"
+	"dof_nearDepthEnd"								"6.652"
 
 	// Behavior
-	"fire_rate"   									"1.5"
+	"fire_rate"   									"6"
 	"zoom_time_in"									"0.2"
 	"zoom_time_out"   								"0.15"
 	"zoom_fov"										"55"
-	"reload_time" 									"0.95"
-	"reloadsegment_time_loop"						"0.82"
-	"reloadsegment_time_end"						"0.57"
-	"reloadsegmentempty_time_end"					"0.57"
-	"reloadempty_time"								"0.95"
+	"reload_time" 									"3.75"
+	"reload_time_late1" 							"2.75"
+	"reload_time_late2" 							"2.00"
+	"reload_time_late3" 							"1.5"
+	"reloadempty_time"								"3.75"
+	"reloadempty_time_late1"						"2.75"
+	"reloadempty_time_late2"						"2.00"
+	"reloadempty_time_late3"						"1.08"
 	"holster_time"									"0.5"
-	"deploy_time" 									"0.63"
+	"deploy_time" 									"0.8"
 	"lower_time"  									"0.25"
 	"raise_time"  									"0.3"
 	"vortex_refire_behavior"  						"grenade"
 	"allow_empty_fire"								"0"
 	"reload_enabled"  								"1"
-	"reload_is_segmented"							"1"
 	"allow_empty_click"   							"1"
 	"empty_reload_only"   							"0"
 	"trigger_snipercam"   							"1"
@@ -164,17 +224,13 @@ WeaponData
 	"grenade_bounce_randomness"						"0.2"
 	"grenade_bounce_extra_vertical_randomness"		"0.2"
 	"grenade_roll_vel_frac_per_second"				"0.1"
-	"projectile_launch_speed"						"2500"
-	"projectile_first_person_offset_fraction"		"2"
-
-	"projectile_inherit_owner_velocity_scale"		"1"
-
+	"grenade_fuse_time"								"1.2"
 	"sprint_fractional_anims"						"0"
 
 	"aimassist_disable_hipfire"						"0"
 	"aimassist_disable_ads"							"0"
-	"aimassist_disable_hipfire_humansonly"			"0"
-	"aimassist_disable_ads_humansonly"				"0"
+	"aimassist_disable_hipfire_humansonly"			"1"
+	"aimassist_disable_ads_humansonly"				"1"
 
 	// Spread
 	"spread_stand_hip"								"0.25"
@@ -201,7 +257,9 @@ WeaponData
 	"spread_max_kick_air_ads" 						"0.0"
 
 	"spread_decay_rate"   							"5"
-	"spread_decay_delay"  							"0.1"
+	"spread_decay_delay"  							".1"
+
+	"ammo_suck_behavior"							"primary_weapons"
 
 	// View Kick
 	"viewkick_spring" 								"launcher"
@@ -243,7 +301,7 @@ WeaponData
 	"bob_yaw" 										"-1.7"
 	"bob_roll"										"1.2"
 
-	// Bob zoomed
+// Bob zoomed
 	"bob_cycle_time_zoomed"								"0.4"
 	"bob_vert_dist_zoomed" 								"0.19"
 	"bob_horz_dist_zoomed" 								"0.1"
@@ -253,7 +311,7 @@ WeaponData
 	"bob_roll_zoomed"									"1.2"
 
 	// Rumble
-	"fire_rumble"									"rumble_grenadier"
+	"fire_rumble"									"rumble_antititan"
 
 	// Sway
 	"sway_rotate_attach"  							"SWAY_ROTATE"
@@ -333,9 +391,9 @@ WeaponData
 
 	"sway_turn_left_translate_y_zoomed"  					".5"
 	"sway_turn_right_translate_y_zoomed"  					"-.5"
-	"sway_turn_up_translate_z_zoomed"  					    ".2"
+	"sway_turn_up_translate_z_zoomed"  					".2"
 	"sway_turn_down_translate_z_zoomed"  					"-.2"
-	"sway_turn_up_translate_x_zoomed"  					    ".1"
+	"sway_turn_up_translate_x_zoomed"  					".1"
 	"sway_turn_down_translate_x_zoomed"  					"-.1"
 
 	"sway_turn_left_rotate_roll_zoomed"   					"4"
@@ -345,7 +403,7 @@ WeaponData
 	"sway_turn_up_rotate_roll_zoomed"   					"-0.8"
 	"sway_turn_down_rotate_roll_zoomed" 					"0.8"
 
-	// View Drift
+	// WeaponED Unhandled Key/Values and custom script Key/Values
 	"viewdrift_hipfire_stand_scale_pitch" 			"0.325"
 	"viewdrift_hipfire_crouch_scale_pitch"			"0.275"
 	"viewdrift_hipfire_air_scale_pitch"   			"0.5"
@@ -354,87 +412,35 @@ WeaponData
 	"viewdrift_hipfire_air_scale_yaw" 				"0.22"
 	"viewdrift_hipfire_speed_pitch"   				"0.6"
 	"viewdrift_hipfire_speed_yaw" 					"1.22"
-
-	// View Drift
-    "viewdrift_ads_stand_scale_pitch" 				"0.7"
-    "viewdrift_ads_stand_scale_yaw"   				"0.75"
-    "viewdrift_ads_crouch_scale_pitch"  			"0.55"
-    "viewdrift_ads_crouch_scale_yaw"				"0.6"
-    "viewdrift_ads_air_scale_pitch"   				"1"
-    "viewdrift_ads_air_scale_yaw" 					"1.05"
-    "viewdrift_ads_speed_pitch"   					"0.65"
-    "viewdrift_ads_speed_yaw" 						"0.75"
+	"viewdrift_ads_speed_pitch"   					"0.63"
+	"viewdrift_ads_speed_yaw" 						"0.6"
 	"sprintcycle_time"								".55"
 
-	// Bodygroups:
-	"bodygroup5_name"	"proscreen"
-	"bodygroup5_set"	"0"
+	"bodygroup1_name"				"mgl_side_attachment"
+	"bodygroup1_set"				"1"
+	"bodygroup6_name"				"proscreen"
+	"bodygroup6_set"				"0"
 
-	"clip_bodygroup"						"softball_at_cylinder"
-    "clip_bodygroup_index_shown"			"0"
-  	"clip_bodygroup_index_hidden"			"1"
- 	"clip_bodygroup_show_for_milestone_0"	"1"
-  	"clip_bodygroup_show_for_milestone_1"	"1"
-  	"clip_bodygroup_show_for_milestone_2"	"0"
-  	"clip_bodygroup_show_for_milestone_3"	"1"
-  	"clip_bodygroup_show_for_milestone_4"	"0"
-
-            "grenade_arc_indicator_effect"					"P_grenade_arc_proto"
-            "grenade_arc_impact_indicator_effect"			"grenade_arc_impact_proto"
-            "grenade_arc_indicator_show_from_hip"			"0"
+	"bodygroup_ammo_index_count"			"10"
 
 	Mods
 	{
-	    launcher_mag_extended
-	    {
-	        "ammo_clip_size"   				"8"
-	    }
-
 		pro_screen
 		{
 			"ui8_enable"		"1"
-			"bodygroup5_set"	"1"
+			"bodygroup1_set"				"0"
+			"bodygroup6_set"				"1"
 		}
-
-	    launcher_mag_fast
-	    {
-	        "reload_is_segmented"           "0"
-	        "reload_time" 					"0.1"
-	        "reloadempty_time"              "0.1"
-	    }
 	}
-
-		burn_mod_softball
-		{
-
-			//FX
-			"projectile_trail_effect_0" 					"wpn_grenade_frag_softball_burn"
-
-			"is_burn_mod"		"1"
-
-			"explosion_damage"								"150"
-			"explosion_damage_heavy_armor"					"530"
-		}
-		survival_finite_ammo
-        {
-            "ammo_default_total"							"0"
-            "ammo_stockpile_max"							"4"
-            "ammo_no_remove_from_stockpile"					"0"
-
-            "low_ammo_fraction" 							"0.3"
-	   		"uses_ammo_pool"								"1"
-        }
 
 	"ui1_enable"		"1"
 	UiData1
 	{
-		"ui"							"ui/softball_ammo_counter"
-		"mesh"					        "models/weapons/attachments/softball_rui_upper"
+		"ui"								"ui/mgl_sights"
+		"mesh"						"models/weapons/attachments/mgl_rui_upper"
 		Args
 		{
 			vis							player_zoomfrac
-			ammo						weapon_ammo
-			clipSize					weapon_clipSize
 		}
 	}
 
@@ -466,7 +472,7 @@ WeaponData
 
 		Crosshair_1
 		{
-			"ui"						"ui/crosshair_grenade_launcher2"
+			"ui"						"ui/crosshair_grenade_launcher"
 			"base_spread"				"1.0"
 			Args
 			{
