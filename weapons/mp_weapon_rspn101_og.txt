@@ -9,7 +9,6 @@ WeaponData
 	"menu_icon"										"r2_ui/menus/loadout_icons/primary_weapon/primary_r101_aog"
 	"hud_icon"										"r2_ui/menus/loadout_icons/primary_weapon/primary_r101_aog"
 
-	"weapon_type_flags"								"WPT_PRIMARY"
 	"ammo_pool_type"								"bullet"
 
 	"weaponClass" 									"human"
@@ -32,8 +31,13 @@ WeaponData
 	// Models
 	"viewmodel"   									"mdl/weapons/r101_sfp/ptpov_r101_sfp.rmdl"
 	"playermodel" 									"mdl/weapons/r101_sfp/w_r101_sfp.rmdl"
-	"holstermodel"									"mdl/weapons/r101_sfp/w_r101_sfp.rmdl"
+	"projectilemodel" 								"mdl/Weapons/bullets/projectile_20mm.rmdl"
 	"holster_type"									"rifle"
+
+	"OnWeaponActivate"                              "OnWeaponActivate_R101"
+    "OnWeaponDeactivate"                            "OnWeaponDeactivate_R101"
+    "OnWeaponPrimaryAttack"                         "OnWeaponPrimaryAttack_R101"
+	"OnProjectileCollision"                         "OnProjectileCollision_weapon_basic_bolt"
 
 	// Effects
 	"tracer_effect_first_person"                    "P_wpn_tracer"
@@ -65,6 +69,7 @@ WeaponData
 	"sound_zoom_out"								"Weapon_R101_ADS_Out"
 
 	"looping_sounds"								"1"
+	"projectile_trail_effect_0" 					"P_tracer_projectile_smg"
 
 	"burst_or_looping_fire_sound_start_1p"			"Weapon_R101_FirstShot_1P"
 	"burst_or_looping_fire_sound_middle_1p"			"Weapon_R101_Loop_1P"
@@ -154,9 +159,9 @@ WeaponData
 	"proficiency_average_additional_rest"			"0.2"
 	"proficiency_good_additional_rest"				"0.2"
 	
-	"projectile_launch_speed"                  		"10000"
+    "projectile_launch_speed"						"29000"
 	"projectile_lifetime" 							"10.5"
-	"impulse_force"   								"1000"
+	"impulse_force"   								"5000"
 
 	"npc_min_burst"   								"2"
 	"npc_max_burst"   								"4"
@@ -419,6 +424,74 @@ WeaponData
 			"viewmodel_offset_ads"		"0 0 -1.45"// HACK should not have to offset the default ADS anim alignment
 		}
 
+		hcog
+		{
+			//"anim_alt_idleAttack"	"1"
+			"bodygroup1_set"	"0"
+			"bodygroup2_set"	"0"
+			"bodygroup3_set"	"1"
+			"bodygroup4_set"	"0"
+			"bodygroup6_set"	"0"
+
+			"ui1_enable"		"0"
+			"ui5_enable"		"1"
+			"ui6_enable"		"1"
+
+			//"sway_min_yaw_zoomed"							"-0.13"
+			//"sway_max_yaw_zoomed"							"0.13"
+			//"sway_min_pitch_zoomed"  						"-0.11"
+			//"sway_max_pitch_zoomed"  						"0.11"
+
+			"dof_zoom_nearDepthStart"						"6.652"
+			"dof_zoom_nearDepthEnd"							"8.734"
+			"viewmodel_offset_ads"							"0 -2 -.75"
+
+			dof_zoom_focusArea_horizontal					0.085
+			dof_zoom_focusArea_top							0.18
+			dof_zoom_focusArea_bottom						-0.06
+		}
+
+		redline_sight
+		{
+			"ui1_enable"		"0"
+			"ui3_enable"		"1"
+
+			"bodygroup1_set"	"0"
+			"bodygroup2_set"	"1"
+			"bodygroup3_set"	"0"
+			"bodygroup4_set"	"0"
+			"bodygroup6_set"	"0"
+			"dof_zoom_nearDepthStart"						"5.691"
+			"dof_zoom_nearDepthEnd"							"6.745"
+			"viewmodel_offset_ads"							"0 -2.6 -.385"
+			"zoom_fov"						"25"
+			dof_zoom_focusArea_horizontal					0.073
+			dof_zoom_focusArea_top							0.080
+			dof_zoom_focusArea_bottom						-0.041
+		}
+
+		threat_scope
+		{
+			"bodygroup1_set"	"0"
+			"bodygroup2_set"	"0"
+			"bodygroup3_set"	"0"
+			"bodygroup4_set"	"1"
+			"bodygroup6_set"	"0"
+			"dof_zoom_nearDepthStart"						"5.737"
+			"dof_zoom_nearDepthEnd"							"6.226"
+			"viewmodel_offset_ads"							"0 -3 -.405"
+
+			"ui1_enable"		"0"
+			"ui4_enable"		"1"
+
+			"threat_scope_enabled"			"1"
+			"threat_scope_bounds_tagname1"	"SCR_TR_CRO"
+			"threat_scope_bounds_tagname2"	"SCR_BL_CRO"
+			dof_zoom_focusArea_horizontal					0.068
+			dof_zoom_focusArea_top							0.065
+			dof_zoom_focusArea_bottom						-0.046
+		}
+
 		extended_ammo
 		{
 			"ammo_stockpile_max"				"450"
@@ -563,98 +636,4 @@ WeaponData
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
