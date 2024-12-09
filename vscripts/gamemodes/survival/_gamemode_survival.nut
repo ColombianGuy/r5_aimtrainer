@@ -1738,12 +1738,12 @@ void function OnPlayerKilled( entity victim, entity attacker, var damageInfo )
 
 		return
 	}
-
+	
 	int victimTeamNum = victim.GetTeam()
 	array<entity> victimTeam = GetPlayerArrayOfTeam_Alive( victimTeamNum )
 	bool teamEliminated = victimTeam.len() == 0
 	bool canPlayerBeRespawned = PlayerRespawnEnabled() && !teamEliminated
-
+	
 	// PlayerFullyDoomed MUST be called before HandleSquadElimination
 	// HandleSquadElimination accesses player.p.respawnChanceExpiryTime which is set by PlayerFullyDoomed
 	// if it isn't called in this order, the survivalTime will be 0
@@ -1751,18 +1751,15 @@ void function OnPlayerKilled( entity victim, entity attacker, var damageInfo )
 	{
 		PlayerFullyDoomed( victim )
 	}
-
-	if ( teamEliminated )
-	{
-		HandleSquadElimination( victimTeamNum )
-		thread PlayerStartSpectating( victim, attacker, true, victimTeamNum, false, attackerEHandle)	
-	} else
-		thread PlayerStartSpectating( victim, attacker, false, 0, false, attackerEHandle)	
 	
-	// Restore weapons for deathbox
-	if ( victim.p.storedWeapons.len() > 0 )
-		RetrievePilotWeapons( victim )
+	if ( teamEliminated )
+		HandleSquadElimination( victimTeamNum )
 
+	//Disable until I debug it, Idk what this is for rn. Cafe
+	// // Restore weapons for deathbox
+	// if ( victim.p.storedWeapons.len() > 0 )
+		// RetrievePilotWeapons( victim )
+	
 	thread EnemyKilledDialogue( attacker, victimTeamNum, victim )
 }
 

@@ -358,9 +358,6 @@ void function CodeCallback_DamagePlayerOrNPC( entity ent, var damageInfo )
 	{		
 		PlayerTookDamage( ent, damageInfo, attacker, inflictor, damageSourceId )
 
-		if ( attackerIsPlayer )
-			PlayerDamageFeedback( ent, damageInfo )
-
 		ent.SetCloakFlicker( 0.5, 0.65 )
 	}
 
@@ -397,7 +394,7 @@ void function CodeCallback_DamagePlayerOrNPC( entity ent, var damageInfo )
 		}
 	}
 
-	if (  ( entIsNPC && attackerIsPlayer ) || ( entIsPlayer && attackerIsNPC ) )
+	if (  ( entIsNPC && attackerIsPlayer ) ) //|| ( entIsPlayer && attackerIsNPC ) )
 	{
 		float damage = 0
 		//AI bleedthrough fix By @CafeFPS (CafeFPS)
@@ -741,7 +738,7 @@ void function PlayerTookDamage( entity player, var damageInfo, entity attacker, 
 
 	if( takenDamage != null )
 		shieldDamage = expect int( takenDamage )
-	
+
 	#if VERBOSE_DAMAGE_PRINTOUTS && DEVELOPER 
 		Warning("shield damage: " + string( shieldDamage ) )
 	#endif
@@ -755,7 +752,12 @@ void function PlayerTookDamage( entity player, var damageInfo, entity attacker, 
 
 	vector attackerOrigin = <0,0,0>
 	if ( IsValid( attacker ) )
+	{
+		if ( attacker.IsPlayer() )
+			PlayerDamageFeedback( player, damageInfo, shieldDamage )
+
 		attackerOrigin = attacker.GetOrigin()
+	}
 
 	array<string> weaponMods = GetWeaponModsFromDamageInfo( damageInfo )
 

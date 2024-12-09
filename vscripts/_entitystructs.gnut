@@ -581,6 +581,7 @@ global struct ServerPlayerStruct
 
 	float 						postDeathThreadStartTime
 	float 						lastSelectSPTitanLoadoutTime
+	bool  						inPostDeath = false
 
 	float lastNpcSyncedMeleeVsPlayerTime = -99
 
@@ -661,6 +662,7 @@ global struct ServerPlayerStruct
 	bool quickDeathRealDeathFadesToBlack  = false
 
 	int numberOfDeaths = 0
+	int numberOfDeathsByWorld = 0 //all other death types (ring, death trigger, etc)
 	int numberOfDeathsSinceLastKill = 0
 
 	table<entity, float> playerToTimeThatAssistCreditLastsTable
@@ -1180,6 +1182,9 @@ global struct ServerPlayerStruct
 	//coaching recordings
 	float recordingStartTime
 	array<weaponShotRecord> savedShots
+	
+	bool didSkipLastKillreplay = true
+	bool cloakedForever = false
 }
 
 global struct ChallengeScore
@@ -1222,6 +1227,7 @@ global struct ServerAIStruct
 
 	NPCDefaultWeapon ornull mySpawnOptions_weapon
 
+	float lastDamageTime = 0
 	string droneSpawnAISettings
 
 	float startCrawlingTime

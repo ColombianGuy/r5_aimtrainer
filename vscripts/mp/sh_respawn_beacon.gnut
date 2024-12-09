@@ -6,6 +6,8 @@ global function GetRespawnStyle
 global function IsRespawnBeacon
 global function CountTeammatesWaitingToBeRespawned
 
+global function GetRespawnStatus
+
 #if SERVER
 global function RespawnBeacons_OnSquadEliminated
 global function RespawnBeacon_PutPlayerInDropship
@@ -28,7 +30,6 @@ global function ServerCallback_RespawnDNAHint
 global function ServerCallback_RespawnBeaconStart
 global function ServerCallback_RespawnBeaconStop
 
-global function GetRespawnStatus
 global function TryPingRespawnItem
 #endif
 

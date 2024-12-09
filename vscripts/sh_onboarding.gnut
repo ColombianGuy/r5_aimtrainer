@@ -49,7 +49,6 @@ global function SV_CL_Onboarding_Init
 	global function DecideRespawnPlayer
 	global function DecideRespawnPlayer_Retail
 
-	global function PlayerStartSpectating
 	global function PlayerStopSpectating
 
 	global function UpdatePlayerCounts
@@ -771,21 +770,6 @@ void function SetCallback_ObserverThreadOverride( void functionref( entity playe
 	file.ObserverThreadOverrideCallback = func
 }
 
-
-bool function PlayerShouldObserve( entity player )
-{
-	if ( player.GetTeam() == TEAM_SPECTATOR )
-		return true
-	if ( IsPrivateMatchSpectator( player ) )
-		return true
-	// if ( !InitialPlayerSpawnOccurred() )
-		// return true
-	if ( IsPlayerEliminated( player ) )
-		return true
-
-	return false
-}
-
 void function Flowstate_SetAssignedCustomModelToPlayer( entity player, int index )
 {
 	thread function () : ( index, player )
@@ -879,90 +863,6 @@ void function SetSkydiveEmotesForAllCharacters( entity player ) // You need to u
 	This part describes the spectator functions.
 */
 
-void function PlayerStartSpectating( entity player, entity attacker, bool squadCheck = false, int team = 0, bool FromConnectingPlayerEliminated = false, int attackerEHandle = -1)
-{	
-	array<entity> clientTeam = GetPlayerArrayOfTeam_Alive( player.GetTeam() )
-	clientTeam.fastremovebyvalue( player )
-
-	bool isSolos = IsSoloMode()
-	bool isAloneOrSquadEliminated = clientTeam.len() == 0
-	
-	entity specTarget = null
-
-	if ( Spectator_GetReplayIsEnabled() || isSolos )
-	{
-		if ( attacker == player ) return;
-		if ( attacker == null ) return;
-		if ( !IsValid( attacker ) || !IsAlive( attacker ) ) return;
-		
-		specTarget = attacker;
-	}
-	else if ( isAloneOrSquadEliminated )
-	{
-		array<entity> alivePlayers = GetPlayerArray_Alive()
-		if ( alivePlayers.len() > 0 )
-			specTarget = alivePlayers.getrandom()
-		else
-			return //GG
-	}
-	else
-	{
-		if ( clientTeam.len() > 0 )
-			specTarget = clientTeam.getrandom()
-	}
-	
-	if(squadCheck)
-	{		
-		RespawnBeacons_OnSquadEliminated( team ) // this sets respawnStatus too
-		//StatsHook_SquadEliminated( GetPlayerArrayOfTeam_Connected( team ) )
-
-		UpdateMatchSummaryPersistentVars( team )
-		foreach ( sPlayer in GetPlayerArray() )
-			Remote_CallFunction_NonReplay( sPlayer, "ServerCallback_SquadEliminated", team )
-	} else
-	{
-		if ( !FromConnectingPlayerEliminated )
-			player.SetPlayerNetInt( "respawnStatus", eRespawnStatus.WAITING_FOR_DELIVERY )
-		else
-			player.SetPlayerNetInt( "respawnStatus", eRespawnStatus.NONE )
-
-		//Remote_CallFunction_NonReplay( player, "ServerCallback_DeathRecapDataUpdated", true, attackerEHandle)	//disabled 	
-		
-		//Remote_CallFunction_NonReplay( player, "ServerCallback_ShowDeathScreen" )
-		Remote_CallFunction_ByRef( player, "ServerCallback_ShowDeathScreen" )
-	}
-		
-	// wait 3 //Time to send death recap updated signal
-	
-	// if( !IsValid( player ) )
-		// return
-
-	wait GetDeathCamLength() //- 3 // To show deathcamera
-	
-	if( !IsValid( player ) )
-		return
-	
-	if( !IsAlive( player ) && IsValid( specTarget ) && ShouldSetObserverTarget( specTarget ) )
-	{
-		player.SetPlayerNetInt( "spectatorTargetCount", GetPlayerArrayOfTeam_Alive( specTarget.GetTeam() ).len() )
-		player.SetSpecReplayDelay( 1 )
-		player.StartObserverMode( OBS_MODE_IN_EYE )
-		player.SetObserverTarget( specTarget )
-		player.SetPlayerCanToggleObserverMode( false )
-	} else if( !IsAlive( player ) && GetPlayerArray_Alive().len() > 0 )
-	{
-		specTarget = GetPlayerArray_Alive().getrandom()
-		
-		if( !ShouldSetObserverTarget( specTarget ) )
-			return // GG
-		
-		player.SetPlayerNetInt( "spectatorTargetCount", GetPlayerArrayOfTeam_Alive( specTarget.GetTeam() ).len() )
-		player.SetSpecReplayDelay( 1 )
-		player.StartObserverMode( OBS_MODE_IN_EYE )
-		player.SetObserverTarget( specTarget )
-		player.SetPlayerCanToggleObserverMode( false )
-	}
-}
 
 void function PlayerStopSpectating( entity player )
 {

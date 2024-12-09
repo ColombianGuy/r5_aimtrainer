@@ -240,12 +240,23 @@ bool function IsValidHeadShot( var damageInfo = null, entity victim = null, enti
 	return false
 }
 
-bool function IsLegDamage( var damageInfo )
+bool function IsLegDamage( entity ent, var damageInfo )
 {
 	int hitGroup = DamageInfo_GetHitGroup( damageInfo )
 
-	return ( hitGroup == HITGROUP_LEFTLEG || hitGroup == HITGROUP_RIGHTLEG )
+	if ( hitGroup != HITGROUP_LEFTLEG && hitGroup != HITGROUP_RIGHTLEG )
+		return false
+
+	if ( ent.IsPlayer() )
+	{
+		ItemFlavor character = LoadoutSlot_GetItemFlavor( ToEHI( ent ), Loadout_CharacterClass() )
+		if ( CharacterClass_ConsiderLegHitBoxAsTorso( character, DamageInfo_GetHitBox( damageInfo ) ) )
+			return false
+	}
+
+	return true
 }
+
 
 #endif // SERVER
 

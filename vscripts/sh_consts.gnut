@@ -636,12 +636,14 @@ global enum eStickState
 
 //Max Time spent after death before respawning again is DEATHCAM_TIME + KILL_REPLAY_BEFORE_KILL_TIME_TITAN + KILL_REPLAY_AFTER_KILL_TIME
 global const DEATHCAM_TIME 								= 8.0 // the amount of time spent watching the you-are-dead death cam (not kill replay)
+global const DEATHCAM_TIME_SHORT = 3.0
+global const DEATHCAM_MIN_TIME = 0.1
+
 global const KILL_REPLAY_BEFORE_KILL_TIME_PILOT 		= 3.5
 global const KILL_REPLAY_BEFORE_KILL_TIME_TITAN 		= 6.8
 global const KILL_REPLAY_BEFORE_KILL_TIME_DROPPOD 		= 2.0
 global const KILL_REPLAY_AFTER_KILL_TIME 				= 2.0
 
-global const DEATHCAM_TIME_SHORT 						= 3.0
 global const KILL_REPLAY_BEFORE_KILL_TIME_SHORT 		= 3.5
 global const KILL_REPLAY_AFTER_KILL_TIME_SHORT 			= 1.0
 global const RESPAWN_BUTTON_BUFFER 						= 0.0 // the amount of time before you're allowed to respawn, after DEATHCAM_TIME
@@ -777,6 +779,13 @@ global const DLIGHT_PURPLE = < 1, 0, 1 >
 global const DLIGHT_SEAGREEN   = < 0, 1, 1 >
 global const DLIGHT_LIGHTGREEN = < 0.3, 1, 1 >
 global const DLIGHT_RICH_BROWN  = < 0.8, 0.3, 0.1 >
+
+global enum ePINKillreplayExitReason
+{
+	EXPIRED,
+	ERROR,
+	SKIPPED
+}
 
 //--------------------------------------------------
 // 				PERFORMANCE
