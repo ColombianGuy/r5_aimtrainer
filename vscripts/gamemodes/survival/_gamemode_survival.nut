@@ -1839,6 +1839,21 @@ void function OnClientConnected( entity player )
 			Remote_CallFunction_NonReplay( player, "ServerCallback_ShowWinningSquadSequence" )
 			break
 	}
+	
+	if( Playlist() == ePlaylists.fs_haloMod_survival ) //Assign random stance and frame for halo mod survival, which always uses bloodhound character. Cafe
+	{
+		LoadoutEntry entry = GetAllLoadoutSlots()[56] //character_bloodhound GCard Frame
+		ItemFlavor itemFlavor = ConvertLoadoutSlotContentsIndexToItemFlavor( entry, RandomIntRangeInclusive(2, 17) ) //1 does not exists, starts from 2
+		SetItemFlavorLoadoutSlot( ToEHI( player ), entry, itemFlavor )
+		
+		LoadoutEntry entry2 = GetAllLoadoutSlots()[57] //character_bloodhound GCard Stance
+		ItemFlavor itemFlavor2 = ConvertLoadoutSlotContentsIndexToItemFlavor( entry2, RandomIntRangeInclusive(2, 17) ) //1 does not exists, starts from 2
+		SetItemFlavorLoadoutSlot( ToEHI( player ), entry2, itemFlavor2 )
+
+		LoadoutEntry entry3 = GetAllLoadoutSlots()[37] //character_bloodhound Execution
+		ItemFlavor itemFlavor3 = ConvertLoadoutSlotContentsIndexToItemFlavor( entry3, RandomIntRangeInclusive(2, 4) ) //1 does not exists, starts from 2
+		SetItemFlavorLoadoutSlot( ToEHI( player ), entry3, itemFlavor3 )
+	}
 }
 
 void function Survival_OnClientConnected( entity player )

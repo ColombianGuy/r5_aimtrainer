@@ -2095,7 +2095,7 @@ bool function ClientCommand_loadouts_dump( entity player, array<string> args )
 {
 	printt( "--", "loadouts dump for", player )
 	EHI playerEHI = ToEHI( player )
-	foreach( LoadoutEntry entry in fileLevel.loadoutSlotEntries )
+	foreach( int i, LoadoutEntry entry in fileLevel.loadoutSlotEntries )
 	{
 		string line = format( "-- %-45s %-50s %-80s", entry.DEV_name, entry.id,
 			DEV_DescribeLoadoutSlot( entry, GetLoadoutSlotContentsIndexInternal( playerEHI, entry ), false ) )
@@ -2107,7 +2107,7 @@ bool function ClientCommand_loadouts_dump( entity player, array<string> args )
 		if ( !matches )
 			continue
 
-		printt( line )
+		printt( i, line )
 	}
 
 	return true
