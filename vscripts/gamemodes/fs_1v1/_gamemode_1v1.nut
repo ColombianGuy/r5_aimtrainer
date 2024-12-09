@@ -2807,13 +2807,16 @@ void function soloModefixDelayStart( entity player, bool bNextRoundNow = false )
 	if( settings.isScenariosMode || bNextRoundNow )
 		return
 	
-	if( GetGameState() >= eGameState.Playing ){ wait 7 } else { wait 12 }	
-	if( !IsValid( player ) ){ return }
+	if( GetGameState() >= eGameState.Playing )
+		wait 7
+	else 
+		wait 12
+	
+	if( !IsValid( player ) )
+		return
 	
 	if( !isPlayerInRestingList(player) )
-	{
 		soloModePlayerToWaitingList(player)
-	}
 }
 
 const int MAX_REALM = 63

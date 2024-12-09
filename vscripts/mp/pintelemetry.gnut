@@ -1543,9 +1543,9 @@ void function __DestroyStats()
 	file.bShouldShip = false
 	file.bStatsShipped = false
 	
-	allDamageEvents.clear()
-	PlayerMetricsArray.clear()
-	playerVerifyCounts.clear()
+	allDamageEvents = {}
+	PlayerMetricsArray = {}
+	playerVerifyCounts = {}
 	PlayerIdMap = {}
 	
 	foreach( string uid, StatsTable statsTbl in Stats__GetRoundStatsTables() )
