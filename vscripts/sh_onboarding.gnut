@@ -1057,29 +1057,16 @@ void function OnClientConnected( entity player )
 	// Min players logic end
 	AddPlayerMovementEventCallback( player, ePlayerMovementEvents.MANTLE, ResetZiplineUseCountOnMantle )
 	UpdatePlayerCounts()
+
+	if( GetCurrentPlaylistVarBool( "flowstate_give_random_custom_models_toall", false ) )
+		player.p.assignedCustomModel = RandomIntRangeInclusive(1,10)
+	else
+		player.p.assignedCustomModel = -1
 	
-	int maxTeamSize = GetCurrentPlaylistVarInt( "max_team_size", 1 )
-	int numTeams = GetCurrentPlaylistVarInt( "max_players", 0 ) / GetCurrentPlaylistVarInt( "max_team_size", 1 )
-
-	array<entity> allplayers = GetPlayerArray()
-
-	foreach ( p in allplayers )
-	{
-		if ( !IsValid( p ) ) 
-			continue
-
-		int teamSize = GetPlayerArrayOfTeam( p.GetTeam() ).len()
-
-		if( teamSize < maxTeamSize )
-		{
-			SetTeam( player, p.GetTeam() )
-			break
-		}
-	}
-
 	bool replaceOrigin = false
-	if( Playlist() == ePlaylists.survival_dev || Playlist() == ePlaylists.dev_default || GetCurrentPlaylistVarBool( "is_practice_map", false ) || Playlist() == ePlaylists.fs_movementrecorder )
+	if( IsDevGamemode() || GetCurrentPlaylistVarBool( "is_practice_map", false ) || Playlist() == ePlaylists.fs_movementrecorder )
 	{
+		FS_GiveInitialTeamToPlayer( player )
 		vector origin
 		if( GetPlayerArray_Alive().len() > 0 && IsValid( GetPlayerArray_Alive()[0] ) )
 		{
@@ -1097,9 +1084,61 @@ void function OnClientConnected( entity player )
 
 		player.p.survivalLandedOnGround = true
 		player.p.respawnPodLanded = true
-
+		
 		DecideRespawnPlayer( player, true )
 		GiveBasicSurvivalItems( player )
+	} else if( Gamemode() == eGamemodes.SURVIVAL && ( !IsDevGamemode() && !GetCurrentPlaylistVarBool( "is_practice_map", false ) && Playlist() != ePlaylists.fs_movementrecorder ) )
+	{
+		if ( GetGameState() >= eGameState.Playing && !player.p.respawnPodLanded )
+		{
+			array<entity> teammates = GetPlayerArrayOfTeam_Alive( player.GetTeam() )
+
+			// If we have no teammates and the plane exists we put the player in the plane
+			// Or, if we have teammates in the plane we also put them in the plane with their team
+			bool putInPlane                  = teammates.len() == 1 && IsValid( Sur_GetPlaneEnt() ) && !Flag( "PlaneAtLaunchPoint" )
+			entity skydiveFollowPlayer
+			bool skydiveFollowPlayerIsLeader = false
+			entity groundPlayer
+			foreach ( entity teammate in teammates )
+			{
+				if ( teammate == player )
+					continue
+
+				if ( teammate.GetPlayerNetBool( "playerInPlane" ) == true )
+					putInPlane = true
+
+				if ( PlayerMatchState_GetFor( teammate ) == ePlayerMatchState.SKYDIVE_FALLING && !skydiveFollowPlayerIsLeader )
+				{
+					skydiveFollowPlayer = teammate
+					if ( teammate.GetPlayerNetBool( "isJumpmaster" ) )
+					{
+						skydiveFollowPlayerIsLeader = true
+					}
+				}
+
+				if ( PlayerMatchState_GetFor( teammate ) == ePlayerMatchState.NORMAL )
+					groundPlayer = teammate
+			}
+
+			if ( !putInPlane && !IsValid( skydiveFollowPlayer ) ) //Cafe was here
+			{
+				//If team is on the ground already, means that player has connected too late, which shouldn't be allowed to respawn in the game.
+				//Let's put the player to spectate.
+				
+				SetTeam( player, TEAM_SPECTATOR )
+				SetPlayerEliminated( player )
+				player.SetPlayerNetInt( "respawnStatus", eRespawnStatus.NONE )
+				
+				printt( "[+] Player has connected too late, this is not allowed. Start spectating. Cafe" ) //Please don't remove my prints (:
+
+				thread ObserverThread( player )
+				Remote_CallFunction_ByRef( player, "ServerCallback_ShowDeathScreen" )
+			}
+		} else
+		{
+			FS_GiveInitialTeamToPlayer( player )
+			DecideRespawnPlayer_Retail( player )
+		}
 	}
 
 	if( !replaceOrigin )
@@ -1139,6 +1178,28 @@ void function OnClientConnected( entity player )
 	player.Signal( "OnConnected" )
 	
 	thread Flowstate_CheckForLv4MagazinesAndRefillAmmo( player )
+}
+
+void function FS_GiveInitialTeamToPlayer( entity player )
+{
+	int maxTeamSize = GetCurrentPlaylistVarInt( "max_team_size", 1 )
+	int numTeams = GetCurrentPlaylistVarInt( "max_players", 0 ) / GetCurrentPlaylistVarInt( "max_team_size", 1 )
+
+	array<entity> allplayers = GetPlayerArray()
+
+	foreach ( p in allplayers )
+	{
+		if ( !IsValid( p ) ) 
+			continue
+
+		int teamSize = GetPlayerArrayOfTeam( p.GetTeam() ).len()
+
+		if( teamSize < maxTeamSize )
+		{
+			SetTeam( player, p.GetTeam() )
+			break
+		}
+	}
 }
 
 void function OnCharacterClassChanged( EHI playerEHI, ItemFlavor flavor )

@@ -138,18 +138,9 @@ void function CodeCallback_OnClientConnectionCompleted( entity player )
 
 	// shouldn't this be called from code?
 	CodeCallback_OnClientReloadConnectionCompleted( player )
-	
-	if( GetCurrentPlaylistVarBool( "flowstate_give_random_custom_models_toall", false ) )
-		player.p.assignedCustomModel = RandomIntRangeInclusive(1,10)
-	else
-		player.p.assignedCustomModel = -1
-	
+
 	if( Gamemode() == eGamemodes.fs_snd )
 		_OnPlayerConnectedSND( player )
-	else if( Gamemode() == eGamemodes.SURVIVAL && (Playlist() != ePlaylists.survival_dev && Playlist() != ePlaylists.dev_default && !GetCurrentPlaylistVarBool( "is_practice_map", false ) && Playlist() != ePlaylists.fs_movementrecorder) )
-	{
-		DecideRespawnPlayer_Retail( player )
-	}
 }
 
 void function AddEntityCallback_OnPlayerRespawned( entity player, void functionref( entity ) callbackFunc )
