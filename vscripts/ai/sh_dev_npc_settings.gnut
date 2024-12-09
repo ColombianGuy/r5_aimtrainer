@@ -145,7 +145,7 @@ void function SetupTitanfallWeapons()
 	SetupDevCommand( "Titanfall 2: Smart Pistol", "give mp_weapon_smart_pistol" )
 	SetupDevCommand( "Titanfall 2: Arc Tool", "give sp_weapon_arc_tool" )
 	SetupDevCommand( "Titanfall 2: Wingman Elite", "give mp_weapon_wingman_n" )
-	SetupDevCommand( " ", "give mp" )
+	SetupDevCommand( "Titanfall 2: R101 Assault Rifle", "give mp_weapon_rspn101_og iron_sights" )
 	SetupDevCommand( " ", "give mp" )
 	SetupDevCommand( " ", "give mp" )
 	SetupDevCommand( " ", "give mp" )
@@ -154,7 +154,6 @@ void function SetupTitanfallWeapons()
 	SetupDevCommand( "Dev: Flight Core", "give mp_titanweapon_flightcore_rockets")
 	SetupDevCommand( "Dev: Titan Sword", "playerRequestsSword")
 	SetupDevCommand( "Dev: Satchel", "give mp_weapon_satchel")
-	SetupDevCommand( "Dev: R101 Assault Rifle", "give mp_weapon_r101" )
 	#endif
 }
 

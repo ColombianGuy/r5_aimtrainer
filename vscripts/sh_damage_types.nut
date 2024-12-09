@@ -126,7 +126,7 @@ global enum eDamageSourceId
 	mp_weapon_rocket_launcher
 	mp_weapon_grenade_electric_smoke
 	mp_weapon_grenade_gravity
-	//mp_weapon_rspn101_og
+	mp_weapon_rspn101_og
 	sp_weapon_arc_tool
 	mp_weapon_pulse_lmg
 	//
@@ -535,6 +535,7 @@ void function DamageTypes_Init()
 	file.damageSourceIDToImage[eDamageSourceId.mp_weapon_pulse_lmg] 		<- $"r2_ui/menus/loadout_icons/primary_weapon/primary_coldwar"
 	file.damageSourceIDToImage[eDamageSourceId.mp_weapon_wingman_n]			<- $"r2_ui/menus/loadout_icons/primary_weapon/primary_wingman_elite"
 	file.damageSourceIDToImage[eDamageSourceId.sp_weapon_arc_tool]			<- $"r2_ui/menus/loadout_icons/primary_weapon/primary_arc_tool"
+	file.damageSourceIDToImage[eDamageSourceId.mp_weapon_rspn101_og]		<- $"r2_ui/menus/loadout_icons/primary_weapon/primary_arc_tool"
 	file.damageSourceIDToImage[eDamageSourceId.mp_weapon_smart_pistol]		<- $"rui/weapon_icons/r5/weapon_smart_pistol"
 
 	file.damageSourceIDToImage[eDamageSourceId.mp_weapon_titan_sword]		<- $"rui/gamemodes/shadow_squad/legend_icon"
@@ -696,7 +697,7 @@ void function DamageTypes_Init()
 		[ eDamageSourceId.melee_oddball ] 	 						= "Ball",
 		[ eDamageSourceId.mp_weapon_flagpole_primary ] 	 			= "Ball",
 		[ eDamageSourceId.melee_flagpole ] 	 						= "Ball", 
-		//[ eDamageSourceId.mp_weapon_rspn101_og ] 	 				= "R101",
+		[ eDamageSourceId.mp_weapon_rspn101_og ] 	 				= "R101",
 		[ eDamageSourceId.sp_weapon_arc_tool] 	 					= "Arc Tool",
 		[ eDamageSourceId.mp_weapon_titan_sword ] 	 				= "Sword", 
 		[ eDamageSourceId.mp_weapon_titan_sword_slam ] 	 			= "Sword",
