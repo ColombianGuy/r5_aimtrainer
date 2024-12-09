@@ -133,7 +133,7 @@ void function SetupWeapons()
 void function SetupTitanfallWeapons()
 {
 	#if UI
-	// Titanfall guns, ported by LorryLeKral with the help from @amosmodz
+	// Titanfall guns, ported by LorryLeKral with the help from @AmosModz
 	SetupDevCommand( "Titanfall 2: EPG", "give mp_weapon_epg" )
 	SetupDevCommand( "Titanfall 2: Sidewinder", "give mp_weapon_smr" )
 	SetupDevCommand( "Titanfall 2: Archer", "give mp_weapon_rocket_launcher" )
@@ -144,7 +144,7 @@ void function SetupTitanfallWeapons()
 	SetupDevCommand( "Titanfall 2: Thunderbolt", "give mp_weapon_arc_launcher" )
 	SetupDevCommand( "Titanfall 2: Smart Pistol", "give mp_weapon_smart_pistol" )
 	SetupDevCommand( "Titanfall 2: Arc Tool", "give sp_weapon_arc_tool" )
-	SetupDevCommand( " ", "give mp" )
+	SetupDevCommand( "Titanfall 2: Wingman Elite", "give mp_weapon_wingman_n" )
 	SetupDevCommand( " ", "give mp" )
 	SetupDevCommand( " ", "give mp" )
 	SetupDevCommand( " ", "give mp" )
@@ -154,7 +154,6 @@ void function SetupTitanfallWeapons()
 	SetupDevCommand( "Dev: Flight Core", "give mp_titanweapon_flightcore_rockets")
 	SetupDevCommand( "Dev: Titan Sword", "playerRequestsSword")
 	SetupDevCommand( "Dev: Satchel", "give mp_weapon_satchel")
-	SetupDevCommand( "Dev: Wingman Elite", "give mp_weapon_wingman_n" )
 	SetupDevCommand( "Dev: R101 Assault Rifle", "give mp_weapon_r101" )
 	#endif
 }

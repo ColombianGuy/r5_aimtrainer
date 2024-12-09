@@ -522,7 +522,7 @@ void function DamageTypes_Init()
 	file.damageSourceIDToImage[eDamageSourceId.mp_weapon_flagpole_primary]	<- $"rui/gamemodes/capture_the_flag/mil_flag"
 	file.damageSourceIDToImage[eDamageSourceId.melee_flagpole]				<- $"rui/gamemodes/capture_the_flag/mil_flag"
 	
-	//Titanfall2 and Retail Apex guns, ported by @LorryLeKral, with the help from @amosmodz
+	//Titanfall2 and Retail Apex guns, ported by @LorryLeKral, with the help from @AmosModz
 	file.damageSourceIDToImage[eDamageSourceId.mp_weapon_volt_smg] 			<- $"rui/weapon_icons/r5/weapon_volt"
 	file.damageSourceIDToImage[eDamageSourceId.mp_weapon_car] 				<- $"rui/weapon_icons/r5/weapon_car"
 	file.damageSourceIDToImage[eDamageSourceId.mp_weapon_sentinel] 			<- $"rui/weapon_icons/r5/weapon_sentinel"
@@ -533,7 +533,7 @@ void function DamageTypes_Init()
 	file.damageSourceIDToImage[eDamageSourceId.mp_weapon_smr] 				<- $"r2_ui/menus/loadout_icons/anti_titan/at_sidewinder"
 	file.damageSourceIDToImage[eDamageSourceId.mp_weapon_mgl] 				<- $"r2_ui/menus/loadout_icons/anti_titan/at_mgl"
 	file.damageSourceIDToImage[eDamageSourceId.mp_weapon_pulse_lmg] 		<- $"r2_ui/menus/loadout_icons/primary_weapon/primary_coldwar"
-	//file.damageSourceIDToImage[eDamageSourceId.mp_weapon_wingman_n]		<- $"r2_ui/menus/loadout_icons/primary_weapon/primary_wingman_elite"
+	file.damageSourceIDToImage[eDamageSourceId.mp_weapon_wingman_n]			<- $"r2_ui/menus/loadout_icons/primary_weapon/primary_wingman_elite"
 	file.damageSourceIDToImage[eDamageSourceId.sp_weapon_arc_tool]			<- $"r2_ui/menus/loadout_icons/primary_weapon/primary_arc_tool"
 	file.damageSourceIDToImage[eDamageSourceId.mp_weapon_smart_pistol]		<- $"rui/weapon_icons/r5/weapon_smart_pistol"
 
@@ -546,10 +546,8 @@ void function DamageTypes_Init()
 
 	file.damageSourceIDToName =
 	{
-		[ eDamageSourceId.damagedef_DocDrone ] 					= "DRONE",
-		//mp
+		[ eDamageSourceId.damagedef_DocDrone ] 						= "DRONE",
 		[ eDamageSourceId.mp_extreme_environment ] 					= "#DAMAGE_EXTREME_ENVIRONMENT",
-
 		[ eDamageSourceId.mp_weapon_yh803 ] 						= "#WPN_LIGHT_TURRET",
 		[ eDamageSourceId.mp_weapon_yh803_bullet ]					= "#WPN_LIGHT_TURRET",
 		[ eDamageSourceId.mp_weapon_yh803_bullet_overcharged ]		= "#WPN_LIGHT_TURRET",

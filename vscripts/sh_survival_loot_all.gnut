@@ -329,10 +329,8 @@ bool function IsNewLootEnabled( string ref )
 		break
 
 		case "":
-		case "mp_weapon_wingman_n":
 		//disabled until proper porting and fix
 		case "mp_weapon_grenade_gravity":
-		//case "explosive":
 		
 		// case "mp_weapon_sentinel":
 		// case "incapshield_pickup_lv0":
@@ -341,7 +339,6 @@ bool function IsNewLootEnabled( string ref )
 		case "mp_weapon_nemesis":
 		case "arrows":
 		case "mp_weapon_dragon_lmg":
-		//case "mp_weapon_car":
 		case "armor_pickup_lv0_evolving":
 		case "armor_pickup_lv1_evolving":
 		case "armor_pickup_lv2_evolving":

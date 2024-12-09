@@ -346,6 +346,7 @@ void function CodeCallback_MapSpawn() // original script entry point
 	PrecacheWeapon( $"mp_weapon_arc_launcher" )
 	PrecacheWeapon( $"mp_weapon_proximity_mine" )
 	PrecacheWeapon( $"sp_weapon_arc_tool" )
+	PrecacheWeapon( $"mp_weapon_wingman_n" )
 
 	switch( GameRules_GetGameMode() )
 	{
