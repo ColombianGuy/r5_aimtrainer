@@ -1089,8 +1089,11 @@ void function OnClientConnected( entity player )
 		GiveBasicSurvivalItems( player )
 	} else if( Gamemode() == eGamemodes.SURVIVAL && ( !IsDevGamemode() && !GetCurrentPlaylistVarBool( "is_practice_map", false ) && Playlist() != ePlaylists.fs_movementrecorder ) )
 	{
+		replaceOrigin = true
+		
 		if ( GetGameState() >= eGameState.Playing && !player.p.respawnPodLanded )
 		{
+			FS_GiveInitialTeamToPlayer( player )
 			array<entity> teammates = GetPlayerArrayOfTeam_Alive( player.GetTeam() )
 
 			// If we have no teammates and the plane exists we put the player in the plane
@@ -1133,6 +1136,10 @@ void function OnClientConnected( entity player )
 
 				thread ObserverThread( player )
 				Remote_CallFunction_ByRef( player, "ServerCallback_ShowDeathScreen" )
+			} else
+			{
+				FS_GiveInitialTeamToPlayer( player )
+				DecideRespawnPlayer_Retail( player )
 			}
 		} else
 		{
