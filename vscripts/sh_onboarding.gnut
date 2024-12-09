@@ -1138,7 +1138,6 @@ void function OnClientConnected( entity player )
 				Remote_CallFunction_ByRef( player, "ServerCallback_ShowDeathScreen" )
 			} else
 			{
-				FS_GiveInitialTeamToPlayer( player )
 				DecideRespawnPlayer_Retail( player )
 			}
 		} else
