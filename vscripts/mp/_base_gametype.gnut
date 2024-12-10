@@ -1500,10 +1500,13 @@ function OnPlayerCloseClassMenu( entity player )
 //  playerconnected Reload
 void function CodeCallback_OnClientReloadConnectionCompleted( entity player )
 {
-	if( player.p.clientScriptInitialized )
-		return
-
 	FinishClientScriptInitialization( player )
+
+	// Added via AddCallback_OnClientReloadConnected
+	foreach ( callbackFunc in svGlobal.onClientReloadConnectedCallbacks )
+	{
+		callbackFunc( player )
+	}
 }
 
 

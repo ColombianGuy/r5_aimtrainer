@@ -41,7 +41,6 @@ void function CodeCallback_OnClientConnectionCompleted( entity player )
 	#endif
 		
 	player.p.activeGladiatorCardStatTrackerEntries = [0,0,0]
-	player.s.activeTrapArrayId <- CreateScriptManagedEntArray()
 
 	ShGRX_OnClientConnectionCompleted( player )
 
@@ -50,7 +49,10 @@ void function CodeCallback_OnClientConnectionCompleted( entity player )
 		SvPersistentData_OnClientConnectionCompleted( player )
 		ShEHI_OnClientConnectionCompleted( player )
 	}
-
+	
+	UpdatePlayerCounts()
+	player.p.connectTime = Time()
+	
 	ZiplineInit( player )
 	
 	AssignTeamIndexToPlayer( player )
@@ -60,9 +62,8 @@ void function CodeCallback_OnClientConnectionCompleted( entity player )
 		cb( player )
 
 	NotifyClientsOfConnection( player, 1 )
-
-	// shouldn't this be called from code?
-	CodeCallback_OnClientReloadConnectionCompleted( player )
+	
+	FinishClientScriptInitialization( player )
 
 	if( Gamemode() == eGamemodes.fs_snd )
 		_OnPlayerConnectedSND( player )

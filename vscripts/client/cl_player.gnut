@@ -808,6 +808,7 @@ void function PlayerConnectedOrDisconnected( entity player, int state, string di
 		return
 	if ( !GetLocalViewPlayer() )
 		return
+	
 	if ( !ShouldShowObituaryLineForPlayer( player ) )
 		return
 
@@ -816,9 +817,12 @@ void function PlayerConnectedOrDisconnected( entity player, int state, string di
 	string playerName
 	if ( state == 0 )
 	{
-		if ( disconnectingPlayerName == "" )
+		if ( disconnectingPlayerName == "" || Gamemode() != eGamemodes.SURVIVAL )
 			return
+		
 		playerName = disconnectingPlayerName
+		
+		Obituary_Print_Localized( Localize( "#MP_PLAYER_DISCONNECTED", playerName ), <255, 255, 255> )
 	}
 	else
 	{

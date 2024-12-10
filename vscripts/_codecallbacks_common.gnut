@@ -1231,3 +1231,9 @@ void function AddCallback_OnPlayerUsedOffhandWeapon( void functionref( entity pl
 	Assert( !svGlobal.onPlayerUsedOffhandCallbacks.contains( callbackFunc ), "Already added " + string( callbackFunc ) + " with AddCallback_OnPlayerUsedOffhandWeapon" )
 	svGlobal.onPlayerUsedOffhandCallbacks.append( callbackFunc )
 }
+
+void function AddCallback_OnClientReloadConnected( void functionref( entity player ) callbackFunc )
+{
+	Assert( !svGlobal.onClientReloadConnectedCallbacks.contains( callbackFunc ), "Already added " + string( callbackFunc ) + " with AddCallback_OnClientReloadConnected" )
+	svGlobal.onClientReloadConnectedCallbacks.append( callbackFunc )
+}
