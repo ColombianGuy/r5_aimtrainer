@@ -377,10 +377,10 @@ void function resetChallenges()
 	foreach ( chalStruct in file.allChallenges )
 	{
 		if( isChalValid( chalStruct ) )
-			chalStruct.challengers.clear()
+			chalStruct.challengers = {}
 	}
 	
-	file.acceptedChallenges.clear()
+	file.acceptedChallenges = {}
 }
 
 void function AddEntityCalllback_OnPlayerGamestateChange_1v1( entity player, void functionref( entity player, int state ) callbackFunc )
@@ -1380,7 +1380,7 @@ bool function ClientCommand_mkos_challenge(entity player, array<string> args)
 			ChallengesStruct chalStruct = getChallengeListForPlayer( player )
 			
 			if( isChalValid( chalStruct ) )
-				chalStruct.challengers.clear()
+				chalStruct.challengers = {}
 			
 			endLock1v1( player, false )
 			LocalMsg( player, "#FS_ChallengersCleared" )
@@ -2807,13 +2807,16 @@ void function soloModefixDelayStart( entity player, bool bNextRoundNow = false )
 	if( settings.isScenariosMode || bNextRoundNow )
 		return
 	
-	if( GetGameState() >= eGameState.Playing ){ wait 7 } else { wait 12 }	
-	if( !IsValid( player ) ){ return }
+	if( GetGameState() >= eGameState.Playing )
+		wait 7
+	else 
+		wait 12
+	
+	if( !IsValid( player ) )
+		return
 	
 	if( !isPlayerInRestingList(player) )
-	{
 		soloModePlayerToWaitingList(player)
-	}
 }
 
 const int MAX_REALM = 63
@@ -4951,9 +4954,9 @@ void function ForceAllRoundsToFinish_solomode()
 	
 	if( GetCurrentRound() > 0 )
 	{
-		file.soloPlayersWaiting.clear() //needed?
-		file.groupsInProgress.clear()
-		file.playerToGroupMap.clear()
+		file.soloPlayersWaiting = {}
+		file.groupsInProgress = {}
+		file.playerToGroupMap = {}
 		ClearAllNotifications()
 	}
 }
