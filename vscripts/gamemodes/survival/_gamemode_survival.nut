@@ -229,6 +229,10 @@ void function GamemodeSurvival_Init()
 		)
 		
 		BannerAssets_Init()
+		
+		//Move faster while adsing
+		AddCallback_OnPlayerZoomIn( FS_HaloMod_OnPlayerZoomIn )
+		AddCallback_OnPlayerZoomOut( FS_HaloMod_OnPlayerZoomOut )
 	}
 }
 
@@ -2819,4 +2823,20 @@ void function EndThreadOn_PlayerChangedClass( entity player )
 void function SignalThatPlayerChangedClass( entity player )
 {
 	player.Signal( "PlayerChangedClass" )
+}
+
+void function FS_HaloMod_OnPlayerZoomIn( entity player )
+{
+	if( !IsValid( player ) )
+		return
+	
+	GiveExtraWeaponMod( player, "unsc_super_soldier" )
+}
+
+void function FS_HaloMod_OnPlayerZoomOut( entity player )
+{
+	if( !IsValid( player ) )
+		return
+	
+	TakeExtraWeaponMod( player, "unsc_super_soldier" )
 }

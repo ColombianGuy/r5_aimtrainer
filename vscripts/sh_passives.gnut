@@ -627,11 +627,20 @@ void function SparkOfGenius_Passive_Body( entity player )
 {
 	float healthRegenStartDelay = 6.0
 	float healthRegenRate = 1.0
+	float healthWait = 2.0
+	
+	if( Flowstate_IsHaloMode() )
+	{
+		healthRegenStartDelay = 5.0
+		healthRegenRate = 1.0
+		healthWait = 0.5
+	}
+	
 	EndSignal( player, "EndSparkOfGeniusThread" )
 	
 	while ( IsValid( player ) && PlayerHasPassive( player, ePassives.PAS_BATTERY_POWERED ) )
 	{
-		wait 2
+		wait healthWait
 		
 		if ( !IsAlive( player ) || Bleedout_IsBleedingOut(player) || Time() - player.p.lastDamageTime < healthRegenStartDelay || player.IsPhaseShifted())
 		{
