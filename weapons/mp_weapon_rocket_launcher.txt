@@ -407,27 +407,21 @@ WeaponData
 	{
 		extended_ammo
 		{
-			"ammo_stockpile_max"						"9"
-			"ammo_clip_size"   							"1"
-			"ammo_default_total"						"9"
+			"ammo_clip_size"   							"++2"
 		}
-		
-        pro_screen
-        {
+		pro_screen
+		{
 			"ui8_enable"		"1"
-        	"bodygroup1_set"	"0"
-        	"bodygroup6_set"	"1"
-        }
-		
-	    survival_finite_ammo
-	    {
-            "ammo_default_total"					"0"
-            "ammo_stockpile_max"					"24"
-            "ammo_no_remove_from_stockpile"			"0"
+			"bodygroup5_set"	"1"
+		}
 
-	   		"uses_ammo_pool"						"1"
-	    }
-		
+		pas_fast_reload
+		{
+			"reload_time"								"*0.7"
+			"reload_time_late1"							"*0.7"
+			"reloadempty_time"							"*0.7"
+			"reloadempty_time_late1"					"*0.7"
+		}
 
 		fast_lock
 		{
@@ -510,10 +504,42 @@ WeaponData
             "npc_rest_time_between_bursts_min"				"*1.25"
 			"npc_rest_time_between_bursts_max"				"*2.0"
 		}
+		sp_mortar_mode
+		{
+
+			"fire_sound_1_npc"								"weapon_spectremortar_fire"
+			"impact_effect_table" 							"exp_rocket_spectremortar"
+			"explosion_inner_radius"						"64"
+			"explosionradius" 								"384"
+			"explosion_damage"								"20"
+			"explosion_damage_heavy_armor"					"400"
+			"npc_explosion_damage"							"30"
+			"npc_explosion_damage_heavy_armor"				"400"
+
+			"projectile_drift_windiness"					"0.0"
+			"projectile_drift_intensity"					"0.0"
+			// "projectile_straight_time_min"					"1.5"
+			// "projectile_straight_time_max"					"1.8"
+			// "projectile_straight_radius_min"				"40"
+			// "projectile_straight_radius_max"				"65"
+		}
 
 		at_unlimited_ammo
         {
             "ammo_no_remove_from_stockpile"					"1"
+        }
+        survival_finite_ammo
+        {
+            "ammo_default_total"							"4"
+            "ammo_stockpile_max"							"4"
+            "ammo_no_remove_from_stockpile"					"0"
+
+            "low_ammo_fraction" 							"0.3"
+
+	   		"uses_ammo_pool"								"0"
+
+	   		"smart_ammo_targeting_time_min"				"*0.75"
+			"smart_ammo_targeting_time_max"				"*0.75"
         }
 	}
 

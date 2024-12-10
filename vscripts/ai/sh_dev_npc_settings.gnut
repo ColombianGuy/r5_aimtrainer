@@ -151,6 +151,7 @@ void function SetupTitanfallWeapons()
 	SetupDevCommand( " ", "give mp" )
 
 	// Dev
+	SetupDevCommand( "Dev: Softball Apex Version", "give mp_weapon_softball apex_model" )
 	SetupDevCommand( "Dev: Flight Core", "give mp_titanweapon_flightcore_rockets")
 	SetupDevCommand( "Dev: Titan Sword", "playerRequestsSword")
 	SetupDevCommand( "Dev: Satchel", "give mp_weapon_satchel")

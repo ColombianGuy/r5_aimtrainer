@@ -40,7 +40,6 @@ WeaponData
 	"viewmodel"   									"mdl/weapons/mgl_at/ptpov_mgl_at.rmdl"
 	"playermodel" 									"mdl/weapons/mgl_at/w_mgl_at.rmdl"
 	"projectilemodel" 								"mdl/weapons/bullets/mgl_grenade.rmdl"
-	"holstermodel"									"mdl/weapons/mgl_at/w_mgl_at.rmdl"
 	"holster_type"									"anti_titan"
 
 
@@ -90,7 +89,7 @@ WeaponData
 	"critical_hit"									"0"
 
 	// Ammo
-	"ammo_clip_size"   								"6"
+	"ammo_clip_size"   								"12"
 
 	"projectile_killreplay_enabled"					"1"
 
@@ -404,6 +403,7 @@ WeaponData
 	"sway_turn_down_rotate_roll_zoomed" 					"0.8"
 
 	// WeaponED Unhandled Key/Values and custom script Key/Values
+		// View Drift
 	"viewdrift_hipfire_stand_scale_pitch" 			"0.325"
 	"viewdrift_hipfire_crouch_scale_pitch"			"0.275"
 	"viewdrift_hipfire_air_scale_pitch"   			"0.5"
@@ -412,8 +412,16 @@ WeaponData
 	"viewdrift_hipfire_air_scale_yaw" 				"0.22"
 	"viewdrift_hipfire_speed_pitch"   				"0.6"
 	"viewdrift_hipfire_speed_yaw" 					"1.22"
-	"viewdrift_ads_speed_pitch"   					"0.63"
-	"viewdrift_ads_speed_yaw" 						"0.6"
+
+	// View Drift
+		"viewdrift_ads_stand_scale_pitch" 				"0.7"
+		"viewdrift_ads_stand_scale_yaw"   				"0.75"
+		"viewdrift_ads_crouch_scale_pitch"  			"0.55"
+		"viewdrift_ads_crouch_scale_yaw"				"0.6"
+		"viewdrift_ads_air_scale_pitch"   				"1"
+		"viewdrift_ads_air_scale_yaw" 					"1.05"
+		"viewdrift_ads_speed_pitch"   					"0.65"
+		"viewdrift_ads_speed_yaw" 						"0.75"
 	"sprintcycle_time"								".55"
 
 	"bodygroup1_name"				"mgl_side_attachment"
@@ -425,12 +433,88 @@ WeaponData
 
 	Mods
 	{
+
+		extended_ammo
+		{
+			"ammo_clip_size"   							"++6"
+		}
 		pro_screen
 		{
 			"ui8_enable"		"1"
 			"bodygroup1_set"				"0"
 			"bodygroup6_set"				"1"
 		}
+
+		pas_fast_reload
+		{
+			"reload_time"								"*0.7"
+			"reload_time_late1"							"*0.7"
+			"reloadempty_time"							"*0.7"
+			"reloadempty_time_late1"					"*0.7"
+		}
+		burn_mod_mgl
+		{
+			"is_burn_mod"		"1"
+
+			"damage_near_value"   							"50"
+			"damage_far_value"								"50"
+			"damage_near_value_titanarmor"					"480"
+			"damage_far_value_titanarmor" 					"480"
+			"explosion_damage"								"45"
+			"explosion_damage_heavy_armor"					"125"
+
+			"projectile_trail_effect_0" 					"wpn_grenade_frag_mag_burn"
+			"fx_muzzle_flash_view"							"P_wpn_muzzleflash_mgl_FP_burn"
+			"fx_muzzle_flash_world"							"P_wpn_muzzleflash_mgl_burn"
+			"fx_muzzle_flash_attach"						"muzzle_flash"
+
+		}
+
+		ar_trajectory
+		{
+            "grenade_arc_indicator_effect"					"P_grenade_arc_proto"
+            "grenade_arc_impact_indicator_effect"			"grenade_arc_impact_proto"
+            "grenade_arc_indicator_show_from_hip"			"1"
+   			"grenade_arc_indicator_bounce_count"			"2"
+		}
+		pas_fast_ads
+		{
+			//Fast ADS
+			"zoom_time_in"									"*0.5"
+			"zoom_time_out"   								"*0.6"
+		}
+		pas_fast_swap
+		{
+			//Fast Swap
+			"fast_swap_to"									"1"
+		}
+		tactical_cdr_on_kill
+		{
+
+		}
+		pas_run_and_gun
+		{
+			"primary_fire_does_not_block_sprint"			"1"
+			"crosshair_force_sprint_fade_disabled"          "1"
+		}
+		at_unlimited_ammo
+        {
+            "ammo_no_remove_from_stockpile"					"1"
+        }
+		pas_unlimited_ammo
+		{
+			"ammo_no_remove_from_stockpile"					"1"
+			"ammo_clip_size"   								"16"
+		}
+		survival_finite_ammo
+        {
+            "ammo_default_total"							"0"
+            "ammo_stockpile_max"							"6"
+            "ammo_no_remove_from_stockpile"					"0"
+
+            "low_ammo_fraction" 							"0.3"
+	   		"uses_ammo_pool"								"1"
+        }
 	}
 
 	"ui1_enable"		"1"

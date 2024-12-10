@@ -546,7 +546,7 @@ WeaponData
 		}
 	}
 
-	"ui8_enable"		"1"
+	"ui8_enable"		"0"
 	UiData8
 	{
 		"ui"							"ui/pro_screen_panel"
