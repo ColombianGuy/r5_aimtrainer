@@ -421,7 +421,7 @@ WeaponData
 
 		iron_sights
 		{
-			"viewmodel_offset_ads"		"0 0 -1.45"// HACK should not have to offset the default ADS anim alignment
+			"viewmodel_offset_ads"		"0 5 -1.45"// HACK should not have to offset the default ADS anim alignment
 		}
 
 		hcog
@@ -581,6 +581,33 @@ WeaponData
 		}
 	}
 
+	"ui3_enable"		"0"
+	"ui3_draw_cloaked"	"1"
+	UiData3
+	{
+		"ui"								"ui/aog_variable_sights"
+		"mesh"							"models/weapons/attachments/acgs_rui_upper"
+		Args
+		{
+			vis							player_zoomfrac
+			ammo						weapon_ammo
+			clipSize						weapon_clipSize
+		}
+	}
+
+	"ui4_enable"		"0"
+	"ui4_draw_cloaked"	"1"
+	UiData4
+	{
+		"ui"							"ui/cro_threat_sights"
+		"mesh"					"models/weapons/attachments/cro_rui_upper"
+		Args
+		{
+			zoomFrac					player_zoomfrac
+			ammo						weapon_ammo
+			clipSize						weapon_clipSize
+		}
+	}
 
 	"ui5_enable"		"0"
 	"ui5_draw_cloaked"	"1"
@@ -588,6 +615,20 @@ WeaponData
 	{
 		"ui"								"ui/hcog_upper"
 		"mesh"						"models/weapons/attachments/hcog2_rui_upper"
+		Args
+		{
+			vis							player_zoomfrac
+			ammo						weapon_ammo
+			clipSize						weapon_clipSize
+		}
+	}
+
+	"ui6_enable"		"0"
+	"ui6_draw_cloaked"	"1"
+	UiData6
+	{
+		"ui"								"ui/hcog_upper"
+		"mesh"						"models/weapons/attachments/hcog2_rui_lower"
 		Args
 		{
 			vis							player_zoomfrac
