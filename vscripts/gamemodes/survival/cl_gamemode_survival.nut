@@ -4662,6 +4662,51 @@ void function ShowVictorySequence( bool placementMode = false )
 			SetForceDrawWhileParented( characterModel, true )
 			characterModel.MakeSafeForUIScriptHack()
 			CharacterSkin_Apply( characterModel, characterSkin )
+			if( Flowstate_IsHaloMode() )
+			{
+				entity modelPlayer = FromEHI( data.eHandle )
+			
+				if( !IsValid( modelPlayer ) )
+					characterModel.SetModel( $"mdl/Humans/pilots/w_master_chief.rmdl" )
+				else
+				{
+					switch( modelPlayer.GetPlayerNetInt( "fs_haloMod_assignedMasterChief" ) )
+					{
+						case 0:
+						characterModel.SetModel( $"mdl/Humans/pilots/w_master_chief_yellow.rmdl" )
+						break
+						
+						case 1:
+						characterModel.SetModel( $"mdl/Humans/pilots/w_master_chief_white.rmdl" )
+						break
+						
+						case 2:
+						characterModel.SetModel( $"mdl/Humans/pilots/w_master_chief_red.rmdl" )
+						break
+						
+						case 3:
+						characterModel.SetModel( $"mdl/Humans/pilots/w_master_chief_purple.rmdl" )
+						break
+						
+						case 4:
+						characterModel.SetModel( $"mdl/Humans/pilots/w_master_chief_pink.rmdl" )
+						break
+						
+						case 5:
+						characterModel.SetModel( $"mdl/Humans/pilots/w_master_chief_orange.rmdl" )
+						break
+						
+						case 6:
+						characterModel.SetModel( $"mdl/Humans/pilots/w_master_chief_blue.rmdl" )
+						break
+
+						case 7:
+						characterModel.SetModel( $"mdl/Humans/pilots/w_master_chief.rmdl" )
+						break
+					}
+				}
+			}
+				
 			cleanupEnts.append( characterModel )
 
 			#if DEVELOPER
