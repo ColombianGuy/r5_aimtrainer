@@ -90,8 +90,10 @@ void function SetupRemoteFuncAliases()
 			Tracker_StatRequestFailed,
 			FS_ForceCompass,
 			FS_DestroyCompass,
-			FS4DIntroSequence,
-			HaloBrIntroSequence
+			FS4DIntroSequence
+			// ,
+			// HaloBrIntroSequence,
+			// ServerCallback_ShotgunKickNoAmmoMessage
 		]
 	#endif
 	
@@ -149,8 +151,10 @@ void function SetupRemoteFuncAliases()
 			"Tracker_StatRequestFailed",
 			"FS_ForceCompass",
 			"FS_DestroyCompass",
-			"FS4DIntroSequence",
-			"HaloBrIntroSequence"
+			"FS4DIntroSequence"
+			// ,
+			// "HaloBrIntroSequence",
+			// "ServerCallback_ShotgunKickNoAmmoMessage"
 		]
 	#endif
 	
@@ -356,12 +360,12 @@ void function RemoteFunctions_Init_Begin()
 				RegisterNetworkedVariable( "lastLightningGunShotTime", SNDC_PLAYER_GLOBAL, SNVT_TIME, -1 )
 			}
 			
-			// if( Playlist() == ePlaylists.fs_1v1_coaching )
-			// {
-				// Remote_RegisterClientFunction( "Flowstate_OpenCoachingMenu" )
-				// Remote_RegisterClientFunction( "Flowstate_CloseCoachingMenu" )
-				// Remote_RegisterClientFunction( "Flowstate_AddRecordingIdentifierToClient", "int", INT_MIN, INT_MAX, "float", 0.0, 999999.0, 32, "float", 0.0, 999999.0, 32, "int", INT_MIN, INT_MAX )
-			// }
+			if( Playlist() == ePlaylists.fs_1v1_coaching )
+			{
+				Remote_RegisterClientFunction( "Flowstate_OpenCoachingMenu" )
+				Remote_RegisterClientFunction( "Flowstate_CloseCoachingMenu" )
+				Remote_RegisterClientFunction( "Flowstate_AddRecordingIdentifierToClient", "int", INT_MIN, INT_MAX, "float", 0.0, 999999.0, 32, "float", 0.0, 999999.0, 32, "int", INT_MIN, INT_MAX )
+			}
 			
 			RegisterNetworkedVariable( "championDisplayEndTime", SNDC_GLOBAL, SNVT_TIME, -1 )
 			RegisterNetworkedVariable( "flowstate_DMStartTime", SNDC_GLOBAL, SNVT_TIME, -1 )

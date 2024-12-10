@@ -52,6 +52,7 @@ struct
 	table<var, ButtonData > DestroyDummies
 	table<var, ButtonData > DestroyDummiesAdmin
 	table<var, ButtonData > OpenWeaponsMenu
+	table<var, ButtonData > OpenRecordingsMenu
 	table<var, ButtonData > OpenMOTD
 	table<var, ButtonData > OpenScenariosStandings
 
@@ -141,6 +142,11 @@ void function OpenWeaponSelector()
 	thread PulsateElem( menu, child, 255, 25, 2.0 )
 }
 
+void function OpenRecordingsMenu()
+{
+	UI_Open1v1CoachingMenu()
+}
+
 void function InitSystemPanel( var panel )
 {	
 	var menu = Hud_GetParent( panel )
@@ -184,6 +190,7 @@ void function InitSystemPanel( var panel )
 	file.DestroyDummies[ panel ] <- clone data
 	file.DestroyDummiesAdmin[ panel ] <- clone data
 	file.OpenWeaponsMenu[ panel ] <- clone data
+	file.OpenRecordingsMenu[ panel ] <- clone data
 	file.OpenMOTD[ panel ] <- clone data
 	file.OpenScenariosStandings[ panel ] <- clone data
 
@@ -264,6 +271,9 @@ void function InitSystemPanel( var panel )
 	
 	file.OpenWeaponsMenu[ panel ].label = "#FS_WEAPONS_MENU"
 	file.OpenWeaponsMenu[ panel ].activateFunc = OpenWeaponSelector
+
+	file.OpenRecordingsMenu[ panel ].label = "1v1 RECORDINGS MENU"
+	file.OpenRecordingsMenu[ panel ].activateFunc = OpenRecordingsMenu
 	
 	file.OpenMOTD[ panel ].label = "#FS_SERVER_MOTD"
 	file.OpenMOTD[ panel ].activateFunc = OpenMOTD	
@@ -314,10 +324,14 @@ void function UpdateSystemPanel( var panel )
 		if( Playlist() == ePlaylists.fs_dm || Playlist() == ePlaylists.fs_realistic_ttv )
 			SetButtonData( panel, buttonIndex++, file.ToggleScoreboardFocus[ panel ] )
 
-		if( uiGlobal.is1v1GameType ) //initialized after level load
+		if( uiGlobal.is1v1GameType && Playlist() != ePlaylists.fs_1v1_coaching ) //initialized after level load
 		{
 			SetButtonData( panel, buttonIndex++, file.Toggle1v1ScoreboardFocus[ panel ] )
 			SetButtonData( panel, buttonIndex++, file.ToggleRest[ panel ] )
+			SetButtonData( panel, buttonIndex++, file.OpenWeaponsMenu[ panel ] )
+		} else if( Playlist() == ePlaylists.fs_1v1_coaching )
+		{
+			SetButtonData( panel, buttonIndex++, file.OpenRecordingsMenu[ panel ] )
 			SetButtonData( panel, buttonIndex++, file.OpenWeaponsMenu[ panel ] )
 		}
 		else if( Playlist() == ePlaylists.fs_movementrecorder || Playlist() == ePlaylists.fs_realistic_ttv )
@@ -364,7 +378,8 @@ void function UpdateSystemPanel( var panel )
 			SetButtonData( panel, buttonIndex++, file.OpenScenariosStandings[ panel ] )
 		}
 		
-		SetButtonData( panel, buttonIndex++, file.OpenMOTD[ panel ] )
+		if( Playlist() != ePlaylists.fs_1v1_coaching && Playlist() != ePlaylists.fs_haloMod_survival )
+			SetButtonData( panel, buttonIndex++, file.OpenMOTD[ panel ] )
 		
 		// if( GetCurrentPlaylistName() == "fs_duckhunt" && IsConnected() && file.SETHUNTERALLOWED )
 		// {
