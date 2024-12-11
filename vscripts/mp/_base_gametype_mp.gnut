@@ -355,6 +355,10 @@ entity function PickBestObserverTarget( entity player, int cycleDirection = 0 )
 		}
 	}
 
+	//Don't allow player switch to other player if it's being respawned from beacon
+	if( IsValid( player.p.respawnPod ) )
+		return player.p.respawnPod
+	
 	if ( observeablePlayers.len() == 0 )
 		return null
 
