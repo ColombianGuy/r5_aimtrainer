@@ -16,7 +16,7 @@ npc_pilot_elite
 
 	BaseClass						"npc_pilot_elite"
 
-	DefaultModelName				"mdl/Humans/pilots/w_jackcooper.rmdl"
+	DefaultModelName				"mdl/humans/pilots/pilot_medium_reaper_male.rmdl"
 	DefaultWeapon					"mp_weapon_rspn101"
 	BehaviorSelector				"behavior_pilot_elite"
 
