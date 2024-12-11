@@ -1940,7 +1940,9 @@ void function FS_TrackPlayerPositionOnScript_NEW( var rui, entity player )
 				RuiDestroy( rui )
 		}
 	)
-
+	
+	entity viewPlayer = GetLocalViewPlayer()
+	
 	while( true )
 	{
 		if( !IsAlive( player ) || 
