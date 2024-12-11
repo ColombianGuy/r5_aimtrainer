@@ -127,17 +127,6 @@ void function HealthOverlaySetSize()
 	RuiSetFloat2( file.healthOverlay, "actualRes", <float( screenSize.width ), float( screenSize.height ), 0> )
 	
 	file.originalFlowstateShieldsPos = REPLACEHud_GetPos( HudElement( "FS_EvoShields_Frame" ) )
-	
-	if( IsValid( GetLocalViewPlayer() ) && GetLocalViewPlayer().GetShieldHealth() > 0 )
-	{
-		Init_EvoShields_Flowstate_HUD( true, file.changedViewPlayer )
-		Flowstate_HUD_UpdateShieldHealthForPlayer()
-		
-		if( GetLocalViewPlayer() != GetLocalClientPlayer() )
-		{
-			Hud_SetPos( HudElement( "FS_EvoShields_Frame" ), file.originalFlowstateShieldsPos.x, file.originalFlowstateShieldsPos.y - (65  * GetScreenSize().height / 1080 ) )
-		}
-	}
 }
 
 void function PilotEMP_Internal( maxValue, float duration, float fadeTime, bool doSound = true )
@@ -316,9 +305,7 @@ void function HealthHUD_Update( entity player )
 			shieldTier = EquipmentSlot_GetEquipmentTier( player, "armor" )
 			if ( shieldFrac != lastShieldFrac || shieldTier != lastShieldTier )
 				ShieldOverlayUpdate( player, shieldFrac, lastShieldFrac, player.GetShieldHealthMax() )
-			
-			Flowstate_HUD_UpdateShieldHealthForPlayer()
-			
+
 			lastHealthFrac = healthFrac
 			lastShieldFrac = shieldFrac
 			lastShieldTier = shieldTier
