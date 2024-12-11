@@ -1934,7 +1934,6 @@ void function FS_TrackPlayerPositionOnScript_NEW( var rui, entity player )
 	if( !IsValid(player) ) return
 	
 	EndSignal( player, "OnDestroy" )
-	EndSignal( player, "OnDeath" )
 
 	OnThreadEnd(
 		function() : ( rui )
@@ -1946,6 +1945,16 @@ void function FS_TrackPlayerPositionOnScript_NEW( var rui, entity player )
 
 	while( true )
 	{
+		if( !IsAlive( player ) || 
+ 			player.GetTeam() == viewPlayer.GetTeam() )
+		{
+			RuiSetVisible( rui, false )
+			wait 0.1
+			continue
+		}
+
+		RuiSetVisible( rui, true )
+		
 		RuiSetFloat3( rui, "objectPos", <player.GetOrigin().x, player.GetOrigin().y, 0> )
 		RuiSetFloat3( rui, "objectAngles", <player.CameraAngles().x, player.CameraAngles().y, 0> )
 		
