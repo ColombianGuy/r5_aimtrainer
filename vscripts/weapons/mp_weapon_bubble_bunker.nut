@@ -50,8 +50,8 @@ void function MpWeaponBubbleBunker_Init()
 	//RegisterSignal( "ActivateArcTrap" )
 	RegisterSignal( "DeployBubbleBunker" )
 	#else
-	StatusEffect_RegisterEnabledCallback( eStatusEffect.bubble_bunker, BubbleBunker_EnterDome )
-	StatusEffect_RegisterDisabledCallback( eStatusEffect.bubble_bunker, BubbleBunker_ExitDome )
+	// StatusEffect_RegisterEnabledCallback( eStatusEffect.bubble_bunker, BubbleBunker_EnterDome )
+	// StatusEffect_RegisterDisabledCallback( eStatusEffect.bubble_bunker, BubbleBunker_ExitDome )
 	#endif
 }
 

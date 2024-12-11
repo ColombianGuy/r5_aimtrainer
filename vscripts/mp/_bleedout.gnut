@@ -935,13 +935,13 @@ string function GetReviveAnimation_Reviver( entity reviver, bool endCrouched )
 	float heatShieldReviveTime = GetCurrentPlaylistVarFloat( "heatshield_revive_time", VOID_RING_REVIVE_TIME)
 	bool canVRFastRevive = GetCurrentPlaylistVarBool( "heatshield_allow_fast_revive", VOID_RING_CAN_FAST_REVIVE)
 
-	if ( PlayerHasPassive( reviver, ePassives.PAS_BATTERY_POWERED ) )
+	if ( PlayerHasPassive( reviver, ePassives.PAS_BATTERY_POWERED ) && !Flowstate_IsHaloMode() )
 	{
 		if ( endCrouched )
 			return "Pilot_doomed_revive_crouch_shock_healthy"
 		else
 			return "Pilot_doomed_revive_shock_healthy"
-	} else if ( GibraltarIsInDome( reviver ) && GetCurrentPlaylistVarInt( "gibraltar_fast_revive", 1 ) == 1 )
+	} else if ( GibraltarIsInDome( reviver ) && GetCurrentPlaylistVarInt( "gibraltar_fast_revive", 1 ) == 1 && !Flowstate_IsHaloMode() )
 	{
 		if ( endCrouched )
 			return "Pilot_doomed_revive_crouch_slap_healthy"
@@ -988,13 +988,13 @@ string function GetReviveAnimation_Victim( entity reviver, entity victim, bool e
 		return format( "mp_pt_%s%s", rigWeight, (endCrouched ? "_self_revive_crouch" : "_self_revive_stand") )
 	}
 
-	else if ( PlayerHasPassive( reviver, ePassives.PAS_BATTERY_POWERED ) )
+	else if ( PlayerHasPassive( reviver, ePassives.PAS_BATTERY_POWERED ) && !Flowstate_IsHaloMode() )
 	{
 		if ( endCrouched )
 			return "Pilot_doomed_revive_crouch_shock_injured"
 		else
 			return "Pilot_doomed_revive_shock_injured"
-	}else if ( GibraltarIsInDome( reviver ) && GetCurrentPlaylistVarInt( "gibraltar_fast_revive", 1 ) == 1 )
+	}else if ( GibraltarIsInDome( reviver ) && GetCurrentPlaylistVarInt( "gibraltar_fast_revive", 1 ) == 1 && !Flowstate_IsHaloMode() )
 	{
 		if ( endCrouched )
 			return "Pilot_doomed_revive_crouch_slap_injured"
