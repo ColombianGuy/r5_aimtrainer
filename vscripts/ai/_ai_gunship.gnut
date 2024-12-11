@@ -214,9 +214,6 @@ void function OnGunshipDeath( entity gunship, var damageInfo )
 	}
 
 	EmitSoundAtPosition( TEAM_UNASSIGNED, gunship.GetOrigin(), SOUND_GUNSHIP_EXPLODE_DEFAULT )
-	explosion.Destroy()
-
-	gunship.Destroy()
 
 	//TEMP
 	PlayFX( FX_GUNSHIP_EXPLOSION, gunship.GetOrigin() )
