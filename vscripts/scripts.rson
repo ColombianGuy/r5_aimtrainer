@@ -952,7 +952,7 @@ Scripts:
 	
 	weapons/mp_ability_crypto_drone.nut
 	weapons/mp_ability_crypto_drone_emp.nut
-	
+	weapons/mp_weapon_gunship_missile.nut
 	weapons/mp_ability_emote_projector.nut
 	weapons/mp_weapon_raygun.nut
 	

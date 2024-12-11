@@ -3,41 +3,86 @@ untyped
 global function AiGunship_Init
 
 global function GunshipThink
+global function DEV_SpawnGunshipAtCrosshair
 
-global const SOUND_GUNSHIP_HOVER = "Gunship_Hover"
-global const SOUND_GUNSHIP_EXPLODE_DEFAULT = "Gunship_Explode"
+global const SOUND_GUNSHIP_HOVER = "crow_mcor_evac_hover"
+global const SOUND_GUNSHIP_EXPLODE_DEFAULT = "goblin_dropship_explode_OLD"
 global const FX_GUNSHIP_EXPLOSION = $"P_veh_exp_crow"
+global const GUNSHIP_MODEL = $"mdl/vehicle/straton/straton_imc_gunship_01.rmdl"
 
-function AiGunship_Init()
+const FX_GUNSHIP_DAMAGE =  $"veh_gunship_damage_FULL"
+
+void function DEV_SpawnGunshipAtCrosshair()
 {
-	PrecacheParticleSystem( FX_GUNSHIP_EXPLOSION )
-	AddDeathCallback( "npc_gunship", GunshipDeath )
+	entity player = GetPlayerArray()[ 0 ]
+	vector origin = GetPlayerCrosshairOrigin( player )
+	vector angles = Vector( 0, 0, 0 )
+
+	entity gunship = CreateEntity( "npc_gunship" )
+	{
+		SetSpawnOption_AISettings( gunship , "npc_gunship")
+		//gunship.EnableNPCFlag( NPC_DISABLE_SENSING | NPC_IGNORE_ALL )
+
+
+		gunship.SetOrigin( origin + <0,0,300> )
+		gunship.SetAngles( angles )
+
+		SetTeam( gunship, TEAM_NPC_HOSTILE_TO_ALL )
+
+		DispatchSpawn( gunship )
+	}
 }
 
-
-function GunshipThink( gunship )
+void function AiGunship_Init()
 {
-	gunship.EndSignal( "OnDeath" )
+	PrecacheParticleSystem( FX_GUNSHIP_EXPLOSION )
+	PrecacheModel( GUNSHIP_MODEL )
+	AddDeathCallback( "npc_gunship", OnGunshipDeath )
+	PrecacheWeapon($"mp_weapon_gunship_missile")
+}
 
-	entity owner
-	entity currentTarget
+void function GunshipThink( entity gunship )
+{
 	local accuracyMultiplierBase = gunship.kv.AccuracyMultiplier
 	local accuracyMultiplierAgainstDrones = 100
 
-	while( true )
+	gunship.GiveWeapon( "mp_weapon_gunship_missile", WEAPON_INVENTORY_SLOT_PRIMARY_1 )
+
+	thread function() : ( gunship )
+	{
+		while( IsValid(gunship) && IsAlive( gunship ))
+		{
+			if( IsValid( gunship ) )
+			    EmitSoundOnEntity( gunship, SOUND_GUNSHIP_HOVER )
+
+			wait 15
+
+			if( IsValid( gunship ) )
+			    StopSoundOnEntity( gunship, SOUND_GUNSHIP_HOVER )
+		}
+	}()
+
+	CreateDuckTapeHitBox( gunship )
+
+	vector lastOrigin = gunship.GetOrigin()
+	while( IsValid( gunship )  && IsAlive( gunship ))
 	{
 		wait 0.25
 
-		//----------------------------------
-		// Get owner and current enemy
-		//----------------------------------
-		currentTarget = expect entity( gunship.GetEnemy() )
-		owner = expect entity( gunship.GetFollowTarget() )
+		// stuck failsafe
+		if( IsValid(gunship) && IsAlive( gunship ) && lastOrigin == gunship.GetOrigin())
+		    gunship.SetOrigin( gunship.GetOrigin() + (gunship.GetForwardVector() * 200))
+
+		if( IsValid(gunship) && IsAlive( gunship ) )
+		    lastOrigin = gunship.GetOrigin()
 
 		//----------------------------------
 		// Free roam if owner is dead or HasEnemy
 		//----------------------------------
-		if ( ( !IsAlive( owner ) ) || ( currentTarget != null ) )
+        if( !IsValid( gunship ) )
+		    break
+
+		if ( ( !IsAlive( gunship.GetFollowTarget() ) ) || ( gunship.GetEnemy() != null ) )
 		{
 			gunship.DisableBehavior( "Follow" )
 		}
@@ -45,7 +90,7 @@ function GunshipThink( gunship )
 		//---------------------------------------------------------------------
 		// If owner is alive and no enemies in sight, go back and follow owner
 		//----------------------------------------------------------------------
-		if ( ( IsAlive( owner ) ) && ( currentTarget == null ) )
+		if ( ( IsAlive( gunship.GetFollowTarget() ) ) && ( gunship.GetEnemy() == null ) )
 		{
 			gunship.EnableBehavior( "Follow" )
 		}
@@ -54,39 +99,125 @@ function GunshipThink( gunship )
 		//----------------------------------------------
 		// Jack up accuracy if targeting a small target (like a drone)
 		//----------------------------------------------
-		if ( ( currentTarget != null ) && ( IsAirDrone( currentTarget ) ) )
-		{
+		if ( IsValid( gunship.GetEnemy() ) && ( IsAirDrone( gunship.GetEnemy() ) ) )
 			gunship.kv.AccuracyMultiplier = accuracyMultiplierAgainstDrones
-		}
 		else
-		{
 			gunship.kv.AccuracyMultiplier = accuracyMultiplierBase
-		}
 	}
-
 }
 
-
-void function GunshipDeath( entity gunship, var damageInfo )
+void function CreateDuckTapeHitBox( entity gunship )
 {
-	/*
-	Script errors
+    if( IsValid( gunship ) )
+    {
+        gunship.kv.solid = 0
 
+        entity proxy = CreateEntity( "prop_script" )
+        {
+            proxy.SetValueForModelKey( gunship.GetModelName() )
+            proxy.SetScriptName("npc_gunship_hitbox")
+
+            proxy.SetAngles( gunship.GetAngles() )
+            proxy.SetOrigin( gunship.GetOrigin() )
+            //proxy.SetModelScale(0.6)
+
+            proxy.kv.solid = SOLID_VPHYSICS
+            proxy.kv.rendermode = 3
+            proxy.kv.rendercolor = "255 255 255 0"
+            proxy.kv.spawnflags = SF_INFOTARGET_ALWAYS_TRANSMIT_TO_CLIENT
+
+            AddEntityCallback_OnKilled( proxy , OnGunshipHitBoxDeath )
+            AddEntityCallback_OnDamaged( proxy , OnGunshipDamaged )
+
+            proxy.SetOwner( gunship )
+            proxy.SetParent( gunship )
+			SetTeam(proxy, gunship.GetTeam() )
+
+            proxy.DisableRenderAlways()
+            DispatchSpawn( proxy )
+
+            proxy.SetArmorType( ARMOR_TYPE_HEAVY )
+            proxy.SetTitle( gunship.GetTitle() )
+            proxy.SetMaxHealth( gunship.GetMaxHealth() )
+            proxy.SetHealth( gunship.GetMaxHealth() )
+        }
+
+        proxy.SetTakeDamageType( DAMAGE_YES )
+		proxy.SetNoTargetSmartAmmo(true)
+        proxy.SetSmartAmmoLockType( eSmartAmmoLockType.anyType )
+    }
+}
+
+void function OnGunshipDamaged( entity gunship_proxy, var damageInfo )
+{
+	entity gunship = gunship_proxy.GetOwner()
+
+	entity weapon               = DamageInfo_GetWeapon( damageInfo )
+	entity attacker 			= DamageInfo_GetAttacker( damageInfo )
+	entity inflictor 			= DamageInfo_GetInflictor( damageInfo )
+	float damage				= DamageInfo_GetDamage( damageInfo )
+	int damageSourceId 			= DamageInfo_GetDamageSourceIdentifier( damageInfo )
+	float distance              = Distance( attacker.GetOrigin() , gunship.GetOrigin() )
+
+	// titan damage range check
+    if( IsValid( weapon ) )
+	{
+		int near = weapon.GetWeaponSettingInt( eWeaponVar.damage_near_value_titanarmor )
+		int far = weapon.GetWeaponSettingInt( eWeaponVar.damage_far_value_titanarmor )
+
+		int expfar = weapon.GetWeaponSettingInt( eWeaponVar.explosion_damage_heavy_armor )
+
+        if( distance < far)
+		    damage = max( damage, near )
+		else
+		    damage = max( damage, far )
+	}
+
+	#if DEVELOPER
+	printl( gunship.GetHealth() + " / " +   gunship.GetMaxHealth() + " | " + distance + " = " + damage)
+	#endif
+
+	//Tried to give visual shield indicator, but it doesn't seem to work?
+	DamageInfo_AddCustomDamageType( damageInfo, DF_SHIELD_DAMAGE )
+
+	// store the damage so all hits can be tallied
+	Assert( IsValid( inflictor ) )//Done so we can still get the error in dev
+	if ( !IsValid( inflictor ) ) //JFS Defensive fix
+		return
+
+	StoreDamageHistoryAndUpdate( gunship, 120.0, damage, inflictor.GetOrigin(), DamageInfo_GetCustomDamageType( damageInfo ), damageSourceId, attacker )
+
+    if(damage >= gunship.GetHealth())
+	   gunship.SetHealth(0)
+	else
+	   gunship.SetHealth( gunship.GetHealth() - damage )
+
+	gunship_proxy.SetHealth( gunship.GetHealth() )
+
+	if ( damage < 450 )
+		return
+
+	vector pos = DamageInfo_GetDamagePosition( damageInfo )
+	PlayFX( FX_GUNSHIP_DAMAGE, pos )
+	EmitSoundOnEntity( gunship, "crow_flyer_dropshipattack" )
+}
+
+void function OnGunshipDeath( entity gunship, var damageInfo )
+{
 	// Explosion effect
 	entity explosion = CreateEntity( "info_particle_system" )
-	explosion.SetOrigin( gunship.GetWorldSpaceCenter() )
-	explosion.SetAngles( gunship.GetAngles() )
-	explosion.SetValueForEffectNameKey( FX_GUNSHIP_EXPLOSION )
-	explosion.kv.start_active = 1
-	DispatchSpawn( explosion )
+	{
+		explosion.SetOrigin( gunship.GetWorldSpaceCenter() )
+		explosion.SetAngles( gunship.GetAngles() )
+		explosion.SetValueForEffectNameKey( FX_GUNSHIP_EXPLOSION )
+		explosion.kv.start_active = 1
+		DispatchSpawn( explosion )
+	}
+
 	EmitSoundAtPosition( TEAM_UNASSIGNED, gunship.GetOrigin(), SOUND_GUNSHIP_EXPLODE_DEFAULT )
-	explosion.destroy( 3 )
+	explosion.Destroy()
 
 	gunship.Destroy()
-
-	P_veh_exp_hornet, TAG_ORIGIN, attach
-
-	*/
 
 	//TEMP
 	PlayFX( FX_GUNSHIP_EXPLOSION, gunship.GetOrigin() )
@@ -94,4 +225,10 @@ void function GunshipDeath( entity gunship, var damageInfo )
 	gunship.Destroy()
 }
 
+void function OnGunshipHitBoxDeath( entity gunship_proxy, var damageInfo )
+{
+    entity gunship = gunship_proxy.GetOwner()
 
+	if( IsValid( gunship ) )
+		gunship.Die()
+}

@@ -1,4 +1,5 @@
 behavior_dropship
+behavior_gunship
 behavior_dummie_combat
 behavior_frag_drone
 behavior_training_dummy

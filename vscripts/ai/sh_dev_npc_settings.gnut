@@ -204,7 +204,7 @@ void function SetupAbilities()
 	SetupDevCommand( "Lifeline Ultimate", "give mp_ability_care_package" )
 	SetupDevCommand( "Mirage Tactical", "give mp_ability_holopilot" )
 	SetupDevCommand( "Mirage Ultimate", "give mp_ability_mirage_ultimate" )
-	SetupDevCommand( " ", "give mp_ability_heal" ) // blank line so Octance is in the same column
+	SetupDevCommand( " ", "give dontgiveanything" ) // blank line so Octance is in the same column
 	SetupDevCommand( "Octane Tactical", "give mp_ability_heal" )
 	SetupDevCommand( "Octane Ultimate", "give mp_weapon_jump_pad" )
 	SetupDevCommand( "Pathfinder Tactical", "give mp_ability_grapple" )
