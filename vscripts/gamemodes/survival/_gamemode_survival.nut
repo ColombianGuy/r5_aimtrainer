@@ -1859,7 +1859,11 @@ void function OnClientConnected( entity player )
 
 void function Survival_OnClientConnected( entity player )
 {
-	const float DEFAULT_ZOOM_LEVEL = 4.0
+	float DEFAULT_ZOOM_LEVEL = 4.0
+	
+	if( Playlist() == ePlaylists.fs_haloMod_survival )
+		DEFAULT_ZOOM_LEVEL = 1.5
+	
 	player.SetMinimapZoomScale( DEFAULT_ZOOM_LEVEL, 0.0 )
 
 	SurvivalPlayerData data
