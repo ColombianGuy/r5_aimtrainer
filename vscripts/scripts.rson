@@ -686,6 +686,7 @@ Scripts:
 	client/cl_zipline.gnut
 	client/objects/cl_control_panel.nut
 	client/objects/cl_goblin_dropship.nut
+	client/objects/cl_phantom_fighter.nut
 	client/objects/cl_spectre.nut
 	client/objects/cl_super_spectre.nut
 	conversation/cl_conversation.gnut

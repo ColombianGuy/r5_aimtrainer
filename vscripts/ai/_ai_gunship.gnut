@@ -12,7 +12,7 @@ global const GUNSHIP_MODEL = $"mdl/vehicle/straton/straton_imc_gunship_01.rmdl"
 
 const FX_GUNSHIP_DAMAGE =  $"veh_gunship_damage_FULL"
 
-void function DEV_SpawnGunshipAtCrosshair()
+void function DEV_SpawnGunshipAtCrosshair( int team = TEAM_NPC_HOSTILE_TO_ALL )
 {
 	entity player = GetPlayerArray()[ 0 ]
 	vector origin = GetPlayerCrosshairOrigin( player )
@@ -27,8 +27,7 @@ void function DEV_SpawnGunshipAtCrosshair()
 		gunship.SetOrigin( origin + <0,0,300> )
 		gunship.SetAngles( angles )
 
-		SetTeam( gunship, TEAM_NPC_HOSTILE_TO_ALL )
-
+		SetTeam( gunship, team )
 		DispatchSpawn( gunship )
 	}
 }

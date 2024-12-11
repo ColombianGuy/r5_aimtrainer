@@ -485,6 +485,7 @@ void function Client_Init()
 	CLTrackingVision_Init()
 	ClJumpPad_Init()
 	CLChroma_Init()
+	ClPhantomFighter_Init()
 	
 	//R5R.DEV
 	Tracker_ClientStats_Init()
