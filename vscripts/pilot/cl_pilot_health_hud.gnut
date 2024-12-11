@@ -12,6 +12,7 @@ global function HealthHUD_ClearFX
 global function SetHealthDisplayRange
 global function EvoShield_PlayFX
 global function Init_EvoShields_Flowstate_HUD
+global function Flowstate_HUD_UpdateShieldHealthForPlayer
 
 const HEALTHDMGSTATE1_MP         = 0.75
 const HEALTHDMGSTATE2_MP         = 0.50
@@ -95,8 +96,17 @@ void function ClHealthHud_Init()
 	AddCallback_OnViewPlayerChanged( HealthHUD_ViewPlayerChanged )
 	AddCallback_EntitiesDidLoad( HealthHUD_EntitiesDidLoad )
 	AddCallback_GameStateEnter( eGameState.WinnerDetermined, HealthHUD_OnGamestateChanged )
+	AddOnSpectatorTargetChangedCallback( HealthHUD_OnSpectateTargetChanged )
 	
 	file.flowstate_evo_shields = GetCurrentPlaylistVarBool( "flowstate_evo_shields", false )
+}
+
+void function HealthHUD_OnSpectateTargetChanged( entity player, entity oldTarget, entity newTarget )
+{
+	if( !IsValid( newTarget ) || !newTarget.IsPlayer() )
+	{
+		Init_EvoShields_Flowstate_HUD( false )
+	}
 }
 
 void function HealthHUD_OnGamestateChanged()
@@ -362,7 +372,7 @@ void function Flowstate_HUD_UpdateShieldHealthForPlayer()
 		return
 	}
 	
-	Init_EvoShields_Flowstate_HUD( true )
+	Init_EvoShields_Flowstate_HUD( true, player == GetLocalClientPlayer() )
 
 	Hud_SetText( HudElement( "FS_EvoShields_Text_ShieldsMax" ), player.GetShieldHealthMax().tostring() )
 	Hud_SetText( HudElement( "FS_EvoShields_Text_Shields" ), player.GetShieldHealth().tostring() )
