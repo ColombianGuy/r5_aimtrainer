@@ -366,7 +366,7 @@ void function GiveBasicSurvivalItems( entity player )
 	if( Playlist() == ePlaylists.fs_ltm_mortalevoshields )
 	{
 		Message(player, "MORTAL EVOSHIELDS", "Kill enemies to evolve your shields infinitely.", 8) // todo move this to localization. Cafe
-	} else if( Playlist() == ePlaylists.fs_haloMod_survival )
+	} else if( Playlist() == ePlaylists.fs_haloMod_survival && GetCurrentPlaylistVarBool( "is_hiswattson_event", false ) )
 	{
 		Remote_CallFunction_ByRef( player, "HaloBrIntroSequence" )
 	}

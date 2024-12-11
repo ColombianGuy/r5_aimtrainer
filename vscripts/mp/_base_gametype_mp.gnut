@@ -782,9 +782,7 @@ void function PostDeathThread( entity player, var damageInfo )
 		if ( IsValid( attacker ) && ShouldDoReplayForGameState() )
 		{
 			printt( "PostDeathThread(): Starting kill replay for ", player )
-			Remote_CallFunction_ByRef( player, "ServerCallback_KillReplayHud_Activate" )
-			//Remote_CallFunction_ByRef( player, "ServerCallback_ShowDeathScreen" )
-
+			
 			// it might seem weird that we pass in the inflictor's ehandle here rather than just the inflictor
 			// this is done because often (for lots of bullets and projectiles), the inflictor is actually destroyed when it does damage (i.e. on collision)
 			// because of this, the entity is only valid the frame that PostDeathThreadStarts, after our timing waits the inflictor is very invalid and so just passing in the ent here is bad
@@ -841,7 +839,6 @@ void function PostDeathThread( entity player, var damageInfo )
 				wait replayLength - replayUsingFutureDataDelay
 			}()
 			
-			Remote_CallFunction_ByRef( player, "ServerCallback_KillReplayHud_Deactivate" )
 			Remote_CallFunction_ByRef( player, "ServerCallback_ShowDeathScreen" )
 			
 			printt( "PostDeathThread(): Kill replay finished for ", player )
