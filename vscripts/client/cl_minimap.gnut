@@ -1941,11 +1941,14 @@ void function FS_TrackPlayerPositionOnScript_NEW( var rui, entity player )
 		}
 	)
 	
-	entity viewPlayer = GetLocalViewPlayer()
+	entity viewPlayer
 	
 	while( true )
 	{
-		if( !IsAlive( player ) || 
+		viewPlayer = GetLocalViewPlayer()
+		
+		if( !IsValid( viewPlayer ) ||
+			!IsAlive( player ) || 
  			player.GetTeam() == viewPlayer.GetTeam() )
 		{
 			RuiSetVisible( rui, false )
@@ -1979,13 +1982,16 @@ void function FS_TrackPlayerPositionOnScript_NEW_HaloRadar( var rui, entity play
 		}
 	)
 	
-	entity viewPlayer = GetLocalViewPlayer()
+	entity viewPlayer
 	
 	const float MAX_RADAR_DISTANCE = 100 * METERS_TO_INCHES
 	
 	while( true )
 	{
-		if( !IsAlive( player ) || 
+		viewPlayer = GetLocalViewPlayer()
+		
+		if( !IsValid( viewPlayer ) ||
+			!IsAlive( player ) || 
 			!player.IsSprinting() && !player.IsSliding() && !player.Player_IsFreefalling() ||
 			Distance2D( viewPlayer.GetOrigin(), player.GetOrigin() ) > MAX_RADAR_DISTANCE ||
  			player.GetTeam() == viewPlayer.GetTeam() )
