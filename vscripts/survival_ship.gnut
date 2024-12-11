@@ -211,13 +211,13 @@ void function ClearPlayerPlaneViewMode( entity player )
 
 	Signal( player, "ClearedPlayerPlaneViewMode" )
 
-	if( Playlist() == ePlaylists.fs_haloMod_survival )
-	{
-		GiveLoadoutRelatedWeapons_HaloMod( player ) //Cafe was here
-	} else
-	{
-		GiveLoadoutRelatedWeapons( player ) //Cafe was here
-	}
+	// if( Playlist() == ePlaylists.fs_haloMod_survival )
+	// {
+		// GiveLoadoutRelatedWeapons_HaloMod( player ) //Cafe was here
+	// } else if( !IsDevGamemode() )
+	// {
+		// GiveLoadoutRelatedWeapons( player ) //Cafe was here
+	// }
 }
 
 array<entity> function GetPlayersJumpingWithJumpmaster( entity jumpMaster )

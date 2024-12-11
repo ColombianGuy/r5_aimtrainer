@@ -549,7 +549,7 @@ void function GiveLoadoutRelatedWeapons( entity player )
 }
 
 void function GiveLoadoutRelatedWeapons_HaloMod( entity player )
-{
+{	
 	TakeLoadoutRelatedWeapons(player)
 
 	player.GiveOffhandWeapon( CONSUMABLE_WEAPON_NAME, OFFHAND_SLOT_FOR_CONSUMABLES, [] )
@@ -619,7 +619,7 @@ void function DecideRespawnPlayer( entity player, bool giveLoadoutWeapons = true
 	player.AmmoPool_SetCapacity( 65535 )
 
 	if ( giveLoadoutWeapons || Gamemode() == eGamemodes.map_editor_deprecated )
-		GiveLoadoutRelatedWeapons( player )
+		GiveBasicSurvivalItems( player )
 
 	Survival_SetInventoryEnabled( player, giveLoadoutWeapons )
 
@@ -987,8 +987,7 @@ void function OnClientConnected( entity player )
 		player.p.survivalLandedOnGround = true
 		player.p.respawnPodLanded = true
 		
-		DecideRespawnPlayer( player, true )
-		GiveBasicSurvivalItems( player )
+		DecideRespawnPlayer( player )
 	} else if( Gamemode() == eGamemodes.SURVIVAL && ( !IsDevGamemode() && !GetCurrentPlaylistVarBool( "is_practice_map", false ) && Playlist() != ePlaylists.fs_movementrecorder ) )
 	{
 		replaceOrigin = true
