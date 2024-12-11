@@ -133,7 +133,9 @@ void function SetupWeapons()
 void function SetupTitanfallWeapons()
 {
 	#if UI
-	// Titanfall guns, ported by LorryLeKral with the help from @AmosModz
+	// Titanfall guns, ported by @LorryLeKral with the help from @AmosModz
+	SetupDevCommand( "Titanfall guns, ported by LorryLeKral with the help from @AmosModz", "give mp" )
+	SetupDevCommand( "Please credit us properly if you are going to create content using them!", "give mp" )
 	SetupDevCommand( "Titanfall 2: EPG", "give mp_weapon_epg" )
 	SetupDevCommand( "Titanfall 2: Sidewinder", "give mp_weapon_smr" )
 	SetupDevCommand( "Titanfall 2: Archer", "give mp_weapon_rocket_launcher" )
