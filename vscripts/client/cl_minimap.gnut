@@ -804,8 +804,6 @@ void function OnPlayerCreate( entity player )
 			FS_HandleHaloRadarForPlayer( player )
 		return
 	}
-
-	FS_HandleHaloRadarForPlayer( player )
 	
 	if ( file.minimap_coords != null )
 	{
