@@ -38,7 +38,7 @@ global const FX_DRONE_P_EXPLOSION 			= $"P_drone_exp_plasma"
 global const FX_DRONE_W_EXPLOSION 			= $"P_drone_exp_worker"
 global const FX_DRONE_SHIELD_ROPE_GLOW 		= $"acl_light_white"
 
-function AiDrone_Init()
+void function AiDrone_Init()
 {
 	PrecacheParticleSystem( FX_DRONE_EXPLOSION )
 	PrecacheParticleSystem( FX_DRONE_R_EXPLOSION )
@@ -48,8 +48,8 @@ function AiDrone_Init()
 	PrecacheParticleSystem( FX_DRONE_SHIELD_WALL_HUMAN )
 	PrecacheParticleSystem( FX_DRONE_SHIELD_ROPE_GLOW )
 
-	PrecacheModel( $"mdl/robots/drone_air_attack/drone_air_attack_rockets.rmdl" ) // TODO: Does this exist in r5?
-	PrecacheModel( $"mdl/robots/drone_air_attack/drone_air_attack_plasma.rmdl" )  // TODO: Does this exist in r5?
+	PrecacheModel( $"mdl/robots/drone_air_attack/drone_air_attack_rockets.rmdl" ) // TODO: Does this exist in r5? // it does now -kral
+	PrecacheModel( $"mdl/robots/drone_air_attack/drone_air_attack_plasma.rmdl" )
 
 	PrecacheMaterial( $"cable/cable_selfillum.vmt" )
 	PrecacheModel( $"cable/cable_selfillum.vmt" )
@@ -58,7 +58,7 @@ function AiDrone_Init()
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Fallback behavior if we can't find a valid owner for an orphan Drone
-function DroneHasNoOwner( entity drone )
+void function DroneHasNoOwner( entity drone )
 {
 	switch ( GetDroneType( drone ) )
 	{

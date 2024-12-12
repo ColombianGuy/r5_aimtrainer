@@ -308,7 +308,7 @@ void function Server_Init()
 #endif
 
 	// AiPilot_Init()
-	// AiDrone_Init()
+	AiDrone_Init()
 	// AiSpectre_Init()
 	// AiStalker_Init()
 	// AiSpider_Init()

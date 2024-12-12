@@ -702,6 +702,7 @@ Scripts:
 	weapons/cl_smart_ammo.gnut
 	client/objects/cl_drone_medic.nut
 	client/objects/cl_draconis_flyin.nut
+	client/objects/cl_drone.nut
 	client/objects/cl_drone_crypto.nut
 
 	client/rui/cl_weapon_status.gnut
@@ -956,6 +957,8 @@ Scripts:
 	weapons/mp_weapon_gunship_missile.nut
 	weapons/mp_ability_emote_projector.nut
 	weapons/mp_weapon_raygun.nut
+	weapons/mp_weapon_droneplasma.nut
+	weapons/mp_weapon_dronerocket.nut
 	
 	sh_clientmusic.gnut
 

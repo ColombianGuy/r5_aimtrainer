@@ -348,6 +348,9 @@ void function CodeCallback_MapSpawn() // original script entry point
 	PrecacheWeapon( $"sp_weapon_arc_tool" )
 	PrecacheWeapon( $"mp_weapon_wingman_n" )
 	PrecacheWeapon( $"mp_weapon_rspn101_og" )
+	
+	PrecacheWeapon( $"mp_weapon_droneplasma" )//remove these from here later!!! -kral
+	PrecacheWeapon( $"mp_weapon_dronerocket" )
 
 	switch( GameRules_GetGameMode() )
 	{
