@@ -103,6 +103,13 @@ struct {
 	var fullmap_challengeBoxRui
 
 	array<MapFeature> mapFeatureList
+	
+	
+	//Halo Radar
+	bool FLOWSTATE_ENEMIES_IN_MINIMAP_ENABLED
+	
+	float HALO_RADAR_MAX_SCAN_DISTANCE
+	float HALO_RADAR_UPDATE_TIME
 } file
 
 
@@ -353,6 +360,12 @@ void function ClMinimap_Init()
 	Fullmap_AddRui( file.fullmap_gamestateRui )
 	foreach( func in file.onFullmapCreated_Callbacks )
 		func( file.fullmap_gamestateRui )
+
+	//Flowstate
+	file.HALO_RADAR_MAX_SCAN_DISTANCE = GetCurrentPlaylistVarFloat( "halo_radar_max_scan_distance", 100 * METERS_TO_INCHES )
+	file.HALO_RADAR_UPDATE_TIME = GetCurrentPlaylistVarFloat( "halo_radar_update_time", 0.5 )
+	
+	file.FLOWSTATE_ENEMIES_IN_MINIMAP_ENABLED = GetCurrentPlaylistVarBool( "flowstate_see_enemies_in_minimap", false )
 }
 
 
@@ -798,7 +811,7 @@ void function OnPlayerCreate( entity player )
 
 	if ( player != GetLocalClientPlayer() )
 	{
-		if( GetCurrentPlaylistVarBool( "flowstate_see_enemies_in_minimap", false ) && !Flowstate_IsHaloMode() )
+		if( file.FLOWSTATE_ENEMIES_IN_MINIMAP_ENABLED )
 			FS_Minimap_AddEnemyToMinimap_HACK( player )
 		else if( Flowstate_IsHaloMode() )
 			FS_HandleHaloRadarForPlayer( player )
@@ -1949,7 +1962,8 @@ void function FS_TrackPlayerPositionOnScript_NEW( var rui, entity player )
 		
 		if( !IsValid( viewPlayer ) ||
 			!IsAlive( player ) || 
- 			player.GetTeam() == viewPlayer.GetTeam() )
+ 			player.GetTeam() == viewPlayer.GetTeam() ||
+			!player.DoesShareRealms( viewPlayer ) )
 		{
 			RuiSetVisible( rui, false )
 			wait 0.1
@@ -1983,9 +1997,7 @@ void function FS_TrackPlayerPositionOnScript_NEW_HaloRadar( var rui, entity play
 	)
 	
 	entity viewPlayer
-	
-	const float MAX_RADAR_DISTANCE = 100 * METERS_TO_INCHES
-	
+
 	while( true )
 	{
 		viewPlayer = GetLocalViewPlayer()
@@ -1993,8 +2005,9 @@ void function FS_TrackPlayerPositionOnScript_NEW_HaloRadar( var rui, entity play
 		if( !IsValid( viewPlayer ) ||
 			!IsAlive( player ) || 
 			!player.IsSprinting() && !player.IsSliding() && !player.Player_IsFreefalling() ||
-			Distance2D( viewPlayer.GetOrigin(), player.GetOrigin() ) > MAX_RADAR_DISTANCE ||
- 			player.GetTeam() == viewPlayer.GetTeam() )
+			Distance2D( viewPlayer.GetOrigin(), player.GetOrigin() ) > file.HALO_RADAR_MAX_SCAN_DISTANCE ||
+ 			player.GetTeam() == viewPlayer.GetTeam() ||
+			!player.DoesShareRealms( viewPlayer ) )
 		{
 			RuiSetVisible( rui, false )
 			wait 0.1
@@ -2006,7 +2019,7 @@ void function FS_TrackPlayerPositionOnScript_NEW_HaloRadar( var rui, entity play
 		RuiSetFloat3( rui, "objectPos", <player.GetOrigin().x, player.GetOrigin().y, 0> )
 		RuiSetFloat3( rui, "objectAngles", <player.CameraAngles().x, player.CameraAngles().y, 0> )
 
-		wait 1
+		wait file.HALO_RADAR_UPDATE_TIME
 	}
 }
 
