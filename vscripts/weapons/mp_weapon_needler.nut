@@ -13,7 +13,7 @@ global function OnProjectileCollision_needler
 global function OnWeaponReload_Needler
 
 //Basic weapon stats
-const float NEEDLER_DAMAGE = 10
+const float NEEDLER_DAMAGE = 8
 const float NEEDLER_TIMETOEXPLODE = 2
 
 //Custom particles
@@ -183,7 +183,7 @@ var function OnWeaponPrimaryAttack_needler( entity weapon, WeaponPrimaryAttackPa
 	int currentAmmo = weapon.GetWeaponPrimaryClipCount()
 	int visualNeedles = 18 
 	
-	float idealVisualNeedlesToShow = floor( float( visualNeedles * currentAmmo ) / float(clipSize) )
+	float idealVisualNeedlesToShow = floor( float( visualNeedles * currentAmmo ) / float(clipSize) ) - 1
 
 	string modToSet = "needlesTest-" + idealVisualNeedlesToShow.tostring()
 	
