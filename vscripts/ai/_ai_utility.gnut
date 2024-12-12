@@ -1644,6 +1644,22 @@ void function DEV_SpawnMarvinAtCrosshair(int team = 99)
 	DispatchSpawn( marvin )
 }
 
+void function DEV_SpawnSoldierAtCrosshair(int team = 99)
+{
+	entity player = GetPlayerArray()[ 0 ]
+
+	vector origin = GetPlayerCrosshairOrigin( player )
+	vector angles = Vector( 0, 0, 0 )
+
+	entity soldier = CreateSoldier( team, origin, angles )
+	
+	DispatchSpawn( soldier )
+	
+	//array<string> weapons = ["mp_weapon_rspn101"] //We are giving them original firing range weapons, they are shooting better this way
+	//string randomWeapon = weapons[RandomInt(weapons.len())]
+	soldier.GiveWeapon("npc_weapon_lstar", WEAPON_INVENTORY_SLOT_ANY)
+}
+
 void function DEV_SpawnSpectreAtCrosshair(int team = 99)
 {
 	entity player = GetPlayerArray()[ 0 ]

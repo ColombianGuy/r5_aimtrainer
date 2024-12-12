@@ -10,6 +10,8 @@ behavior_infected
 behavior_marvin
 behavior_prowler
 behavior_drone
+behavior_soldier
+behavior_sp_soldier
 behavior_stalker
 behavior_stalker_crawling
 behavior_spectre
