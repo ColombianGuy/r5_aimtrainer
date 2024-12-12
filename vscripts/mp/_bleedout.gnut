@@ -61,8 +61,6 @@ const float REVIVE_PASSIVE_SELF_REVIVE = 12.0
 const int REVIVE_GUARDIAN_ANGEL_SHIELD_BONUS = 50
 const int REVIVE_GUARDIAN_ANGEL_HEALTH_BONUS = 50
 
-global table<string, string> EliminatedPlayers = {}
-
 struct BleedoutInfo
 {
 	float					bleedoutStartTime = -999.0
@@ -586,7 +584,7 @@ void function EnablePlayerRes( entity player )
 	player.EndSignal( "BleedOut_OnStartDying" )
 	player.EndSignal( "BleedOut_OnRevive" )
 
-	if ( IsPilotEliminationBased() && Playlist() != ePlaylists.survival_firingrange && Gamemode() == eGamemodes.SURVIVAL ) // && !GameModeVariant_IsActive( eGameModeVariants.SURVIVAL_FIRING_RANGE ) )
+	if ( Playlist() != ePlaylists.survival_firingrange && Gamemode() == eGamemodes.SURVIVAL && !IsDevGamemode() ) // && !GameModeVariant_IsActive( eGameModeVariants.SURVIVAL_FIRING_RANGE ) )
 		SetPlayerEliminated( player )
 
 	//Wait until player is done playing their bleedout entrance animations before setting usable
@@ -1246,8 +1244,7 @@ void function Bleedout_PlayerAttemptRes( entity reviver, entity target )
 
 	SetPlayerNotBleedingOut( target )
 
-	if ( IsPilotEliminationBased() )
-		ClearPlayerEliminated( target )
+	ClearPlayerEliminated( target )
 
 	//Do not run this callback if player is self healing.
 	if ( !Bleedout_IsPlayerSelfReviving( target ) )

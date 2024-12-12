@@ -12,6 +12,14 @@ const DEATH_CHAT_DELAY = 0.3
 const NON_FLINCH_MODES_BITMASK = ( 1 << ePlaylists.fs_lgduels_1v1 ) | ( 1 << ePlaylists.fs_1v1 )
 const NON_FLINCH_DAMAGE_BITMASK = 1 << eDamageSourceId.deathField
 
+global struct EliminatedPlayerData
+{
+	string name
+	int team
+}
+
+table< string, EliminatedPlayerData > EliminatedPlayers = {}
+
 global struct OutOfBoundsDataStruct //Have to globalize it because all functions are globalized in this file :/
 {
 	int outOfBoundsTriggersTouched = 0
@@ -2098,14 +2106,22 @@ function ClearRespawnAvailable( entity player )
 	level.nv.respawnAvailableBits = level.nv.respawnAvailableBits & (~elimMask)
 }
 
-
+//Cafe's rework
 void function SetPlayerEliminated( entity player )
 {
 	if( !IsValid( player ) )
 		return
 
-	EliminatedPlayers[player.GetPlayerName()] <- player.GetPlatformUID()
-	printt("PLAYER ELIMINATED ADDED TO TABLE. " + player.GetPlayerName() + " - " + player.GetPlatformUID())
+	if( !(player.GetPlatformUID() in EliminatedPlayers) )
+	{
+		EliminatedPlayerData data
+		data.name = player.GetPlayerName()
+		data.team = player.GetTeam()
+		
+		EliminatedPlayers[ player.GetPlatformUID() ] <- data
+		
+		printt( "PLAYER ELIMINATED SAVED - EA ID: " + player.GetPlatformUID() + " - NAME: " + data.name + " - TEAM: " + data.team )
+	}
 }
 
 void function ClearPlayerEliminated( entity player )
@@ -2113,21 +2129,25 @@ void function ClearPlayerEliminated( entity player )
 	if( !IsValid( player ) )
 		return
 
-	if(player.GetPlayerName() in EliminatedPlayers)
+	if( player.GetPlatformUID() in EliminatedPlayers )
 	{
-		printt("CLEARING ELIMINATED STATE FOR PLAYER " + player.GetPlayerName() + " - " + player.GetPlatformUID())
-		delete EliminatedPlayers[player.GetPlayerName()]
+		EliminatedPlayerData data = EliminatedPlayers[ player.GetPlatformUID() ]
+		printt( "CLEARING ELIMINATED STATE FOR PLAYER " + player.GetPlatformUID() + " - NAME: " + data.name + " - TEAM: " + data.team )
+		
+		delete EliminatedPlayers[ player.GetPlatformUID() ]
 	}
 }
 
 bool function IsPlayerEliminated( entity player )
 {
 	// printt("CHECKING IF PLAYER IS ELIMINATED " + player.GetPlayerName() + " - " + player.GetPlatformUID())
-	foreach(playername, id in EliminatedPlayers)
-		if(player.GetPlayerName() == playername || id == player.GetPlatformUID())
-			return true
-	
-	return false
+
+	return ( player.GetPlatformUID() in EliminatedPlayers )
+}
+
+EliminatedPlayerData function GetPlayerEliminatedData( entity player )
+{
+	return EliminatedPlayers[ player.GetPlatformUID() ]
 }
 
 bool function IsTeamEliminated( int team )

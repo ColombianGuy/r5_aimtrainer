@@ -92,6 +92,8 @@ void function CodeCallback_OnClientDisconnected( entity player, string reason )
 		callbackFunc( player )
 	}
 
+	if( GetGameState() == eGameState.Playing )
+		SetPlayerEliminated( player )
 }
 
 

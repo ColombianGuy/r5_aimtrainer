@@ -2875,19 +2875,6 @@ int function GetRoundsPlayed()
 	return expect int( level.nv.roundsPlayed )
 }
 
-
-bool function IsEliminationBased()
-{
-	return GetCurrentPlaylistVarBool( "is_elimination_based", true )
-}
-
-
-bool function IsPilotEliminationBased()
-{
-	return true
-}
-
-
 void function __WarpInEffectShared( vector origin, vector angles, string sfx, float preWaitOverride = -1.0, entity ornull vehicle = null )
 {
 	float preWait = 2.0

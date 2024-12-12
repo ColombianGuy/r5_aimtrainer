@@ -1029,8 +1029,12 @@ void function OnClientConnected( entity player )
 				//If team is on the ground already, means that player has connected too late, which shouldn't be allowed to respawn in the game.
 				//Let's put the player to spectate.
 				
-				SetTeam( player, TEAM_SPECTATOR )
-				SetPlayerEliminated( player )
+				if( !IsPlayerEliminated( player ) )
+				{
+					SetTeam( player, TEAM_SPECTATOR )
+					SetPlayerEliminated( player )
+				}
+				
 				player.SetPlayerNetInt( "respawnStatus", eRespawnStatus.NONE )
 				
 				printt( "[+] Player has connected too late, this is not allowed. Start spectating. Cafe" ) //Please don't remove my prints (:
@@ -1089,6 +1093,13 @@ void function OnClientConnected( entity player )
 
 void function FS_GiveInitialTeamToPlayer( entity player )
 {
+	if( IsPlayerEliminated( player ) )
+	{
+		EliminatedPlayerData data = GetPlayerEliminatedData( player )
+		SetTeam( player, data.team ) //Give saved team. Cafe
+		return
+	}
+	
 	int maxTeamSize = GetCurrentPlaylistVarInt( "max_team_size", 1 )
 	int numTeams = GetCurrentPlaylistVarInt( "max_players", 0 ) / GetCurrentPlaylistVarInt( "max_team_size", 1 )
 
