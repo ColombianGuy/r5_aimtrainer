@@ -2608,35 +2608,6 @@ void function soloModePlayerToWaitingList( entity player )
 	if( !isScenariosMode() )
 		Remote_CallFunction_ByRef( player, "ForceScoreboardFocus" )
 
-	// Check if the player is part of any group
-	if ( player.p.handle in file.playerToGroupMap && !settings.isScenariosMode )
-	{
-		soloGroupStruct group = returnSoloGroupOfPlayer( player )
-		entity opponent = returnOpponentOfPlayer( player )
-		
-		if( mGroupMutexLock )
-		{ 
-			sqerror("tried to modify groups in use")
-			throw "tried to modify groups in use.";
-		}
-		else if( !isGroupValid( group ) )
-		{
-			#if DEVELOPER
-				sqprint("remove group request 01")
-			#endif
-			
-			destroyRingsForGroup( group )
-			removeGroup( group )
-		}
-		
-		//soloModePlayerToWaitingList( player ) //recursive call???????
-		
-		if ( IsValid( opponent ) ) 
-		{
-			soloModePlayerToWaitingList( opponent )
-		}
-	}
-	
 	//检查resting list 是否有该玩家
 	deleteSoloPlayerResting( player )
 	if( isScenariosMode() && FS_Scenarios_GetMatchIsEnding() )
