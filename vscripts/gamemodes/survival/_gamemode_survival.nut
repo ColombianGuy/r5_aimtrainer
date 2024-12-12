@@ -60,8 +60,6 @@ global function Survival_AddCallback_OnPlayerKillDamage
 global function Survival_AddCallback_OnAttackerSquadWipe
 global function Survival_AddCallback_OnAttackerSoloRatEliminated
 
-//float SERVER_SHUTDOWN_TIME_AFTER_FINISH = -1 // 1 or more to wait the specified number of seconds before executing, 0 to execute immediately, -1 or less to not execute
-
 //updated. Cafe
 global const float REALBIG_CIRCLE_GRID_RADIUS = 52500
 const float PLANE_HEIGHT_REALBIG = 17000.0
@@ -1208,18 +1206,12 @@ void function Sequence_Epilogue()
 		Remote_CallFunction_NonReplay( player, "ServerCallback_ShowWinningSquadSequence" )
 	}
 	
-	
-	//WaitForever() //(mk): There's really no reason to keep this thread alive, as it does nothing more and nothing when it closes
-	
-	// if( SERVER_SHUTDOWN_TIME_AFTER_FINISH >= 1 )
-		// wait SERVER_SHUTDOWN_TIME_AFTER_FINISH
-	// else if( SERVER_SHUTDOWN_TIME_AFTER_FINISH <= -1 )
-		// WaitForever()
-
-	// if( GetCurrentPlaylistVarBool( "survival_server_restart_after_end", false ) )
-		// GameRules_ChangeMap( GetMapName(), GameRules_GetGameMode() )
-	// else
-		// DestroyServer()
+	if( GetCurrentPlaylistVarBool( "survival_server_restart_after_end", false ) )
+	{
+		wait GetCurrentPlaylistVarFloat( "survival_server_restart_after_end_time", 30 )
+		
+		GameRules_ChangeMap( GetMapName(), GameRules_GetGameMode() )
+	}
 }
 
 void function UpdateMatchSummaryPersistentVars( int team )

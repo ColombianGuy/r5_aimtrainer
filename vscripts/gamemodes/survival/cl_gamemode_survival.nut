@@ -4595,6 +4595,9 @@ void function ShowVictorySequence( bool placementMode = false )
 
 	ScreenFade( player, 255, 255, 255, 255, 0.4, 0.0, FFADE_IN | FFADE_PURGE )
 
+	if( GetCurrentPlaylistVarBool( "survival_server_restart_after_end", false ) )
+		DM_HintCatalog( 5, 0 )
+	
 	asset defaultModel                = GetGlobalSettingsAsset( DEFAULT_PILOT_SETTINGS, "bodyModel" )
 	LoadoutEntry loadoutSlotCharacter = Loadout_CharacterClass()
 	vector characterAngles            = < file.victorySequenceAngles.x / 2.0, file.victorySequenceAngles.y, file.victorySequenceAngles.z >

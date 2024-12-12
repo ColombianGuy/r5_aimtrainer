@@ -1776,6 +1776,10 @@ void function DM_HintCatalog(int index, int eHandle)
 		DM_QuickHint( "You have to kill the two dummies at the same time before you can continue!", true, 3 )
 		break
 
+		case 5:
+		DM_QuickHint( "Starting new game in " + GetCurrentPlaylistVarFloat( "survival_server_restart_after_end_time", 30 ) + " seconds.", true, 5 )
+		break
+		
 		case -1:
 		if(file.activeQuickHint != null)
 		{
