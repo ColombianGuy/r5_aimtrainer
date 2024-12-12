@@ -233,6 +233,9 @@ void function GamemodeSurvival_Init()
 		//Move faster while adsing
 		AddCallback_OnPlayerZoomIn( FS_HaloMod_OnPlayerZoomIn )
 		AddCallback_OnPlayerZoomOut( FS_HaloMod_OnPlayerZoomOut )
+		
+		//Precache Charm
+		PrecacheModel( $"mdl/flowstate_custom/charm_hiswattson.rmdl" )
 	}
 }
 
