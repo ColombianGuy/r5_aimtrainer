@@ -2126,8 +2126,7 @@ bool function IsPlayerEliminated( entity player )
 	foreach(playername, id in EliminatedPlayers)
 		if(player.GetPlayerName() == playername || id == player.GetPlatformUID())
 			return true
-		else
-			return false
+	
 	return false
 }
 
