@@ -32,8 +32,6 @@ npc_spectre
 	minGoalRadius					256
 
 	DefaultModelName				"mdl/robots/spectre/imc_spectre.rmdl"
-	DefaultModelName_IMC			"mdl/robots/spectre/imc_spectre.rmdl"
-	DefaultModelName_MIL			"mdl/robots/spectre/imc_spectre.rmdl"
 
 	DefaultWeapon					"mp_weapon_rspn101"
 	WeaponCapacity					"PilotMainWeapons"
@@ -44,14 +42,14 @@ npc_spectre
 	longJumpMaxDist					700
 	longJumpHeight					300
 
-	GibModel0						"mdl/robots/spectre/spectre_assault_d_gib_leg_l.rmdl"
-	GibModel1						"mdl/robots/spectre/spectre_assault_d_gib_leg_r.rmdl"
-	GibModel2						"mdl/robots/spectre/spectre_assault_d_gib_arm_l.rmdl"
-	GibModel3						"mdl/robots/spectre/spectre_assault_d_gib_arm_r.rmdl"
-	GibModelSoftened0				"mdl/robots/spectre/spectre_assault_d_gib_leg_l.rmdl"
-	GibModelSoftened1				"mdl/robots/spectre/spectre_assault_d_gib_leg_r.rmdl"
-	GibModelSoftened2				"mdl/robots/spectre/spectre_assault_d_gib_arm_l.rmdl"
-	GibModelSoftened3				"mdl/robots/spectre/spectre_assault_d_gib_arm_r.rmdl"
+	GibModel0						"models/robots/spectre/spectre_assault_d_gib_leg_l.mdl"
+	GibModel1						"models/robots/spectre/spectre_assault_d_gib_leg_r.mdl"
+	GibModel2						"models/robots/spectre/spectre_assault_d_gib_arm_l.mdl"
+	GibModel3						"models/robots/spectre/spectre_assault_d_gib_arm_r.mdl"
+	GibModelSoftened0				"models/robots/spectre/spectre_assault_d_gib_leg_l.mdl"
+	GibModelSoftened1				"models/robots/spectre/spectre_assault_d_gib_leg_r.mdl"
+	GibModelSoftened2				"models/robots/spectre/spectre_assault_d_gib_arm_l.mdl"
+	GibModelSoftened3				"models/robots/spectre/spectre_assault_d_gib_arm_r.mdl"
 	GibAttachment0					"left_leg"
 	GibAttachment1					"right_leg"
 	GibAttachment2					"left_arm"
@@ -206,8 +204,7 @@ npc_spectre
 	showTitle						1	[$mp]
 	showTitle						1	[$sp]
 
-	ui_targetinfo					"ui/targetinfo_npc_simple" [$mp]
-	ui_targetinfo					"ui/targetinfo_npc_hackable" [$sp]
+	ui_targetinfo					"ui/targetinfo_npc_simple"
 
 	smartAmmoLockAttachmentName0	HEADFOCUS
 	waitBetweenWeaponBurst			1

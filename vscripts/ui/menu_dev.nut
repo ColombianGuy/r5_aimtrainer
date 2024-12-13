@@ -291,48 +291,113 @@ void function SetupDefaultDevCommandsMP()
 
 	if(GetCheatsState()){
 
-		SetupDevMenu( "Equip Legend Abilities", SetDevMenu_Abilities )
-		SetupDevMenu( "Equip Weapons", SetDevMenu_Weapons )
-		SetupDevMenu( "Equip Titanfall Weapons", SetDevMenu_R2Weapons )
-		SetupDevMenu( "Equip Throwables", SetDevMenu_Throwables )
+		SetupDevMenu( "Abilities", SetDevMenu_Abilities )
+		SetupDevMenu( "Equip Weapon", SetDevMenu_Weapons )
+		//SetupDevMenu( "MDLSpawner", SetDevMenu_ModelSpawner )
 
 		if ( IsSurvivalMenuEnabled() )
 		{
 			SetupDevMenu( "Change Character", SetDevMenu_SurvivalCharacter )
+			//SetupDevMenu( "Override Spawn Character", SetDevMenu_OverrideSpawnSurvivalCharacter )
 			SetupDevMenu( "Survival", SetDevMenu_Survival )
+			SetupDevMenu( "Custom: Weapons", SetDevMenu_SurvivalLoot, "weapon_custom" )
+			SetupDevMenu( "Custom: Attachments", SetDevMenu_SurvivalLoot, "attachment_custom" )
 			SetupDevMenu( "Survival: Weapons", SetDevMenu_SurvivalLoot, "main_weapon" )
 			SetupDevMenu( "Survival: Attachments", SetDevMenu_SurvivalLoot, "attachment" )
 			SetupDevMenu( "Survival: Helmets", SetDevMenu_SurvivalLoot, "helmet" )
 			SetupDevMenu( "Survival: Armors", SetDevMenu_SurvivalLoot, "armor" )
 			SetupDevMenu( "Survival: Backpacks", SetDevMenu_SurvivalLoot, "backpack" )
 			SetupDevMenu( "Survival: Incap Shields", SetDevMenu_SurvivalLoot, "incapshield" )
+			//SetupDevMenu( "Survival Incap Shield Debugging", SetDevMenu_SurvivalIncapShieldBots )
+
 			string itemsString = "ordnance ammo health custom_pickup data_knife"
+
 			SetupDevMenu( "Survival: Consumables", SetDevMenu_SurvivalLoot, itemsString )
+
+			//SetupDevCommand( "Survival Loot Zone Preprocess", "script_ui Dev_CommandLineAddParm( \"-survival_preprocess\", \"\" ); reload" )
 		}
 
 		SetupDevMenu( "Respawn Player(s)", SetDevMenu_RespawnPlayers )
-		SetupDevCommand( "Recharge Abilities", "recharge" )
-		
-		SetupDevMenu( "Spawn NPC at Crosshair [Friendly]", SetDevMenu_AISpawnFriendly )
-		SetupDevMenu( "Spawn NPC at Crosshair [Enemy]", SetDevMenu_AISpawnEnemy )
-		
+		SetupDevMenu( "Spawn NPCs", SetDevMenu_FS_NPCs )
+
+		//SetupDevMenu( "Spawn NPC [IMC]", SetDevMenu_AISpawn, TEAM_IMC )
+		//SetupDevMenu( "Spawn NPC [Militia]", SetDevMenu_AISpawn, TEAM_MILITIA )
+		//SetupDevMenu( "Spawn NPC [Team 4]", SetDevMenu_AISpawn, TEAM_NPC )
+
+
 		SetupDevCommand( "Toggle NoClip", "noclip" )
-		SetupDevCommand( "Toggle Skybox View", "script thread ToggleSkyboxView()" )
-		SetupDevCommand( "Toggle HUD", "ToggleHUD" )
+
+		SetupDevCommand( "Recharge Abilities", "recharge" )
+		// SetupDevCommand( "Infinite Ammo", "infinite_ammo" )
+
+		//SetupDevCommand( "Toggle Model Viewer", "script thread ToggleModelViewer()" )
 		SetupDevCommand( "Start Skydive", "script thread SkydiveTest()" )
 		SetupDevCommand( "Spawn Deathbox", "SpawnDeathboxAtCrosshair" )
+		//SetupDevCommand( "Toggle Weapon Preview", "ToggleWeaponSkinPreview" )
+		//SetupDevMenu( "Threat Tracker", SetDevMenu_ThreatTracker )
+		//SetupDevMenu( "High-Vis NPC Test", SetDevMenu_HighVisNPCTest )
+
+		//SetupDevCommand( "Disable NPCs", "script disable_npcs()" )
+		// SetupDevCommand( "Disable New NPCs", "script disable_new_npcs()" )
+
+		//SetupDevCommand( "Toggle Friendly Highlights", "script DEV_ToggleFriendlyHighlight()" )
+		//SetupDevCommand( "Export precache script", "script_ui Dev_CommandLineAddParm( \"-autoprecache\", \"\" ); script_ui Dev_CommandLineRemoveParm( \"" + STARTPOINT_DEV_STRING + "\" ); reload" )
+
+		//SetupDevCommand( "Doom my titan", "script_client GetLocalViewPlayer().ClientCommand( \"DoomTitan\" )" )
+		//SetupDevCommand( "DoF debug (ads)", "script_client ToggleDofDebug()" )
+
+		//SetupDevCommand( "ToggleTitanCallInEffects", "script FlagToggle( \"EnableIncomingTitanDropEffects\" )" )
+
+		//SetupDevCommand( "Spawn IMC grunt", "SpawnViewGrunt " + TEAM_IMC )
+		//SetupDevCommand( "Spawn Militia grunt", "SpawnViewGrunt " + TEAM_MILITIA )
+
+		//SetupDevCommand( "Enable titan-always-executes-titan", "script FlagSet( \"ForceSyncedMelee\" )" )
+
+		//SetupDevCommand( "Kill All Titans", "script killtitans()" )
+		//SetupDevCommand( "Kill All Minions", "script killminions()" )
+
+		// SetupDevCommand( "Export leveled_weapons.def / r2_weapons.fgd", "script thread LeveledWeaponDump()" )
 
 		SetupDevCommand( "Summon Players to player 0", "script summonplayers()" )
+		//SetupDevCommand( "Display Titanfall spots", "script thread ShowAllTitanFallSpots()" )
+		//SetupDevCommand( "Toggle check inside Titanfall Blocker", "script thread DevCheckInTitanfallBlocker()" )
+		//SetupDevCommand( "Test Dropship Intro Spawns with Bots", "script thread DebugTestDropshipStartSpawnsForAll()" )
+		//SetupDevCommand( "Preview Dropship Spawn at this location", "script SetCustomPlayerDropshipSpawn()" )
+		//SetupDevCommand( "Test Dropship Spawn at this location", "script thread DebugTestCustomDropshipSpawn()" )
+		//SetupDevCommand( "Max Activity (Pilots)", "script SetMaxActivityMode(1)" )
+		//SetupDevCommand( "Max Activity (Titans)", "script SetMaxActivityMode(2)" )
+		//SetupDevCommand( "Max Activity (Conger Mode)", "script SetMaxActivityMode(4)" )
+		//SetupDevCommand( "Max Activity (Disabled)", "script SetMaxActivityMode(0)" )
 
+		SetupDevCommand( "Toggle Skybox View", "script thread ToggleSkyboxView()" )
+		SetupDevCommand( "Toggle HUD", "ToggleHUD" )
+
+		// SetupDevCommand( "Melee: Unequip", "script thread UnEquipMelee()" )		
+
+		//SetupDevCommand( "Toggle Offhand Low Recharge", "ToggleOffhandLowRecharge" )
+		//SetupDevCommand( "Map Metrics Toggle", "script_client GetLocalClientPlayer().ClientCommand( \"toggle map_metrics 0 1 2 3\" )" )
+		//SetupDevCommand( "Toggle Pain Death sound debug", "script TogglePainDeathDebug()" )
+		//SetupDevCommand( "Jump Randomly Forever", "script_client thread JumpRandomlyForever()" )
+
+		//SetupDevCommand( "Toggle Zeroing Mode", "script ToggleZeroingMode()" )
 		SetupDevCommand( "Enable God Mode", "script EnableDemigod( gp()[0] )" )
 		SetupDevCommand( "Disable God Mode", "script DisableDemigod( gp()[0] )" )
+		//SetupDevCommand( "Toggle Screen Alignment Tool", "script_client DEV_ToggleScreenAlignmentTool()" )
+
 		SetupDevCommand( "Toggle Third Person Mode", "ToggleThirdPerson" )
-		
-		//SetupDevMenu( "Custom: Weapons", SetDevMenu_SurvivalLoot, "weapon_custom" )
-		//SetupDevMenu( "Custom: Attachments", SetDevMenu_SurvivalLoot, "attachment_custom" )
-		SetupDevMenu( "Custom: Player Models", SetDevMenu_CustomPRModel )
 
 		SetupDevMenu( "Prototypes", SetDevMenu_Prototypes )
+
+		SetupDevCommand( "Melee: Shadow Hands", "script thread SetupHeirloom(3)" )
+		SetupDevCommand( "Melee: Boxing Hands", "script thread SetupHeirloom(4)" )
+		SetupDevCommand( "Custom Melee: Bolo Sword", "script thread SetupHeirloom(0)" )
+		// SetupDevCommand( "Custom Melee: VCTBlue Knife", "script thread SetupHeirloom(2)" )
+
+		// This adds CAPTURE MODE every time you load a level.
+		// Capture mode doesn't work, so I am commenting this out.
+		// Coded in sh_capturemode.nut
+		// foreach ( DevCommand cmd in file.levelSpecificCommands )
+		// 	SetupDevCommand( cmd.label, cmd.command )
 	}
 	else
 	{
@@ -361,6 +426,11 @@ void function SetupLevelDevCommands()
 	}
 }
 
+void function SetDevMenu_ModelSpawner( var _ )
+{
+	thread ChangeToThisMenu( SetupModelSpawner )
+}
+
 void function SetDevMenu_Abilities( var _ )
 {
 	thread ChangeToThisMenu( SetupAbilities )
@@ -369,14 +439,6 @@ void function SetDevMenu_Abilities( var _ )
 void function SetDevMenu_Weapons( var _ )
 {
 	thread ChangeToThisMenu( SetupWeapons )
-}
-void function SetDevMenu_R2Weapons( var _ )
-{
-	thread ChangeToThisMenu( SetupTitanfallWeapons )
-}
-void function SetDevMenu_Throwables( var _ )
-{
-	thread ChangeToThisMenu( SetupThrowables )
 }
 void function SetDevMenu_TDMPrimaryWeapons( var _ )
 {
@@ -390,22 +452,17 @@ void function SetDevMenu_SurvivalCharacter( var _ )
 {
 	thread ChangeToThisMenu( SetupChangeSurvivalCharacterClass )
 }
-void function SetDevMenu_AISpawnFriendly( var _ )
-{
-	thread ChangeToThisMenu( SetupFriendlyNPC )
-}
-void function SetDevMenu_AISpawnEnemy( var _ )
-{
-	thread ChangeToThisMenu( SetupEnemyNPC )
-}
+
 void function SetDevMenu_Editor( var _ )
 {
 	thread ChangeToThisMenu( SetupEditor )
 }
-void function SetDevMenu_CustomPRModel( var _ )
+
+void function SetDevMenu_FS_NPCs( var _ )
 {
-	thread ChangeToThisMenu( SetupChangeCharacterModel )
+	thread ChangeToThisMenu( SetupFS_NPCs )
 }
+
 void function DEV_InitLoadoutDevSubMenu()
 {
 	file.initializingCodeDevMenu = true
@@ -683,6 +740,20 @@ void function SetupRespawnPlayersDevMenu()
 	SetupDevCommand( "Respawn dead bots", "respawn deadbots" )
 	SetupDevCommand( "Respawn my teammates", "respawn allies" )
 	SetupDevCommand( "Respawn my enemies", "respawn enemies" )
+}
+
+void function SetupFS_NPCs()
+{
+	SetupDevCommand( "Dummy", "script DEV_SpawnDummyAtCrosshair()" )
+	SetupDevCommand( "Legend as Dummy", "script DEV_SpawnLegendAtCrosshair()" )
+	SetupDevCommand( "Marvin", "script DEV_SpawnMarvinAtCrosshair()" )
+	SetupDevCommand( "Prowler", "script DEV_SpawnProwlerAtCrosshair()" )
+	SetupDevCommand( "Spider", "script DEV_SpawnSpiderAtCrosshair()" )
+	SetupDevCommand( "Spectre", "script DEV_SpawnSpectreAtCrosshair()" )
+	SetupDevCommand( "Stalker", "script DEV_SpawnStalkerAtCrosshair()" )
+	SetupDevCommand( "Infected Soldier", "script DEV_SpawnInfectedSoldierAtCrosshair()" )
+	SetupDevCommand( "Elite Pilot", "script DEV_SpawnElitePilotAtCrosshair()" )
+	SetupDevCommand( "Explosive Tick", "script DEV_SpawnExplosiveTickAtCrosshair()" )
 }
 
 void function SetupTDMPrimaryWeapons()
@@ -1068,281 +1139,4 @@ void function DEV_ExecBoundDevMenuCommand()
 		return
 
 	RunDevCommand( file.boundCmd, true )
-}
-
-void function SetupChangeSurvivalCharacterClass()
-{
-// TODO: FIX [Undefined variable "SetupDevFunc"] //done?
-	#if UI
-		array<ItemFlavor> characters = clone GetAllCharacters()
-		characters.sort( int function( ItemFlavor a, ItemFlavor b ) {
-			if ( Localize( ItemFlavor_GetLongName( a ) ) < Localize( ItemFlavor_GetLongName( b ) ) )
-				return -1
-			if ( Localize( ItemFlavor_GetLongName( a ) ) > Localize( ItemFlavor_GetLongName( b ) ) )
-				return 1
-			return 0
-		} )
-		foreach( ItemFlavor character in characters )
-		{
-			SetupDevFunc( Localize( ItemFlavor_GetLongName( character ) ), void function( var unused ) : ( character ) {
-				DEV_RequestSetItemFlavorLoadoutSlot( LocalClientEHI(), Loadout_CharacterClass(), character )
-			} )
-		}
-	#endif
-}
-
-void function SetupChangeCharacterModel()
-{
-	#if UI
-		//Custom by @CafeFPS :)
-		SetupDevCommand( "TF2 Ash [Custom]", "Flowstate_AssignCustomCharacterFromMenu 6")
-		SetupDevCommand( "TF2 Blisk [Custom]", "Flowstate_AssignCustomCharacterFromMenu 1")
-		SetupDevCommand( "TF2 Jack Cooper [Custom]", "Flowstate_AssignCustomCharacterFromMenu 8")
-		SetupDevCommand( "Ballistic [Custom]", "Flowstate_AssignCustomCharacterFromMenu 12")
-		SetupDevCommand( "Fade [Custom]", "Flowstate_AssignCustomCharacterFromMenu 2")
-		SetupDevCommand( "Rhapsody [Custom]", "Flowstate_AssignCustomCharacterFromMenu 5")
-		SetupDevCommand( "Crewmate [Custom - 3p only]", "Flowstate_AssignCustomCharacterFromMenu 3")
-		//SetupDevCommand( "Peter Griffing [Custom]", "Flowstate_AssignCustomCharacterFromMenu 4")
-		//SetupDevCommand( "CJ [Custom - 3p only]", "Flowstate_AssignCustomCharacterFromMenu 7")
-		SetupDevCommand( "MRVN [Custom - 3p only]", "Flowstate_AssignCustomCharacterFromMenu 13")
-		//SetupDevCommand( "Satoru Gojo [Custom]", "Flowstate_AssignCustomCharacterFromMenu 14" )
-		//SetupDevCommand( "Naruto [Custom]", "Flowstate_AssignCustomCharacterFromMenu 15" )
-		SetupDevCommand( "Pete [Custom]", "Flowstate_AssignCustomCharacterFromMenu 16" )
-	#endif
-}
-
-
-void function SetupOverrideSpawnSurvivalCharacter()
-{
-	#if(UI)
-		SetupDevCommand( "Random (default)", "dev_sur_force_spawn_character random" )
-		SetupDevCommand( "Shipping only", "dev_sur_force_spawn_character special" )
-		array<ItemFlavor> characters = clone GetAllCharacters()
-		characters.sort( int function( ItemFlavor a, ItemFlavor b ) {
-			if ( Localize( ItemFlavor_GetLongName( a ) ) < Localize( ItemFlavor_GetLongName( b ) ) )
-				return -1
-			if ( Localize( ItemFlavor_GetLongName( a ) ) > Localize( ItemFlavor_GetLongName( b ) ) )
-				return 1
-			return 0
-		} )
-		foreach( ItemFlavor characterClass in characters )
-		{
-			SetupDevCommand( Localize( ItemFlavor_GetLongName( characterClass ) ), "dev_sur_force_spawn_character " + ItemFlavor_GetHumanReadableRef( characterClass ) )
-		}
-	#endif
-}
-
-void function SetupWeapons()
-{
-	#if UI
-	// Rifles
-	SetupDevCommand( "Rifle: Flatline", "give mp_weapon_vinson" )
-	SetupDevCommand( "Rifle: G7 Scout", "give mp_weapon_g2" )
-	SetupDevCommand( "Rifle: Havoc", "give mp_weapon_energy_ar" )
-	SetupDevCommand( "Rifle: Hemlok", "give mp_weapon_hemlok" )
-	SetupDevCommand( "Rifle: R-301", "give mp_weapon_rspn101" )
-	
-
-	// SMGs
-	SetupDevCommand( "SMG: Alternator", "give mp_weapon_alternator_smg" )
-	SetupDevCommand( "SMG: Prowler", "give mp_weapon_pdw" )
-	SetupDevCommand( "SMG: R-99", "give mp_weapon_r97" )
-	SetupDevCommand( "SMG: Volt SMG", "give mp_weapon_volt_smg" )
-
-	// LMGs
-	SetupDevCommand( "LMG: Devotion", "give mp_weapon_esaw" )
-	SetupDevCommand( "LMG: L-Star", "give mp_weapon_lstar" )
-	SetupDevCommand( "LMG: Spitfire", "give mp_weapon_lmg" )
-
-	// Snipers
-	SetupDevCommand( "Sniper: Charge Rifle", "give mp_weapon_defender" )
-	SetupDevCommand( "Sniper: Kraber", "give mp_weapon_sniper" )
-	SetupDevCommand( "Sniper: Longbow", "give mp_weapon_dmr" )
-	SetupDevCommand( "Sniper: Triple Take", "give mp_weapon_doubletake" )
-	SetupDevCommand( "Sniper: Sentinel", "give mp_weapon_sentinel" )
-
-	// Shotguns
-	SetupDevCommand( "Shotgun: EVA-8 Auto", "give mp_weapon_shotgun" )
-	SetupDevCommand( "Shotgun: Mastiff", "give mp_weapon_mastiff" )
-	SetupDevCommand( "Shotgun: Mozambique", "give mp_weapon_shotgun_pistol" )
-	SetupDevCommand( "Shotgun: Peacekeeper", "give mp_weapon_energy_shotgun" )
-
-	// Pistols
-	SetupDevCommand( "Pistol: P2020", "give mp_weapon_semipistol" )
-	SetupDevCommand( "Pistol: RE-45", "give mp_weapon_autopistol" )
-	SetupDevCommand( "Pistol: Wingman", "give mp_weapon_wingman" )
-
-	// Dev
-	SetupDevCommand( "Dev: Dev Cubemap ", "give weapon_cubemap" )
-	#endif
-}
-
-void function SetupTitanfallWeapons()
-{
-	#if UI
-	// Titanfall guns, ported by @LorryLeKral with the help from @AmosModz
-	SetupDevCommand( "Titanfall guns, ported by LorryLeKral with the help from @AmosModz", "give mp" )
-	SetupDevCommand( "Please credit us properly if you are going to create content using them!", "give mp" )
-	SetupDevCommand( "Titanfall 2: EPG", "give mp_weapon_epg" )
-	SetupDevCommand( "Titanfall 2: Sidewinder", "give mp_weapon_smr" )
-	SetupDevCommand( "Titanfall 2: Archer", "give mp_weapon_rocket_launcher" )
-	SetupDevCommand( "Titanfall 2: Softball", "give mp_weapon_softball" )
-	SetupDevCommand( "Titanfall 2: Car", "give mp_weapon_car" )
-	SetupDevCommand( "Titanfall 2: MGL", "give mp_weapon_mgl" )
-	SetupDevCommand( "Titanfall 2: ColdWar", "give mp_weapon_pulse_lmg" )
-	SetupDevCommand( "Titanfall 2: Thunderbolt", "give mp_weapon_arc_launcher" )
-	SetupDevCommand( "Titanfall 2: Smart Pistol", "give mp_weapon_smart_pistol" )
-	SetupDevCommand( "Titanfall 2: Arc Tool", "give sp_weapon_arc_tool" )
-	SetupDevCommand( "Titanfall 2: Wingman Elite", "give mp_weapon_wingman_n" )
-	SetupDevCommand( "Titanfall 2: R101 Assault Rifle", "give mp_weapon_rspn101_og iron_sights" )
-	SetupDevCommand( " ", "give mp" )
-	SetupDevCommand( " ", "give mp" )
-	SetupDevCommand( " ", "give mp" )
-
-	// Dev
-	SetupDevCommand( "Dev: Softball Apex Version", "give mp_weapon_softball apex_model" )
-	SetupDevCommand( "Dev: Flight Core", "give mp_titanweapon_flightcore_rockets")
-	SetupDevCommand( "Dev: Titan Sword", "playerRequestsSword")
-	SetupDevCommand( "Dev: Satchel", "give mp_weapon_satchel")
-	#endif
-}
-
-void function SetupThrowables()
-{
-	#if UI
-	// Grenades
-	SetupDevCommand( "Grenade: Arc Star", "give mp_weapon_grenade_emp" )
-	SetupDevCommand( "Grenade: Frag", "give mp_weapon_frag_grenade" )
-	SetupDevCommand( "Grenade: Thermite", "give mp_weapon_thermite_grenade" )
-	
-	// Custom Grenades
-	if( GetCurrentPlaylistVarBool( "is_halo_gamemode", false ) )
-	{
-		SetupDevCommand( "Grenade: Halo Frag", "give mp_weapon_frag_grenade_halomod" )
-		SetupDevCommand( "Grenade: Halo Plasma  Frag", "give mp_weapon_plasma_grenade_halomod" )
-	}
-	#endif
-}
-
-void function SetupSurvival()
-{
-	#if UI
-		SetupDevCommand( "Toggle Training Completed", "script GP().SetPersistentVar( \"trainingCompleted\", (GP().GetPersistentVarAsInt( \"trainingCompleted\" ) == 0 ? 1 : 0) )" )
-		SetupDevCommand( "Enable Survival Dev Mode", "playlist survival_dev" )
-		SetupDevCommand( "Disable Match Ending", "mp_enablematchending 0" )
-		SetupDevCommand( "Drop Care Package R1", "script thread AirdropForRound( gp()[0].GetOrigin(), gp()[0].GetAngles(), 0, null )" )
-		SetupDevCommand( "Drop Care Package R2", "script thread AirdropForRound( gp()[0].GetOrigin(), gp()[0].GetAngles(), 1, null )" )
-		SetupDevCommand( "Drop Care Package R3", "script thread AirdropForRound( gp()[0].GetOrigin(), gp()[0].GetAngles(), 2, null )" )
-		SetupDevCommand( "Force Circle Movement", "script thread FlagWait( \"DeathCircleActive\" );script svGlobal.levelEnt.Signal( \"DeathField_ShrinkNow\" );script FlagClear( \"DeathFieldPaused\" )" )
-		SetupDevCommand( "Pause Circle Movement", "script FlagSet( \"DeathFieldPaused\" )" )
-		SetupDevCommand( "Unpause Circle Movement", "script FlagClear( \"DeathFieldPaused\" )" )
-		SetupDevCommand( "Gladiator Intro Sequence", "script thread DEV_StartGladiatorIntroSequence()" )
-		SetupDevCommand( "Bleedout Debug Mode", "script FlagSet( \"BleedoutDebug\" )" )
-		SetupDevCommand( "Disable Loot Drops on Death", "script FlagSet( \"DisableLootDrops\" )" )
-		SetupDevCommand( "Drop My Death Box", "script thread SURVIVAL_Death_DropLoot_Internal( gp(), null, 100 )" )
-	#endif
-}
-
-
-void function SetupSurvivalLoot( var categories )
-{
-	#if UI
-		RunClientScript( "SetupSurvivalLoot", categories )
-	#endif
-}
-
-void function SetupAbilities()
-{
-	#if UI
-	SetupDevCommand( "Bangalore Tactical", "give mp_weapon_grenade_bangalore" )
-	SetupDevCommand( "Bangalore Ultimate", "give mp_weapon_grenade_creeping_bombardment" )
-	SetupDevCommand( "Bloodhound Tactical", "give mp_ability_area_sonar_scan" )
-	SetupDevCommand( "Bloodhound Ultimate", "give mp_ability_hunt_mode" )
-	SetupDevCommand( "Caustic Tactical", "give mp_weapon_dirty_bomb" )
-	SetupDevCommand( "Caustic Ultimate", "give mp_weapon_grenade_gas" )
-	SetupDevCommand( "Crypto Tactical", "give mp_ability_crypto_drone" )
-	SetupDevCommand( "Crypto Ultimate", "give mp_ability_crypto_drone_emp" )
-	SetupDevCommand( "Gibraltar Tactical", "give mp_weapon_bubble_bunker" )
-	SetupDevCommand( "Gibraltar Ultimate", "give mp_weapon_grenade_defensive_bombardment" )
-	SetupDevCommand( "Lifeline Tactical", "give mp_weapon_deployable_medic" )
-	SetupDevCommand( "Lifeline Ultimate", "give mp_ability_care_package" )
-	SetupDevCommand( "Mirage Tactical", "give mp_ability_holopilot" )
-	SetupDevCommand( "Mirage Ultimate", "give mp_ability_mirage_ultimate" )
-	SetupDevCommand( " ", "give dontgiveanything" ) // blank line so Octance is in the same column
-	SetupDevCommand( "Octane Tactical", "give mp_ability_heal" )
-	SetupDevCommand( "Octane Ultimate", "give mp_weapon_jump_pad" )
-	SetupDevCommand( "Pathfinder Tactical", "give mp_ability_grapple" )
-	SetupDevCommand( "Pathfinder Ultimate", "give mp_weapon_zipline" )
-	SetupDevCommand( "Wattson Tactical", "give mp_weapon_tesla_trap" )
-	SetupDevCommand( "Wattson Ultimate", "give mp_weapon_trophy_defense_system"  )
-	SetupDevCommand( "Wraith Tactical", "give mp_ability_phase_walk" )
-	SetupDevCommand( "Wraith Ultimate", "give mp_weapon_phase_tunnel" )
-	
-	SetupDevCommand( "Tf2: Pulse Blade", "give mp_weapon_grenade_sonar" )
-	SetupDevCommand( "Tf2: Amped Wall", "give mp_weapon_deployable_cover" )
-	SetupDevCommand( "Tf2: Electric Smoke", "give mp_weapon_grenade_electric_smoke" )
-	
-	SetupDevCommand( "Dev: 3Dash", "give mp_ability_3dash" )
-	SetupDevCommand( "Dev: Cloak", "give mp_ability_cloak" )
-	SetupDevCommand( "Dev: Gravity Lift", "give mp_ability_space_elevator_tac" )
-	SetupDevCommand( "Dev: Phase Rewind", "give mp_ability_phase_rewind" )
-	//SetupDevCommand( "Gravity Star", "give mp_weapon_grenade_gravity" )
-	#endif
-}
-
-void function SetupSurvivalIncapShieldBot()
-{
-	#if UI
-	SetupDevCommand( "Spawn Bot with Lv 1 Incap Shield", "script Dev_SpawnBotWithIncapShieldToView( 1 )" )
-	SetupDevCommand( "Spawn Bot with Lv 2 Incap Shield", "script Dev_SpawnBotWithIncapShieldToView( 2 )" )
-	SetupDevCommand( "Spawn Bot with Lv 3 Incap Shield", "script Dev_SpawnBotWithIncapShieldToView( 3 )" )
-	SetupDevCommand( "Spawn Bot with Lv 4 Incap Shield", "script Dev_SpawnBotWithIncapShieldToView( 4 )" )
-	SetupDevCommand( "Spawn Bot with a Random Incap Shield", "script Dev_SpawnBotWithIncapShieldToView( -1 )" )
-	#endif
-}
-
-void function SetupFriendlyNPC()
-{
-	#if UI
-	//Friendly NPCs
-	SetupDevCommand( "Friendly NPC: Stalker", "script DEV_SpawnStalkerAtCrosshair(gp()[0].GetTeam())" )
-	SetupDevCommand( "Friendly NPC: Spectre", "script DEV_SpawnSpectreAtCrosshair(gp()[0].GetTeam())" )
-	SetupDevCommand( "Friendly NPC: Dummie",  "script DEV_SpawnDummyAtCrosshair(gp()[0].GetTeam())" )
-	SetupDevCommand( "Friendly NPC: Plasma Drone", "script DEV_SpawnPlasmaDroneAtCrosshair(gp()[0].GetTeam())" )
-	SetupDevCommand( "Friendly NPC: Rocket Drone", "script DEV_SpawnRocketDroneAtCrosshair(gp()[0].GetTeam())" )
-	SetupDevCommand( "Friendly NPC: Legend", "script DEV_SpawnLegendAtCrosshair(gp()[0].GetTeam())" )
-	SetupDevCommand( "Friendly NPC: Prowler", "script DEV_SpawnProwlerAtCrosshair(gp()[0].GetTeam())" )
-	SetupDevCommand( "Friendly NPC: Marvin", "script DEV_SpawnMarvinAtCrosshair(gp()[0].GetTeam())" )
-	//SetupDevCommand( "Friendly NPC: Soldier", "script DEV_SpawnSoldierAtCrosshair(gp()[0].GetTeam())" )
-	SetupDevCommand( "Friendly NPC: Spider", "script DEV_SpawnSpiderAtCrosshair(gp()[0].GetTeam())" )
-	SetupDevCommand( "Friendly NPC: Infected", "script DEV_SpawnInfectedSoldierAtCrosshair(gp()[0].GetTeam())" )
-	SetupDevCommand( "Friendly NPC: Tick", "script DEV_SpawnExplosiveTickAtCrosshair(gp()[0].GetTeam())" )
-	#endif
-}
-
-void function SetupEnemyNPC()
-{
-	#if UI
-	//Enemy NPCs
-	SetupDevCommand( "Enemy NPC: Stalker", "script DEV_SpawnStalkerAtCrosshair()" )
-	SetupDevCommand( "Enemy NPC: Spectre", "script DEV_SpawnSpectreAtCrosshair()" )
-	SetupDevCommand( "Enemy NPC: Dummie", "script DEV_SpawnDummyAtCrosshair()" )
-	SetupDevCommand( "Enemy NPC: Plasma Drone", "script DEV_SpawnPlasmaDroneAtCrosshair()" )
-	SetupDevCommand( "Enemy NPC: Rocket Drone", "script DEV_SpawnRocketDroneAtCrosshair()" )
-	SetupDevCommand( "Enemy NPC: Legend", "script DEV_SpawnLegendAtCrosshair()" )
-	SetupDevCommand( "Enemy NPC: Prowler", "script DEV_SpawnProwlerAtCrosshair()" )
-	SetupDevCommand( "Enemy NPC: Marvin", "script DEV_SpawnMarvinAtCrosshair()" )
-	//SetupDevCommand( "Enemy NPC: Soldier", "script DEV_SpawnSoldierAtCrosshair()" )//Come back to this NPC later, we have animations and models but they are unstable -kral
-	SetupDevCommand( "Enemy NPC: Spider", "script DEV_SpawnSpiderAtCrosshair()" )
-	SetupDevCommand( "Enemy NPC: Infected", "script DEV_SpawnInfectedSoldierAtCrosshair()" )
-	SetupDevCommand( "Enemy NPC: Tick", "script DEV_SpawnExplosiveTickAtCrosshair()" )
-	#endif
-}
-
-void function SetupEditor()
-{
-	#if UI
-	SetupDevCommand( "Start Editing", "give mp_weapon_editor" )
-	SetupDevCommand( "Zipline", "give mp_weapon_zipline" )
-	#endif
 }

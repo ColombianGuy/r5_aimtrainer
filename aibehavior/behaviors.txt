@@ -1,5 +1,4 @@
 behavior_dropship
-behavior_gunship
 behavior_dummie_combat
 behavior_frag_drone
 behavior_training_dummy
@@ -9,9 +8,6 @@ behavior_spider
 behavior_infected
 behavior_marvin
 behavior_prowler
-behavior_drone
-behavior_soldier
-behavior_sp_soldier
 behavior_stalker
 behavior_stalker_crawling
 behavior_spectre

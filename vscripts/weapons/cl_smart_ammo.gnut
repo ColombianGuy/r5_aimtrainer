@@ -15,14 +15,11 @@ const SMART_AMMO_VICTIM_LOCKED_SOUND = "Titan_Cockpit_TitanLocking_Warning"  // 
 /******************************************/
 
 // lockon detector won't alert until this much of the total lock time has passed
-const SmartAmmo_DetectorStartFracOverrides = {
+//const table<string, float> SmartAmmo_DetectorStartFracOverrides = {
 	//[ "mp_weapon_smart_pistol" ] <- (SMART_AMMO_PLAYER_MAX_LOCKS - 1) * 0.25,
 	// HAX; make smart pistol not display lock indicator
 	//[ "mp_weapon_smart_pistol" ] <- 1200.0,
-	[ "mp_weapon_rocket_launcher" ] = 0.0,
-	[ "mp_titanweapon_shoulder_rockets" ] = 0.8,
-	[ "mp_titanweapon_homing_rockets" ] = 0.8,
-}
+//}
 
 struct
 {
@@ -400,10 +397,10 @@ void function SmartAmmo_LockedOntoWarningHUD_Update()
 		else
 		{
 			string weaponclass = expect string( activeLockingWeapon.GetNetworkedClassName() )
-			if ( weaponclass in SmartAmmo_DetectorStartFracOverrides )
-			{
-				reqFracForDetection = SmartAmmo_DetectorStartFracOverrides[ weaponclass ]
-			}
+			//if ( weaponclass in SmartAmmo_DetectorStartFracOverrides )
+			//{
+				//reqFracForDetection = SmartAmmo_DetectorStartFracOverrides[ weaponclass ]
+			//}
 		}
 
 		Assert( activeLockingWeapon != null )

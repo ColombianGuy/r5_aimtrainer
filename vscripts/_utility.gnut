@@ -4042,8 +4042,6 @@ void function RandomizeHead( entity model ) //Randomize head across all availabl
 	var headIndex
 	if ( model.GetModelName() == "mdl/robots/spectre/imc_spectre.rmdl" )
 		return//headIndex = model.FindBodyGroup( "removableHead" )
-	if ( model.GetModelName() == "mdl/humans/pilots/pilot_medium_reaper_m.rmdl" )
-		return//headIndex = model.FindBodyGroup( "removableHead" )
 	else
 		headIndex = model.FindBodyGroup( "head" )
 	if ( headIndex == -1 )

@@ -12,7 +12,7 @@ global function OnWeaponStartZoomOut_weapon_smart_pistol
 
 const float SMART_PISTOL_TRACKER_TIME = 10.0
 
-void function MpWeaponSmartPistol_Init()
+function MpWeaponSmartPistol_Init()
 {
 	PrecacheParticleSystem( $"P_smartpistol_lockon_FP" )
 	PrecacheParticleSystem( $"P_smartpistol_lockon" )
@@ -52,7 +52,7 @@ var function OnWeaponPrimaryAttack_weapon_smart_pistol( entity weapon, WeaponPri
 	return SmartAmmo_FireWeapon( weapon, attackParams, damageFlags, damageFlags )
 }
 
-void function SmartWeaponFireSound( entity weapon, target )
+function SmartWeaponFireSound( entity weapon, target )
 {
 	if ( weapon.HasMod( "silencer" ) )
 	{

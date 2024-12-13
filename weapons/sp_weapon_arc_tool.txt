@@ -34,8 +34,8 @@ WeaponData
 	"stat_rof"										"15"
 
 	// Models
-	"viewmodel"   									"mdl/weapons/arc_tool_sp/ptpov_arc_tool_sp.rmdl"
-	"playermodel" 									"mdl/weapons/arc_tool_sp/w_arc_tool_sp.rmdl"
+	"viewmodel"   									"mdl/weapons/sp_arc_tool/ptpov_arc_tool.rmdl"
+	"playermodel" 									"mdl/weapons/sp_arc_tool/w_arc_tool.rmdl"
 	"holster_type"									"anti_titan"
 	
 	"viewmodel_offset_hip"                          "0 0 0.8"
@@ -47,8 +47,9 @@ WeaponData
 	"projectile_adjust_to_gun_barrel"				"1"
 
 	// Sounds
-	"sound_zoom_in"									""
-	"sound_zoom_out"								""
+	"sound_zoom_in"									"Weapon_ChargeRifle_ADS_In"
+	"sound_zoom_out"								"Weapon_ChargeRifle_ADS_Out"
+	"zoom_fov"										"50"
 
 	// Damage - When Used by Players
 	"damage_type" 									"bullet"
@@ -68,6 +69,12 @@ WeaponData
 	"npc_damage_near_value_titanarmor"				"1150"
 	"npc_damage_far_value_titanarmor" 				"1150"
 
+	// Iron Sights only
+	"ads_fov_zoomfrac_start"               "0.25"
+	"ads_fov_zoomfrac_end"                 "0.75"
+	"viewmodel_offset_zoom_frac_start"     "0.25"
+	"viewmodel_offset_zoom_frac_end"       "0.75"
+
 	"impulse_force"   								"5000"
 
 	"critical_hit"									"0"
@@ -83,10 +90,10 @@ WeaponData
 	"ammo_no_remove_from_clip"						"1"
 	"ammo_no_remove_from_stockpile"					"1"
 
-	//"dof_zoom_nearDepthStart"						".750"
-	//"dof_zoom_nearDepthEnd"							"11.000"
-	//"dof_nearDepthStart"							".250"
-	//"dof_nearDepthEnd"								"11.000"
+	"dof_zoom_nearDepthStart"						".350"
+	"dof_zoom_nearDepthEnd"							"1.000"
+	"dof_nearDepthStart"							".150"
+	"dof_nearDepthEnd"								"1.000"
 
 	"cooldown_type"									"vortex_drain"
 
@@ -101,7 +108,7 @@ WeaponData
 	"deploy_time" 									"0.8"
 	"lower_time"  									"0.25"
 	"raise_time"  									"0.3"
-	"charge_time" 									"5.0"
+	"charge_time" 									"3.0"
 	"charge_cooldown_time"							"4.0"
 	"charge_cooldown_delay"   						"0.0"
 	"charge_end_forces_fire"						"0"
@@ -118,12 +125,75 @@ WeaponData
 	"aimassist_disable_hipfire_humansonly"			"1"
 	"aimassist_disable_ads_humansonly"				"1"
 
-	"charge_sound_1p"								"Weapon_BatteryGun_FireLoop_1P"
-	"charge_sound_3p"								"Weapon_BatteryGun_FireLoop_3P"
+	// Crosshair
+	"red_crosshair_range" 							"10000"
+
+	"smart_ammo_search_angle" 						"35"
+	"smart_ammo_search_distance"  					"1000"
+	"smart_ammo_search_npcs"						"1"
+	"smart_ammo_search_players"						"0"
+	"smart_ammo_search_projectiles"					"0"
+	"smart_ammo_titans_block_los"					"1"
+	"smart_ammo_max_targets"						"1"
+	"smart_ammo_max_targeted_burst"					"1"
+	"smart_ammo_track_cloaked_targets"				"0"
+	"smart_ammo_targeting_time_min"					"0.0"
+	"smart_ammo_targeting_time_max"					"0.0"
+	"smart_ammo_targeting_time_min_npc"				"0.0"
+	"smart_ammo_targeting_time_max_npc"				"0.0"
+	"smart_ammo_targeting_time_modifier_projectile_owner"	"0.0"
+	"smart_ammo_target_max_locks_normal"			"-1"	// divide health by damage near
+	"smart_ammo_target_npc_lock_factor"				"1"		// smart pistol does head shots at 2x damage
+	"smart_ammo_new_target_delay"					"0.1"
+	"smart_ammo_draw_acquisition_lines"				"0"
+	"smart_ammo_hud_lock_style"						"pilot_pistol"
+	"smart_ammo_hud_type"							"arc_tool"
+	"smart_ammo_target_confirmed_sound"				""
+	"smart_ammo_target_confirming_sound"			""
+	"smart_ammo_looping_sound_acquiring"			""
+	"smart_ammo_lock_type"							"small"
+	"smart_ammo_alert_npc_fraction"					"1.1" 	// unaware since lock on fraction will not go above 1
+	"smart_ammo_allow_hip_fire_lock"				"1"
+	"smart_ammo_allow_ads_lock"						"1"
+	"smart_ammo_stick_to_fully_locked_targets"		"0"
+	"weapon setting smart_ammo_new_target_delay" 	"0"
+	"smart_ammo_search_friendly_team"				"0"
+	"smart_ammo_search_enemy_team"					"1"
+	"smart_ammo_search_neutral_team"				"1"
+	"smart_ammo_search_phase_shift"					"0"
+
+	// Sustained Discharge
+    //"sustained_discharge_duration"	                "1.25"
+    //"sustained_discharge_pulse_frequency"			"0.104"
+    //"sustained_discharge_allow_melee"				"0"
+    //"sustained_discharge_require_input"				"1"
+    //"sustained_discharge_updates_charge"			"1"
+    //"sustained_discharge_ends_in_primary_attack"	"1"
+
+    // NPC
+    "primary_fire_does_not_block_sprint"			"1"
+
+    "npc_min_range"   								"0"
+    "npc_max_range"   								"4000"
+    "npc_min_range_secondary" 						"0"
+    "npc_max_range_secondary" 						"4000"
+    "npc_min_burst"   								"1"
+    "npc_max_burst"   								"1"
+    "npc_rest_time_between_bursts_min"				"2.5"
+    "npc_rest_time_between_bursts_max"				"2.5"
+    "npc_pre_fire_delay"							"1.5"
+    "npc_pre_fire_delay_interval"					"3"
+    "npc_rest_time_between_bursts_expedite"			"1.0" //should be less than npc_rest_time_between_bursts_max. if npc is interrupted waiting for rest time through damage, wait this long instead
+
+	"charge_sound_1p"								"Weapon_ChargeRifle_WindUp_1P"//"weapon_chargerifle_beam_fire_1p"
+	"charge_sound_3p"								"Weapon_ChargeRifle_WindUp_3P"//"weapon_chargerifle_beam_fire_3p"
 	"charge_sound_stop_when_full"					"1"
 	"charge_sound_seek_to_charge_fraction"			"1"
-	"charge_drain_sound_1p"							"Weapon_BatteryGun_CoolDownSizzle_1P"
-	"charge_drain_sound_3p"							"Weapon_BatteryGun_CoolDownSizzle_3P"
+	"charge_drain_sound_1p"							"Weapon_ChargeRifle_WindDown_1P"
+	"charge_drain_sound_3p"							"Weapon_ChargeRifle_WindDown_3P"
+	"charge_drain_sound_stop_when_empty"			"1"
+	"charge_drain_sound_seek_to_charge_fraction"	"1"
+	//"charge_drain_sound_3p"							"Weapon_BatteryGun_CoolDownSizzle_3P"
 	"charge_drain_sound_stop_when_empty"			"1"
 	"charge_drain_sound_seek_to_charge_fraction"	"1"
 	"charge_effect_1p"								"P_charge_tool_charge_FP"
@@ -326,43 +396,6 @@ WeaponData
 
 	"menu_icon"										"r2_ui/menus/loadout_icons/primary_weapon/primary_arc_tool"
 	"hud_icon"										"r2_ui/menus/loadout_icons/primary_weapon/primary_arc_tool"
-
-	// Crosshair
-	"red_crosshair_range" 							"10000"
-
-	"smart_ammo_search_angle" 						"35"
-	"smart_ammo_search_distance"  					"1000"
-	"smart_ammo_search_npcs"						"0"
-	"smart_ammo_search_players"						"0"
-	"smart_ammo_search_projectiles"					"0"
-	"smart_ammo_titans_block_los"					"1"
-	"smart_ammo_max_targets"						"1"
-	"smart_ammo_max_targeted_burst"					"1"
-	"smart_ammo_track_cloaked_targets"				"0"
-	"smart_ammo_targeting_time_min"					"0.0"
-	"smart_ammo_targeting_time_max"					"0.0"
-	"smart_ammo_targeting_time_min_npc"				"0.0"
-	"smart_ammo_targeting_time_max_npc"				"0.0"
-	"smart_ammo_targeting_time_modifier_projectile_owner"	"0.0"
-	"smart_ammo_target_max_locks_normal"			"-1"	// divide health by damage near
-	"smart_ammo_target_npc_lock_factor"				"1"		// smart pistol does head shots at 2x damage
-	"smart_ammo_new_target_delay"					"0.1"
-	"smart_ammo_draw_acquisition_lines"				"0"
-	"smart_ammo_hud_lock_style"						"pilot_pistol"
-	"smart_ammo_hud_type"							"arc_tool"
-	"smart_ammo_target_confirmed_sound"				"Weapon_SmartPistol_PilotLocked"
-	"smart_ammo_target_confirming_sound"			"Weapon_SmartPistol_PilotLocked"
-	"smart_ammo_looping_sound_acquiring"			"Weapon_SmartPistol_TargetLockingLoop"
-	"smart_ammo_lock_type"							"special"
-	"smart_ammo_alert_npc_fraction"					"1.1" 	// unaware since lock on fraction will not go above 1
-	"smart_ammo_allow_hip_fire_lock"				"1"
-	"smart_ammo_allow_ads_lock"						"1"
-	"smart_ammo_stick_to_fully_locked_targets"		"0"
-	"weapon setting smart_ammo_new_target_delay" 	"0"
-	"smart_ammo_search_friendly_team"				"1"
-	"smart_ammo_search_enemy_team"					"1"
-	"smart_ammo_search_neutral_team"				"1"
-	"smart_ammo_search_phase_shift"					"1"
 
 	Mods
 	{

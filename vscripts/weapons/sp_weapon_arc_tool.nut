@@ -35,6 +35,8 @@ const CHARGE_BEAM_EFFECT_ENT = $"P_wpn_charge_tool_beam"
 const CHARGE_BEAM_EFFECT_GEO = $"P_wpn_charge_tool_beam"
 const CHARGE_BEAM_EFFECT_DUD = $"P_wpn_charge_tool_notarget"
 
+global const CHARGE_TOOL = "mp_weapon_arc_tool"
+
 struct BeamTarget
 {
 	entity target
@@ -42,7 +44,7 @@ struct BeamTarget
 	asset effectToPlay
 }
 
-void function ProtoBatteryCharger_Init()
+function ProtoBatteryCharger_Init()
 {
 	PrecacheParticleSystem( $"wpn_muzzleflash_arc_cannon_fp" )
 	PrecacheParticleSystem( $"wpn_muzzleflash_arc_cannon" )
@@ -312,13 +314,11 @@ void function ChargeBeamThink_BatteryCharger( entity weapon, WeaponPrimaryAttack
 	weapon.PlayWeaponEffect( beamTarget.effectToPlay, $"", "muzzle_flash" )
 #else
 	e.handle = weapon.PlayWeaponEffectReturnViewEffectHandle( beamTarget.effectToPlay, $"", "muzzle_flash" )
-	printt( "started first beem effect", e.handle, beamTarget.effectToPlay )
 #endif
 
 	float startTime = Time()
 
 	#if SERVER
-		//thread GunGetsSmallChargeFromSwitch( weapon )
 		table serverBeam = { cpEnd = null, beamSystem = null }
 		if ( SERVER_EFFECTS )
 		{
@@ -374,10 +374,8 @@ void function ChargeBeamThink_BatteryCharger( entity weapon, WeaponPrimaryAttack
 				weapon.StopWeaponEffect( CHARGE_BEAM_EFFECT_DUD, CHARGE_BEAM_EFFECT_DUD )
 				int oldHandle = expect int( e.handle )
 				e.handle = weapon.PlayWeaponEffectReturnViewEffectHandle( beamTarget.effectToPlay, $"", "muzzle_flash" )
-				printt( "started NEW beem effect", e.handle, beamTarget.effectToPlay, EffectDoesExist( oldHandle ) )
 				if ( EffectDoesExist( oldHandle ) )
 				{
-					printt( "stop OLD beem effect", oldHandle )
 					EffectStop( oldHandle, true, false )
 				}
 			}
@@ -407,7 +405,7 @@ void function ChargeBeamThink_BatteryCharger( entity weapon, WeaponPrimaryAttack
 				if ( IsValid( beamTarget.target ) && beamTarget.target != weapon.GetWeaponOwner() )
 				{
 					entity owner = weapon.GetWeaponOwner()
-					beamTarget.target.TakeDamage( weapon.GetWeaponSettingInt( eWeaponVar.damage_far_value ), owner, owner, { origin = owner.GetOrigin(), force = <0,0,0>, scriptType = DF_INSTANT | DF_ELECTRICAL | DF_DISSOLVE, weapon = weapon, damageSourceId = eDamageSourceId.sp_weapon_arc_tool } )
+					beamTarget.target.TakeDamage( weapon.GetWeaponSettingInt( eWeaponVar.damage_far_value ), owner, owner, { origin = owner.GetOrigin(), force = <0,0,0>, scriptType = DF_INSTANT | DF_ELECTRICAL | DF_DISSOLVE, weapon = weapon, damageSourceId = eDamageSourceId.mp_weapon_defender } )
 				}
 			}
 
@@ -440,8 +438,6 @@ BeamTarget function GetBeamTarget( entity weapon, WeaponPrimaryAttackParams atta
 			smartTarget.target = target.ent
 			smartTarget.hitPos = target.ent.GetWorldSpaceCenter()
 			smartTarget.effectToPlay = CHARGE_BEAM_EFFECT_ENT
-
-			//DebugDrawLine( weapon.GetWeaponOwner().GetOrigin(), smartTarget.hitPos, 255, 0, 0, true, 0.1 )
 
 			return smartTarget
 		}
@@ -499,7 +495,7 @@ BeamTarget function GetBeamTarget( entity weapon, WeaponPrimaryAttackParams atta
 
 	// If we didn't find an entity target then just do a trace forward
 	entity player = weapon.GetWeaponOwner()
-	vector traceStartPos = player.EyePosition() + <0,-25,0>
+	vector traceStartPos = player.EyePosition() + <0,-22,0>
 	vector traceEndPos = traceStartPos + ( weaponVec * MAX_BEAM_DISTANCE )
 	TraceResults traceResults = TraceLineHighDetail( traceStartPos, traceEndPos, weapon, (TRACE_MASK_SHOT | TRACE_MASK_BLOCKLOS), TRACE_COLLISION_GROUP_NONE )
 
@@ -530,7 +526,11 @@ entity function CreateServerBeamWithControlPoint( entity weapon, asset effect, v
 	beamSystem.SetValueForEffectNameKey( effect )
 	beamSystem.kv.start_active = 0
 	beamSystem.SetOwner( weapon.GetWeaponOwner() )
-	beamSystem.kv.VisibilityFlags = (ENTITY_VISIBLE_TO_FRIENDLY | ENTITY_VISIBLE_TO_ENEMY)	// everyone but owner
+
+
+	if(!weapon.GetOwner().IsThirdPersonShoulderModeOn())
+	    beamSystem.kv.VisibilityFlags = (ENTITY_VISIBLE_TO_FRIENDLY | ENTITY_VISIBLE_TO_ENEMY)	// everyone but owner
+
 	beamSystem.SetParent( weapon.GetWeaponOwner().GetActiveWeapon(eActiveInventorySlot.mainHand), "muzzle_flash", false, 0.0 )
 	DispatchSpawn( beamSystem )
 

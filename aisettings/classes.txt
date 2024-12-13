@@ -13,10 +13,6 @@ classes
 	import npc_soldier_infected.txt
 	import npc_marvin.txt
 	import npc_prowler.txt
-	import npc_soldier.txt
-	import npc_gunship.txt
-	import npc_drone.txt
-	import npc_drone_plasma.txt
 	import npc_spectre.txt
 	import npc_stalker.txt
 	import npc_pilot_elite.txt

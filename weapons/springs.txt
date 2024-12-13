@@ -869,19 +869,19 @@ WeaponSprings
                        
 	car
 	{
-		"hipfire_pitch_springConstant"	"300"
-		"hipfire_pitch_damping"			"30"
-		"hipfire_yaw_springConstant"	"300"
-		"hipfire_yaw_damping"			"30"
-		"hipfire_roll_springConstant"	"700"
-		"hipfire_roll_damping"			"70"
+		"hipfire_pitch_springConstant"	"40.0"
+		"hipfire_pitch_damping"			"20.0"
+		"hipfire_yaw_springConstant"	"45.0"
+		"hipfire_yaw_damping"			"20.0"
+		"hipfire_roll_springConstant"	"20000.0"
+		"hipfire_roll_damping"			"22.0"
 
-		"ADS_pitch_springConstant"		"85.0"
-		"ADS_pitch_damping"				"15.0"
-		"ADS_yaw_springConstant"		"85.0"
+		"ADS_pitch_springConstant"		"115.0"
+		"ADS_pitch_damping"				"20.0"
+		"ADS_yaw_springConstant"		"95.0"
 		"ADS_yaw_damping"				"15.0"
-		"ADS_roll_springConstant"		"16000.0"
-		"ADS_roll_damping"				"15.0"
+		"ADS_roll_springConstant"		"20000.0"
+		"ADS_roll_damping"				"20.0"
 	}
 	car_hot
 	{
@@ -1803,7 +1803,7 @@ burstenergyar_vkp
 		"hipfire_roll_damping"			"7.0"
 
 		"ADS_pitch_springConstant"		"50.0"
-		"ADS_pitch_damping"				"20.0"
+		"ADS_pitch_damping"				"17.0"
 		"ADS_yaw_springConstant"		"40.0"
 		"ADS_yaw_damping"				"13.5"
 		"ADS_roll_springConstant"		"16000.0"
