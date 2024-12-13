@@ -1,0 +1,176 @@
+ImpactTable
+{
+	Info
+	{
+		"whizby_sound_from_player"	"Titan_Core_Laser_WhizBy_Loop_3P"
+		"whizby_sound_from_AI"		"titan_core_laser_whizby_loop_3p_aigenerated"
+		"whizby_maxDistancePilot"	"1000"
+		"whizby_maxDistanceTitan"	"1000"
+	}
+
+	//Additional Electric FX
+	FX
+	{
+		"C" "P_impact_lasercannon_default"	//Concrete, rock, porcelain, boulder, gravel, asphalt, brick, concrete_block, plaster
+		"D" "P_impact_lasercannon_default"			//Dirt, slipperyslime, snow, carpet, cardboard, floatingstandable, ceiling_tile, papercup
+		"E" "P_impact_lasercannon_default"	// metal_titan
+
+		"F" "P_impact_lasercannon_default"	//flesh
+		"G" "P_impact_lasercannon_default"	//metalgrate, chainlink, chain
+		"H" "P_impact_lasercannon_default"	//alienflesh
+
+		"J" "P_impact_lasercannon_default"	//grass
+		"K" "P_impact_lasercannon_default" 	//Mud
+		"L" "P_impact_lasercannon_default"	//plastic_barrel, plastic_box, item, rubber, rubbertire, jeeptire, slidingrubbertire, brakingrubbertire, slidingrubbertire_front, slidingrubbertire_rear
+		"M" "P_impact_lasercannon_default"	//Default, metal, metal_box, solidmetal, armorflesh, metal_bouncy, slippery_metal, shellcasing_small, shellcasing_large, metal_barrel, floating_metal_barrel, weapon
+		"N" "P_impact_lasercannon_default"
+		"O" "P_impact_lasercannon_default"	//Foliage
+		"P" "P_impact_lasercannon_default"	//Computer
+
+		"R" "P_impact_lasercannon_default"	//metalpanel, grenade, canister
+		"S" "P_impact_lasercannon_default"	//water, slime
+		"T" "P_impact_lasercannon_default"	//tile
+		//"U" "impact_glass"		//glass_breakble
+
+		"V" "P_impact_lasercannon_default"	//Metal Vent
+		"W" "P_impact_lasercannon_default"	//Wood, Wood_lowdensity, Wood_Box, Wood_Crate, Wood_Plank, Wood_Solid, Wood_Furniture, Wood_Panel watermelon
+
+		//"Y" "impact_glass"		/glass, brokenglass, glassbottle, pottery
+	    "Z" "P_impact_lasercannon_default"	//Sand
+
+		"0" "P_impact_lasercannon_default"
+		"1" "P_impact_lasercannon_default"
+		"2" "P_impact_lasercannon_default"
+		"3" "P_impact_lasercannon_default"
+		"4" "P_impact_lasercannon_default"
+		"5" "P_impact_lasercannon_default"
+		"6" "P_impact_lasercannon_default"
+		"7" "P_impact_lasercannon_default"
+		"8" "P_impact_lasercannon_default"
+		//"9" "impact_puddle"		//puddle
+
+		"splash" "P_impact_lasercannon_default" //brush water
+		"slime_splash" "P_impact_lasercannon_default"
+		"shieldhit" "P_impact_lasercannon_default"
+		//"critical_hit" "P_impact_lasercannon_default"
+
+		"headshot_flesh" "P_impact_lasercannon_default"
+		"headshot_mechanical" "P_impact_lasercannon_default"
+
+	}
+
+
+	FX_victim
+	{
+		"F" "P_impact_lasercannon_default"
+		"shieldhit" "P_impact_lasercannon_default"
+		"E" "P_impact_lasercannon_default"		// metal_titan
+
+		"headshot_flesh" "P_impact_lasercannon_default"
+		"headshot_mechanical" "P_impact_lasercannon_default"
+	}
+
+	Sound
+	{
+		"C" "Default.LaserLoop.BulletImpact_3P_VS_3P"
+		"D" "Default.LaserLoop.BulletImpact_3P_VS_3P"
+		"E" "Default.LaserLoop.BulletImpact_3P_VS_3P"
+
+		"F" "Default.LaserLoop.BulletImpact_3P_VS_3P"
+		"G" "Default.LaserLoop.BulletImpact_3P_VS_3P"
+		"H" "Default.LaserLoop.BulletImpact_3P_VS_3P"
+
+		"J" "Default.LaserLoop.BulletImpact_3P_VS_3P"
+		"K" "Default.LaserLoop.BulletImpact_3P_VS_3P"
+		"L" "Default.LaserLoop.BulletImpact_3P_VS_3P"
+		"M" "Default.LaserLoop.BulletImpact_3P_VS_3P"
+		"N" "Default.LaserLoop.BulletImpact_3P_VS_3P"
+		"O" "Default.LaserLoop.BulletImpact_3P_VS_3P"
+		"P" "Default.LaserLoop.BulletImpact_3P_VS_3P"
+
+		"R" "Default.LaserLoop.BulletImpact_3P_VS_3P"
+		"S" "Default.LaserLoop.BulletImpact_3P_VS_3P"
+		"T" "Default.LaserLoop.BulletImpact_3P_VS_3P"
+		"U" "Default.LaserLoop.BulletImpact_3P_VS_3P"
+
+		"V" "Default.LaserLoop.BulletImpact_3P_VS_3P"
+		"W" "Default.LaserLoop.BulletImpact_3P_VS_3P"
+		"X"	"Default.LaserLoop.BulletImpact_3P_VS_3P"
+		"Y" "Default.LaserLoop.BulletImpact_3P_VS_3P"
+		"Z" "Default.LaserLoop.BulletImpact_3P_VS_3P"
+
+		"shieldhit" "Default.LaserLoop.BulletImpact_3P_VS_3P"
+	}
+
+	Sound_attacker
+	{
+		"C" "Default.LaserLoop.BulletImpact_1P_VS_3P"
+		"D" "Default.LaserLoop.BulletImpact_1P_VS_3P"
+		"E" "Default.LaserLoop.BulletImpact_1P_VS_3P"
+
+		"F" "Default.LaserLoop.BulletImpact_1P_VS_3P"
+		"G" "Default.LaserLoop.BulletImpact_1P_VS_3P"
+		"H" "Default.LaserLoop.BulletImpact_1P_VS_3P"
+
+		"J" "Default.LaserLoop.BulletImpact_1P_VS_3P"
+		"K" "Default.LaserLoop.BulletImpact_1P_VS_3P"
+		"L" "Default.LaserLoop.BulletImpact_1P_VS_3P"
+		"M" "Default.LaserLoop.BulletImpact_1P_VS_3P"
+		"N" "Default.LaserLoop.BulletImpact_1P_VS_3P"
+		"O" "Default.LaserLoop.BulletImpact_1P_VS_3P"
+		"P" "Default.LaserLoop.BulletImpact_1P_VS_3P"
+
+		"R" "Default.LaserLoop.BulletImpact_1P_VS_3P"
+		"S" "Default.LaserLoop.BulletImpact_1P_VS_3P"
+		"T" "Default.LaserLoop.BulletImpact_1P_VS_3P"
+		"U" "Default.LaserLoop.BulletImpact_1P_VS_3P"
+
+		"V" "Default.LaserLoop.BulletImpact_1P_VS_3P"
+		"W" "Default.LaserLoop.BulletImpact_1P_VS_3P"
+		"X"	"Default.LaserLoop.BulletImpact_1P_VS_3P"
+		"Y" "Default.LaserLoop.BulletImpact_1P_VS_3P"
+		"Z" "Default.LaserLoop.BulletImpact_1P_VS_3P"
+
+		//"splash" "Default.Energy.BulletImpact_1P_vs_3P"
+		//"slime_splash" "Default.Energy.BulletImpact_1P_vs_3P"
+
+		//"airburst" ""
+		"shieldhit" "Default.LaserLoop.BulletImpact_1P_VS_3P"
+	}
+
+	Sound_victim
+	{
+		"C" "Default.LaserLoop.BulletImpact_3P_VS_1P"
+		"D" "Default.LaserLoop.BulletImpact_3P_VS_1P"
+		"E" "Default.LaserLoop.BulletImpact_titan_3P_VS_1P"
+
+		"F" "Default.LaserLoop.BulletImpact_3P_VS_1P"
+		"G" "Default.LaserLoop.BulletImpact_3P_VS_1P"
+		"H" "Default.LaserLoop.BulletImpact_3P_VS_1P"
+
+		"J" "Default.LaserLoop.BulletImpact_3P_VS_1P"
+		"K" "Default.LaserLoop.BulletImpact_3P_VS_1P"
+		"L" "Default.LaserLoop.BulletImpact_3P_VS_1P"
+		"M" "Default.LaserLoop.BulletImpact_3P_VS_1P"
+		"N" "Default.LaserLoop.BulletImpact_3P_VS_1P"
+		"O" "Default.LaserLoop.BulletImpact_3P_VS_1P"
+		"P" "Default.LaserLoop.BulletImpact_3P_VS_1P" // temp
+
+		"R" "Default.LaserLoop.BulletImpact_3P_VS_1P"
+		"S" "Default.LaserLoop.BulletImpact_3P_VS_1P"
+		"T" "Default.LaserLoop.BulletImpact_3P_VS_1P"
+		"U" "Default.LaserLoop.BulletImpact_3P_VS_1P"
+
+		"V" "Default.LaserLoop.BulletImpact_3P_VS_1P"
+		"W" "Default.LaserLoop.BulletImpact_3P_VS_1P"
+		"X"	"Default.LaserLoop.BulletImpact_3P_VS_1P"
+		"Y" "Default.LaserLoop.BulletImpact_3P_VS_1P"
+		"Z" "Default.LaserLoop.BulletImpact_3P_VS_1P"
+
+		//"splash" "Default.Energy.BulletImpact_3P_vs_3P"
+		//"slime_splash" "Default.Energy.BulletImpact_3P_vs_3P"
+
+		//"airburst" ""
+		"shieldhit" "Default.LaserLoop.BulletImpact_titan_3P_VS_1P"
+	}
+}

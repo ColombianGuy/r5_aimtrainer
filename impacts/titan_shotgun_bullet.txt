@@ -1,0 +1,180 @@
+// "Gamematerial" "effect_name"
+
+
+ImpactTable
+{
+	Info
+	{
+		"whizby_sound_from_player"	"Rockets.ARLNearmiss"
+		"whizby_sound_from_AI"		"Rockets.ARLNearmiss_aigenerated"
+		"whizby_maxDistancePilot"	"500"
+		"whizby_maxDistanceTitan"	"750"
+		"ricochet_sound_1P"			"weapon_leadwall_ricochet_1p"
+		"ricochet_sound_3P"			"weapon_leadwall_ricochet_3p"
+	}
+		FX
+	{
+		"C" "P_ricochet_sparks_large"	//Concrete, rock, porcelain, boulder, gravel, asphalt, brick, concrete_block, plaster
+		"D" "P_ricochet_sparks_large"			//Dirt, slipperyslime, snow, carpet, cardboard, floatingstandable, ceiling_tile, papercup
+		"E" "P_impact_leadwall"		// metal_titan
+
+		"F" "impact_flesh"					//flesh
+		"G" "P_ricochet_sparks_large"		//metalgrate, chainlink, chain
+		"H" "impact_flesh"			//alienflesh
+
+		"J" "P_ricochet_sparks_large"			//grass
+		"K" "P_ricochet_sparks_large" 	//Mud
+		"L" "P_ricochet_sparks_large"	//plastic_barrel, plastic_box, item, rubber, rubbertire, jeeptire, slidingrubbertire, brakingrubbertire, slidingrubbertire_front, slidingrubbertire_rear
+		"M" "P_ricochet_sparks_large"		//Default, metal, metal_box, solidmetal, armorflesh, metal_bouncy, slippery_metal, shellcasing_small, shellcasing_large, metal_barrel, floating_metal_barrel, weapon
+		//"N" "P_ricochet_sparks_large" //Slime
+		"O" "P_ricochet_sparks_large"			//Foliage
+		"P" "P_ricochet_sparks_large"		//metal_spectre
+
+		"R" "P_ricochet_sparks_large"	//metalpanel, grenade, canister
+		"S" "P_impact_water_LG"						//water, slime
+		"T" "P_ricochet_sparks_large"	//tile
+		"U" "impact_glass"					//glass_breakble
+
+		"V" "P_ricochet_sparks_large"		//Metal Vent
+		"W" "P_ricochet_sparks_large"			//Wood, Wood_lowdensity, Wood_Box, Wood_Crate, Wood_Plank, Wood_Solid, Wood_Furniture, Wood_Panel watermelon
+
+		//"Y" "impact_glass"					//glass, brokenglass, glassbottle, pottery
+	    "Z" "P_ricochet_sparks_large"						//Sand
+
+		"0" "P_ricochet_sparks_large"
+		"1" "P_ricochet_sparks_large"
+		"2" "P_ricochet_sparks_large"
+		"3" "P_ricochet_sparks_large"
+		"4" "P_ricochet_sparks_large"
+		"5" "P_ricochet_sparks_large"
+		"6" "P_ricochet_sparks_large"
+		"7" "P_ricochet_sparks_large"
+		"8" "P_ricochet_sparks_large"
+		//"9" "impact_puddle"					//puddle
+
+		"airburst" "P_impact_leadwall_air"  //No Surface
+		"splash" "P_impact_water_LG" //brush water
+		"slime_splash" "P_impact_water_LG"
+		"shieldhit" "P_xo_armor_impact"
+		"critical_hit" "P_impact_leadwall"
+	}
+
+	FX_victim
+	{
+		"E" "P_impact_leadwall_victim"		// metal_titan
+		"F" "impact_flesh_victim"
+		"M" "P_impact_leadwall_victim"
+		"shieldhit" "P_impact_leadwall_victim"
+
+	}
+
+	Sound
+	{
+		"C" "Concrete.Heavy.BulletImpact_3P_vs_3P"
+		"D" "Dirt.Heavy.BulletImpact_3P_vs_3P"
+		"E" "Titan.Heavy.BulletImpact_3P_vs_3P"
+
+		"F" "Flesh.Heavy.BulletImpact_3P_vs_3P"
+		"G" "MetalGrate.Heavy.BulletImpact_3P_vs_3P"
+		"H" "Flesh.Heavy.BulletImpact_3P_vs_3P"
+
+		"J" "Grass.Heavy.BulletImpact_3P_vs_3P"
+		"K" "Mud.Heavy.BulletImpact_3P_vs_3P"  // mud?
+		"L" "Default.Heavy.BulletImpact_3P_vs_3P"
+		"M" "SolidMetal.Heavy.BulletImpact_3P_vs_3P"
+		"N" "Water.Heavy.BulletImpact_3P_vs_3P"	// Slime
+		"O" "Grass.Heavy.BulletImpact_3P_vs_3P"
+		"P" "Android.Heavy.BulletImpact_3P_vs_3P"
+
+		"R" "Concrete.Heavy.BulletImpact_3P_vs_3P"
+		"S" "Water.Heavy.BulletImpact_3P_vs_3P"
+		"T" "Tile.Heavy.BulletImpact_3P_vs_3P"
+		"U" "Glass.Heavy.BulletImpact_3P_vs_3P"
+
+		"V" "SolidMetal.Heavy.BulletImpact_3P_vs_3P"
+		"W" "Wood.Heavy.BulletImpact_3P_vs_3P"
+		"X" "TitanBubbleShield.Heavy.BulletImpact_3P_vs_3P"
+		"Y" "Glass.Heavy.BulletImpact_3P_vs_3P"
+		"Z" "Sand.Heavy.BulletImpact_3P_vs_3P"
+
+		//"splash" "Water.BulletImpact"
+		//"slime_splash" "Water.BulletImpact"
+
+		//"airburst" ""
+		"shieldhit" "TitanShield.Heavy.BulletImpact_3P_vs_3P"
+	}
+
+	Sound_attacker
+	{
+		"C" "Concrete.Heavy.BulletImpact_1P_vs_3P"
+		"D" "Dirt.Heavy.BulletImpact_1P_vs_3P"
+		"E" "Titan.Heavy.BulletImpact_1P_vs_3P"
+
+		"F" "Flesh.Heavy.BulletImpact_1P_vs_3P"
+		"G" "MetalGrate.Heavy.BulletImpact_1P_vs_3P"
+		"H" "Flesh.Heavy.BulletImpact_1P_vs_3P"
+
+		"J" "Grass.Heavy.BulletImpact_1P_vs_3P"
+		"K" "Mud.Heavy.BulletImpact_1P_vs_3P"  // mud?
+		"L" "Default.Heavy.BulletImpact_1P_vs_3P"
+		"M" "SolidMetal.Heavy.BulletImpact_1P_vs_3P"
+		"N" "Water.Heavy.BulletImpact_1P_vs_3P"	// Slime
+		"O" "Grass.Heavy.BulletImpact_1P_vs_3P"
+		"P" "Android.Heavy.BulletImpact_1P_vs_3P"
+
+		"R" "Concrete.Heavy.BulletImpact_1P_vs_3P"
+		"S" "Water.Heavy.BulletImpact_1P_vs_3P"
+		"T" "Tile.Heavy.BulletImpact_1P_vs_3P"
+		"U" "Glass.Heavy.BulletImpact_1P_vs_3P"
+
+		"V" "SolidMetal.Heavy.BulletImpact_1P_vs_3P"
+		"W" "Wood.Heavy.BulletImpact_1P_vs_3P"
+		"X" "TitanBubbleShield.Heavy.BulletImpact_1P_vs_3P"
+		"Y" "Glass.Heavy.BulletImpact_1P_vs_3P"
+		"Z" "Sand.Heavy.BulletImpact_1P_vs_3P"
+
+		//"splash" "Water.BulletImpact"
+		//"slime_splash" "Water.BulletImpact"
+
+		//"airburst" ""
+		"shieldhit" "TitanShield.Heavy.BulletImpact_1P_vs_3P"
+	}
+
+	Sound_victim
+	{
+		"C" "Concrete.Heavy.BulletImpact_3P_vs_1P"
+		"D" "Dirt.Heavy.BulletImpact_3P_vs_1P"
+		"E" "Titan.Heavy.BulletImpact_3P_vs_1P"
+
+		"F" "Flesh.Heavy.BulletImpact_3P_vs_1P"
+		"G" "MetalGrate.Heavy.BulletImpact_3P_vs_1P"
+		"H" "Flesh.Heavy.BulletImpact_3P_vs_1P"
+
+		"J" "Grass.Heavy.BulletImpact_3P_vs_1P"
+		"K" "Mud.Heavy.BulletImpact_3P_vs_1P"  // mud?
+		"L" "Default.Heavy.BulletImpact_3P_vs_1P"
+		"M" "SolidMetal.Heavy.BulletImpact_3P_vs_1P"
+		"N" "Water.Heavy.BulletImpact_3P_vs_1P"	// Slime
+		"O" "Grass.Heavy.BulletImpact_3P_vs_1P"
+		"P" "Android.Heavy.BulletImpact_3P_vs_1P"
+
+		"R" "Concrete.Heavy.BulletImpact_3P_vs_1P"
+		"S" "Water.Heavy.BulletImpact_3P_vs_1P"
+		"T" "Tile.Heavy.BulletImpact_3P_vs_1P"
+		"U" "Glass.Heavy.BulletImpact_3P_vs_1P"
+
+		"V" "SolidMetal.Heavy.BulletImpact_3P_vs_1P"
+		"W" "Wood.Heavy.BulletImpact_3P_vs_1P"
+
+		"Y" "Glass.Heavy.BulletImpact_3P_vs_1P"
+		"Z" "Sand.Heavy.BulletImpact_3P_vs_1P"
+
+		//"splash" "Water.BulletImpact"
+		//"slime_splash" "Water.BulletImpact"
+
+		//"airburst" ""
+		"shieldhit" "TitanShield.Heavy.BulletImpact_3P_vs_1P"
+	}
+
+
+}

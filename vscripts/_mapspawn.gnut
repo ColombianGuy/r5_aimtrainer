@@ -253,7 +253,7 @@ void function CodeCallback_MapSpawn() // original script entry point
 	PrecacheModel( $"mdl/props/charm/charm_clown.rmdl" )
 	PrecacheModel( $"mdl/props/charm/charm_witch.rmdl" )
 	
-	PrecacheParticleSystem( $"train_far_beam_far_blink" )
+	//PrecacheParticleSystem( $"train_far_beam_far_blink" ) //why are we precaching a worlds edge asset here? - LorryLeKral
 	
 	//Lobby Models
 
@@ -331,6 +331,26 @@ void function CodeCallback_MapSpawn() // original script entry point
 	PrecacheWeapon( $"mp_weapon_3030" )
 	PrecacheWeapon( $"mp_weapon_vctblue_primary" )
 	PrecacheWeapon( $"melee_vctblue" )
+	
+	
+	
+	// TITANFALL ASSET PRECACHE SECTION - LorryLeKral
+	PrecacheWeapon( $"mp_weapon_epg" )
+	PrecacheWeapon( $"mp_weapon_rocket_launcher" )
+	PrecacheWeapon( $"mp_weapon_softball" )
+	PrecacheWeapon( $"mp_weapon_smr" )
+	PrecacheWeapon( $"mp_weapon_car" )
+	PrecacheWeapon( $"mp_weapon_mgl" )
+	PrecacheWeapon( $"mp_weapon_pulse_lmg" )
+	PrecacheWeapon( $"mp_weapon_smart_pistol" )
+	PrecacheWeapon( $"mp_weapon_arc_launcher" )
+	PrecacheWeapon( $"mp_weapon_proximity_mine" )
+	PrecacheWeapon( $"sp_weapon_arc_tool" )
+	PrecacheWeapon( $"mp_weapon_wingman_n" )
+	PrecacheWeapon( $"mp_weapon_rspn101_og" )
+	
+	PrecacheWeapon( $"mp_weapon_droneplasma" )//remove these from here later!!! -kral
+	PrecacheWeapon( $"mp_weapon_dronerocket" )
 
 	switch( GameRules_GetGameMode() )
 	{
@@ -405,19 +425,6 @@ void function CodeCallback_MapSpawn() // original script entry point
 	PrecacheModel( $"mdl/Humans/grunts/imc_grunt_lmg_corpse.rmdl" )
 	PrecacheModel( $"mdl/creatures/prowler/prowler_apex.rmdl" )
 	PrecacheModel( $"mdl/creatures/spider/spider.rmdl" )
-
-	PrecacheModel( $"mdl/fx/cloud_fill_01.rmdl" )
-	PrecacheModel( $"mdl/thunderdome/thunderdome_cage_frame_16x128_01.rmdl" )
-	PrecacheModel( $"mdl/thunderdome/thunderdome_cage_wall_256x352_01.rmdl" )
-	PrecacheModel( $"mdl/thunderdome/thunderdome_cage_wall_256x352_01.rmdl" )
-	PrecacheModel( $"mdl/rocks/rock_white_chalk_modular_flat_02.rmdl" )
-	PrecacheModel( $"mdl/thunderdome/thunderdome_cage_ceiling_256x128_05.rmdl" )
-	PrecacheModel( $"mdl/thunderdome/thunderdome_cage_ceiling_256x128_06.rmdl" )
-	PrecacheModel( $"mdl/thunderdome/thunderdome_cage_frame_128x32_01.rmdl" )
-	PrecacheModel( $"mdl/thunderdome/thunderdome_cage_frame_64x32_01.rmdl" )
-	PrecacheModel( $"mdl/canyonlands/fabric_canopy_02.rmdl" )
-	PrecacheModel( $"mdl/pipes/pipe_modular_painted_yellow_32_04.rmdl" )
-	PrecacheModel( $"mdl/thunderdome/thunderdome_cage_ceiling_256x32_01.rmdl" )
 
 	PrecacheWeapon( $"mp_weapon_turret" )
 	// PrecacheWeapon( $"mp_weapon_satchel" )

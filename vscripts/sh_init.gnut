@@ -214,6 +214,10 @@ void function SV_CL_Init()
 	PassiveMedic_Init() //Should be shared. Cafe
 	MpAbilityCryptoDrone_Init()
 	MpAbilityCryptoDroneEMP_Init()
+	// Titanfall GUNS - by LorryLeKral
+	MpWeaponSmartPistol_Init()
+	MpWeaponProximityMine_Init()
+	MpWeaponRocketLauncher_Init()
 
     // Zipline Utility
     #if SERVER
@@ -304,13 +308,13 @@ void function Server_Init()
 #endif
 
 	// AiPilot_Init()
-	// AiDrone_Init()
+	AiDrone_Init()
 	// AiSpectre_Init()
 	// AiStalker_Init()
 	// AiSpider_Init()
 	// AiSuperspectre_Init()
 	// Goliath_Init()
-	// AiGunship_Init()
+	AiGunship_Init()
 	GunRacks_Init()
 	SuicideSpectres_Init()
 	AiMarvins_Init()
@@ -481,6 +485,7 @@ void function Client_Init()
 	CLTrackingVision_Init()
 	ClJumpPad_Init()
 	CLChroma_Init()
+	ClPhantomFighter_Init()
 	
 	//R5R.DEV
 	Tracker_ClientStats_Init()

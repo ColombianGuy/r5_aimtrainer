@@ -1,0 +1,108 @@
+WeaponData
+{
+	// General
+	"printname"   									"#WPN_GUNSHIP_MISSILE"
+	"shortprintname"								"#WPN_GUNSHIP_MISSILE"
+	"description" 									"#WPN_TITAN_XO16_DESC"
+	"longdesc"										"#WPN_TITAN_XO16_LONGDESC"
+	"weaponClass" 									"other"
+	"pickup_hold_prompt"  							"Hold [USE] [WEAPONNAME]"
+	"pickup_press_prompt" 							"[USE] [WEAPONNAME]"
+	"weaponType"									"anti_titan"
+	"minimap_reveal_distance"						"32000"
+
+	"OnWeaponNpcPrimaryAttack"						"OnWeaponNpcPrimaryAttack_gunship_missile"
+	//"OnProjectileCollision"							"OnProjectileCollision_gunship_missile"
+	"OnClientAnimEvent"								"GlobalClientEventHandler"
+
+	"projectile_launch_speed"						"2500"
+
+	"projectile_drift_windiness"					"6"
+	"projectile_drift_intensity"					"4"
+	"projectile_straight_time_min"					"0.5"
+	"projectile_straight_time_max"					"3"
+	"projectile_straight_radius_min"				"0"
+	"projectile_straight_radius_max"				"6"
+
+	// Models
+	"projectilemodel" 								"mdl/weapons/bullets/projectile_rocket_launcher_sram.rmdl"
+	"vortex_absorb_sound"							"Vortex_Shield_AbsorbRocket"
+	"vortex_absorb_sound_1p_vs_3p"					"Vortex_Shield_AbsorbRocket_1P_VS_3P"
+
+	// Effects
+	"impact_effect_table" 							"exp_artillery_plasma"
+	"projectile_trail_effect_0" 					"P_FlightCore_trail"
+	"projectile_trail_attachment" 					"exhaust"
+	"vortex_absorb_effect"							"wpn_vortex_projectile_rocket_FP"
+	"vortex_absorb_effect_third_person"				"wpn_vortex_projectile_rocket"
+	"vortex_absorb_sound"							"Vortex_Shield_AbsorbRocket"
+	"vortex_absorb_sound_1p_vs_3p"					"Vortex_Shield_AbsorbRocket_1P_VS_3P"
+	"vortex_drain"									"0.0"
+	"projectile_adjust_to_gun_barrel"				"1"
+
+	"sound_dryfire"									"spring_dryfire"
+	"sound_zoom_in"									"Weapon_ARL.ADS_In"
+	"sound_zoom_out"								"Weapon_ARL.ADS_Out"
+
+	"fx_muzzle_flash_view"							"P_wpn_muzzleflash_smr_FP"
+	"fx_muzzle_flash_world"							"P_wpn_muzzleflash_smr"
+	"fx_muzzle_flash_attach"						"muzzle_flash"
+
+	// Damage - When Used by Players
+	"damage_type" 									"none"
+	"damage_near_distance"							"800"
+	"damage_far_distance" 							"15000"
+	"damage_near_value"   							"50"
+	"damage_far_value"								"50"
+	"damage_near_value_titanarmor"					"200"
+	"damage_far_value_titanarmor" 					"200"
+	"explosion_damage"								"45"
+	"explosion_damage_heavy_armor"					"100"
+
+	"critical_hit_damage_scale"						"1.5"
+
+	"npc_miss_fast_player"							"0"
+
+
+	"npc_aim_at_feet"								"1"
+
+	"npc_explosion_damage"							"150"
+	"npc_explosion_damage_heavy_armor"				"800"
+	"explosion_inner_radius"  						"200"
+	"explosionradius" 								"410"
+	"explosion_shake_radius"						"500"
+	"explosion_shake_amplitude"						"5"
+	"explosion_shake_frequency"						"45"
+	"explosion_shake_duration"						"0.1"
+
+
+	"impulse_force"   								"1000"
+
+	// Ammo
+	"ammo_stockpile_max"							"300"
+	"ammo_clip_size"   								"-1"	//set to -1 for infinite ammo so the AI doesn't try to do reload tasks
+	"ammo_default_total"							"300"
+
+	// Behavior
+	"fire_rate"   									"6"
+
+	"trigger_snipercam"   							"1"
+	"allow_headshots" 								"0"
+	"critical_hit"									"0"
+	"scripted_projectile_max_timestep"				"0.2"
+
+	// NPC
+	"proficiency_poor_spreadscale"					"3.0"
+	"proficiency_average_spreadscale" 				"3.0"
+	"proficiency_good_spreadscale"					"3.0"
+	"proficiency_very_good_spreadscale"   			"3.0"
+
+	"npc_min_range"   								"0"
+	"npc_max_range"   								"16000"
+
+	"npc_min_burst"									"10"
+	"npc_max_burst"									"10"
+	"npc_rest_time_between_bursts_min"				"0.2"
+	"npc_rest_time_between_bursts_max"				"0.3"
+	"npc_directed_fire_ang_limit_cos"				"0.985"	// 10 degree
+}

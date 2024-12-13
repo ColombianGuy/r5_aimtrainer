@@ -1,0 +1,176 @@
+// "Gamematerial" "effect_name"
+
+// "B" bloodyflesh
+// "X" plastic box, wade, ladder, woodladdder,
+// "I" player_control_clip
+
+ImpactTable
+{
+	Info
+	{
+		"whizby_sound_from_player"	"none"
+		"whizby_sound_from_AI"		"none"
+	}
+
+	FX
+	{
+		"C" "P_impact_exp_FRAG_concrete" //Concrete, rock, porcelain, boulder, gravel, asphalt, brick, concrete_block, plaster
+		"D" "P_impact_exp_FRAG_dirt" //Dirt, mud, sand, slipperyslime, snow, carpet, cardboard, floatingstandable, ceiling_tile, papercup
+		"E" "P_impact_exp_FRAG_metal" // metal_titan
+
+		"F" "P_impact_exp_FRAG_metal" //flesh
+		"G" "P_impact_exp_FRAG_metal" //metalgrate, chainlink, chain
+		"H" "P_impact_exp_FRAG_concrete" //alienflesh
+
+		"J" "P_impact_exp_FRAG_dirt" //grass
+		"K" "P_impact_exp_FRAG_dirt" //mud
+		"L" "P_impact_exp_FRAG_metal" //plastic_barrel, plastic_box, item, rubber, rubbertire, jeeptire, slidingrubbertire, brakingrubbertire, slidingrubbertire_front, slidingrubbertire_rear
+		"M" "P_impact_exp_FRAG_metal" //Default, metal, metal_box, solidmetal, armorflesh, metal_bouncy, slippery_metal, shellcasing_small, shellcasing_large, metal_barrel, floating_metal_barrel, weapon
+		"N" "P_impact_exp_lrg_slime" //Slime
+		"O" "P_impact_exp_FRAG_dirt" //Foliage
+		"P" "P_impact_exp_FRAG_metal" //Computer
+
+		"R" "P_impact_exp_FRAG_metal" //metalpanel, grenade, canister
+		"S" "P_impact_exp_FRAG_water" //water, slime
+		"T" "P_impact_exp_FRAG_concrete" //tile
+		"U" "P_impact_exp_FRAG_metal" //glass_breakble
+
+		"V" "P_impact_exp_FRAG_metal" //Metal Vent
+		"W" "P_impact_exp_FRAG_metal" //Wood, Wood_lowdensity, Wood_Box, Wood_Crate, Wood_Plank, Wood_Solid, Wood_Furniture, Wood_Panel watermelon
+
+		"Y" "P_impact_exp_FRAG_metal" //glass, brokenglass, glassbottle, pottery
+		"Z" "P_impact_exp_FRAG_sand"  //sand
+
+		"0" "P_impact_exp_FRAG_concrete"
+		"1" "P_impact_exp_FRAG_concrete"
+		"2" "P_impact_exp_FRAG_concrete"
+		"3" "P_impact_exp_FRAG_concrete"
+		"4" "P_impact_exp_FRAG_concrete"
+		"5" "P_impact_exp_FRAG_concrete"
+		"6" "P_impact_exp_FRAG_concrete"
+		"7" "P_impact_exp_FRAG_concrete"
+		"8" "P_impact_exp_FRAG_concrete"
+		"9" "P_impact_exp_FRAG_water" //puddle
+
+		"splash" "P_impact_exp_FRAG_water"
+		"slime_splash" "P_impact_exp_lrg_slime"
+
+		"airburst" "P_impact_exp_FRAG_air"
+		"shieldhit" "P_impact_exp_FRAG_air"
+		"critical_hit" "P_impact_exp_FRAG_metal"
+	}
+	///This is 2nd set of impacts for shield fx to play with explosion
+	FX
+	{
+		"shieldhit" "P_xo_armor_impact_EXP"
+	}
+
+	Sound
+	{
+		"C" "explo_softball_impact_3p"
+		"D" "explo_softball_impact_3p"
+		"E" "explo_softball_impact_3p"
+
+		"F" "explo_softball_impact_3p"
+		"G" "explo_softball_impact_3p"
+		"H" "explo_softball_impact_3p"
+
+		"J" "explo_softball_impact_3p"
+		"K" "explo_softball_impact_3p"
+		"L" "explo_softball_impact_3p"
+		"M" "explo_softball_impact_3p"
+		"N" "explo_softball_impact_3p"
+		"O" "explo_softball_impact_3p"
+		"P" "explo_softball_impact_3p"
+
+		"R" "explo_softball_impact_3p"
+		"S" "explo_softball_impact_3p"
+		"T" "explo_softball_impact_3p"
+		"U" "explo_softball_impact_3p"
+
+		"V" "explo_softball_impact_3p"
+		"W" "explo_softball_impact_3p"
+		"X" "TitanBubbleShield.Explosive.BulletImpact_3P_vs_3P"
+		"Y" "explo_softball_impact_3p"
+		"Z" "explo_softball_impact_3p"
+
+		//"splash" "Water.BulletImpact"
+		//"slime_splash" "Water.BulletImpact"
+
+		"airburst" "explo_softball_impact_3p"
+		"shieldhit" "TitanShield.Explosive.BulletImpact_3P_vs_3P"
+	}
+
+	Sound_attacker
+	{
+		"C" "explo_softball_impact_1p"
+		"D" "explo_softball_impact_1p"
+		"E" "explo_softball_impact_1p"
+
+		"F" "explo_softball_impact_1p"
+		"G" "explo_softball_impact_1p"
+		"H" "explo_softball_impact_1p"
+
+		"J" "explo_softball_impact_1p"
+		"K" "explo_softball_impact_1p"  // mud?
+		"L" "explo_softball_impact_1p"
+		"M" "explo_softball_impact_1p"
+		"N" "explo_softball_impact_1p"	// sand?
+		"O" "explo_softball_impact_1p"
+		"P" "explo_softball_impact_1p"
+
+		"R" "explo_softball_impact_1p"
+		"S" "explo_softball_impact_1p"
+		"T" "explo_softball_impact_1p"
+		"U" "explo_softball_impact_1p"
+
+		"V" "explo_softball_impact_1p"
+		"W" "explo_softball_impact_1p"
+		"X"	"TitanBubbleShield.Explosive.BulletImpact_1P_vs_3P"
+		"Y" "explo_softball_impact_1p"
+		"Z" "explo_softball_impact_1p"
+
+		//"splash" "Water.BulletImpact"
+		//"slime_splash" "Water.BulletImpact"
+
+		"airburst" "explo_softball_impact_1p"
+		"shieldhit" "TitanShield.Explosive.BulletImpact_1P_vs_3P"
+	}
+
+	Sound_victim
+	{
+		"C" "explo_softball_impact_3p"
+		"D" "explo_softball_impact_3p"
+		"E" "titan_rocket_explosion_3p_vs_1p"
+
+		"F" "explo_softball_impact_3p"
+		"G" "explo_softball_impact_3p"
+		"H" "explo_softball_impact_3p"
+
+		"J" "explo_softball_impact_3p"
+		"K" "explo_softball_impact_3p"
+		"L" "explo_softball_impact_3p"
+		"M" "explo_softball_impact_3p"
+		"N" "explo_softball_impact_3p"
+		"O" "explo_softball_impact_3p"
+		"P" "explo_softball_impact_3p"
+
+		"R" "explo_softball_impact_3p"
+		"S" "explo_softball_impact_3p"
+		"T" "explo_softball_impact_3p"
+		"U" "explo_softball_impact_3p"
+
+		"V" "explo_softball_impact_3p"
+		"W" "explo_softball_impact_3p"
+		"X" "TitanBubbleShield.Explosive.BulletImpact_3P_vs_3P"
+		"Y" "explo_softball_impact_3p"
+		"Z" "explo_softball_impact_3p"
+
+		//"splash" "Water.BulletImpact"
+		//"slime_splash" "Water.BulletImpact"
+
+		"airburst" "explo_softball_impact_3p"
+		"shieldhit" "TitanShield.Explosive.BulletImpact_3P_vs_1P"
+	}
+
+}

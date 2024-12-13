@@ -1,0 +1,217 @@
+ImpactTable
+{
+	Info
+	{
+		"whizby_sound_from_player"	"Bullets.DefaultNearmissBig"
+		"whizby_sound_from_AI"		"Bullets.DefaultNearmissBig"
+		"whizby_maxDistancePilot"	"150"
+		"whizby_maxDistanceTitan"	"400"
+	}
+
+	FX
+	{
+		"C" "P_impact_sparks_predator_PS"	//Concrete, rock, porcelain, boulder, gravel, asphalt, brick, concrete_block, plaster
+		"D" "P_impact_sparks_predator_PS"			//Dirt, slipperyslime, snow, carpet, cardboard, floatingstandable, ceiling_tile, papercup
+		//"E" "P_impact_sparks_predator_PS"		// metal_titan
+
+		//"F" "impact_flesh"					//flesh
+		"G" "P_impact_sparks_predator_PS"		//metalgrate, chainlink, chain
+		//"H" "impact_alienflesh"			//alienflesh
+
+		"J" "P_impact_sparks_predator_PS"			//grass
+		"K" "P_impact_sparks_predator_PS" 	//Mud
+		"L" "P_impact_sparks_predator_PS"	//plastic_barrel, plastic_box, item, rubber, rubbertire, jeeptire, slidingrubbertire, brakingrubbertire, slidingrubbertire_front, slidingrubbertire_rear
+		"M" "P_impact_sparks_predator_PS"		//Default, metal, metal_box, solidmetal, armorflesh, metal_bouncy, slippery_metal, shellcasing_small, shellcasing_large, metal_barrel, floating_metal_barrel, weapon
+		"N" "P_impact_sparks_predator_PS" //Slime
+		"O" "P_impact_sparks_predator_PS"			//Foliage
+		"P" "P_impact_sparks_predator_PS"		//Computer
+
+		"R" "P_impact_sparks_predator_PS"	//metalpanel, grenade, canister
+		"S" "P_impact_sparks_predator_PS"						//water, slime
+		"T" "P_impact_sparks_predator_PS"	//tile
+		//"U" "impact_glass"					//glass_breakble
+
+		"V" "P_impact_sparks_predator_PS"		//Metal Vent
+		"W" "P_impact_sparks_predator_PS"			//Wood, Wood_lowdensity, Wood_Box, Wood_Crate, Wood_Plank, Wood_Solid, Wood_Furniture, Wood_Panel watermelon
+
+		//"Y" "impact_glass"					//glass, brokenglass, glassbottle, pottery
+	    "Z" "P_impact_sparks_predator_PS"						//Sand
+
+		"0" "P_impact_sparks_predator_PS"
+		"1" "P_impact_sparks_predator_PS"
+		"2" "P_impact_sparks_predator_PS"
+		"3" "P_impact_sparks_predator_PS"
+		"4" "P_impact_sparks_predator_PS"
+		"5" "P_impact_sparks_predator_PS"
+		"6" "P_impact_sparks_predator_PS"
+		"7" "P_impact_sparks_predator_PS"
+		"8" "P_impact_sparks_predator_PS"
+		//"9" "impact_puddle"					//puddle
+
+		"splash" "P_impact_sparks_predator_PS" //brush water
+		"slime_splash" "P_impact_sparks_predator_PS"
+		//"shieldhit" "P_xo_armor_impact"
+		//"critical_hit" "impact_metal_titan"
+	}
+
+	FX
+	{
+		"C" "impact_concrete_large"	//Concrete, rock, porcelain, boulder, gravel, asphalt, brick, concrete_block, plaster
+		"D" "impact_dirt_large"			//Dirt, slipperyslime, snow, carpet, cardboard, floatingstandable, ceiling_tile, papercup
+		"E" "impact_metal_titan"		// metal_titan
+
+		"F" "impact_flesh"					//flesh
+		"G" "impact_metal_large"		//metalgrate, chainlink, chain
+		"H" "impact_alienflesh"			//alienflesh
+
+		"J" "impact_dirt_large"			//grass
+		"K" "impact_mud_large" 	//Mud
+		"L" "impact_plastic_large"	//plastic_barrel, plastic_box, item, rubber, rubbertire, jeeptire, slidingrubbertire, brakingrubbertire, slidingrubbertire_front, slidingrubbertire_rear
+		"M" "impact_metal_large"		//Default, metal, metal_box, solidmetal, armorflesh, metal_bouncy, slippery_metal, shellcasing_small, shellcasing_large, metal_barrel, floating_metal_barrel, weapon
+		"N" "P_impact_slime_large" //Slime
+		"O" "impact_dirt_large"			//Foliage
+		"P" "impact_metal_large"		//Computer
+
+		"R" "impact_concrete_large"	//metalpanel, grenade, canister
+		"S" "P_impact_water_LG"						//water, slime
+		"T" "impact_concrete_large"	//tile
+		"U" "impact_glass"					//glass_breakble
+
+		"V" "impact_metal_large"		//Metal Vent
+		"W" "impact_wood_large"			//Wood, Wood_lowdensity, Wood_Box, Wood_Crate, Wood_Plank, Wood_Solid, Wood_Furniture, Wood_Panel watermelon
+
+		"Y" "impact_glass"					//glass, brokenglass, glassbottle, pottery
+	    "Z" "impact_sand_LG"						//Sand
+
+		"0" "impact_dirt_large"
+		"1" "impact_concrete_large"
+		"2" "impact_dirt_large"
+		"3" "impact_concrete_large"
+		"4" "impact_concrete_large"
+		"5" "impact_concrete_large"
+		"6" "impact_concrete_large"
+		"7" "impact_concrete_large"
+		"8" "impact_concrete_large"
+		"9" "impact_puddle"					//puddle
+
+		"splash" "P_impact_water_LG" //brush water
+		"slime_splash" "P_impact_water_LG"
+		"shieldhit" "P_xo_armor_impact"
+		"critical_hit" "impact_metal_titan"
+	}
+
+	FX_victim
+	{
+		"F" "impact_flesh_victim"
+		"shieldhit" "impact_metal_large"
+
+	}
+
+
+	Sound
+	{
+		"C" "Explo_40mm_Impact_3P"
+		"D" "Explo_40mm_Impact_3P"
+		"E" "Explo_40mm_Impact_3P"
+
+		"F" "Explo_40mm_Impact_3P"
+		"G" "Explo_40mm_Impact_3P"
+		"H" "Explo_40mm_Impact_3P"
+
+		"J" "Explo_40mm_Impact_3P"
+		"K" "Explo_40mm_Impact_3P"
+		"L" "Explo_40mm_Impact_3P"
+		"M" "Explo_40mm_Impact_3P"
+		"N" "Explo_40mm_Impact_3P"
+		"O" "Explo_40mm_Impact_3P"
+		"P" "Explo_40mm_Impact_3P"
+
+		"R" "Explo_40mm_Impact_3P"
+		"S" "Explo_40mm_Impact_3P"
+		"T" "Explo_40mm_Impact_3P"
+		"U" "Explo_40mm_Impact_3P"
+
+		"V" "Explo_40mm_Impact_3P"
+		"W" "Explo_40mm_Impact_3P"
+		"X"	"TitanBubbleShield.Explosive.BulletImpact_3P_vs_3P"
+		"Y" "Explo_40mm_Impact_3P"
+		"Z" "Explo_40mm_Impact_3P"  //sand
+		//"splash" "Water.BulletImpact"
+		//"slime_splash" "Water.BulletImpact"
+
+		//"airburst" "Explo_40mm_Impact_3P"
+		"shieldhit" "TitanShield.Explosive.BulletImpact_3P_vs_3P"
+	}
+
+	Sound_attacker
+	{
+		"C" "Explo_40mm_Impact_1P"
+		"D" "Explo_40mm_Impact_1P"
+		"E" "Explo_40mm_Impact_1P"
+
+		"F" "Explo_40mm_Impact_1P"
+		"G" "Explo_40mm_Impact_1P"
+		"H" "Explo_40mm_Impact_1P"
+
+		"J" "Explo_40mm_Impact_1P"
+		"K" "Explo_40mm_Impact_1P"
+		"L" "Explo_40mm_Impact_1P"
+		"M" "Explo_40mm_Impact_1P"
+		"N" "Explo_40mm_Impact_1P"
+		"O" "Explo_40mm_Impact_1P"
+		"P" "Explo_40mm_Impact_1P"
+
+		"R" "Explo_40mm_Impact_1P"
+		"S" "Explo_40mm_Impact_1P"
+		"T" "Explo_40mm_Impact_1P"
+		"U" "Explo_40mm_Impact_1P"
+
+		"V" "Explo_40mm_Impact_1P"
+		"W" "Explo_40mm_Impact_1P"
+		"X"	"TitanBubbleShield.Explosive.BulletImpact_1P_vs_3P"
+		"Y" "Explo_40mm_Impact_1P"
+		"Z" "Explo_40mm_Impact_1P"  //sand
+
+		//"splash" "Water.BulletImpact"
+		//"slime_splash" "Water.BulletImpact"
+
+		//"airburst" "Explo_40mm_Impact_1P"
+		"shieldhit" "TitanShield.Explosive.BulletImpact_1P_vs_3P"
+	}
+
+	Sound_victim
+	{
+		"C" "Explo_40mm_Impact_3P"
+		"D" "Explo_40mm_Impact_3P"
+		"E" "Titan.40mm_Impact_3P_vs_1P"
+
+		"F" "Explo_40mm_Impact_3P"
+		"G" "Explo_40mm_Impact_3P"
+		"H" "Explo_40mm_Impact_3P"
+
+		"J" "Explo_40mm_Impact_3P"
+		"K" "Explo_40mm_Impact_3P"
+		"L" "Explo_40mm_Impact_3P"
+		"M" "Explo_40mm_Impact_3P"
+		"N" "Explo_40mm_Impact_3P"
+		"O" "Explo_40mm_Impact_3P"
+		"P" "Explo_40mm_Impact_3P"
+
+		"R" "Explo_40mm_Impact_3P"
+		"S" "Explo_40mm_Impact_3P"
+		"T" "Explo_40mm_Impact_3P"
+		"U" "Explo_40mm_Impact_3P"
+
+		"V" "Explo_40mm_Impact_3P"
+		"W" "Explo_40mm_Impact_3P"
+		"X"	"TitanBubbleShield.Explosive.BulletImpact_3P_vs_3P"
+		"Y" "Explo_40mm_Impact_3P"
+		"Z" "Explo_40mm_Impact_3P"  //sand
+
+		//"splash" "Water.BulletImpact"
+		//"slime_splash" "Water.BulletImpact"
+
+		//"airburst" "Explo_40mm_Impact_3P"
+		"shieldhit" "TitanShield.Explosive.BulletImpact_3P_vs_1P"
+	}
+}

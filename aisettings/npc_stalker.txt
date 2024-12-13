@@ -4,7 +4,8 @@ npc_stalker
 	TraverseAnimType				stalker
 
 	title							#NPC_STALKER
-	ui_targetinfo					"ui/targetinfo_npc_simple"
+	ui_targetinfo					"ui/targetinfo_npc_simple" [$mp]
+	ui_targetinfo					"ui/targetinfo_npc_hackable" [$sp]
 	ui_targetinfo_offset_z			12
 
 	useSequenceBounds				1
@@ -39,38 +40,38 @@ npc_stalker
 	DefaultModelName_IMC			"mdl/robots/stalker/robot_stalker.rmdl"
 	DefaultModelName_MIL			"mdl/robots/stalker/robot_stalker.rmdl"
 
-	// DefaultModelName				"models/robots/stalker/robot_stalker_red.mdl" [$mp]
-	// DefaultModelName_IMC			"models/robots/stalker/robot_stalker_red.mdl" [$mp]
-	// DefaultModelName_MIL			"models/robots/stalker/robot_stalker_red.mdl" [$mp]
+	//DefaultModelName				"mdl/robots/stalker/robot_stalker_red.rmdl" [$mp]
+	//DefaultModelName_IMC			"mdl/robots/stalker/robot_stalker_red.rmdl" [$mp]
+	//DefaultModelName_MIL			"mdl/robots/stalker/robot_stalker_red.rmdl" [$mp]
 
 	DefaultWeapon					"mp_weapon_lstar"
 	WeaponCapacity					"PilotMainWeapons"
 
 	longJumpHeight					2000
 
-	GibModel0						"models/robots/stalker/robot_stalker_l_leg_gib.mdl" [$sp]
-	GibModel1						"models/robots/stalker/robot_stalker_r_leg_gib.mdl" [$sp]
-	GibModel2						"models/robots/stalker/robot_stalker_l_arm_gib.mdl" [$sp]
-	GibModel3						"models/robots/stalker/robot_stalker_r_arm_gib.mdl" [$sp]
-	GibModelSoftened0				"models/robots/stalker/robot_stalker_l_leg_gib.mdl" [$sp]
-	GibModelSoftened1				"models/robots/stalker/robot_stalker_r_leg_gib.mdl" [$sp]
-	GibModelSoftened2				"models/robots/stalker/robot_stalker_l_arm_gib.mdl" [$sp]
-	GibModelSoftened3				"models/robots/stalker/robot_stalker_r_arm_gib.mdl" [$sp]
-	GibModel0						"models/robots/stalker/robot_stalker_l_leg_red_gib.mdl" [$mp]
-	GibModel1						"models/robots/stalker/robot_stalker_r_leg_red_gib.mdl" [$mp]
-	GibModel2						"models/robots/stalker/robot_stalker_l_arm_red_gib.mdl" [$mp]
-	GibModel3						"models/robots/stalker/robot_stalker_r_arm_red_gib.mdl" [$mp]
-	GibModelSoftened0				"models/robots/stalker/robot_stalker_l_leg_red_gib.mdl" [$mp]
-	GibModelSoftened1				"models/robots/stalker/robot_stalker_r_leg_red_gib.mdl" [$mp]
-	GibModelSoftened2				"models/robots/stalker/robot_stalker_l_arm_red_gib.mdl" [$mp]
-	GibModelSoftened3				"models/robots/stalker/robot_stalker_r_arm_red_gib.mdl" [$mp]
-	GibAttachment0					"left_leg"
-	GibAttachment1					"right_leg"
-	GibAttachment2					"left_arm"
-	GibAttachment3					"right_arm"
-	GibSpeed						100
-	GibAngularSpeed					5
-	GibMaxDist 						1600
+	//GibModel0						"mdl/robots/stalker/robot_stalker_l_leg_gib.rmdl" [$sp]
+	//GibModel1						"mdl/robots/stalker/robot_stalker_r_leg_gib.rmdl" [$sp]
+	//GibModel2						"mdl/robots/stalker/robot_stalker_l_arm_gib.rmdl" [$sp]
+	//GibModel3						"mdl/robots/stalker/robot_stalker_r_arm_gib.rmdl" [$sp]
+	//GibModelSoftened0				"mdl/robots/stalker/robot_stalker_l_leg_gib.rmdl" [$sp]
+	//GibModelSoftened1				"mdl/robots/stalker/robot_stalker_r_leg_gib.rmdl" [$sp]
+	//GibModelSoftened2				"mdl/robots/stalker/robot_stalker_l_arm_gib.rmdl" [$sp]
+	//GibModelSoftened3				"mdl/robots/stalker/robot_stalker_r_arm_gib.rmdl" [$sp]
+	//GibModel0						"mdl/robots/stalker/robot_stalker_l_leg_red_gib.rmdl" [$mp]
+	//GibModel1						"mdl/robots/stalker/robot_stalker_r_leg_red_gib.rmdl" [$mp]
+	//GibModel2						"mdl/robots/stalker/robot_stalker_l_arm_red_gib.rmdl" [$mp]
+	//GibModel3						"mdl/robots/stalker/robot_stalker_r_arm_red_gib.rmdl" [$mp]
+	//GibModelSoftened0				"mdl/robots/stalker/robot_stalker_l_leg_red_gib.rmdl" [$mp]
+	//GibModelSoftened1				"mdl/robots/stalker/robot_stalker_r_leg_red_gib.rmdl" [$mp]
+	//GibModelSoftened2				"mdl/robots/stalker/robot_stalker_l_arm_red_gib.rmdl" [$mp]
+	//GibModelSoftened3				"mdl/robots/stalker/robot_stalker_r_arm_red_gib.rmdl" [$mp]
+	//GibAttachment0					"left_leg"
+	//GibAttachment1					"right_leg"
+	//GibAttachment2					"left_arm"
+	//GibAttachment3					"right_arm"
+	//GibSpeed						100
+	//GibAngularSpeed					5
+	//GibMaxDist 						1600
 	GibFX							"P_exp_spectre_death"
 	GibSound						"Explo_Spectre"
 

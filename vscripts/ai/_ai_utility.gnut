@@ -1504,7 +1504,35 @@ void function DEV_SpawnLootBinAtCrosshair()
 	ent_lootbin.SetAngles( angles1 )
 }
 
-void function DEV_SpawnDummyAtCrosshair()
+void function DEV_SpawnPlasmaDroneAtCrosshair(int team = 99)
+{
+	entity player = GetPlayerArray()[ 0 ]
+
+	vector origin = GetPlayerCrosshairOrigin( player )
+	vector angles = Vector( 0, 0, 0 )
+
+	entity drone = CreatePlasmaDrone( team, origin, angles )
+
+	DispatchSpawn( drone )
+    
+    drone.GiveWeapon("mp_weapon_droneplasma", WEAPON_INVENTORY_SLOT_ANY)
+}
+
+void function DEV_SpawnRocketDroneAtCrosshair(int team = 99)
+{
+	entity player = GetPlayerArray()[ 0 ]
+
+	vector origin = GetPlayerCrosshairOrigin( player )
+	vector angles = Vector( 0, 0, 0 )
+
+	entity drone = CreateGenericDrone( team, origin, angles )
+
+	DispatchSpawn( drone )
+    
+    drone.GiveWeapon("mp_weapon_dronerocket", WEAPON_INVENTORY_SLOT_ANY)
+}
+
+void function DEV_SpawnDummyAtCrosshair(int team = 99)
 {
 	entity player = GetPlayerArray()[ 0 ]
 
@@ -1515,7 +1543,7 @@ void function DEV_SpawnDummyAtCrosshair()
 	vector angles1 = VectorToAngles( vec1 )
 	angles1.x = 0
 	
-	entity dummy = CreateDummy( 99, origin, angles1 )
+	entity dummy = CreateDummy( team, origin, angles1 )
 	if(GetCurrentPlaylistVarBool( "dummies_agressivedummies", true ))
 		SetSpawnOption_AISettings( dummy, "npc_dummie_combat" )
 	else
@@ -1575,13 +1603,6 @@ void function DEV_SpawnDummyAtCrosshair()
 	dummy.GiveWeapon(randomWeapon, WEAPON_INVENTORY_SLOT_ANY)
 }
 
-void function DEV_SpawnFriendlyDummyAtCrosshair()
-{
-	DEV_SpawnDummyAtCrosshair()
-	array<entity> npcs = GetNPCArray()
-	NPCFollowsPlayer( npcs[ npcs.len() - 1 ], gp()[0] )
-}
-
 void function PlayAnimOnTrainingDummy(entity dummy)
 {
 WaitFrame()
@@ -1598,98 +1619,121 @@ while(IsValid(dummy))
 	}
 }
 
-void function DEV_SpawnProwlerAtCrosshair()
+void function DEV_SpawnProwlerAtCrosshair(int team = 99)
 {
 	entity player = GetPlayerArray()[ 0 ]
 
 	vector origin = GetPlayerCrosshairOrigin( player )
 	vector angles = Vector( 0, 0, 0 )
 
-	entity prowler = CreateProwler( 99, origin, angles )
+	entity prowler = CreateProwler( team, origin, angles )
 
 	DispatchSpawn( prowler )
-	prowler.SetSkin(RandomInt(5) )
+	
+    prowler.SetSkin(RandomInt(3))
 }
 
-void function DEV_SpawnSpectreAtCrosshair()
+void function DEV_SpawnMarvinAtCrosshair(int team = 99)
 {
 	entity player = GetPlayerArray()[ 0 ]
 
 	vector origin = GetPlayerCrosshairOrigin( player )
 	vector angles = Vector( 0, 0, 0 )
-
-	entity prowler = CreateSpectre( 99, origin, angles )
-
-	DispatchSpawn( prowler )
-}
-
-void function DEV_SpawnStalkerAtCrosshair()
-{
-	entity player = GetPlayerArray()[ 0 ]
-
-	vector origin = GetPlayerCrosshairOrigin( player )
-	vector angles = Vector( 0, 0, 0 )
-
-	entity prowler = CreateStalker( 99, origin, angles )
-
-	DispatchSpawn( prowler )
-}
-
-void function DEV_SpawnMarvinAtCrosshair()
-{
-	entity player = GetPlayerArray()[ 0 ]
-	int team = player.GetTeam()
-
-	vector origin = GetPlayerCrosshairOrigin( player )
-	vector angles = Vector( 0, 0, 0 )
-	entity marvin = CreateMarvin( 99, origin, angles )
+	entity marvin = CreateMarvin( team, origin, angles )
 
 	DispatchSpawn( marvin )
 }
-void function DEV_SpawnSpiderAtCrosshair()
+
+void function DEV_SpawnSoldierAtCrosshair(int team = 99)
 {
 	entity player = GetPlayerArray()[ 0 ]
 
 	vector origin = GetPlayerCrosshairOrigin( player )
 	vector angles = Vector( 0, 0, 0 )
 
-	entity spider = CreateSpider( 99, origin, angles )
+	entity soldier = CreateSoldier( team, origin, angles )
+	
+	DispatchSpawn( soldier )
+	
+	//array<string> weapons = ["mp_weapon_rspn101"] //We are giving them original firing range weapons, they are shooting better this way
+	//string randomWeapon = weapons[RandomInt(weapons.len())]
+	soldier.GiveWeapon("npc_weapon_lstar", WEAPON_INVENTORY_SLOT_ANY)
+}
+
+void function DEV_SpawnSpectreAtCrosshair(int team = 99)
+{
+	entity player = GetPlayerArray()[ 0 ]
+
+	vector origin = GetPlayerCrosshairOrigin( player )
+	vector angles = Vector( 0, 0, 0 )
+
+	entity spectre = CreateSpectre( team, origin, angles )
+	
+	DispatchSpawn( spectre )
+	
+	//array<string> weapons = ["npc_weapon_lstar", "npc_weapon_energy_shotgun", "npc_weapon_hemlok"] //We are giving them original firing range weapons, they are shooting better this way
+	//string randomWeapon = weapons[RandomInt(weapons.len())]
+	spectre.GiveWeapon("npc_weapon_lstar", WEAPON_INVENTORY_SLOT_ANY)
+}
+
+void function DEV_SpawnStalkerAtCrosshair(int team = 99)
+{
+	entity player = GetPlayerArray()[ 0 ]
+
+	vector origin = GetPlayerCrosshairOrigin( player )
+	vector angles = Vector( 0, 0, 0 )
+
+	entity Stalker = CreateStalker( team, origin, angles )
+	
+	DispatchSpawn( Stalker )
+	
+	Stalker.GiveWeapon("npc_weapon_lstar", WEAPON_INVENTORY_SLOT_ANY)
+}
+
+void function DEV_SpawnSpiderAtCrosshair(int team = 99)
+{
+	entity player = GetPlayerArray()[ 0 ]
+
+	vector origin = GetPlayerCrosshairOrigin( player )
+	vector angles = Vector( 0, 0, 0 )
+
+	entity spider = CreateSpider( team, origin, angles )
 
 	DispatchSpawn( spider )
 }
 
-void function DEV_SpawnInfectedSoldierAtCrosshair()
+void function DEV_SpawnTitanAtCrosshair(int team = 99)
 {
 	entity player = GetPlayerArray()[ 0 ]
 
 	vector origin = GetPlayerCrosshairOrigin( player )
 	vector angles = Vector( 0, 0, 0 )
 
-	entity Infected = CreateInfected( 99, origin, angles )
+	entity npc = CreateNPCTitan( "titan", team, origin, angles )
+	SetSpawnOption_AISettings( npc, "npc_titan_buddy" )
+	DispatchSpawn( npc )
+}
 
+void function DEV_SpawnInfectedSoldierAtCrosshair(int team = 99)
+{
+	entity player = GetPlayerArray()[ 0 ]
+
+	vector origin = GetPlayerCrosshairOrigin( player )
+	vector angles = Vector( 0, 0, 0 )
+
+	entity Infected = CreateInfected( team, origin, angles )
+	Infected.SetSkin(RandomInt(3))
 	DispatchSpawn( Infected )
 }
 
-void function DEV_SpawnElitePilotAtCrosshair()
+void function DEV_SpawnExplosiveTickAtCrosshair( int team = 99)
 {
 	entity player = GetPlayerArray()[ 0 ]
 
 	vector origin = GetPlayerCrosshairOrigin( player )
 	vector angles = Vector( 0, 0, 0 )
 
-	entity Infected = CreateElitePilot( 99, origin, angles )
-
-	DispatchSpawn( Infected )
-}
-
-void function DEV_SpawnExplosiveTickAtCrosshair()
-{
-	entity player = GetPlayerArray()[ 0 ]
-
-	vector origin = GetPlayerCrosshairOrigin( player )
-	vector angles = Vector( 0, 0, 0 )
-
-	entity tick = CreateFragDrone( 99, origin, angles )
+	entity tick = CreateFragDrone( team, origin, angles )
 
 	DispatchSpawn( tick )
 	tick.SetSkin(RandomInt(2))
@@ -1724,7 +1768,7 @@ void function DEV_SpawnAllNPCsWithTeam( int team )
 	}
 }
 
-void function DEV_SpawnLegendAtCrosshair()
+void function DEV_SpawnLegendAtCrosshair( int team = 99)
 {
 	entity player = GetPlayerArray()[ 0 ]
 
@@ -1739,12 +1783,12 @@ void function DEV_SpawnLegendAtCrosshair()
 
 	if(GetCurrentPlaylistVarBool( "dummies_agressivedummies", true ))
 	{
-		dummy = CreateLegend_ai( 99, origin, angles1 )
+		dummy = CreateLegend_ai( team, origin, angles1 )
 		dummy.SetBehaviorSelector( "behavior_dummie_combat" )
 	}
 	else
 	{
-		dummy = CreateLegend_ai( 99, origin, angles1, true)
+		dummy = CreateLegend_ai( team, origin, angles1, true)
 		dummy.SetBehaviorSelector( "behavior_dummy_empty" )
 		dummy.EnableNPCFlag( NPC_DISABLE_SENSING )
 		dummy.EnableNPCFlag( NPC_IGNORE_ALL )

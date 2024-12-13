@@ -329,6 +329,11 @@ Scripts:
 	weapons/mp_weapon_thermite_grenade.nut
 	weapons/mp_weapon_zipline.nut
 	weapons/mp_weapon_alternator_smg.nut
+	weapons/mp_weapon_smr.nut
+	weapons/mp_weapon_rocket_launcher.nut
+	weapons/mp_weapon_mgl.nut
+	weapons/mp_weapon_arc_launcher.nut
+	weapons/mp_weapon_proximity_mine.nut
 
 	weapons/sh_deployable.gnut
 	weapons/sh_deployable_wall.gnut
@@ -681,6 +686,7 @@ Scripts:
 	client/cl_zipline.gnut
 	client/objects/cl_control_panel.nut
 	client/objects/cl_goblin_dropship.nut
+	client/objects/cl_phantom_fighter.nut
 	client/objects/cl_spectre.nut
 	client/objects/cl_super_spectre.nut
 	conversation/cl_conversation.gnut
@@ -696,6 +702,7 @@ Scripts:
 	weapons/cl_smart_ammo.gnut
 	client/objects/cl_drone_medic.nut
 	client/objects/cl_draconis_flyin.nut
+	client/objects/cl_drone.nut
 	client/objects/cl_drone_crypto.nut
 
 	client/rui/cl_weapon_status.gnut
@@ -947,9 +954,11 @@ Scripts:
 	
 	weapons/mp_ability_crypto_drone.nut
 	weapons/mp_ability_crypto_drone_emp.nut
-	
+	weapons/mp_weapon_gunship_missile.nut
 	weapons/mp_ability_emote_projector.nut
 	weapons/mp_weapon_raygun.nut
+	weapons/mp_weapon_droneplasma.nut
+	weapons/mp_weapon_dronerocket.nut
 	
 	sh_clientmusic.gnut
 
