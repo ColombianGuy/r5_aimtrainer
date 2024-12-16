@@ -4,6 +4,7 @@ global function Flowstate_SpawnSystem_Init
 global function Flowstate_SpawnSystem_InitGamemodeOptions //gamemode must call
 
 global function SpawnSystem_ReturnAllSpawnLocations
+global function SpawnSystem_SortSpawnsByMetaData
 global LocPair &g_waitingRoomPanelLocation
 
 global function SetCallback_FlowstateSpawnsOffset
@@ -27,7 +28,6 @@ global function SpawnSystem_GenerateRandomSpawns
 global function SpawnSystem_SetValidateSpawnsOnLoad
 global function SpawnSystem_CreateLocPairObject
 global function SpawnSystem_GetPakInfoForKey
-
 
 #if DEVELOPER
 	global function DEV_SpawnType
@@ -552,6 +552,7 @@ array<SpawnData> function GenerateCustomSpawns( int eMap, int coreSpawnsLen = -1
 			}
 			else 
 			{
+				mAssert( false, "No valid player start spawn detected \n If this is intentional disable this Assert." )
 				Warning( "No valid player start spawn detected" )
 			}
 		
@@ -855,7 +856,7 @@ array<SpawnData> function SpawnSystem_CreateSpawnObjectArray( array<LocPair> spa
 
 table function GenerateDefaultSpawnData()
 {
-	return { name = "spawn" }
+	return { info = "spawn" }
 }
 
 bool function ValidateOptions( table<string,bool> options )
@@ -1039,7 +1040,6 @@ void function SpawnSystem_SetPanelLocation( vector origin, vector angles )
 			return SpawnSystem_CreateLocPairObject( [], false, null, panels )
 		}
 	)
-
 }
 
 void function __ResolveAndSetPakData( string info )
@@ -1054,7 +1054,7 @@ string function SpawnSystem_GetPakInfoForKey( string key )
 	if( key in file.pakData )
 		return file.pakData[ key ]
 		
-	return ""
+	return "_NOTFOUND"
 }
 
 void function SpawnSystem_SetMetaDataHandler( void functionref( SpawnData ) processFunc )
@@ -1067,11 +1067,52 @@ void function SpawnSystem_SetValidateSpawnsOnLoad( bool setting )
 	file.bValidateSpawns = setting
 }
 
+table< string, array< SpawnData > > function SpawnSystem_SortSpawnsByMetaData( array<SpawnData> spawns )
+{
+	table< string, array< SpawnData > > sorted
+	foreach( SpawnData data in spawns )
+	{
+		if( !( data.info in sorted ) )
+			sorted[ data.info ] <- [ data ]
+		else
+			sorted[ data.info ].append( data )
+	}
+	
+	#if DEVELOPER 
+		DEV_PrintSortedSpawns( sorted )
+	#endif 
+	
+	return sorted
+}
+
 //////////////////////////////////////////////////////////////////////
 //						  DEVELOPER FUNCTIONS						//
 //////////////////////////////////////////////////////////////////////
 
 #if DEVELOPER
+
+void function DEV_PrintSortedSpawns( table< string, array< SpawnData > > printSpawns )
+{
+	printw( "=== DEV_PrintSortedSpawns ===" )
+	foreach( string setName, array<SpawnData> spawnDataz in printSpawns )
+	{
+		if( empty( setName ) )
+			setName = "_EMPTY_CLASS"
+			
+		int count = 0
+		printt( " " )
+		printt( " " )
+		printt( "=== Spawns for:", setName, "===" )	
+		foreach( SpawnData data in spawnDataz )
+		{		
+			count++
+			printt( count + ":", VectorToString( data.spawn.origin ), VectorToString( data.spawn.angles ) )
+		}
+	}
+	
+	printt( " " )
+	printt( " " )
+}
 
 bool function IsValidSpawnIndex( int index )
 {
@@ -2002,20 +2043,29 @@ void function DEV_SetTeamCount( int count )
 {
 	bool bReload = false
 	
+	string info
 	if( count == 0 )
 	{
-		string modu = "Cannot set team count to 0. Did you mean -1 for all spawns same team?"
-		
-		printt( modu )
-		printm( modu )
+		info = "Cannot set team count to 0. Did you mean -1 for all spawns same team?"	
+		printt( info )
+		printm( info )
 		
 		return
 	}
 	
-	if( file.iTeamCount != count )
+	if( DEV_SpawnsPlaylist() == "fs_scenarios" )
 	{
-		bReload = true
+		if( count > SCENARIOS_MAX_ALLOWED_TEAMSIZE )
+		{
+			info = "Cannot set team count greater than " + SCENARIOS_MAX_ALLOWED_TEAMSIZE + " for scenarios gamemode."
+			printt( info )
+			printm( info )
+			return
+		}
 	}
+	
+	if( file.iTeamCount != count )
+		bReload = true
 	
 	file.iTeamCount = count
 	
@@ -2025,9 +2075,7 @@ void function DEV_SetTeamCount( int count )
 	printm( msg, count )
 	
 	if( bReload )
-	{
 		DEV_PrintSpawns( true )
-	}
 }
 
 int function GetTeamCount()

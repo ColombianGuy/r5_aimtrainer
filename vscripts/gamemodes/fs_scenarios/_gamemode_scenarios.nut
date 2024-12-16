@@ -41,6 +41,8 @@ global function FS_Scenarios_GetMatchIsEnding
 	global function Mkos_ForceCloseRecap
 #endif
 
+global const int SCENARIOS_MAX_ALLOWED_TEAMSIZE = 5
+
 global struct scenariosTeamStruct
 {
 	array<entity> players

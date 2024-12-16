@@ -103,7 +103,7 @@ void function SetupPlayerNotificationTable( entity player )
 void function CleanupPlayerNotifications( entity player )
 {
 	if( ( player.p.handle in file.playerActiveNotifications ) )
-		file.playerActiveNotifications[ player.p.handle ].clear()
+		file.playerActiveNotifications[ player.p.handle ] = []
 }
 
 array<int> function GetPlayerActiveNotifications( entity player )

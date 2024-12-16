@@ -80,6 +80,7 @@ global function AddPanelEventHandler
 global function AddPanelEventHandler_FocusChanged
 global function SetPanelInputHandler
 global function AddButtonEventHandler
+global function RemoveButtonEventHandler
 global function AddEventHandlerToButton
 global function AddEventHandlerToButtonClass
 global function RemoveEventHandlerFromButtonClass
@@ -505,7 +506,7 @@ void function UICodeCallback_FullyConnected( string levelname )
 
 	uiGlobal.loadedLevel = levelname
 
-	//printt( "UICodeCallback_FullyConnected: " + uiGlobal.loadedLevel + ", IsFullyConnected(): ", IsFullyConnected() )
+	printt( "UICodeCallback_FullyConnected: " + uiGlobal.loadedLevel + ", IsFullyConnected(): ", IsFullyConnected() )
 
 	//if ( !uiGlobal.loadoutsInitialized )
 	//{
@@ -637,6 +638,16 @@ void function UICodeCallback_FullyConnected( string levelname )
 		uiGlobal.matchPinData = {}
 
 	file.TEMP_circularReferenceCleanupEnabled = GetCurrentPlaylistVarBool( "circular_reference_cleanup_enabled", true )
+	
+	thread function () : ()
+	{
+		wait 1 //!FIXME Cafe
+		if( CanRunClientScript() )
+		{
+			RunClientScript( "FS_RegisterAdmin" )
+			ClearRecordings()
+		}
+	}()
 }
 
 
@@ -1861,6 +1872,10 @@ void function InitMenus()
 	AddMenu( "SERVER_MOTD", $"platform/scripts/resource/ui/menus/dialogs/server_motd.menu", Init_Server_MOTD, "Server MOTD" )
 
 	AddMenu( "ScenariosStandingsMenu", $"platform/scripts/resource/ui/menus/FlowstateScenarios/fs_scenarios.menu", InitScenariosMenu, "Match Standings" )
+	
+	//Coaching menu
+	var coachingMenu = AddMenu( "1v1CoachingModeMenu", $"platform/scripts/resource/ui/menus/FS_1v1_Coaching/fs_1v1_coaching.menu", InitCoachingMenu, "1v1 Coaching" )
+	AddPanel( coachingMenu, "CoachingRecordingsList", Init_CoachingRecordingsList )
 
 	InitTabs()
 	InitSurveys()
@@ -2149,6 +2164,10 @@ void function AddButtonEventHandler( var button, int event, void functionref( va
 	Hud_AddEventHandler( button, event, func )
 }
 
+void function RemoveButtonEventHandler( var button, int event, void functionref( var ) func )
+{
+	Hud_RemoveEventHandler( button, event, func )
+}
 
 void function AddEventHandlerToButton( var menu, string buttonName, int event, void functionref( var ) func )
 {

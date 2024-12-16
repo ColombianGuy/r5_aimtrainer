@@ -1020,6 +1020,7 @@ When: "UI"
 Scripts:
 [
 	ui/fs_scenarios/scenarios_ui.nut
+	ui/fs_1v1/1v1_coaching.nut
 ]
 
 When: "SERVER || CLIENT"
@@ -1156,4 +1157,5 @@ When: "SERVER || CLIENT || UI"
 Scripts:
 [
 	gamemodes/sh_gamemode_winterexpress.nut
+	gamemodes/fs_1v1/sh_gamemode_1v1_coaching.nut
 ]

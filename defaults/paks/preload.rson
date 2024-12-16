@@ -8,4 +8,5 @@ Paks:
 [
     common_flowstate.rpak
     fs_spawns.rpak
+    ui_fs.rpak
 ]
