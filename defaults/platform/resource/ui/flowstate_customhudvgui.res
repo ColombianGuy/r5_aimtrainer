@@ -2825,7 +2825,7 @@ Resource/UI/flowstate_customhudvgui.res
 	{
 			ControlName				Label
 			auto_wide_tocontents    1
-			labelText				"Flowstate Survival v1.0 Beta"
+			labelText				"Flowstate Battle Royale v2.0"
 			visible                 0
 			zpos 					2
 			tall					30
@@ -2867,7 +2867,7 @@ Resource/UI/flowstate_customhudvgui.res
 	{
 			ControlName				Label
 			auto_wide_tocontents    1
-			labelText				"Powered by R5Reloaded"
+			labelText				"Engine by @AmosModz"
 			visible                 0
 			zpos 					2
 			tall					30

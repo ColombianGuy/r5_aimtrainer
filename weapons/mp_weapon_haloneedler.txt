@@ -9,7 +9,7 @@ WeaponData
 	"longdesc"										"Guided Munitions Launcher"
 
 	"weapon_type_flags"								"WPT_PRIMARY"
-	"ammo_pool_type"								"bullet"
+	"ammo_pool_type"								"special"
 
 	"menu_icon"										"rui/flowstate_custom/weapon/halo_needler"
 	"hud_icon"										"rui/flowstate_custom/weapon/halo_needler"
@@ -144,12 +144,13 @@ WeaponData
 	"fire_rate"   									"10"
 
 	// Ammo
-	"ammo_clip_size"   								"30"
+	"ammo_clip_size"   								"18"
 
-    "ammo_default_total"							"100"
-    "ammo_stockpile_max"							"100"
-    "ammo_no_remove_from_stockpile"					"1"
+    "ammo_default_total"							"0"
+    "ammo_stockpile_max"							"18"
+    "ammo_no_remove_from_stockpile"					"0"
     "ammo_min_to_fire"								"1"
+	"uses_ammo_pool"								"1"
 
 	"damage_type" 									"bullet"
 

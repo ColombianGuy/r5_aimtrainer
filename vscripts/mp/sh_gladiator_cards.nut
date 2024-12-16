@@ -1557,9 +1557,9 @@ void function ActualUpdateNestedGladiatorCard( NestedGladiatorCardHandle handle 
 			characterOrNull = handle.overrideCharacter
 
 		LoadoutEntry characterSlot = Loadout_CharacterClass()
-		if ( characterOrNull == null && havePlayer && LoadoutSlot_IsReady( handle.currentOwnerEHI, characterSlot ) && !Flowstate_IsHaloMode() || characterOrNull == null && havePlayer && LoadoutSlot_IsReady( handle.currentOwnerEHI, characterSlot ) && Playlist() == ePlaylists.fs_haloMod_survival )
+		if ( characterOrNull == null && havePlayer && LoadoutSlot_IsReady( handle.currentOwnerEHI, characterSlot ) && !Flowstate_IsHaloMode() )
 			characterOrNull = LoadoutSlot_GetItemFlavor( handle.currentOwnerEHI, characterSlot )
-		else if ( characterOrNull == null && havePlayer && Flowstate_IsHaloMode() )
+		else if ( Flowstate_IsHaloMode() )
 		{
 			characterOrNull = GetAllCharacters()[1] //master chief has bloodhound rrig
 		}
@@ -1627,17 +1627,17 @@ void function ActualUpdateNestedGladiatorCard( NestedGladiatorCardHandle handle 
 					ItemFlavor ornull badgeOrNull = null
 					int ornull overrideDataIntegerOrNull = null
 
-					// if ( handle.overrideBadgeList[badgeIndex] != null )
-					// {
-						// badgeOrNull = handle.overrideBadgeList[badgeIndex]
-						// overrideDataIntegerOrNull = handle.overrideBadgeDataIntegerList[badgeIndex]
-					// }
+					if ( handle.overrideBadgeList[badgeIndex] != null )
+					{
+						badgeOrNull = handle.overrideBadgeList[badgeIndex]
+						overrideDataIntegerOrNull = handle.overrideBadgeDataIntegerList[badgeIndex]
+					}
 
-					// LoadoutEntry badgeSlot = Loadout_GladiatorCardBadge( character, badgeIndex )
-					// if ( badgeOrNull == null && havePlayer && LoadoutSlot_IsReady( handle.currentOwnerEHI, badgeSlot ) )
-					// {
-						// badgeOrNull = LoadoutSlot_GetItemFlavor( handle.currentOwnerEHI, badgeSlot )
-					// }
+					LoadoutEntry badgeSlot = Loadout_GladiatorCardBadge( character, badgeIndex )
+					if ( badgeOrNull == null && havePlayer && LoadoutSlot_IsReady( handle.currentOwnerEHI, badgeSlot ) )
+					{
+						badgeOrNull = LoadoutSlot_GetItemFlavor( handle.currentOwnerEHI, badgeSlot )
+					}
 
 					switch( badgeIndex ) //test itemflavors
 					{
@@ -2203,15 +2203,61 @@ void function DoGladiatorCardCharacterCapture( CharacterCaptureState ccs )
 
 	asset setFile   = CharacterClass_GetSetFile( ccs.character )
 	asset bodyModel = GetGlobalSettingsAsset( setFile, "bodyModel" )
-	if( Flowstate_IsHaloMode() && Playlist() != ePlaylists.fs_haloMod_survival )
+	if( Flowstate_IsHaloMode() )
 	{
-		ccs.model.SetModel( $"mdl/Humans/pilots/w_master_chief.rmdl" ) //todo get correct model from player ( dif color )
+		ccs.model.SetModel( bodyModel )
+		CharacterSkin_Apply( ccs.model, ccs.skin )
+		
+		if( ccs.model.GetModelName() != $"mdl/dev/empty_model.rmdl" )
+		{
+			entity player = FromEHI( ccs.playerEHI )
+			
+			if( !IsValid( player ) )
+				ccs.model.SetModel( $"mdl/Humans/pilots/w_master_chief.rmdl" )
+			else
+			{
+				switch( player.GetPlayerNetInt( "fs_haloMod_assignedMasterChief" ) )
+				{
+					case 0:
+					ccs.model.SetModel( $"mdl/Humans/pilots/w_master_chief_yellow.rmdl" )
+					break
+					
+					case 1:
+					ccs.model.SetModel( $"mdl/Humans/pilots/w_master_chief_white.rmdl" )
+					break
+					
+					case 2:
+					ccs.model.SetModel( $"mdl/Humans/pilots/w_master_chief_red.rmdl" )
+					break
+					
+					case 3:
+					ccs.model.SetModel( $"mdl/Humans/pilots/w_master_chief_purple.rmdl" )
+					break
+					
+					case 4:
+					ccs.model.SetModel( $"mdl/Humans/pilots/w_master_chief_pink.rmdl" )
+					break
+					
+					case 5:
+					ccs.model.SetModel( $"mdl/Humans/pilots/w_master_chief_orange.rmdl" )
+					break
+					
+					case 6:
+					ccs.model.SetModel( $"mdl/Humans/pilots/w_master_chief_blue.rmdl" )
+					break
+
+					case 7:
+					ccs.model.SetModel( $"mdl/Humans/pilots/w_master_chief.rmdl" )
+					break
+				}
+			}
+		}
 	} else
 	{
 		ccs.model.SetModel( bodyModel )
 		CharacterSkin_Apply( ccs.model, ccs.skin )
 	}
-
+	
 	ccs.lightingRig = CreateClientSidePropDynamic( modelPos, modelAng, SCENE_CAPTURE_LIGHTING_RIG_MODEL )
 	ccs.lightingRig.MakeSafeForUIScriptHack()
 	string lightingRigMovingSeq = ""

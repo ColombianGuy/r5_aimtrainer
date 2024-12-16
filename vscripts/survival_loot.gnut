@@ -2473,10 +2473,13 @@ entity function SURVIVAL_GiveMainWeapon( entity player, entity pickup, array<str
 	if ( settings.flowstate_givecharms_weapons )
 		weaponCharmOrNull = GetItemFlavorByGUID( chosenCharm )
 
-	if( Playlist() != ePlaylists.fs_haloMod_survival && GetCurrentPlaylistVarBool( "is_hiswattson_mode", false ) )
-		newWeapon.SetWeaponCharm( $"mdl/flowstate_custom/charm_hiswattson.rmdl", "CHARM" )
-	else
-		WeaponCosmetics_Apply( newWeapon, weaponSkinOrNull, weaponCharmOrNull )
+	if( newWeapon.LookupAttachment( "CHARM" ) > 0 )
+	{
+		if( GetCurrentPlaylistVarBool( "is_hiswattson_event", false ) )
+			newWeapon.SetWeaponCharm( $"mdl/flowstate_custom/charm_hiswattson.rmdl", "CHARM" )
+		else
+			WeaponCosmetics_Apply( newWeapon, weaponSkinOrNull, weaponCharmOrNull )
+	}
 
 	if ( WeaponHasCosmetics( newWeapon ) && ( pickup.e.firstOwner != null ) && ( pickup.e.firstOwner != player ) && CodeCallback_CanStartCustomWeaponActivity( player, ACT_VM_WEAPON_INSPECT ) )
 		Remote_CallFunction_ByRef( player, "SCB_WeaponInspectHint" )
@@ -5169,7 +5172,7 @@ void function SURVIVAL_Death_DropLoot_Internal( entity player, entity attacker, 
 	int itemFrameCount = 0
 	
 	//Todo: Create separate loot dropper function for halomode. 
-	if( Flowstate_IsHaloMode() )
+	if( Flowstate_IsHaloMode() && Playlist() != ePlaylists.fs_haloMod_survival )
 		RemoveRefs( VALID_FOR_HALO, playerWeapons )
 		
 	for ( int i = 0; i < playerWeapons.len(); i++ )
@@ -5193,7 +5196,7 @@ void function SURVIVAL_Death_DropLoot_Internal( entity player, entity attacker, 
 	}
 
 	//Todo: Create separate loot dropper function for halomode. 
-	if( Flowstate_IsHaloMode() )
+	if( Flowstate_IsHaloMode() && Playlist() != ePlaylists.fs_haloMod_survival )
 		RemoveRefs( VALID_FOR_HALO, playerEquipment )
 
 	foreach ( itemName in playerEquipment )
@@ -5275,7 +5278,7 @@ void function SURVIVAL_Death_DropLoot_Internal( entity player, entity attacker, 
 	}
 
 	//Todo: Create separate loot dropper function for halomode. 
-	if( Flowstate_IsHaloMode() )
+	if( Flowstate_IsHaloMode() && Playlist() != ePlaylists.fs_haloMod_survival )
 		RemoveRefs_Loot( VALID_FOR_HALO, playerInventory )
 		
 	foreach ( invItem in playerInventory )

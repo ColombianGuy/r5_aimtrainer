@@ -12,6 +12,7 @@ global function HealthHUD_ClearFX
 global function SetHealthDisplayRange
 global function EvoShield_PlayFX
 global function Init_EvoShields_Flowstate_HUD
+global function Flowstate_HUD_UpdateShieldHealthForPlayer
 
 const HEALTHDMGSTATE1_MP         = 0.75
 const HEALTHDMGSTATE2_MP         = 0.50
@@ -94,8 +95,23 @@ void function ClHealthHud_Init()
 	//AddLocalPlayerFunc( HealthHUD_AddPlayer )
 	AddCallback_OnViewPlayerChanged( HealthHUD_ViewPlayerChanged )
 	AddCallback_EntitiesDidLoad( HealthHUD_EntitiesDidLoad )
+	AddCallback_GameStateEnter( eGameState.WinnerDetermined, HealthHUD_OnGamestateChanged )
+	AddOnSpectatorTargetChangedCallback( HealthHUD_OnSpectateTargetChanged )
 	
 	file.flowstate_evo_shields = GetCurrentPlaylistVarBool( "flowstate_evo_shields", false )
+}
+
+void function HealthHUD_OnSpectateTargetChanged( entity player, entity oldTarget, entity newTarget )
+{
+	if( !IsValid( newTarget ) || !newTarget.IsPlayer() )
+	{
+		Init_EvoShields_Flowstate_HUD( false )
+	}
+}
+
+void function HealthHUD_OnGamestateChanged()
+{
+	Init_EvoShields_Flowstate_HUD( false )
 }
 
 void function HealthHUD_EntitiesDidLoad()
@@ -111,17 +127,6 @@ void function HealthOverlaySetSize()
 	RuiSetFloat2( file.healthOverlay, "actualRes", <float( screenSize.width ), float( screenSize.height ), 0> )
 	
 	file.originalFlowstateShieldsPos = REPLACEHud_GetPos( HudElement( "FS_EvoShields_Frame" ) )
-	
-	if( IsValid( GetLocalViewPlayer() ) && GetLocalViewPlayer().GetShieldHealth() > 0 )
-	{
-		Init_EvoShields_Flowstate_HUD( true, file.changedViewPlayer )
-		Flowstate_HUD_UpdateShieldHealthForPlayer()
-		
-		if( GetLocalViewPlayer() != GetLocalClientPlayer() )
-		{
-			Hud_SetPos( HudElement( "FS_EvoShields_Frame" ), file.originalFlowstateShieldsPos.x, file.originalFlowstateShieldsPos.y - (65  * GetScreenSize().height / 1080 ) )
-		}
-	}
 }
 
 void function PilotEMP_Internal( maxValue, float duration, float fadeTime, bool doSound = true )
@@ -300,9 +305,7 @@ void function HealthHUD_Update( entity player )
 			shieldTier = EquipmentSlot_GetEquipmentTier( player, "armor" )
 			if ( shieldFrac != lastShieldFrac || shieldTier != lastShieldTier )
 				ShieldOverlayUpdate( player, shieldFrac, lastShieldFrac, player.GetShieldHealthMax() )
-			
-			Flowstate_HUD_UpdateShieldHealthForPlayer()
-			
+
 			lastHealthFrac = healthFrac
 			lastShieldFrac = shieldFrac
 			lastShieldTier = shieldTier
@@ -312,7 +315,7 @@ void function HealthHUD_Update( entity player )
 
 void function Init_EvoShields_Flowstate_HUD( bool toggle = true, bool viewPlayerChanged = false )
 {
-	if( !file.flowstate_evo_shields || GetGameState() != eGameState.Playing || Flowstate_IsHaloMode() && Playlist() != ePlaylists.fs_haloMod_survival )
+	if( !file.flowstate_evo_shields || toggle && GetGameState() != eGameState.Playing || Flowstate_IsHaloMode() && Playlist() != ePlaylists.fs_haloMod_survival )
 		return
 
 	if( viewPlayerChanged && GetLocalClientPlayer() != GetLocalViewPlayer() && !file.changedViewPlayer )
@@ -356,7 +359,7 @@ void function Flowstate_HUD_UpdateShieldHealthForPlayer()
 		return
 	}
 	
-	Init_EvoShields_Flowstate_HUD( true )
+	Init_EvoShields_Flowstate_HUD( true, player == GetLocalClientPlayer() )
 
 	Hud_SetText( HudElement( "FS_EvoShields_Text_ShieldsMax" ), player.GetShieldHealthMax().tostring() )
 	Hud_SetText( HudElement( "FS_EvoShields_Text_Shields" ), player.GetShieldHealth().tostring() )

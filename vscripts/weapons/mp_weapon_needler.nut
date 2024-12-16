@@ -13,7 +13,7 @@ global function OnProjectileCollision_needler
 global function OnWeaponReload_Needler
 
 //Basic weapon stats
-const float NEEDLER_DAMAGE = 12
+const float NEEDLER_DAMAGE = 8
 const float NEEDLER_TIMETOEXPLODE = 2
 
 //Custom particles
@@ -183,7 +183,7 @@ var function OnWeaponPrimaryAttack_needler( entity weapon, WeaponPrimaryAttackPa
 	int currentAmmo = weapon.GetWeaponPrimaryClipCount()
 	int visualNeedles = 18 
 	
-	float idealVisualNeedlesToShow = floor( float( visualNeedles * currentAmmo ) / float(clipSize) )
+	float idealVisualNeedlesToShow = floor( float( visualNeedles * currentAmmo ) / float(clipSize) ) - 1
 
 	string modToSet = "needlesTest-" + idealVisualNeedlesToShow.tostring()
 	
@@ -205,51 +205,59 @@ void function OnWeaponBulletHit_needler( entity weapon, WeaponBulletHitParams hi
 }
 
 void function OnProjectileCollision_needler( entity projectile, vector pos, vector normal, entity hitEnt, int hitbox, bool isCritical )
-//By @CafeFPS (CafeFPS)
 {
 	#if SERVER
-	if(hitEnt.IsNPC()){
-		hitEnt.ai.needles++
-		//printt("saving needle for ai - Total needles: " + hitEnt.ai.needles)
-		
-		if(CoinFlip()){
-		entity model = CreatePropDynamic( $"mdl/currency/crafting/currency_crafting_epic.rmdl", hitEnt.GetOrigin(), <RandomIntRangeInclusive(-180,180), RandomIntRangeInclusive(-180,180), RandomIntRangeInclusive(-180,180)> )
-		
-		model.SetParent(hitEnt, "CHESTFOCUS")
-		model.kv.modelscale = RandomFloatRange(0.6,0.8)
-		model.SetOrigin(model.GetOrigin() + <RandomIntRangeInclusive(-5,5), RandomIntRangeInclusive(-5,5), RandomIntRangeInclusive(-20,10)>)
-		hitEnt.ai.proplist.append(model)}
-		
-	} else if (hitEnt.IsPlayer())
-	{
-		hitEnt.p.needles++
-		//printt("saving needle for player - Total needles: " + hitEnt.p.needles)	
-		if(CoinFlip()){
-		entity model = CreatePropDynamic( $"mdl/currency/crafting/currency_crafting_epic.rmdl", hitEnt.GetOrigin(), <RandomIntRangeInclusive(-180,180), RandomIntRangeInclusive(-180,180), RandomIntRangeInclusive(-180,180)> )
-		
-		model.SetParent(hitEnt, "CHESTFOCUS")
-		model.kv.modelscale = RandomFloatRange(0.6,0.8)
-		model.SetOrigin(model.GetOrigin() + <RandomIntRangeInclusive(-5,5), RandomIntRangeInclusive(-5,5), RandomIntRangeInclusive(-20,10)>)
-		hitEnt.p.proplist.append(model)}
-	}
-	#endif
-	
-	#if CLIENT
-	if(hitEnt.IsNPC()){
-		hitEnt.ai.needles++
-		//printt("saving needle for ai - Total needles: " + hitEnt.ai.needles)
-	} else if (hitEnt.IsPlayer())
-	{
-		hitEnt.p.needles++
-		//printt("saving needle for player - Total needles: " + hitEnt.p.needles)	
-	}
-	#endif
-	
-	#if SERVER || CLIENT
 	entity weapon = projectile.GetWeaponSource()
-	thread delayeddamage( weapon, hitEnt)	
-	#endif
+	
+	if( !IsValid( weapon ) )
+		return
+	
+	entity attacker = weapon.GetWeaponOwner()
 
+	if( !IsValid( attacker ) || attacker.GetTeam() == hitEnt.GetTeam() || hitEnt.IsInvulnerable() )
+		return
+	
+	if( hitEnt.IsNPC() )
+	{
+		hitEnt.ai.needles++
+		printt("saving needle for ai - Total needles: " + hitEnt.ai.needles)
+		
+		if(CoinFlip()){
+			entity model = CreatePropDynamic( $"mdl/currency/crafting/currency_crafting_epic.rmdl", hitEnt.GetOrigin(), <RandomIntRangeInclusive(-180,180), RandomIntRangeInclusive(-180,180), RandomIntRangeInclusive(-180,180)> )
+			
+			model.SetParent(hitEnt, "CHESTFOCUS")
+			model.kv.modelscale = RandomFloatRange(0.6,0.8)
+			model.SetOrigin(model.GetOrigin() + <RandomIntRangeInclusive(-5,5), RandomIntRangeInclusive(-5,5), RandomIntRangeInclusive(-20,10)>)
+			hitEnt.ai.proplist.append(model)
+		}
+		
+		thread Needler_DelayedDamageToNPC( weapon, hitEnt )
+		
+	} else if( hitEnt.IsPlayer() )
+	{
+		if ( !( attacker in hitEnt.p.needlesData ) )
+			hitEnt.p.needlesData[ attacker ] <- []
+		
+		entity needle = CreateEntity( "prop_script" )
+		needle.SetValueForModelKey( $"mdl/currency/crafting/currency_crafting_epic.rmdl" )
+		needle.kv.fadedist = 2000
+		needle.kv.modelscale = RandomFloatRange(0.6,0.8)
+		needle.kv.solid = 0
+		needle.kv.VisibilityFlags = ENTITY_VISIBLE_TO_EVERYONE
+		needle.SetOwner( attacker )
+		needle.SetParent( hitEnt, "CHESTFOCUS" )
+		needle.SetLocalOrigin( <RandomIntRangeInclusive(-5,5), RandomIntRangeInclusive(-5,5), RandomIntRangeInclusive(-20,10)> )
+		needle.SetAngles( <RandomIntRangeInclusive(-180,180), RandomIntRangeInclusive(-180,180), RandomIntRangeInclusive(-180,180)> )
+		needle.NotSolid()
+		needle.DisableHibernation()
+
+		hitEnt.p.needlesData[ attacker ].append( needle )
+		
+		printt( "saving needle for player - Total needles: ", hitEnt.p.needlesData[ attacker ].len() )
+		
+		thread Needler_DelayedDamageToPlayer( attacker, hitEnt )
+	}
+	#endif
 }
 
 void function OnWeaponReload_Needler( entity weapon, int milestoneIndex )
@@ -283,206 +291,155 @@ void function OnWeaponReload_Needler( entity weapon, int milestoneIndex )
 	#endif
 }
 
-void function delayeddamage( entity weapon, entity hitEnt)
-//By @CafeFPS (CafeFPS)
+#if SERVER
+void function Needler_DelayedDamageToNPC( entity weapon, entity hitEnt )
 {
+	if( !IsValid( hitEnt ) || !hitEnt.IsNPC() )
+		return
+	
 	float damagetodeal
 
 	if( !IsValid( weapon ) && IsValid( hitEnt ) )
 	{
-		if(hitEnt.IsNPC()){
-			#if SERVER 
-			if(IsValid(hitEnt.ai.particleonbody)) hitEnt.ai.particleonbody.Destroy()
-			
-			foreach(needle in hitEnt.ai.proplist){
-					if(IsValid(needle))needle.Destroy()}
-			
-			#endif
-
-			hitEnt.ai.needles = 0
-			hitEnt.ai.ongoingneedlesexplode = false
-		} else if (hitEnt.IsPlayer())
-		{
-			#if SERVER 
-			if(IsValid(hitEnt.p.particleonbody)) hitEnt.p.particleonbody.Destroy()
-			
-			foreach(needle in hitEnt.p.proplist){
-					if(IsValid(needle))needle.Destroy()}
-			
-			#endif
-
-			hitEnt.p.needles = 0
-			hitEnt.p.ongoingneedlesexplode = false
-		}
-
-		return
-	}
-
-	entity attacker = weapon.GetWeaponOwner()
-
-	if(hitEnt.IsNPC() && hitEnt.ai.ongoingneedlesexplode){
-		return
-	} else if (hitEnt.IsPlayer() && hitEnt.p.ongoingneedlesexplode)
-	{
-		return
-	}
-
-	if(hitEnt.IsNPC()){
-		hitEnt.ai.ongoingneedlesexplode = true
-			#if SERVER 
-			// local colorVec = Vector( 238, 255, 0 )
-			// entity cpoint = CreateEntity( "info_placement_helper" )
-			// SetTargetName( cpoint, UniqueString( "pickup_controlpoint" ) )
-			// DispatchSpawn( cpoint )
-			// cpoint.SetOrigin( colorVec )
-			// entity glowFX = PlayFXWithControlPoint( $"P_ar_titan_droppoint", hitEnt.GetOrigin(), cpoint, -1, null, null, C_PLAYFX_LOOP )
-			
-			entity env_sprite = CreateEntity( "env_sprite" )
-			env_sprite.SetScriptName( UniqueString( "molotov_sprite" ) )
-			env_sprite.kv.rendermode = 5
-			env_sprite.kv.origin = hitEnt.GetOrigin()
-			env_sprite.kv.angles = <0, 0, 0>
-			env_sprite.kv.fadedist = -1
-			env_sprite.kv.rendercolor = "97 50 168"
-			env_sprite.kv.renderamt = 255
-			env_sprite.kv.framerate = "10.0"
-			env_sprite.SetValueForModelKey( $"sprites/glow_05.vmt" )
-			env_sprite.kv.scale = string( 0.5 )
-			env_sprite.kv.spawnflags = 1
-			env_sprite.kv.GlowProxySize = 15.0
-			env_sprite.kv.HDRColorScale = 15.0
-			DispatchSpawn( env_sprite )
-			
-			env_sprite.SetParent(hitEnt, "CHESTFOCUS")
-			hitEnt.ai.particleonbody = env_sprite
-			#endif
-			
-	} else if (hitEnt.IsPlayer())
-	{
-		hitEnt.p.ongoingneedlesexplode = true
-			#if SERVER 
-			entity env_sprite = CreateEntity( "env_sprite" )
-			env_sprite.SetScriptName( UniqueString( "molotov_sprite" ) )
-			env_sprite.kv.rendermode = 5
-			env_sprite.kv.origin = hitEnt.GetOrigin()
-			env_sprite.kv.angles = <0, 0, 0>
-			env_sprite.kv.fadedist = -1
-			env_sprite.kv.rendercolor = "97 50 168"
-			env_sprite.kv.renderamt = 255
-			env_sprite.kv.framerate = "10.0"
-			env_sprite.SetValueForModelKey( $"sprites/glow_05.vmt" )
-			env_sprite.kv.scale = string( 0.17 )
-			env_sprite.kv.spawnflags = 1
-			env_sprite.kv.GlowProxySize = 15.0
-			env_sprite.kv.HDRColorScale = 15.0
-			DispatchSpawn( env_sprite )
-			
-			env_sprite.SetParent(hitEnt, "CHESTFOCUS")
-			hitEnt.p.particleonbody = env_sprite
-			#endif
-	}
-	
-	wait NEEDLER_TIMETOEXPLODE
-	
-	if( !IsValid( hitEnt ) )
-		return
-
-	if( IsValid( hitEnt ) && !IsAlive( hitEnt ) || !IsValid( attacker ) || !IsAlive( attacker ) )
-	{
-		if(hitEnt.IsNPC()){
-			#if SERVER 
-			if(IsValid(hitEnt.ai.particleonbody)) hitEnt.ai.particleonbody.Destroy()
-			
-			foreach(needle in hitEnt.ai.proplist){
-					if(IsValid(needle))needle.Destroy()}
-			
-			#endif
-			hitEnt.ai.needles = 0
-			
-			hitEnt.ai.ongoingneedlesexplode = false
-		} else if (hitEnt.IsPlayer())
-		{
-			#if SERVER 
-			if(IsValid(hitEnt.p.particleonbody)) hitEnt.p.particleonbody.Destroy()
-			
-			foreach(needle in hitEnt.p.proplist){
-					if(IsValid(needle))needle.Destroy()}
-			
-			#endif
-			hitEnt.p.needles = 0
-			
-			hitEnt.p.ongoingneedlesexplode = false
-		}
-
-		return
-	}
-
-	if(hitEnt.IsNPC()){
-		damagetodeal = hitEnt.ai.needles*NEEDLER_DAMAGE
-
-		#if SERVER 
-		EmitSoundOnEntity( hitEnt, "spectre_arm_explode" )
-
-		hitEnt.TakeDamage( damagetodeal, attacker, null, { scriptType = DF_BYPASS_SHIELD | DF_DOOMED_HEALTH_LOSS, damageSourceId = eDamageSourceId.deathField } )
-
-		entity trailFXHandle = StartParticleEffectInWorld_ReturnEntity(GetParticleSystemIndex( NEEDLER_EFFECTONEXPLODE ), hitEnt.GetOrigin(), <RandomIntRangeInclusive(-180,180), RandomIntRangeInclusive(-180,180), RandomIntRangeInclusive(-180,180)>)
-		trailFXHandle.SetParent(hitEnt, "CHESTFOCUS")
-		trailFXHandle.SetOrigin(trailFXHandle.GetOrigin() + <RandomIntRangeInclusive(-5,5), RandomIntRangeInclusive(-5,5), RandomIntRangeInclusive(-20,10)>)
-		trailFXHandle.SetAngles(<RandomIntRangeInclusive(-180,180), RandomIntRangeInclusive(-180,180), RandomIntRangeInclusive(-180,180)>)
-		EffectSetControlPointVector( trailFXHandle, 1, <97, 50, 168> )
-		
-		entity trailFXHandle2 = StartParticleEffectInWorld_ReturnEntity(GetParticleSystemIndex( NEEDLER_EFFECTONEXPLODE2 ), hitEnt.GetOrigin(), <RandomIntRangeInclusive(-180,180), RandomIntRangeInclusive(-180,180), RandomIntRangeInclusive(-180,180)>)
-		trailFXHandle2.SetParent(hitEnt, "CHESTFOCUS")
-		trailFXHandle2.SetOrigin(trailFXHandle.GetOrigin() + <RandomIntRangeInclusive(-5,5), RandomIntRangeInclusive(-5,5), RandomIntRangeInclusive(-20,10)>)
-		trailFXHandle2.SetAngles(<RandomIntRangeInclusive(-180,180), RandomIntRangeInclusive(-180,180), RandomIntRangeInclusive(-180,180)>)
-		EffectSetControlPointVector( trailFXHandle2, 1, <97, 50, 168> )
-
 		if(IsValid(hitEnt.ai.particleonbody)) hitEnt.ai.particleonbody.Destroy()
 		
 		foreach(needle in hitEnt.ai.proplist){
 				if(IsValid(needle))needle.Destroy()}
-		
-		#endif
-		//printt("dealing delayed damage ai - Total damage: " + damagetodeal)
+
 		hitEnt.ai.needles = 0
-		
+		hitEnt.ai.ongoingneedlesexplode = false
 
-	} else if (hitEnt.IsPlayer())
-	{
-		damagetodeal = hitEnt.p.needles*NEEDLER_DAMAGE
-
-		#if SERVER 
-		EmitSoundOnEntity( hitEnt, "spectre_arm_explode" )
-
-		hitEnt.TakeDamage( damagetodeal, attacker, null, { scriptType = DF_BYPASS_SHIELD | DF_DOOMED_HEALTH_LOSS, damageSourceId = eDamageSourceId.deathField } )
-
-		entity trailFXHandle = StartParticleEffectInWorld_ReturnEntity(GetParticleSystemIndex( NEEDLER_EFFECTONEXPLODE ), hitEnt.GetOrigin(), <RandomIntRangeInclusive(-180,180), RandomIntRangeInclusive(-180,180), RandomIntRangeInclusive(-180,180)>)
-		trailFXHandle.SetParent(hitEnt, "CHESTFOCUS")
-		trailFXHandle.SetOrigin(trailFXHandle.GetOrigin() + <RandomIntRangeInclusive(-5,5), RandomIntRangeInclusive(-5,5), RandomIntRangeInclusive(-20,10)>)
-		trailFXHandle.SetAngles(<RandomIntRangeInclusive(-180,180), RandomIntRangeInclusive(-180,180), RandomIntRangeInclusive(-180,180)>)
-		EffectSetControlPointVector( trailFXHandle, 1, <97, 50, 168> )
-		
-		entity trailFXHandle2 = StartParticleEffectInWorld_ReturnEntity(GetParticleSystemIndex( NEEDLER_EFFECTONEXPLODE2 ), hitEnt.GetOrigin(), <RandomIntRangeInclusive(-180,180), RandomIntRangeInclusive(-180,180), RandomIntRangeInclusive(-180,180)>)
-		trailFXHandle2.SetParent(hitEnt, "CHESTFOCUS")
-		trailFXHandle2.SetOrigin(trailFXHandle.GetOrigin() + <RandomIntRangeInclusive(-5,5), RandomIntRangeInclusive(-5,5), RandomIntRangeInclusive(-20,10)>)
-		trailFXHandle2.SetAngles(<RandomIntRangeInclusive(-180,180), RandomIntRangeInclusive(-180,180), RandomIntRangeInclusive(-180,180)>)
-		EffectSetControlPointVector( trailFXHandle2, 1, <97, 50, 168> )
-		
-		if(IsValid(hitEnt.p.particleonbody)) hitEnt.p.particleonbody.Destroy()
-		
-		foreach(needle in hitEnt.p.proplist){
-				if(IsValid(needle))needle.Destroy()}
-		
-		#endif
-		//printt("dealing delayed damage player - Total damage: " + damagetodeal)
-		hitEnt.p.needles = 0
+		return
 	}
 	
+	entity attacker = weapon.GetWeaponOwner()
+	
+	if( hitEnt.ai.ongoingneedlesexplode )
+		return
+	
+	hitEnt.ai.ongoingneedlesexplode = true
+	 
+	entity env_sprite = CreateEntity( "env_sprite" )
+	env_sprite.SetScriptName( UniqueString( "molotov_sprite" ) )
+	env_sprite.kv.rendermode = 5
+	env_sprite.kv.origin = hitEnt.GetOrigin()
+	env_sprite.kv.angles = <0, 0, 0>
+	env_sprite.kv.fadedist = -1
+	env_sprite.kv.rendercolor = "97 50 168"
+	env_sprite.kv.renderamt = 255
+	env_sprite.kv.framerate = "10.0"
+	env_sprite.SetValueForModelKey( $"sprites/glow_05.vmt" )
+	env_sprite.kv.scale = string( 0.5 )
+	env_sprite.kv.spawnflags = 1
+	env_sprite.kv.GlowProxySize = 15.0
+	env_sprite.kv.HDRColorScale = 15.0
+	DispatchSpawn( env_sprite )
+	
+	env_sprite.SetParent(hitEnt, "CHESTFOCUS")
+	hitEnt.ai.particleonbody = env_sprite
 
-	if(hitEnt.IsNPC()){
-		hitEnt.ai.ongoingneedlesexplode = false
-	} else if (hitEnt.IsPlayer())
+	wait NEEDLER_TIMETOEXPLODE
+	
+	if( !IsValid( hitEnt ) )
+		return
+	
+	if( IsValid( hitEnt ) && !IsAlive( hitEnt ) || !IsValid( attacker ) || !IsAlive( attacker ) )
 	{
-		hitEnt.p.ongoingneedlesexplode = false
+		if( IsValid(hitEnt.ai.particleonbody) ) 
+			hitEnt.ai.particleonbody.Destroy()
+		
+		foreach(needle in hitEnt.ai.proplist)
+				if(IsValid(needle))
+					needle.Destroy()
+
+		hitEnt.ai.needles = 0
+		hitEnt.ai.ongoingneedlesexplode = false
+
+		return
 	}
+	
+	damagetodeal = hitEnt.ai.needles*NEEDLER_DAMAGE
+
+	EmitSoundOnEntity( hitEnt, "spectre_arm_explode" )
+
+	hitEnt.TakeDamage( damagetodeal, attacker, null, { scriptType = DF_DOOMED_HEALTH_LOSS, damageSourceId = eDamageSourceId.mp_weapon_haloneedler } )
+
+	entity trailFXHandle = StartParticleEffectInWorld_ReturnEntity(GetParticleSystemIndex( NEEDLER_EFFECTONEXPLODE ), hitEnt.GetOrigin(), <RandomIntRangeInclusive(-180,180), RandomIntRangeInclusive(-180,180), RandomIntRangeInclusive(-180,180)>)
+	trailFXHandle.SetParent(hitEnt, "CHESTFOCUS")
+	trailFXHandle.SetOrigin(trailFXHandle.GetOrigin() + <RandomIntRangeInclusive(-5,5), RandomIntRangeInclusive(-5,5), RandomIntRangeInclusive(-20,10)>)
+	trailFXHandle.SetAngles(<RandomIntRangeInclusive(-180,180), RandomIntRangeInclusive(-180,180), RandomIntRangeInclusive(-180,180)>)
+	EffectSetControlPointVector( trailFXHandle, 1, <97, 50, 168> )
+	
+	entity trailFXHandle2 = StartParticleEffectInWorld_ReturnEntity(GetParticleSystemIndex( NEEDLER_EFFECTONEXPLODE2 ), hitEnt.GetOrigin(), <RandomIntRangeInclusive(-180,180), RandomIntRangeInclusive(-180,180), RandomIntRangeInclusive(-180,180)>)
+	trailFXHandle2.SetParent(hitEnt, "CHESTFOCUS")
+	trailFXHandle2.SetOrigin(trailFXHandle.GetOrigin() + <RandomIntRangeInclusive(-5,5), RandomIntRangeInclusive(-5,5), RandomIntRangeInclusive(-20,10)>)
+	trailFXHandle2.SetAngles(<RandomIntRangeInclusive(-180,180), RandomIntRangeInclusive(-180,180), RandomIntRangeInclusive(-180,180)>)
+	EffectSetControlPointVector( trailFXHandle2, 1, <97, 50, 168> )
+
+	if(IsValid(hitEnt.ai.particleonbody)) hitEnt.ai.particleonbody.Destroy()
+	
+	foreach(needle in hitEnt.ai.proplist){
+			if(IsValid(needle))needle.Destroy()}
+	
+
+	printt("dealing delayed damage ai - Total damage: " + damagetodeal)
+	hitEnt.ai.needles = 0
+	hitEnt.ai.ongoingneedlesexplode = false
 }
+
+void function Needler_DelayedDamageToPlayer( entity attacker, entity hitEnt )
+{
+	if( !IsValid( hitEnt ) || !hitEnt.IsPlayer() || !(attacker in hitEnt.p.needlesData) )
+		return
+	
+	EndSignal( hitEnt, "OnDeath" )
+	EndSignal( hitEnt, "OnDestroy" )
+	EndSignal( hitEnt, "BleedOut_OnStartDying" ) //Don't transfer needles between bleedout states, it's so broken.
+	EndSignal( attacker, "OnDestroy" ) 
+	// EndSignal( attacker, "OnDeath" ) //It's ok to do damage after attacker is dead.
+	
+	OnThreadEnd
+	(
+		void function() : ( hitEnt, attacker )
+		{
+			if( IsValid( hitEnt ) && attacker != null )
+			{
+				if( attacker in hitEnt.p.needlesData )
+				{
+					foreach( needle in hitEnt.p.needlesData[attacker] )
+						if( IsValid( needle ) )
+							needle.Destroy()
+					
+					delete hitEnt.p.needlesData[ attacker ]
+				}
+			}
+		}
+	)
+	
+	wait NEEDLER_TIMETOEXPLODE
+
+	if( !(attacker in hitEnt.p.needlesData) || 
+		hitEnt.p.needlesData[attacker].len() == 0 ||
+		GetGameState() != eGameState.Playing ) //Safety check
+		return
+	
+	float damagetodeal = hitEnt.p.needlesData[attacker].len()*NEEDLER_DAMAGE
+	
+	hitEnt.TakeDamage( damagetodeal, attacker, attacker, { scriptType = DF_DOOMED_HEALTH_LOSS, damageSourceId = eDamageSourceId.mp_weapon_haloneedler } )
+	EmitSoundOnEntity( hitEnt, "spectre_arm_explode" )
+	
+	entity trailFXHandle = StartParticleEffectInWorld_ReturnEntity(GetParticleSystemIndex( NEEDLER_EFFECTONEXPLODE ), hitEnt.GetOrigin(), <RandomIntRangeInclusive(-180,180), RandomIntRangeInclusive(-180,180), RandomIntRangeInclusive(-180,180)>)
+	trailFXHandle.SetParent(hitEnt, "CHESTFOCUS")
+	trailFXHandle.SetOrigin(trailFXHandle.GetOrigin() + <RandomIntRangeInclusive(-5,5), RandomIntRangeInclusive(-5,5), RandomIntRangeInclusive(-20,10)>)
+	trailFXHandle.SetAngles(<RandomIntRangeInclusive(-180,180), RandomIntRangeInclusive(-180,180), RandomIntRangeInclusive(-180,180)>)
+	EffectSetControlPointVector( trailFXHandle, 1, <97, 50, 168> )
+	
+	entity trailFXHandle2 = StartParticleEffectInWorld_ReturnEntity(GetParticleSystemIndex( NEEDLER_EFFECTONEXPLODE2 ), hitEnt.GetOrigin(), <RandomIntRangeInclusive(-180,180), RandomIntRangeInclusive(-180,180), RandomIntRangeInclusive(-180,180)>)
+	trailFXHandle2.SetParent(hitEnt, "CHESTFOCUS")
+	trailFXHandle2.SetOrigin(trailFXHandle.GetOrigin() + <RandomIntRangeInclusive(-5,5), RandomIntRangeInclusive(-5,5), RandomIntRangeInclusive(-20,10)>)
+	trailFXHandle2.SetAngles(<RandomIntRangeInclusive(-180,180), RandomIntRangeInclusive(-180,180), RandomIntRangeInclusive(-180,180)>)
+	EffectSetControlPointVector( trailFXHandle2, 1, <97, 50, 168> )
+	
+	// printt("dealing delayed damage player - Total damage: " + damagetodeal)
+}
+#endif

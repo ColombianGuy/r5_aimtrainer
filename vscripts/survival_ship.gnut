@@ -211,13 +211,13 @@ void function ClearPlayerPlaneViewMode( entity player )
 
 	Signal( player, "ClearedPlayerPlaneViewMode" )
 
-	if( Playlist() == ePlaylists.fs_haloMod_survival )
-	{
-		GiveLoadoutRelatedWeapons_HaloMod( player ) //Cafe was here
-	} else
-	{
-		GiveLoadoutRelatedWeapons( player ) //Cafe was here
-	}
+	// if( Playlist() == ePlaylists.fs_haloMod_survival )
+	// {
+		// GiveLoadoutRelatedWeapons_HaloMod( player ) //Cafe was here
+	// } else if( !IsDevGamemode() )
+	// {
+		// GiveLoadoutRelatedWeapons( player ) //Cafe was here
+	// }
 }
 
 array<entity> function GetPlayersJumpingWithJumpmaster( entity jumpMaster )
@@ -351,11 +351,22 @@ void function GiveBasicSurvivalItems( entity player )
 	}
 	// todo: find why it's not playing fx on cockpit
 	// BroadcastItemPickup( player, "armor_pickup_lv1", eLootAction.EQUIP )
+
+	if( Playlist() == ePlaylists.fs_haloMod_survival )
+	{
+		GiveLoadoutRelatedWeapons_HaloMod( player ) //Cafe was here
+	} else
+	{
+		GiveLoadoutRelatedWeapons( player ) //Cafe was here
+	}
+	
+	if( player.p.respawnPodLanded )
+		return
 	
 	if( Playlist() == ePlaylists.fs_ltm_mortalevoshields )
 	{
 		Message(player, "MORTAL EVOSHIELDS", "Kill enemies to evolve your shields infinitely.", 8) // todo move this to localization. Cafe
-	} else if( Playlist() == ePlaylists.fs_haloMod_survival )
+	} else if( Playlist() == ePlaylists.fs_haloMod_survival && GetCurrentPlaylistVarBool( "is_hiswattson_event", false ) )
 	{
 		Remote_CallFunction_ByRef( player, "HaloBrIntroSequence" )
 	}

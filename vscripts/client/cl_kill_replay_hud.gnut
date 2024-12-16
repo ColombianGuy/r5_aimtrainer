@@ -77,51 +77,32 @@ void function KillReplayHud_Activate()
 
 	//printt( "KillReplayHud_Activate, replay not roundwinning" )
 
+	if ( file.killReplayOverlayRui != null )
+	{
+		RuiDestroyIfAlive( file.killReplayOverlayRui )
+		file.killReplayOverlayRui = null
+	}
+	
 	var rui = RuiCreate( $"ui/kill_replay_overlay.rpak", clGlobal.topoFullScreen, RUI_DRAW_HUD, 900 )
-	//var rui = CreateCockpitRui( $"ui/kill_replay_overlay.rpak", 0 )
 	file.killReplayOverlayRui = rui
-
+	
+	// RuiSetGameTime( rui, "startTime", Time() )
 	RuiSetString( rui, "killReplayTitleText", "Kill Replay" )
-
+	Minimap_DisableDraw_Internal()
+	
 	AttackerDisplayNameStruct nameOfLastKiller = clGlobal.nameOfLastKiller
 
-	if ( nameOfLastKiller.attackerName != "" /*|| nameOfLastKiller.attackerPetName != ""*/ )
-	{
-		entity player = GetLocalClientPlayer()
-
-		string attackerName = nameOfLastKiller.attackerName
-		string attackerPetName = nameOfLastKiller.attackerPetName
-		if ( attackerName != GetLocalClientPlayer().GetPlayerName() )
-		{
-			RuiSetString( file.killReplayOverlayRui, "killerName", "attackerName" )
-		}
-
-		entity attacker
-
-		if ( !IsValid( attacker ) )
-		{
-			foreach ( otherPlayer in GetPlayerArray() )
-			{
-				if ( otherPlayer.GetPlayerName() != nameOfLastKiller.attackerName )
-					continue
-
-				attacker = otherPlayer
-				RuiSetBool( file.killReplayOverlayRui, "showKillerWeaponInfo", false )
-			}
-		}
-
-		if ( !IsValid( attacker ) )
-			return
-
-		if ( !attacker.IsPlayer() )
-			return
-
-		if ( IsFriendlyTeam( attacker.GetTeam(), player.GetTeam() ) )
-			return
-
-		RuiSetBool( file.killReplayOverlayRui, "showKillerInfo", false )
-		RuiSetFloat( file.killReplayOverlayRui, "killerHealthFrac", nameOfLastKiller.healthFrac )
-	}
+	//Nothing of this works with the rui present in our build. Cafe
+	// if ( nameOfLastKiller.attackerName != "" )
+	// {
+		// RuiSetBool( file.killReplayOverlayRui, "showKillerWeaponInfo", true )
+		// RuiSetBool( file.killReplayOverlayRui, "showKillerInfo", true )
+		
+		// RuiSetString( file.killReplayOverlayRui, "killerWeaponName", "Test" )
+		// RuiSetString( file.killReplayOverlayRui, "killerLevel", "Test" )
+		// RuiSetFloat( file.killReplayOverlayRui, "killerHealthFrac", nameOfLastKiller.healthFrac )
+		// RuiSetString( file.killReplayOverlayRui, "killerName", nameOfLastKiller.attackerName )
+	// }
 }
 
 
@@ -130,14 +111,14 @@ void function KillReplayHud_Deactivate()
 	if ( IsReplayRoundWinning() )
 		return
 
-	//printt( "FIX THIS PLEASE WHYKillReplayHud_Deactivate, replay not roundwinning" )
-
-	RuiDestroy( file.killReplayOverlayRui )
+	Minimap_EnableDraw_Internal()
+	if ( file.killReplayOverlayRui != null )
+	{
+		RuiDestroyIfAlive( file.killReplayOverlayRui )
+		file.killReplayOverlayRui = null
+	}
 
 	entity player = GetLocalClientPlayer()
-
-	//player.cv.vignette.Hide()
-
 	player.Signal( "DeactivateKillReplayHud" )
 }
 

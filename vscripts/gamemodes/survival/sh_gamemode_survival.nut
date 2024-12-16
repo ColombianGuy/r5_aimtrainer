@@ -30,6 +30,7 @@ global function PlayerIsMarkedAsCanBeRespawned
 global function IsSurvivalMode
 #endif
 
+global function ShouldModeDisableCharacterComms
 
 //////////////////////
 //////////////////////
@@ -101,6 +102,15 @@ table< int, string > healthKitResultStrings =
 	[eUseHealthKitResult.DENY_FULL] = "#DENY_FULL",
 	[eUseHealthKitResult.DENY_SPRINTING] = "#DENY_SPRINTING",
 }
+
+//todo move this to a better place. Cafe
+global const array<int> nonCharacterDialoguesModes = [
+	ePlaylists.fs_haloMod,
+	ePlaylists.fs_haloMod_oddball,
+	ePlaylists.fs_haloMod_ctf,
+	ePlaylists.fs_haloMod_survival,
+	ePlaylists.fs_movementgym
+]
 
 global struct TargetKitHealthAmounts
 {
@@ -715,3 +725,15 @@ bool function IsSurvivalMode()
 	return Gamemode() == eGamemodes.SURVIVAL
 }
 #endif
+
+bool function ShouldModeDisableCharacterComms()
+{
+	if( nonCharacterDialoguesModes.contains( Playlist() ) )
+		return true
+
+	if( GetCurrentPlaylistVarBool( "flowstate_give_random_custom_models_toall", false ) )
+		return true
+	
+	return false
+}
+

@@ -596,7 +596,7 @@ void function PlayDialogueForAnimEvent( entity ent, string dialogueName )
 {
 	if ( !( dialogueName in file.nameToGroupMap ) )
 	{
-		Warning(  ( "Dialogue line " + dialogueName + " is not registered" ) )
+		printt(  ( "Dialogue line " + dialogueName + " is not registered" ) )
 		return
 	}
 
@@ -750,7 +750,7 @@ void function PlayDialogueForPlayer_NoWait( string name, entity player, entity s
 	int aliasID = GetNextAliasIdForName( name )
 	if ( aliasID < 0 )
 	{
-		Warning( "Dialogue line " + name + " is not registered" )
+		printt( "Dialogue line " + name + " is not registered" )
 		return
 	}
 
@@ -814,7 +814,7 @@ void function PlayDialogueForPlayer_Retail( string name, entity player, entity s
 	int aliasID = GetNextAliasIdForName( name )
 	if ( aliasID < 0 )
 	{
-		Warning( "Dialogue line " + name + " is not registered" )
+		printt( "Dialogue line " + name + " is not registered" )
 		return
 	}
 
@@ -824,7 +824,7 @@ void function PlayDialogueForPlayer_Retail( string name, entity player, entity s
 		responseID = GetNextAliasIdForName( responseName )
 		if ( responseID < 0 )
 		{
-			Warning( "Dialogue line " + responseName + " is not registered" )
+			printt( "Dialogue line " + responseName + " is not registered" )
 		}
 		else
 		{
@@ -892,7 +892,7 @@ void function PlayDialogueForPlayer( string name, entity player, entity speaker,
 
 	if ( !( name in file.nameToGroupMap ) )
 	{
-		Warning( "Dialogue line " + name + " is not registered" )
+		printt( "Dialogue line " + name + " is not registered" )
 		return
 	}
 
@@ -904,7 +904,7 @@ void function PlayDialogueForPlayer( string name, entity player, entity speaker,
 	{
 		if ( !( responseName in file.nameToGroupMap ) )
 		{
-			Warning( "Dialogue line " + responseName + " is not registered" )
+			printt( "Dialogue line " + responseName + " is not registered" )
 		}
 		else
 		{
