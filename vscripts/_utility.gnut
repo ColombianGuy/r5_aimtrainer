@@ -5611,14 +5611,3 @@ void function SetStatsReadyFlag( entity player, bool value )
 {
 	player.SetPlayerNetBool( "stats_loaded", value )
 }
-
-void function SimulateRandomDisconnects()
-{
-    foreach( int j, entity bot in GetPlayerArray() )
-    {
-        if( !IsValid( bot ) || !bot.p.IsBot )
-            continue
-
-        KickPlayerByName( bot.GetPlayerName(), "cafe was here" )
-    }
-}

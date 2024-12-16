@@ -16,19 +16,45 @@ void function PutPlayersInOneTeam()
 		SetTeam( player, 2 )
 }
 
+void function DisconnectAllBots()
+{
+    foreach( int j, entity bot in GetPlayerArray() )
+    {
+        if( !IsValid( bot ) || !bot.p.IsBot )
+            continue
+
+        KickPlayerByName( bot.GetPlayerName(), "cafe was here" )
+    }
+}
+
+void function SimulateRandomDisconnects()
+{
+    foreach( int j, entity bot in GetPlayerArray() )
+    {
+		if( !IsValid( bot ) || !bot.p.IsBot || CoinFlip() )
+			continue
+
+		KickPlayerByName( bot.GetPlayerName(), "cafe was here" )
+    }
+}
+
 void function SpawnBots( int amount = 1 )
 {
+	string botName = "flowstate"
+	
 	for( int i = 0; i<amount; i++)
 	{
-		ClientCommand( gp()[0], "sv_addbot flowstate -1" )
+		ClientCommand( gp()[0], "sv_addbot " + botName + i.tostring() + " -1" )
 	}
 
 	wait 2
+	
 	foreach( int j, entity bot in GetPlayerArray() )
 	{
-		if( j == 0 )
+		if( bot.GetPlatformUID().slice( 0, 4 ) != "9999" )
 			continue
-
+			
+		printt( "Player marked as bot", bot, bot.GetPlatformUID() )
 		bot.p.IsBot = true
 	}
 }
