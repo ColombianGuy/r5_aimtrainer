@@ -21,7 +21,12 @@ playlists
 				//// General Flowstate Custom Settings										///////
 				///////////////////////////////////////////////////////////////////////////////////
 
+				
+				flowstate_see_enemies_in_minimap				0
+				replay_disabled									1 //Only works in survival modes
+				
 				enable_grapple_recovers_banner						0
+				gibraltar_fast_revive								1
 				enable_mirage_revive_cloak_upgrade					0
 
 				bangalore_smoke_highlight							1
@@ -2862,7 +2867,7 @@ playlists
 
 				//visuals
 				flowstate_evo_shields							0
-				battlechatter_enabled							0
+				battlechatter_enabled							1
 
 				//game continuity 
 				flowstateAutoreloadPrimary 						0
@@ -2889,7 +2894,7 @@ playlists
 				description										"HALO BR"
 			
 				deathbox_ondeath_enabled 						1 //( 0 will throw loot around player ) // survival only
-				battlechatter_enabled						  	0
+				battlechatter_enabled						  	1
 
 				enable_nessies								 	0
 				
@@ -2900,9 +2905,6 @@ playlists
 				
 				// waiting_for_players_timeout_seconds			40
 
-				bangalore_smoke_highlight							0
-				redish_highlight_los								0
-				
 				// debug
 				
 				// Skip intros:
@@ -2936,6 +2938,22 @@ playlists
 				is_halo_gamemode								1
 				flowstate_evo_shields							1 //enables mortal evoshields ltm
 				enable_grapple_recovers_banner					1
+				
+				//Disable r5r.dev stuff
+				disable_chat_monitor							1
+				disable_r5rdev_clientstats						1
+				flowstate_rat_wipe_notification					1
+				enable_motd 									0
+				survival_infinite_ammo			 				0
+				
+				is_hiswattson_event								0
+				replay_disabled									0
+				
+				halo_radar_max_scan_distance					100
+				halo_radar_update_time							0.5
+				
+				survival_server_restart_after_end				1
+				survival_server_restart_after_end_time			30
 			}
 			gamemodes { survival { maps {
 				mp_rr_desertlands_64k_x_64k						1
@@ -3005,7 +3023,7 @@ playlists
 				flowstateBattleLogEnable 						0
 				flowstateChatLogEnable 							0
 				
-				enable_small_pheonix			   				0
+				
 
 				is_halo_gamemode								1
 				enable_oddball_gamemode							1
@@ -3057,7 +3075,7 @@ playlists
 				enable_afk_thread 								1 //0 disables afk thread for this mode
 		
 				//visuals		
-				battlechatter_enabled							0
+				battlechatter_enabled							1
 				flowstateRandomCharacterOnSpawn					0
 		
 				flowstateForceCharacter 						1	//It enables the following settings
@@ -3138,7 +3156,7 @@ playlists
 				survival_force_sliding_doors				   	1
 				enableFlyers								   	0
 				
-				battlechatter_enabled							0
+				battlechatter_enabled							1
 				is_halo_gamemode								1
 
 				// CTF Settings:
