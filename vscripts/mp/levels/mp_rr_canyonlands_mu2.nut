@@ -202,7 +202,7 @@ void function StartQuest( entity ash, entity user, int useInputFlags )
 	player.SetOrigin( ash.GetOrigin() + <5,0,20> )
 	player.SetAngles( <0, 0, 0> )
 	player.FreezeControlsOnServer()
-	thread ToggleHud()
+	//thread ToggleHud()
 
 	thread PlayAnim( ash, "obj_body_quest_se05" )
 	
@@ -216,7 +216,7 @@ void function StartQuest( entity ash, entity user, int useInputFlags )
 	StopSoundOnEntity( player, "Music_Quest_Bunker_EndAnimation" )
 	ScreenFade( player, 0, 0, 0, 255, 5, 0, FFADE_IN )
 	player.UnfreezeControlsOnServer()
-	thread ToggleHud()
+	//thread ToggleHud()
 	wait 5
 	ash.SetUsable()
 	thread PlayAnim( ash, "obj_body_quest_se05_idle" )
