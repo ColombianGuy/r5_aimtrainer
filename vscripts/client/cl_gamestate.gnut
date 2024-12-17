@@ -96,7 +96,6 @@ const DEV_COUNTDOWNTIMER = 0//turn on to see the countdown timer to match starts
 
 void function ClGameState_Init()
 {
-	RegisterSignal( "GameStateChanged" )
 	RegisterServerVarChangeCallback( "gameState", ClGameState_Changed )
 	//RegisterServerVarChangeCallback( "badRepPresent", UpdateScoreboardBadRepPresentMessage )
 	AddOnSpectatorTargetChangedCallback( GameState_SpectatorTargetChanged )

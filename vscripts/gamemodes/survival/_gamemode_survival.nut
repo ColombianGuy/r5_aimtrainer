@@ -1041,6 +1041,7 @@ void function Sequence_Playing()
 	foreach( entity player in GetPlayerArray() )
 	{
 		player.ClearParent()
+		ClearPlayerPlaneViewMode( player )
 		player.p.survivalLandedOnGround = false
 	}
 

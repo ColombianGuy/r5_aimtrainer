@@ -179,7 +179,7 @@ void function DisableInventoryForBlackTransition( entity player )
 
 void function ClearPlayerPlaneViewMode( entity player )
 {
-	printt( "ClearPlayerPlaneViewMode", player )
+	// printt( "ClearPlayerPlaneViewMode", player )
 
 	player.SetPlayerNetBool( "playerInPlane", false )
 

@@ -177,7 +177,6 @@ void function CodeCallback_OnPrecache()
 
 	if ( !IsMenuLevel() )
 	{
-		InitGameState()
 		SetGameState( eGameState.WaitingForPlayers )
 	}
 

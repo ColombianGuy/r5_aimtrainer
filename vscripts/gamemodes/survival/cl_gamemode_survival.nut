@@ -467,6 +467,8 @@ void function Survival_EntitiesDidLoad()
 	// RuiSetImage( Hud_GetRui( HudElement( "Overshields_TestFrame" ) ), "basicImage", $"rui/flowstatecustom/overshield_info_box")
 	
 	file.toposInitialized = true
+	
+	WaitingForPlayersOverlay_Setup( GetLocalClientPlayer() )
 }
 
 
@@ -815,8 +817,6 @@ void function Cl_Survival_AddClient( entity player )
 
 	RuiSetBool( file.pilotRui, "isVisible", GetHudDefaultVisibility() )
 	RuiSetBool( file.pilotRui, "useShields", true )
-
-	WaitingForPlayersOverlay_Setup( player )
 
 	if( nonCompassModes.contains( Playlist() ) )
 	{	

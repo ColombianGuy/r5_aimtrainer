@@ -2,14 +2,6 @@ untyped
 
 globalize_all_functions
 
-global struct IntroCameraSettings
-{
-	vector origin = ZERO_VECTOR
-	vector angles = ZERO_VECTOR
-	float fov = 70.0
-}
-
-global typedef CustomIntroCameraSettingsFunc void functionref( entity, IntroCameraSettings )
 global typedef ExtendedPostDeathLogic		 void functionref( entity )
 global typedef ShouldSpawnPlayerOnConnect	 bool functionref( entity )
 global typedef OnPostDeathLogicEnd			 void functionref( entity )
@@ -17,7 +9,6 @@ const float THIRD_PERSON_KILL_REPLAY_PROJECTILES_MINTIME = 0.3
 
 struct
 {
-	IntroCameraSettings ornull introCamSettings
 	// PostMatchSurveySettings surveySettings
 	ExtendedPostDeathLogic extendedDeathLogic
 	array<OnPostDeathLogicEnd> onPostDeathLogicEndFuncs
@@ -251,12 +242,6 @@ entity function GetBestObserverTarget_MP( entity observer, bool reverse )
 		return null
 
 	return PickBestObserverTarget( observer, (reverse ? -1 : 1) )
-}
-
-
-void function SetIntroCameraSettings( IntroCameraSettings viewSettings )
-{
-	file.introCamSettings = viewSettings
 }
 
 void function ObserverThread( entity player )
@@ -534,7 +519,7 @@ void function CodeCallback_OnClientConnectionStarted( entity player )
 
 	printl( "Player connect started: " + player )
 
-	PutPlayerInObserverMode( player, OBS_MODE_STATIC_LOCKED )
+	// PutPlayerInObserverMode( player, OBS_MODE_STATIC_LOCKED ) // R5R Intro Cameras work different
 	player.StopPhysics()
 }
 
@@ -621,62 +606,6 @@ void function CodeCallback_OnPlayerKilled( entity player, var damageInfo )
 
 	svGlobal.levelEnt.Signal( "PlayerKilled", { player = player } )
 }
-
-CustomIntroCameraSettingsFunc s_cameraSettingsFunc = null
-void function SetCustomIntroCameraSettingsFunction( CustomIntroCameraSettingsFunc func )
-{
-	Assert( (s_cameraSettingsFunc == null), format( "Function was already set to: '%s'", string( s_cameraSettingsFunc ) ) )
-	s_cameraSettingsFunc = func
-}
-
-void function SetPlayerToDefaultViewPoint( entity player )
-{
-	IntroCameraSettings view
-
-	entity viewPoint = player //FindViewPoint( player )
-	if ( IsValid( viewPoint ) )
-	{
-		view.origin = viewPoint.GetOrigin()
-
-		player.SetOrigin( view.origin )
-		view.angles = viewPoint.GetAngles()
-
-		entity viewTarget = GetEnt( expect string( viewPoint.kv.target ) )
-		if ( IsValid( viewTarget ) )
-			view.angles = VectorToAngles( viewTarget.GetOrigin() - view.origin )
-	}
-
-	if ( file.introCamSettings != null )
-	{
-		view = expect IntroCameraSettings( file.introCamSettings )
-	}
-
-	if ( s_cameraSettingsFunc != null )
-		s_cameraSettingsFunc( player, view )
-
-	const string FORCE_INTRO_CAM_VARNAME = "force_intro_camera"
-	string forceStr = GetCurrentPlaylistVarString( FORCE_INTRO_CAM_VARNAME, "" )
-	if ( forceStr.len() > 0 )
-	{
-		array<string> arr = split( forceStr, ", " )
-		if ( arr.len() >= 6 )
-		{
-			printf( "%s() - Using playlist var '%s' with value '%s'.", FUNC_NAME(), FORCE_INTRO_CAM_VARNAME, forceStr )
-			view.origin = <float( arr[0] ), float( arr[1] ), float( arr[2] )>
-			view.angles = <float( arr[3] ), float( arr[4] ), float( arr[5] )>
-			view.fov = ((arr.len() >= 7) ? float( arr[6] ) : 70.0)
-		}
-	}
-
-	if ( view.origin == ZERO_VECTOR  && !IsTestMap() )
-		Warning( "%s() - View Origin not set.", FUNC_NAME() )
-
-	player.SetOrigin( view.origin )
-	player.SetObserverModeStaticPosition( view.origin )
-	player.SetObserverModeStaticAngles( view.angles )
-	player.SetObserverModeStaticFOVOverride( view.fov )
-}
-
 
 void function PostDeathThread( entity player, var damageInfo )
 {
@@ -1017,10 +946,6 @@ void function PutPlayerInObserverMode_( entity player, int observerMode, bool do
 		player.SetObserverModeStaticPosition( specificOrigin )
 		player.SetObserverModeStaticAngles( specificAngles )
 		player.SetObserverModeStaticFOVOverride( 0.0 )
-	}
-	else
-	{
-		SetPlayerToDefaultViewPoint( player )
 	}
 
 	switch ( observerMode )
