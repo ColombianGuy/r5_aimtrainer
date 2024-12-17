@@ -53,14 +53,15 @@ global enum eMaps
 	mp_lobby, //19
 	mp_rr_habitat, //20
 	mp_rr_arena_phase_runner, //21
-	mp_rr_desertlands_mu3, //22
-	mp_rr_construct, //23
+	mp_rr_construct, //22
+
+	mp_rr_desertlands_holiday, //23
 	mp_rr_desertlands_mu1, //24
-	mp_rr_canyonlands_mu2, //25
-	mp_rr_tropic_island, //26
-	mp_rr_desertlands_holiday, //27
-	mp_rr_desertlands_mu2
-	mp_lobby_walk,
+	mp_rr_desertlands_mu1_tt, //25
+	mp_rr_desertlands_mu2, //26
+	mp_rr_canyonlands_mu2, //27
+	mp_rr_canyonlands_mu2_tt, //28
+	mp_lobby_s4,
 	
 	
 	_MAP_COUNT //LAST

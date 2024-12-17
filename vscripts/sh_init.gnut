@@ -183,7 +183,7 @@ void function SV_CL_Init()
 	CharacterSelectNewMenu_Init()
 
 	//ShHoverBike_Init()
-	ShHoverVehicle_Init()
+	//ShHoverVehicle_Init()
 	Sh_SkydiveLaunchers_Init()
 	ShLootBin_Init()
 
@@ -374,9 +374,11 @@ void function Server_Init()
 
 	SvDevStats_LevelInit()
 	
-	// Town Takeovers                
 	RisingWalls_Init()
+
+	// Town Takeovers                
 	Bloodhound_TT_Init()
+	MirageVoyage_Init()
 	
 	PilotsPassage_Init()
 	SneakPeek_Init()
@@ -431,6 +433,7 @@ void function Client_Init()
 	// Town Takeovers                  
 	ClRisingWalls_Init()
 	ClBloodhound_TT_Init()
+	ClMirageVoyage_Init()
 
 	SmartAmmoClient_Init()
 	CLGoblinDropship_Init()

@@ -231,7 +231,7 @@ struct
 #if CLIENT
 void function ClBloodhound_TT_Init()
 {
-	if ( MapName() != eMaps.mp_rr_desertlands_mu2 )
+	if (MapName() != eMaps.mp_rr_desertlands_mu2 && MapName() != eMaps.mp_rr_desertlands_mu1_tt)
 		return
 
 	AddCallback_EntitiesDidLoad( EntitiesDidLoad )
@@ -259,8 +259,9 @@ void function Bloodhound_TT_RegisterNetworking()
 #if SERVER
 void function Bloodhound_TT_Init()
 {
-	if ( MapName() != eMaps.mp_rr_desertlands_mu2 )
+	if (MapName() != eMaps.mp_rr_desertlands_mu2 && MapName() != eMaps.mp_rr_desertlands_mu1_tt)
 		return
+	
 	AddCallback_EntitiesDidLoad( EntitiesDidLoad )
 
 	AddSpawnCallback( "prop_dynamic", ArenaDoorSpawned )
@@ -338,8 +339,8 @@ void function EntitiesDidLoad()
 	if ( !IsBloodhoundTTEnabled() )
 		return
 
-	RegisterCSVDialogue( BLOOD_TT_CSV_DIALOGUE )
-	RegisterCSVDialogue( BLOOD_TT_ANNOUNCER_CSV_DIALOGUE )
+	//RegisterCSVDialogue( BLOOD_TT_CSV_DIALOGUE )
+	//RegisterCSVDialogue( BLOOD_TT_ANNOUNCER_CSV_DIALOGUE )
 
 #if SERVER
 	//PrecacheScriptString( STORY_PROP_TECH_SCRIPTNAME )

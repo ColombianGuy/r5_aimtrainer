@@ -378,6 +378,7 @@ Scripts:
 	mp/sh_warp_gates.gnut
 	mp/sh_rising_walls.nut  //World's Edge MU2/MU3
 	mp/sh_bloodhound_tt.nut  //World's Edge MU2/MU3
+	mp/sh_mirage_voyage.nut  //World's Edge MU1
 	sh_mp_utility.gnut
 	sh_score.gnut
 	sh_elite_streak.gnut
@@ -619,7 +620,7 @@ Scripts:
 When: "CLIENT"
 Scripts:
 [
-
+	mp/sh_desertlands_story_events.nut
 	client/cl_codecallbacks.gnut
 	client/cl_codecallbacks_mp.gnut
 	client/rui/cl_hud.gnut
