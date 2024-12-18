@@ -504,10 +504,10 @@ void function GibbyOp_OnLeave( entity trigger, entity ent )
 	
 	foreach( anotherTrigger in file.allBubbleTriggers )
 	{
-		if( !IsValid( anotherTrigger ) || anotherTrigger == trigger )
+		if( !IsValid( anotherTrigger ) || anotherTrigger == trigger || ent.GetTeam() != anotherTrigger.GetTeam())
 			continue
 
-		if( anotherTrigger.IsTouching( ent ) && ent.GetTeam() == anotherTrigger.GetTeam() ) //Don't remove passives if player is inside another teammate's bubble and this one is being destroyed. Cafe
+		if( anotherTrigger.IsTouching( ent ) ) //Don't remove passives if player is inside another teammate's bubble and this one is being destroyed. Cafe
 			shouldRemoveStuff = false
 	}
 
