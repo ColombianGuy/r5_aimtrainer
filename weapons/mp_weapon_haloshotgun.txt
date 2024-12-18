@@ -175,13 +175,13 @@ WeaponData
 	// Behavior
 	"fire_rate"   									"4"
 
-	"reload_time" 									"1"
-	"reload_time_late1"								"1"
-	"reload_time_late2"								"1"
-	"reloadempty_time"								"1.5"
-	"reloadempty_time_late1"						"1.5"
-	"reloadempty_time_late2"						"1.5"
-	"reloadempty_time_late3"						"1.5"
+	"reload_time" 									"0.8"
+	"reload_time_late1"								"0.8"
+	"reload_time_late2"								"0.8"
+	"reloadempty_time"								"0.8"
+	"reloadempty_time_late1"						"0.8"
+	"reloadempty_time_late2"						"0.8"
+	"reloadempty_time_late3"						"0.8"
 
 	"deployfirst_time"								"1.35"
 
