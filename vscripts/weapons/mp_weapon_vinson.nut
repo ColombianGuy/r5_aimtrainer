@@ -460,7 +460,7 @@ void function FS_ForceDestroyCustomAdsOverlay()
 	WeaponStatusSetWeaponInspect( false )
 	
 	entity player = GetLocalClientPlayer()
-	entity weapon = player.GetActiveWeapon( eActiveInventorySlot.mainHand )
+	entity weapon = SURVIVAL_GetLastActiveWeapon( player )
 	
 	if( IsValid( weapon ) && weapon.w.isInAdsCustom )
 	{

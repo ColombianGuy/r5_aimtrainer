@@ -2155,6 +2155,12 @@ void function Sur_OnScoreboardShow()
 		return
 	}
 
+	if( Flowstate_IsHaloMode() )
+	{
+		FS_ForceDestroyCustomAdsOverlay()
+		GetLocalClientPlayer().ClientCommand( "-zoom" )
+	}
+	
 	ShowMapRui()
 	UpdateFullmapRuiTracks()
 
