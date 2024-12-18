@@ -54,12 +54,9 @@ void function CodeCallback_PreMapInit()
 
 void function Desertlands_MapInit_Common()
 {
-	if ( MapName() == eMaps.mp_rr_desertlands_mu3 )
-		return
-
 	//printt( "Desertlands_MapInit_Common" )
 
-	//MapZones_RegisterDataTable( $"datatable/map_zones/zones_mp_rr_desertlands_mu1.rpak" )
+	MapZones_RegisterDataTable( $"datatable/map_zones/zones_mp_rr_desertlands_mu1.rpak" )
 
 	FlagInit( "PlayConveyerStartFX", true )
 	FlagInit( "PlayConveyerEndFX", true )
