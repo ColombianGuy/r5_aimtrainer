@@ -38,7 +38,7 @@
 
 	// Behavior - Firing
 	"holster_time"									"0.15"
-	"fire_rate"                                "1"
+	"fire_rate"                                "1.0"
 
 	// Behavior - Animation
 	"deployfirst_time"                         "1.6"
@@ -55,7 +55,7 @@
 
 	"damage_rodeo"                             "400"
 
-	"damage_headshot_scale"			           "2.25"
+	"damage_headshot_scale"			           "1.8"
 
 	"damage_leg_scale"                         "0.8"
 
@@ -67,7 +67,7 @@
 	// Projectile
 	"projectile_launch_speed"                  "30500"
 	
-	"bolt_hitsize"								"1.5"
+	"bolt_hitsize"								"1"
     // "bolt_hitsize_grow1_time"				    "0.129"  //~100m
     // "bolt_hitsize_grow1_size"				    "0.33"
     // "bolt_hitsize_grow2_time"				    "0.258"  //~200m
@@ -81,7 +81,7 @@
 	"ammo_clip_size"                           "4"
 	"ammo_min_to_fire"                         "1"
 	"ammo_stockpile_max"             "5"
-    "ammo_default_total"             "0"
+    "ammo_default_total"             "4"
     "ammo_no_remove_from_stockpile"  "0"
     "uses_ammo_pool"                 "1"
     "low_ammo_fraction"              "0.3"
@@ -130,20 +130,21 @@
 
 	// Sound - Firing
 	//
-	"fire_sound_1_npc"                         "Weapon_DMR_Fire_NPC"
-	"fire_sound_1_player_1p"                   "Weapon_DMR_Fire_1P"
-	"fire_sound_1_player_3p"                   "Weapon_DMR_Fire_3P"
+	"fire_sound_1_npc"                         ""
+	"fire_sound_2_npc"                         "Weapon_Kraber_Fire_npc"
+	"fire_sound_1_player_1p"                   ""
+	"fire_sound_2_player_1p"                   "Weapon_Kraber_Fire_1P"
+	"fire_sound_1_player_3p"                   ""
+	"fire_sound_2_player_3p"                   "Weapon_Kraber_Fire_3P"
 
 	// Sound - Low Ammo
-	"low_ammo_sound_name_1"                    "DMR_LowAmmo_Shot1"
-	"low_ammo_sound_name_2"                    "DMR_LowAmmo_Shot2"
-	"low_ammo_sound_name_3"                    "DMR_LowAmmo_Shot3"
-	"low_ammo_sound_name_4"                    "DMR_LowAmmo_Shot4"
-	"low_ammo_sound_name_5"                    "DMR_LowAmmo_Shot5"
+	"low_ammo_sound_name_1"                    "Kraber_LowAmmo_Shot1"
+	"low_ammo_sound_name_2"                    "Kraber_LowAmmo_Shot2"
+	"low_ammo_sound_name_3"                    "Kraber_LowAmmo_Shot3"
 
 	// Sound - Misc
-	"sound_zoom_in"                            "Weapon_DMR_ADS_In"
-	"sound_zoom_out"                           "Weapon_DMR_ADS_Out"
+	"sound_zoom_in"                            "Weapon_Rangemaster_Kraber_ADS_In"
+	"sound_zoom_out"                           "Weapon_Rangemaster_Kraber_ADS_Out"
 
 
 	// NPC

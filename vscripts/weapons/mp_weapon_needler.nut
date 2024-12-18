@@ -14,7 +14,7 @@ global function OnWeaponReload_Needler
 
 //Basic weapon stats
 const float NEEDLER_DAMAGE = 8
-const float NEEDLER_TIMETOEXPLODE = 2
+const float NEEDLER_TIMETOEXPLODE = 1.8
 
 //Custom particles
 const asset NEEDLER_CUSTOMTRAIL = $"P_skydive_trail_CP"

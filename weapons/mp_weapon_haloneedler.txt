@@ -41,7 +41,7 @@ WeaponData
 	
 	"holster_time"									"0.15"
 	"is_smart_pistol"								"1"
-	"smart_ammo_search_angle" 						"8"
+	"smart_ammo_search_angle" 						"9"
 	"smart_ammo_search_npcs"						"1"
 	"smart_ammo_search_players"						"1"
 	"smart_ammo_search_projectiles"					"0"
@@ -67,14 +67,14 @@ WeaponData
 	"smart_ammo_tracker_status_effects"				"0"
 	"smart_ammo_tracked_targets_check_visibility"	"1"
 	
-	"smart_ammo_search_distance"  					"550"
+	"smart_ammo_search_distance"  					"800"
 	"smart_ammo_max_targeted_burst"					"1"
 	"smart_ammo_targeting_time_min"					"0"//"0.37"
 	"smart_ammo_targeting_time_max"					"0"//"0.65"
 	"smart_ammo_targeting_time_min_npc"				"0"
 	"smart_ammo_targeting_time_max_npc"				"0"
 
-	"red_crosshair_range" 							"550"
+	"red_crosshair_range" 							"800"
 
 	"smart_ammo_allow_search_while_firing"			"1"
 	"smart_ammo_allow_ads_lock"						"1" // "0" is default
