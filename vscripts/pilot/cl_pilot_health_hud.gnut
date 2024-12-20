@@ -519,9 +519,13 @@ void function PlayShieldOverlayFX( entity player, int particleSystemIdx )
 	if ( !cockpit )
 		return
 
+	int armorTier = EquipmentSlot_GetEquipmentTier( GetLocalViewPlayer(), "armor" )
+	
+	if( armorTier >= 5 && PlayerHasPassive( player, ePassives.PAS_BATTERY_POWERED ) && GetCurrentPlaylistVarBool( "flowstate_evo_shields", false ) ) //Don't spam overlay hud if player has auto shields regen passive
+		return
+	
 	int fxHandle = StartParticleEffectOnEntity( cockpit, particleSystemIdx, FX_PATTACH_ABSORIGIN_FOLLOW, -1 )
 
-	int armorTier = EquipmentSlot_GetEquipmentTier( GetLocalViewPlayer(), "armor" )
 	vector shieldColor = GetFXRarityColorForTier( armorTier )
 
 	EffectSetControlPointVector( fxHandle, 1, shieldColor )
