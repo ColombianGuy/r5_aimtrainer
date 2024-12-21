@@ -54,8 +54,6 @@ void function CodeCallback_PreMapInit()
 
 void function Desertlands_MapInit_Common()
 {
-	if ( MapName() == eMaps.mp_rr_desertlands_mu3 )
-		return
 
 	//printt( "Desertlands_MapInit_Common" )
 
