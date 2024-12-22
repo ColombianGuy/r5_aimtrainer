@@ -3651,6 +3651,16 @@ array<WaitingForPlayersCameraLocPair> function GetCamerasForMap( string map )
 			cutsceneSpawns.append(NewCameraPair( <28823.8867, 4136.58398, 4171.0459>, <0, -135.179871, 0> ))
 		break
 		
+		case "mp_rr_canyonlands_mu2":
+			cutsceneSpawns.append(NewCameraPair( <-6049.01807, 18478.2285, 2771.03174>, <0, -34.2617683, 0> ))
+			cutsceneSpawns.append(NewCameraPair( <-15686.7402, 1259.25342, 2888.13013>, <0, 143.531845, 0> ))
+			cutsceneSpawns.append(NewCameraPair( <-26376.4258, -3842.12036, 2760.02759>, <0, 52.9255295, 0> ))
+			cutsceneSpawns.append(NewCameraPair( <29186.4004, 4389.00684, 4393.5957>, <0, -144.792419, 0> ))
+			cutsceneSpawns.append(NewCameraPair( <19051.4375, 10624.1055, 4916.54883>, <0, -8.65356064, 0> ))
+			cutsceneSpawns.append(NewCameraPair( <34535.5469, 24481.7012, 4585.43506>, <0, -44.7645645, 0> ))
+			cutsceneSpawns.append(NewCameraPair( <-12433.5381, -9732.68555, 3427.97339>, <0, -48.9345093, 0> ))
+		break
+		
 		case "mp_rr_olympus_mu1":
 			cutsceneSpawns.append(NewCameraPair( <0,0,0>, <0,0,0> ) )
 		break
