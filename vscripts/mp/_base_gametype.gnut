@@ -229,6 +229,9 @@ bool function IsProtectedFromFriendlyFire_MP( entity attacker, entity ent, var d
 	if ( attacker == ent )
 		return false
 
+	if( GetCurrentPlaylistVarBool( "flowstate_allow_friendly_damage", false ) )
+		return false
+	
 	if ( DamageIgnoresFriendlyFire( damageInfo ) )
 		return false
 
