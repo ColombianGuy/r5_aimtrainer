@@ -50,7 +50,12 @@ void function CodeCallback_OnClientConnectionCompleted( entity player )
 	player.hasConnected = true
 
 	foreach ( cb in svGlobal.onClientConnectedCallbacks )	
+	{
+		// #if DEVELOPER
+		// printw( "Player connected callback executing", string( cb ) )
+		// #endif
 		cb( player )
+	}
 
 	NotifyClientsOfConnection( player, 1 )
 	
@@ -83,7 +88,7 @@ void function CodeCallback_OnClientDisconnected( entity player, string reason )
 		callbackFunc( player )
 	}
 
-	if( GetGameState() == eGameState.Playing && Gamemode() == eGamemodes.SURVIVAL && !IsDevGamemode() )
+	if( GetGameState() == eGameState.Playing && Gamemode() == eGamemodes.SURVIVAL && !IsDevGamemode() && reason != "#DISCONNECT_GAMESHUTTINGDOWN" )
 		SetPlayerEliminated( player )
 }
 
