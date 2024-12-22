@@ -136,6 +136,8 @@ void function SV_CL_Onboarding_Init()
 		RespawnBehavior_Init()
 		AddCallback_OnPlayerKilled( OnPlayerKilled )
 		AddCallback_OnClientConnected( OnClientConnected )
+		AddCallback_OnClientConnecting( OnClientConnectionStarted )
+		
 		AddCallback_OnClientDisconnected( OnClientDisconnected )
 
 		AddCallback_ItemFlavorLoadoutSlotDidChange_AnyPlayer( Loadout_CharacterClass(), OnCharacterClassChanged )
@@ -945,6 +947,17 @@ void function OnClientDisconnected( entity player )
 	SetGlobalNetInt( "connectedPlayerCount", connectedPlayerCount )
 }
 
+void function OnClientConnectionStarted( entity player )
+{
+	PlayerStopSpectating( player )
+	FS_GiveInitialTeamToPlayer( player )
+	
+	if( IsPlayerEliminated( player ) && GetGameState() == eGameState.WaitingForPlayers )
+	{
+		ClearPlayerEliminated( player )
+	}
+}
+
 void function OnClientConnected( entity player )
 {
 	// Min players logic
@@ -956,6 +969,7 @@ void function OnClientConnected( entity player )
 	
 	if ( connectedPlayerCount >= minPlayers && !Flag( "MinPlayersReached" ) )
 		FlagSet( "MinPlayersReached" )
+
 	// Min players logic end
 	AddPlayerMovementEventCallback( player, ePlayerMovementEvents.MANTLE, ResetZiplineUseCountOnMantle )
 	UpdatePlayerCounts()
@@ -968,7 +982,6 @@ void function OnClientConnected( entity player )
 	bool replaceOrigin = false
 	if( IsDevGamemode() || GetCurrentPlaylistVarBool( "is_practice_map", false ) || Playlist() == ePlaylists.fs_movementrecorder )
 	{
-		FS_GiveInitialTeamToPlayer( player )
 		vector origin
 		if( GetPlayerArray_Alive().len() > 0 && IsValid( GetPlayerArray_Alive()[0] ) )
 		{
@@ -994,7 +1007,6 @@ void function OnClientConnected( entity player )
 		
 		if ( GetGameState() >= eGameState.Playing && !player.p.respawnPodLanded )
 		{
-			FS_GiveInitialTeamToPlayer( player )
 			array<entity> teammates = GetPlayerArrayOfTeam_Alive( player.GetTeam() )
 
 			// If we have no teammates and the plane exists we put the player in the plane
@@ -1047,7 +1059,6 @@ void function OnClientConnected( entity player )
 			}
 		} else
 		{
-			FS_GiveInitialTeamToPlayer( player )
 			DecideRespawnPlayer_Retail( player )
 		}
 	}
@@ -1097,24 +1108,25 @@ void function FS_GiveInitialTeamToPlayer( entity player )
 	{
 		EliminatedPlayerData data = GetPlayerEliminatedData( player )
 		SetTeam( player, data.team ) //Give saved team. Cafe
+		
+		#if DEVELOPER
+		printw( "TEAMING - Player was eliminated, assigning old team", data.team )
+		#endif
 		return
 	}
 	
 	int maxTeamSize = GetCurrentPlaylistVarInt( "max_team_size", 1 )
 	int numTeams = GetCurrentPlaylistVarInt( "max_players", 0 ) / GetCurrentPlaylistVarInt( "max_team_size", 1 )
 
-	array<entity> allplayers = GetPlayerArray()
-
-	foreach ( p in allplayers )
+	printw( "TEAMING - Team Size:", maxTeamSize, " - Num Teams: ", numTeams )
+	
+	for( int i = TEAM_IMC; i <= TEAM_IMC + numTeams; i++ )
 	{
-		if ( !IsValid( p ) ) 
-			continue
-
-		int teamSize = GetPlayerArrayOfTeam( p.GetTeam() ).len()
+		int teamSize = GetPlayerArrayOfTeam( i ).len()
 
 		if( teamSize < maxTeamSize )
 		{
-			SetTeam( player, p.GetTeam() )
+			SetTeam( player, i )
 			break
 		}
 	}

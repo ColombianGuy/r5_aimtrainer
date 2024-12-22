@@ -3565,6 +3565,12 @@ string function GetPlayerVoice( entity player )
 void function SetTeam( entity ent, int team )
 {
 	int oldTeam = ent.GetTeam()
+	
+	#if DEVELOPER
+	if( ent.IsPlayer() )
+		printw( "TEAMING - ASSIGNING TEAM TO PLAYER", ent, "NEW", team, "OLD", oldTeam )
+	#endif
+	
 	ent.Code_SetTeam( team )
 
 	#if SERVER
@@ -5329,6 +5335,14 @@ array<entity> function GetFilteredArray_Connected( array<entity> playerArray )
 	}
 
 	return results
+}
+
+void function DebugTeamsForPlayers()
+{
+	foreach( player in GetPlayerArray() )
+	{
+		printw( player, player.GetTeam() )
+	}
 }
 
 array<entity> function GetPlayerArray_ConnectedNotSpectatorTeam()
