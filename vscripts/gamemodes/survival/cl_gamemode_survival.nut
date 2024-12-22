@@ -3442,10 +3442,13 @@ bool function GetWaitingForPlayersOverlayEnabled( entity player )
 
 	if ( IsTestMap() )
 		return false
-	if ( player.GetTeam() == TEAM_SPECTATOR )
-		return false
+
+	// if ( player.GetTeam() == TEAM_SPECTATOR )
+		// return false
+
 	if ( GetCurrentPlaylistVarBool( "survival_staging_area_enabled", false ) )
 		return false
+	
 	// if( GameRules_GetGameMode() != SURVIVAL )
 		// return false
 
