@@ -1117,8 +1117,10 @@ void function FS_GiveInitialTeamToPlayer( entity player )
 	
 	int maxTeamSize = GetCurrentPlaylistVarInt( "max_team_size", 1 )
 	int numTeams = GetCurrentPlaylistVarInt( "max_players", 0 ) / GetCurrentPlaylistVarInt( "max_team_size", 1 )
-
+	
+	#if DEVELOPER
 	printw( "TEAMING - Team Size:", maxTeamSize, " - Num Teams: ", numTeams )
+	#endif
 	
 	for( int i = TEAM_IMC; i <= TEAM_IMC + numTeams; i++ )
 	{
