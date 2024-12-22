@@ -1283,9 +1283,9 @@ void function OnPlayerDamaged( entity victim, var damageInfo )
 	
 	int sourceId = DamageInfo_GetDamageSourceIdentifier( damageInfo )
 	
-	#if DEVELOPER
-	Warning( "OnPlayerDamaged " + victim )
-	#endif
+	// #if DEVELOPER
+	// Warning( "OnPlayerDamaged " + victim )
+	// #endif
 	if ( sourceId == eDamageSourceId.bleedout || sourceId == eDamageSourceId.human_execution )
 		return
 

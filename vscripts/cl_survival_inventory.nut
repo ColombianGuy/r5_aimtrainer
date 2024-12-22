@@ -650,10 +650,10 @@ void function TrackDistanceFromDeathBox( entity player, entity deathBox )
 	player.EndSignal( "OnDeath" )
 	deathBox.EndSignal( "OnDestroy" )
 	
-	if( PlayerSetting_DamageClosesMenu() )
-	{
-		player.EndSignal( "OnDamaged" )
-	}
+	// if( PlayerSetting_DamageClosesMenu() )
+	// {
+		// player.EndSignal( "OnDamaged" )
+	// }
 
 	OnThreadEnd
 	(
@@ -2494,7 +2494,7 @@ void function TryCloseSurvivalInventoryFromDamage( float damage, vector damageOr
 	{
 		if ( GetConVarBool( "player_setting_damage_closes_deathbox_menu" ) )
 		{
-			if ( IsValid( attacker ) && (attacker.IsNPC() || attacker.IsPlayer()) )
+			if ( IsValid( attacker ) && (attacker.IsNPC() || attacker.IsPlayer()) && damageSourceId != eDamageSourceId.deathField )
 				RunUIScript( "TryCloseSurvivalInventoryFromDamage", null )
 		}
 	}
