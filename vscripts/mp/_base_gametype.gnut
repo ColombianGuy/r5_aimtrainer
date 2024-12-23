@@ -35,10 +35,13 @@ struct
 	array<entity> hurtTriggers = []
 	bool functionref( entity, entity, var ) isProtectedFromFriendlyFire
 	table< entity, OutOfBoundsDataStruct > outOfBoundsTable
+	bool flowstate_allow_friendly_damage
 } file
 
 function BaseGametype_Init()
 {
+	file.flowstate_allow_friendly_damage = GetCurrentPlaylistVarBool( "flowstate_allow_friendly_damage", false )
+	
 	FlagInit( "APlayerHasSpawned" )
 	FlagInit( "PilotBot" )
 
@@ -91,7 +94,7 @@ function BaseGametype_Init()
 	AddCallback_EntitiesDidLoad( BaseGametypeEntitiesDidLoad )
 
 	BaseGametype_Init_MPSP()
-
+	
 	//AddCallback_OnTitanBecomesPilot( OnTitanBecomesPilot_OutOfBoundsCheck ) //disabled for r5r
 }
 
@@ -229,7 +232,7 @@ bool function IsProtectedFromFriendlyFire_MP( entity attacker, entity ent, var d
 	if ( attacker == ent )
 		return false
 
-	if( GetCurrentPlaylistVarBool( "flowstate_allow_friendly_damage", false ) )
+	if( file.flowstate_allow_friendly_damage )
 		return false
 	
 	if ( DamageIgnoresFriendlyFire( damageInfo ) )
