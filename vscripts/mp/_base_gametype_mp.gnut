@@ -785,8 +785,6 @@ void function PostDeathThread( entity player, var damageInfo )
 
 			//if( GamemodeUtility_IsSpectatorEnabled() )
 			//	DecideRespawnPlayer( player, false ) // spawn the player as a spectator as soon as killreplay is over
-			
-			thread ObserverThread( player ) //Cafe was here
 		}
 		
 		wait deathScreenWaitTime - Time()
