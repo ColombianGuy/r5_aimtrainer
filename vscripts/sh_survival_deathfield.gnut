@@ -168,7 +168,7 @@ void function Sh_ArenaDeathField_Init()
 	FlagInit( "DoneCreatingDeathFieldPosition" )
 	FlagInit( "SUR_DeathFieldShrinking" )
 
-	AddCallback_EntitiesDidLoad( EntitiesDidLoad_DeathField )
+	// AddCallback_EntitiesDidLoad( EntitiesDidLoad_DeathField ) //moved to eGameState.Playing enter
 	AddCallback_GameStateEnter( eGameState.Playing, Pathfinder_RandomizeSurveyLocations )
 	AddCallback_GameStateEnter( eGameState.Epilogue, Deathfield_Destroy )
 
@@ -177,7 +177,9 @@ void function Sh_ArenaDeathField_Init()
 	// AddClientCommandCallback( "UpdateCirclePos", ClientCommand_UpdateCirclePos )
 #endif
 
-	InitDeathFieldDataAndStageData()
+	// InitDeathFieldDataAndStageData() //moved to eGameState.Playing enter
+	AddCallback_GameStateEnter( eGameState.Playing, Deathfield_OnPlayingGameStateEnter )
+
 
 #if CLIENT
 		file.colorCorrection = ColorCorrection_Register( COLOR_CORRECTION )
@@ -189,6 +191,16 @@ void function Sh_ArenaDeathField_Init()
 		AddCreatePilotCockpitCallback( TrackDeathfieldDistance )
 		AddLocalPlayerTookDamageTypeCallback( eDamageSourceId.deathField, Callback_OnPlayerTakeDeathFieldDamage )
 #endif
+}
+
+//Cafe was here
+//Moved to eGameState.Playing enter to modify preshrink and shrink speeds dynamically based on the amount of players connected.
+void function Deathfield_OnPlayingGameStateEnter()
+{
+	InitDeathFieldDataAndStageData()
+	#if SERVER
+	EntitiesDidLoad_DeathField()
+	#endif
 }
 
 DeathFieldStageData function GetDeathFieldStage( int index )
@@ -267,6 +279,15 @@ DeathFieldStageData function CreateDeathFieldStageData( int index, bool allowMis
 	data.shrinkDuration = ((lastRadius - data.endRadius) / circleCloseSpeed)
 	data.percentDamagePerTick = GetCurrentPlaylistVarFloat( "deathfield_damagePercent_" + index, allowMissingDefaults ? 0.01 : -1.0 )
 
+	float factor = 1.0
+	if( GetCurrentPlaylistVarBool( "flowstate_change_ring_close_speeds_dynamically", false ) )
+	{
+		factor = 0.05 + (float( GetPlayerArray().len() ) / float( MAX_PLAYERS )) * 0.95
+
+		data.preShrinkDuration *= factor
+		data.shrinkDuration *= factor
+	}
+
 	Assert( data.endRadius > 0 )
 	Assert( data.preShrinkDuration > 0 )
 	Assert( data.shrinkDuration > 0 )
@@ -277,6 +298,10 @@ DeathFieldStageData function CreateDeathFieldStageData( int index, bool allowMis
 		data.preShrinkDuration = 10.0
 	}
 
+	#if DEVELOPER
+	printw( "CreateDeathFieldStageData factor:", factor, " - ", index, allowMissingDefaults, " - preShrinkDuration: " + data.preShrinkDuration, " - shrinkDuration: " + data.shrinkDuration )
+	#endif
+	
 	return data
 }
 
