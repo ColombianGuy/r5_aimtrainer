@@ -545,7 +545,7 @@ void function OnWeaponActivate_Consumable( entity weapon )
 
 	if ( file.consumableTypeToInfo[ consumableType ].healAmount > 0 )
 	{
-		if ( Time() - file.playerToLastHealChatterTime[ weaponOwner ] > HEAL_CHATTER_DEBOUNCE )
+		if ( (weaponOwner in file.playerToLastHealChatterTime) && Time() - file.playerToLastHealChatterTime[ weaponOwner ] > HEAL_CHATTER_DEBOUNCE )
 		{
 			#if CLIENT
 			if ( !IsSpectatorSpectatingPlayer( weaponOwner ) )
@@ -566,7 +566,7 @@ void function OnWeaponActivate_Consumable( entity weapon )
 	}
 	else if ( file.consumableTypeToInfo[ consumableType ].shieldAmount > 0 )
 	{
-		if ( Time() - file.playerToLastShieldChatterTime[ weaponOwner ] > HEAL_CHATTER_DEBOUNCE )
+		if ( (weaponOwner in file.playerToLastHealChatterTime) && Time() - file.playerToLastShieldChatterTime[ weaponOwner ] > HEAL_CHATTER_DEBOUNCE )
 		{
 		#if CLIENT
 			if ( !IsSpectatorSpectatingPlayer( weaponOwner ) )
