@@ -194,6 +194,7 @@
 	"projectile_drag_coefficient"					"0.0"
 	
 	"viewmodel_offset_hip"							"1 0 -1"
+	"viewmodel_offset_ads"							"0 0 -10"
 
 	// Damage - Behavior
 	"damage_flags"                             "DF_SNIPER | DF_BULLET | DF_KNOCK_BACK | DF_DISMEMBERMENT"
