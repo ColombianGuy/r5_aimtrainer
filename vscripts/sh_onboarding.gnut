@@ -1056,6 +1056,7 @@ void function OnClientConnected( entity player )
 			} else
 			{
 				DecideRespawnPlayer_Retail( player )
+				GiveBasicSurvivalItems( player ) //If player is put in skydive mode and attached to its team mid-flight, we need to give them basic survival items here otherwise it will spawn without melee and basic items. Cafe
 			}
 		} else
 		{
