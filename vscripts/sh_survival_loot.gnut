@@ -958,6 +958,7 @@ bool function ShouldDropOpticForKittedWeapon()
 
 string function GetWeaponClassNameWithLockedSet( entity weapon )
 {
+	printw("GetWeaponClassNameWithLockedSet", weapon )
 	string result = weapon.GetWeaponClassName()
 
 	foreach ( mod, suffix in LOCKEDSET_MOD_TO_SUFFIX )
@@ -969,7 +970,22 @@ string function GetWeaponClassNameWithLockedSet( entity weapon )
 		}
 	}
 	
-	switch( expect int( GetEntityVar( weapon, "weaponLockedSet" ) ) ) //Cafe was here. Retail implementation uses weapon.GetWeaponLockedSet() code funct which we don't have in s3.
+	int lockedSet = eWeaponLockedSet.INVALID
+	
+	try{
+		lockedSet = expect int( GetEntityVar( weapon, "weaponLockedSet" ) )
+	} catch( e420 ) //Why CodeCallback_OnSpawned doesn't work for "weaponx" class. Cafe
+	{
+		InitEntityVars( weapon )
+		
+		#if SERVER
+		SetEntityVar( weapon, "weaponLockedSet", GetLockedSetFromName( result ) )
+		#endif
+		
+		lockedSet = expect int( GetEntityVar( weapon, "weaponLockedSet" ) )
+	}
+	
+	switch( lockedSet ) //Cafe was here. Retail implementation uses weapon.GetWeaponLockedSet() code funct which we don't have in s3.
 	{
 		case eWeaponLockedSet.WHITESET:
 			result += WEAPON_LOCKEDSET_SUFFIX_WHITESET
