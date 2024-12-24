@@ -2447,7 +2447,7 @@ entity function SURVIVAL_GiveMainWeapon( entity player, entity pickup, array<str
 	if( pickup.e.lockedSet != eWeaponLockedSet.INVALID )
 	{
 		SetEntityVar( newWeapon, "weaponLockedSet", pickup.e.lockedSet )
-		printw( "weapon is a locked set weapon" )
+		// printw( "weapon is a locked set weapon" )
 	}
 		
 	newWeapon.SetProScreenOwner( ( ( pickup.e.firstOwner == null) ? player : pickup.e.firstOwner) )
