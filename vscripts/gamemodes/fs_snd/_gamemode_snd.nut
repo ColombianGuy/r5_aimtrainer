@@ -2774,7 +2774,7 @@ bool function ClientCommand_SellSNDAbility(entity player, array<string> args)
 	else 
 		return false
 	
-	Remote_CallFunction_NonReplay(player, "ServerCallback_SellSuccessful", weaponid, OFFHAND_TACTICAL, -1, weaponprice)
+	Remote_CallFunction_NonReplay(player, "ServerCallback_SellSuccessful", weaponid, -1, -1, weaponprice)
 
     player.p.availableMoney += weaponprice
 
@@ -2821,7 +2821,7 @@ bool function ClientCommand_SellSNDGrenade(entity player, array<string> args)
 	
 	weaponprice = GetWeaponPriceFromRefAndUpgradeLevel(-1, weapon)
 		
-	Remote_CallFunction_NonReplay(player, "ServerCallback_SellSuccessful", weaponid, OFFHAND_SLOT_FOR_CONSUMABLES, -1, weaponprice)
+	Remote_CallFunction_NonReplay(player, "ServerCallback_SellSuccessful", weaponid, -1, -1, weaponprice)
 
     player.p.availableMoney += weaponprice
 
