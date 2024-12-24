@@ -19,6 +19,7 @@ global function SURVIVAL_Loot_IsUniqueAmmoWeapon
 global function GetCustomHopupArray
 global function IsNewLootEnabled
 global function IsEnabledForGroundLoot
+global function GetLockedSetFromName
 
 #if CLIENT
 global function GetRarityColor
@@ -115,6 +116,15 @@ global struct LootData
 	bool functionref( entity, entity, int ) extraCanUseFunction = null
 }
 
+global enum eWeaponLockedSet
+{
+	INVALID,
+	WHITESET,
+	BLUESET,
+	PURPLESET,
+	GOLD
+}
+
 global enum eExtraDataType
 {
 	INT_ARMOR_EVO = 0,
@@ -199,6 +209,8 @@ struct
 		table<string, OverrideDeathBoxRUI_NetworkOptimizedStruct> overrideDeathBoxRUIProfilesTable
 		int                                                       profilesSent = 0
 	#endif
+	
+	bool ENABLE_DEFINED_SETS
 } file
 
 
@@ -256,6 +268,8 @@ float function GetLootTableFloat( string ref, var datatable, int rowIndex, strin
 
 void function SURVIVAL_Loot_All_InitShared()
 {
+	file.ENABLE_DEFINED_SETS = GetCurrentPlaylistVarBool( "flowstate_enable_weapons_locked_sets", false )
+	
 	file.lootIndexToString.clear()
 	file.lootData.clear()
 
@@ -389,9 +403,7 @@ bool function IsNewLootEnabled( string ref )
 	return true
 }
 
-bool ENABLE_DEFINED_SETS = false
-
-bool function EnableWhiteBlueAndPurplePredefinedSets( string ref )
+bool function EnableWeaponsLockedSets( string ref )
 {
 	array<string> stripedref = split( ref, "_" )
 
@@ -401,10 +413,29 @@ bool function EnableWhiteBlueAndPurplePredefinedSets( string ref )
 		case "blueset":
 		case "purpleset":
 		
-		return ENABLE_DEFINED_SETS
+		return file.ENABLE_DEFINED_SETS
 	}
 	
 	return true
+}
+
+int function GetLockedSetFromName( string ref )
+{
+	array<string> stripedref = split( ref, "_" )
+
+	switch( stripedref[stripedref.len()-1] )
+	{
+		case "whiteset":
+			return eWeaponLockedSet.WHITESET
+		case "blueset":
+			return eWeaponLockedSet.BLUESET
+		case "purpleset":
+			return eWeaponLockedSet.PURPLESET
+		case "gold":
+			return eWeaponLockedSet.GOLD
+	}
+	
+	return eWeaponLockedSet.INVALID
 }
 
 void function SURVIVAL_Loot_RegFromDataTable(var dt)
@@ -445,7 +476,7 @@ void function SURVIVAL_Loot_RegFromDataTable(var dt)
 		if( !IsNewLootEnabled( data.baseWeapon ) )
 			continue
 		
-		if( !EnableWhiteBlueAndPurplePredefinedSets( data.ref ) )
+		if( !EnableWeaponsLockedSets( data.ref ) )
 			continue
 		
 		data.fakeAmmoIcon = GetLootTableAsset( data.ref, dt, i, "fakeAmmoIcon" )

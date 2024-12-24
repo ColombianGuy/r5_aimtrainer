@@ -622,6 +622,8 @@ void function RemoteFunctions_Init_Begin()
 
 	RegisterNetworkedVariable( "playerAllowedToLeech", SNDC_PLAYER_EXCLUSIVE, SNVT_BOOL, true )
 
+	RegisterEntityVar_AllSyncedEntity( "weaponx", "weaponLockedSet", 0 )
+	
 	RegisterEntityVar( "player", "nextRespawnTime", 0 )
 	RegisterEntityVar( "player", "musicPackAssigned", 0 )
 

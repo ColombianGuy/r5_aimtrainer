@@ -141,6 +141,7 @@ global struct StoredWeapon
 	#endif
 	int scriptFlags0
 	int scriptTime0
+	int lockedSet = eWeaponLockedSet.INVALID
 }
 
 global struct ScriptTriggerData
@@ -516,6 +517,8 @@ global struct ServerEntityStruct
 	
 	//portal enter direction, eDirection.NONE = -1, eDirection.STARTTOEND, eDirection.ENDTOSTART
 	int portalDirection = -1
+
+	int lockedSet = eWeaponLockedSet.INVALID
 }
 
 global struct MeritData
