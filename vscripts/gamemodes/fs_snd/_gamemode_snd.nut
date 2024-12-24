@@ -177,7 +177,7 @@ void function Sv_EntitiesDidLoad()
 
 void function SND_StartGameThread()
 {
-    WaitForGameState(eGameState.Playing)
+    WaitForGameState(eGameState.Prematch)
 	SND_SHOULD_START_A_NEW_MATCH = true
 	
     while(true)
@@ -234,6 +234,7 @@ void function _OnPlayerConnectedSND(entity player)
 	switch(GetGameState())
     {
 		case eGameState.WaitingForPlayers:
+		case eGameState.Prematch:
 		case eGameState.MapVoting:
 			player.FreezeControlsOnServer()
 
@@ -580,7 +581,7 @@ void function SND_Lobby()
 	FS_SND.InProgress = false
 	FS_SND.forceRoundEnd = false
 	
-	SetGameState(eGameState.MapVoting)
+	SetGameState(eGameState.Prematch)
 	SetBombState(bombState.NONE)
 	
 	if(FS_SND.currentRound == 1 && SND_SHOULD_START_A_NEW_MATCH)
@@ -609,17 +610,17 @@ void function SND_Lobby()
 				Remote_CallFunction_ByRef(player, "Minimap_DisableDraw_Internal")
 			}
 			
-			while( GetPlayerArray().len() < GetCurrentPlaylistVarInt( "max_players", 0 ) && !FS_SND.forceGameStart )
-			{
-				foreach(player in GetPlayerArray())
-				{
-					if(!IsValid(player)) continue
+			// while( GetPlayerArray().len() < GetCurrentPlaylistVarInt( "max_players", 0 ) && !FS_SND.forceGameStart )
+			// {
+				// foreach(player in GetPlayerArray())
+				// {
+					// if(!IsValid(player)) continue
 					
-					Message(player, "SEARCH AND DESTROY", GetPlayerArray_Alive().len() + " players connected of " + GetCurrentPlaylistVarInt( "max_players", 0 ).tostring(), 2, "")
-				}
+					// Message(player, "SEARCH AND DESTROY", GetPlayerArray_Alive().len() + " players connected of " + GetCurrentPlaylistVarInt( "max_players", 0 ).tostring(), 2, "")
+				// }
 				
-				wait 5
-			}
+				// wait 5
+			// }
 		}
 
 		if(enteredwaitingidk)
@@ -1009,10 +1010,7 @@ void function SND_GameLoop()
 			ScreenFadeFromBlack( player, 0.1, 0.1 )
 		}
 
-		if( debugdebug )
-			wait 5
-		else
-			wait 25
+		wait 25
 		
 		FS_SND.buyAllowed = false
 	}
@@ -2649,8 +2647,8 @@ bool function ClientCommand_BuySNDWeapon(entity player, array<string> args)
 		
 		if (player.p.availableMoney < weaponprice)
 		{
-		//Remote_CallFunction_NonReplay(player, "ServerCallback_BuyRejected")
-		Remote_CallFunction_ByRef( player, "ServerCallback_BuyRejected" )
+			//Remote_CallFunction_NonReplay(player, "ServerCallback_BuyRejected")
+			Remote_CallFunction_ByRef( player, "ServerCallback_BuyRejected" )
 			return false
 		}
 
@@ -2658,9 +2656,23 @@ bool function ClientCommand_BuySNDWeapon(entity player, array<string> args)
 
         if (primary != null)
             player.TakeWeaponByEntNow( primary )
-
+		
         weaponEntity = player.GiveWeapon( weapon, WEAPON_INVENTORY_SLOT_PRIMARY_0 )
-		SetupInfiniteAmmoForWeapon( player, weaponEntity )		
+		SetupInfiniteAmmoForWeapon( player, weaponEntity )
+	
+		//TEST LOCKEDSETS
+		string weaponRefWithLockedSet = FixWeaponNameFromUpgradeLevel( weapon, 1 )
+		LootData data = SURVIVAL_Loot_GetLootDataByRef( weaponRefWithLockedSet )
+		player.p.weapon1lvl = 0
+		
+		array<string> mods = data.baseMods
+		
+		weaponEntity.SetMods( mods )
+		InitEntityVars( weaponEntity )
+		SetEntityVar( weaponEntity, "weaponLockedSet", 1 )
+		// printw( "BuySNDWeapon SLOT 1", weapon, player.p.weapon1lvl )
+		///////////
+		
 		player.p.didPlayerBuyAWeapon = true
 	
         player.SetActiveWeaponBySlot(eActiveInventorySlot.mainHand, WEAPON_INVENTORY_SLOT_PRIMARY_0)
@@ -2680,7 +2692,8 @@ bool function ClientCommand_BuySNDWeapon(entity player, array<string> args)
 		Remote_CallFunction_NonReplay( player, "ServerCallback_FlowstateSND_CustomBuyMenu_UpdateValues", player.p.availableMoney, GetWeaponIDFromRef(player.p.weapon1ref), GetWeaponIDFromRef(player.p.weapon2ref), player.p.weapon1lvl, player.p.weapon2lvl)
 		
 		return true
-    } else if(player.p.weapon2ref == "") {
+    } else if(player.p.weapon2ref == "") 
+	{
 		weaponprice = GetWeaponPriceFromRefAndUpgradeLevel(player.p.weapon2lvl, weapon)
 		
 		if (player.p.availableMoney < weaponprice)
@@ -2697,6 +2710,21 @@ bool function ClientCommand_BuySNDWeapon(entity player, array<string> args)
 
         weaponEntity = player.GiveWeapon( weapon, WEAPON_INVENTORY_SLOT_PRIMARY_1 )
 		SetupInfiniteAmmoForWeapon( player, weaponEntity )
+
+		//TEST LOCKEDSETS
+		string weaponRefWithLockedSet = FixWeaponNameFromUpgradeLevel( weapon, 1 )
+		LootData data = SURVIVAL_Loot_GetLootDataByRef( weaponRefWithLockedSet )
+		player.p.weapon2lvl = 0
+		
+		array<string> mods = data.baseMods
+		
+		weaponEntity.SetMods( mods )
+		InitEntityVars( weaponEntity )
+		SetEntityVar( weaponEntity, "weaponLockedSet", 1 )
+		
+		// printw( "BuySNDWeapon SLOT 2", weapon, player.p.weapon2lvl )
+		///////////
+		
 		player.p.didPlayerBuyAWeapon = true
 	
         player.SetActiveWeaponBySlot(eActiveInventorySlot.mainHand, WEAPON_INVENTORY_SLOT_PRIMARY_1)
@@ -2819,9 +2847,9 @@ bool function ClientCommand_SellSNDWeapon(entity player, array<string> args)
 
     if (player.p.weapon1ref == weapon)
     {
-		weaponprice = GetWeaponPriceFromRefAndUpgradeLevel(player.p.weapon1lvl, weapon)
+		weaponprice = GetWeaponPriceFromRefAndUpgradeLevel(player.p.weapon1lvl - 1, weapon)
 		
-        if (player.p.weapon1lvl > -1)
+        if (player.p.weapon1lvl > 0)
         {
             UpgradeSNDWeapon(player, weapon, WEAPON_INVENTORY_SLOT_PRIMARY_0, true)
             return true
@@ -2855,9 +2883,9 @@ bool function ClientCommand_SellSNDWeapon(entity player, array<string> args)
 		return true
     } else if(player.p.weapon2ref == weapon) 
 	{
-		weaponprice = GetWeaponPriceFromRefAndUpgradeLevel(player.p.weapon2lvl, weapon)
+		weaponprice = GetWeaponPriceFromRefAndUpgradeLevel(player.p.weapon2lvl - 1, weapon)
 		
-        if (player.p.weapon2lvl > -1)
+        if (player.p.weapon2lvl > 0)
         {
             UpgradeSNDWeapon(player, weapon, WEAPON_INVENTORY_SLOT_PRIMARY_1, true)
             return true
@@ -2898,8 +2926,8 @@ void function UpgradeSNDWeapon(entity player, string weapon, int slot, bool down
 {
 	if(!IsValid(player)) return
 	
-    //Mastiff and lstar dont have attachments
-    if (weapon == "mp_weapon_mastiff" || weapon == "mp_weapon_lstar" || weapon == "mp_weapon_sniper")
+    //Lstar and Kraber don't have attachments
+    if(weapon == "mp_weapon_lstar" || weapon == "mp_weapon_sniper")
 	{
 		//Remote_CallFunction_NonReplay(player, "ServerCallback_BuyRejected")
 		Remote_CallFunction_ByRef( player, "ServerCallback_BuyRejected" )
@@ -2984,364 +3012,28 @@ void function UpgradeSNDWeapon(entity player, string weapon, int slot, bool down
     if (IsValid(currentweapon))
         player.TakeWeaponByEntNow( currentweapon )
 	
-	array<string> modsToAttach = []
-	
-	switch(weapon)
-	{
-		case "mp_weapon_semipistol":
-			switch(currentupgradelevel)
-			{
-				case 0:
-					modsToAttach = ["optic_cq_hcog_classic", "bullets_mag_l1"]
-				break
-				
-				case 1:
-					modsToAttach = ["optic_cq_hcog_classic", "bullets_mag_l2"]
-				break
-				
-				case 2:
-					modsToAttach = ["optic_cq_hcog_bruiser", "bullets_mag_l3", "hopup_unshielded_dmg"]
-				break
-			}
-		break
-		
-		case "mp_weapon_shotgun_pistol":
-			switch(currentupgradelevel)
-			{
-				case 0:
-					modsToAttach = ["optic_cq_hcog_classic", "shotgun_bolt_l1", "stock_tactical_l1"]
-				break
-				
-				case 1:
-					modsToAttach = ["optic_cq_hcog_classic", "shotgun_bolt_l2", "stock_tactical_l2"]
-				break
-				
-				case 2:
-					modsToAttach = ["optic_cq_hcog_bruiser", "shotgun_bolt_l3", "hopup_unshielded_dmg", "stock_tactical_l3"]
-				break
-			}
-		break
-		
-		case "mp_weapon_wingman":
-			switch(currentupgradelevel)
-			{
-				case 0:
-					modsToAttach = ["optic_cq_hcog_classic", "highcal_mag_l1"]
-				break
-				
-				case 1:
-					modsToAttach = ["optic_cq_hcog_classic", "highcal_mag_l2"]
-				break
-				
-				case 2:
-					modsToAttach = ["optic_cq_hcog_bruiser", "highcal_mag_l3"]
-				break
-			}
-		break
-		
-		case "mp_weapon_autopistol":
-			switch(currentupgradelevel)
-			{
-				case 0:
-					modsToAttach = ["optic_cq_holosight", "bullets_mag_l1", "barrel_stabilizer_l2"]
-				break
-				
-				case 1:
-					modsToAttach = ["optic_cq_hcog_bruiser", "bullets_mag_l2", "barrel_stabilizer_l3"]
-				break
-				
-				case 2:
-					modsToAttach = ["optic_cq_hcog_bruiser", "bullets_mag_l3", "barrel_stabilizer_l4_flash_hider"]//, "hopup_shield_breaker"]
-				break
-			}
-		break
-		
-		case "mp_weapon_alternator_smg":
-			switch(currentupgradelevel)
-			{
-				case 0:
-					modsToAttach = ["optic_cq_hcog_classic", "bullets_mag_l1", "barrel_stabilizer_l2", "stock_tactical_l1"]
-				break
-				
-				case 1:
-					modsToAttach = ["optic_cq_hcog_bruiser", "bullets_mag_l2", "barrel_stabilizer_l3", "stock_tactical_l2"]
-				break
-				
-				case 2:
-					modsToAttach = ["optic_cq_hcog_bruiser", "bullets_mag_l3", "barrel_stabilizer_l4_flash_hider", "stock_tactical_l3"]
-				break
-			}
-		break
-		
-		case "mp_weapon_r97":
-			switch(currentupgradelevel)
-			{
-				case 0:
-					modsToAttach = ["optic_cq_hcog_classic", "bullets_mag_l1", "barrel_stabilizer_l2", "stock_tactical_l1"]
-				break
-				
-				case 1:
-					modsToAttach = ["optic_cq_hcog_bruiser", "bullets_mag_l2", "barrel_stabilizer_l3", "stock_tactical_l2"]
-				break
-				
-				case 2:
-					modsToAttach = ["optic_cq_hcog_classic", "bullets_mag_l3", "barrel_stabilizer_l4_flash_hider", "stock_tactical_l3"]
-				break
-			}
-		break
-		
-		case "mp_weapon_volt_smg":
-			switch(currentupgradelevel)
-			{
-				case 0:
-					modsToAttach = ["optic_cq_hcog_classic", "energy_mag_l1", "barrel_stabilizer_l2", "stock_tactical_l1"]
-				break
-				
-				case 1:
-					modsToAttach = ["optic_cq_hcog_bruiser", "energy_mag_l2", "barrel_stabilizer_l3", "stock_tactical_l2"]
-				break
-				
-				case 2:
-					modsToAttach = ["optic_cq_hcog_bruiser", "energy_mag_l3", "barrel_stabilizer_l4_flash_hider", "stock_tactical_l3"]
-				break
-			}
-		break
-
-		case "mp_weapon_pdw":
-			switch(currentupgradelevel)
-			{
-				case 0:
-					modsToAttach = ["optic_cq_hcog_classic", "highcal_mag_l1", "stock_tactical_l1"]
-				break
-				
-				case 1:
-					modsToAttach = ["optic_cq_hcog_bruiser", "highcal_mag_l2", "stock_tactical_l2"]
-				break
-				
-				case 2:
-					modsToAttach = ["optic_cq_holosight", "highcal_mag_l3", "stock_tactical_l3"]
-				break
-			}
-		break
-		
-		case "mp_weapon_shotgun":
-			switch(currentupgradelevel)
-			{
-				case 0:
-					modsToAttach = ["optic_cq_hcog_classic","shotgun_bolt_l1", "stock_tactical_l1"]
-				break
-				
-				case 1:
-					modsToAttach = ["optic_cq_hcog_classic", "shotgun_bolt_l2", "stock_tactical_l2"]
-				break
-				
-				case 2:
-					modsToAttach = ["optic_cq_hcog_classic", "shotgun_bolt_l3", "stock_tactical_l3"]
-				break
-			}
-		break
-		
-		case "mp_weapon_energy_shotgun":
-			switch(currentupgradelevel)
-			{
-				case 0:
-					modsToAttach = ["optic_cq_hcog_classic","shotgun_bolt_l1", "stock_tactical_l1"]
-				break
-				
-				case 1:
-					modsToAttach = ["optic_cq_hcog_classic", "shotgun_bolt_l2", "stock_tactical_l2"]
-				break
-				
-				case 2:
-					modsToAttach = ["optic_cq_hcog_classic", "shotgun_bolt_l3", "stock_tactical_l3"]
-				break
-			}
-		break
-		
-		case "mp_weapon_energy_ar":
-			switch(currentupgradelevel)
-			{
-				case 0:
-					modsToAttach = ["optic_cq_holosight", "energy_mag_l1", "stock_tactical_l1"]
-				break
-				
-				case 1:
-					modsToAttach = ["optic_cq_hcog_bruiser", "energy_mag_l2", "stock_tactical_l2"]
-				break
-				
-				case 2:
-					modsToAttach = ["optic_cq_hcog_bruiser", "energy_mag_l2", "stock_tactical_l2", "hopup_turbocharger"]
-				break
-			}
-		break
-
-		case "mp_weapon_hemlok":
-			switch(currentupgradelevel)
-			{
-				case 0:
-					modsToAttach = ["optic_cq_holosight", "highcal_mag_l1", "barrel_stabilizer_l2", "stock_tactical_l1"]
-				break
-				
-				case 1:
-					modsToAttach = ["optic_cq_hcog_bruiser", "highcal_mag_l2", "barrel_stabilizer_l3", "stock_tactical_l2"]
-				break
-				
-				case 2:
-					modsToAttach = ["optic_cq_hcog_bruiser", "highcal_mag_l3", "barrel_stabilizer_l4_flash_hider", "stock_tactical_l3"]
-				break
-			}
-		break
-		
-		case "mp_weapon_vinson":
-			switch(currentupgradelevel)
-			{
-				case 0:
-					modsToAttach = ["optic_cq_holosight", "highcal_mag_l1", "stock_tactical_l1"]
-				break
-				
-				case 1:
-					modsToAttach = ["optic_cq_hcog_bruiser", "highcal_mag_l2", "stock_tactical_l2"]
-				break
-				
-				case 2:
-					modsToAttach = ["optic_cq_hcog_bruiser", "highcal_mag_l3", "stock_tactical_l3"]
-				break
-			}
-		break
-		
-		case "mp_weapon_rspn101":
-			switch(currentupgradelevel)
-			{
-				case 0:
-					modsToAttach = ["optic_cq_holosight", "bullets_mag_l1", "barrel_stabilizer_l2", "stock_tactical_l1"]
-				break
-				
-				case 1:
-					modsToAttach = ["optic_cq_hcog_bruiser", "bullets_mag_l2", "barrel_stabilizer_l3", "stock_tactical_l2"]
-				break
-				
-				case 2:
-					modsToAttach = ["optic_cq_hcog_bruiser", "bullets_mag_l3", "barrel_stabilizer_l4_flash_hider", "stock_tactical_l3"]
-				break
-			}
-		break
-
-		case "mp_weapon_esaw":
-			switch(currentupgradelevel)
-			{
-				case 0:
-					modsToAttach = ["optic_cq_holosight", "energy_mag_l1", "barrel_stabilizer_l2", "stock_tactical_l1"]
-				break
-				
-				case 1:
-					modsToAttach = ["optic_cq_hcog_bruiser", "energy_mag_l2", "barrel_stabilizer_l3", "stock_tactical_l2"]
-				break
-				
-				case 2:
-					modsToAttach = ["optic_cq_hcog_bruiser", "energy_mag_l3", "barrel_stabilizer_l4_flash_hider", "stock_tactical_l2", "hopup_turbocharger"]
-				break
-			}
-		break
-
-		case "mp_weapon_lmg":
-			switch(currentupgradelevel)
-			{
-				case 0:
-					modsToAttach = ["optic_cq_hcog_classic", "highcal_mag_l1", "barrel_stabilizer_l2", "stock_tactical_l1"]
-				break
-				
-				case 1:
-					modsToAttach = ["optic_cq_hcog_bruiser", "highcal_mag_l2", "barrel_stabilizer_l3", "stock_tactical_l2"]
-				break
-				
-				case 2:
-					modsToAttach = ["optic_cq_hcog_bruiser", "highcal_mag_l3", "barrel_stabilizer_l4_flash_hider", "stock_tactical_l3"]
-				break
-			}
-		break
-
-		case "mp_weapon_g2":
-			switch(currentupgradelevel)
-			{
-				case 0:
-					modsToAttach = ["optic_cq_hcog_bruiser", "bullets_mag_l1", "barrel_stabilizer_l2", "stock_sniper_l1"]
-				break
-				
-				case 1:
-					modsToAttach = ["optic_ranged_hcog", "bullets_mag_l2", "barrel_stabilizer_l3", "stock_sniper_l2"]
-				break
-				
-				case 2:
-					modsToAttach = ["optic_ranged_hcog", "highcal_mag_l3", "barrel_stabilizer_l4_flash_hider", "stock_tactical_l3"]
-				break
-			}
-		break
-
-		case "mp_weapon_doubletake":
-			switch(currentupgradelevel)
-			{
-				case 0:
-					modsToAttach = ["optic_cq_hcog_bruiser", "energy_mag_l1", "stock_sniper_l1"]
-				break
-				
-				case 1:
-					modsToAttach = ["optic_ranged_hcog", "energy_mag_l2", "stock_sniper_l2"]
-				break
-				
-				case 2:
-					modsToAttach = ["optic_ranged_hcog", "energy_mag_l3", "stock_tactical_l3"]
-				break
-			}
-		break
-
-		case "mp_weapon_dmr":
-			switch(currentupgradelevel)
-			{
-				case 0:
-					modsToAttach = ["optic_sniper", "highcal_mag_l1", "barrel_stabilizer_l2", "stock_sniper_l1"]
-				break
-				
-				case 1:
-					modsToAttach = ["optic_sniper_variable", "highcal_mag_l2", "barrel_stabilizer_l3", "stock_sniper_l2"]
-				break
-				
-				case 2:
-					modsToAttach = ["optic_sniper_variable", "highcal_mag_l3", "barrel_stabilizer_l4_flash_hider", "stock_sniper_l3"]
-				break
-			}
-		break
-
-		case "mp_weapon_defender":
-			switch(currentupgradelevel)
-			{
-				case 0:
-					modsToAttach = ["optic_ranged_hcog", "stock_sniper_l1"]
-				break
-				
-				case 1:
-					modsToAttach = ["optic_sniper", "stock_sniper_l2"]
-				break
-				
-				case 2:
-					modsToAttach = ["optic_sniper_variable", "stock_sniper_l3"]
-				break
-			}
-		break	
-	}
-	
-	printt("=== UpgradeSNDWeapon debug ", currentupgradelevel)
-	
-	foreach(mod in modsToAttach)
-		printt(mod)
-	
 	entity givenWeapon
 
+	//TEST LOCKEDSETS
+	
+	string weaponRefWithLockedSet = FixWeaponNameFromUpgradeLevel( weapon, currentupgradelevel )
+	LootData data = SURVIVAL_Loot_GetLootDataByRef( weaponRefWithLockedSet )
+	
+	array<string> mods = data.baseMods
+	
+	////
+	
 	try{
-	givenWeapon = player.GiveWeapon( weapon, slot, modsToAttach )
-	SetupInfiniteAmmoForWeapon( player, givenWeapon )
+		givenWeapon = player.GiveWeapon_NoDeploy( weapon, slot, [] )
+		SetupInfiniteAmmoForWeapon( player, givenWeapon )
 	}catch(e420){}
 		
 	if(!IsValid(givenWeapon)) return
+	
+	// printw( "UpgradeSNDWeapon", slot, weapon )
+	givenWeapon.SetMods( mods )
+	InitEntityVars( givenWeapon )
+	SetEntityVar( givenWeapon, "weaponLockedSet", currentupgradelevel + 1 )
 	
 	if( givenWeapon.LookupAttachment( "CHARM" ) != 0 )
 		givenWeapon.SetWeaponCharm( $"mdl/props/charm/charm_nessy.rmdl", "CHARM")
@@ -3349,6 +3041,30 @@ void function UpgradeSNDWeapon(entity player, string weapon, int slot, bool down
 	Remote_CallFunction_NonReplay(player, "ServerCallback_FlowstateSND_CustomBuyMenu_UpdateValues", player.p.availableMoney, GetWeaponIDFromRef(player.p.weapon1ref), GetWeaponIDFromRef(player.p.weapon2ref), player.p.weapon1lvl, player.p.weapon2lvl)
 
     player.SetActiveWeaponBySlot(eActiveInventorySlot.mainHand, slot)
+}
+
+string function FixWeaponNameFromUpgradeLevel( string weapon, int upgradeLevel ) 
+{
+	switch(upgradeLevel)
+	{
+		case 0:
+			weapon += "_whiteset"
+		break
+		
+		case 1:
+			weapon += "_blueset"
+		break
+		
+		case 2:
+			weapon += "_purpleset"
+		break
+		
+		case 3:
+			weapon += "_gold"
+		break
+	}
+	
+	return weapon
 }
 
 void function CleanupGroundAfterEachRound()
@@ -3371,6 +3087,12 @@ void function TrackPlayerSprinting(entity player)
 
 	while( IsValid( player ) )
 	{
+		if( GetGameState() != eGameState.Playing )
+		{
+			wait 0.1
+			continue
+		}
+		
 		if(player.GetPlayerNetInt( "playerStamina" ) == 0)
 		{
 			StatusEffect_AddEndless( player, eStatusEffect.move_slow, 0.1)

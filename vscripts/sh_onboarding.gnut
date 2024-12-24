@@ -247,7 +247,7 @@ void function Sequence_WaitingForPlayers()
 
 void function Sequence_PickLoadout()
 {
-	if ( Playlist() == ePlaylists.fs_scenarios || !Survival_CharacterSelectEnabled() || Gamemode() != eGamemodes.SURVIVAL || Playlist() == ePlaylists.fs_haloMod_survival ) 
+	if ( Playlist() == ePlaylists.fs_scenarios || !Survival_CharacterSelectEnabled() || Gamemode() != eGamemodes.SURVIVAL || Playlist() == ePlaylists.fs_haloMod_survival || Gamemode() == eGamemodes.fs_snd ) 
 	{
 		foreach ( player in GetPlayerArray() )
 		{
@@ -409,6 +409,9 @@ void function Sequence_Prematch()
 	if ( CharSelect_ChampionSquadIntroEnabled() )
 		wait CharSelect_GetOutroChampionPresentDuration()
 
+	if( Gamemode() == eGamemodes.fs_snd )
+		return
+	
 	// The gamemode handles everything past this point
 	SetGameState( eGameState.Playing )
 }

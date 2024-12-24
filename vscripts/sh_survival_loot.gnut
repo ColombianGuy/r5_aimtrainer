@@ -958,7 +958,7 @@ bool function ShouldDropOpticForKittedWeapon()
 
 string function GetWeaponClassNameWithLockedSet( entity weapon )
 {
-	printw("GetWeaponClassNameWithLockedSet", weapon )
+	// printw("GetWeaponClassNameWithLockedSet", weapon )
 	string result = weapon.GetWeaponClassName()
 
 	foreach ( mod, suffix in LOCKEDSET_MOD_TO_SUFFIX )
