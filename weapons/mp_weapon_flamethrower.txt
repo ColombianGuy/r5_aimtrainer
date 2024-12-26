@@ -4,8 +4,8 @@
 	// General
 	"printname"                                 	"FLAME THROWER"
 	"shortprintname"                            	"FLAME THROWER"
-	"description"                               	"FLAME THROWER"
-	"longdesc"                                  	"FLAME THROWER"
+	"description"                               	"HAND CRAFTED FLAME THROWER. BURNS EVERYTHING THAT COMES TO IT'S WAY."
+	"longdesc"                                  	"HAND CRAFTED FLAME THROWER. BURNS EVERYTHING THAT COMES TO IT'S WAY."
 	"weapon_type_flags"								"WPT_PRIMARY"
 	
 	// UI - HUD
