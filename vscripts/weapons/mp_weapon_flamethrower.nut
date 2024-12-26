@@ -203,7 +203,8 @@ void function EntWillStartBurning_Thread(entity trigger, entity ent)
 
 	while(Time() <= endTime && IsValid(ent))
 	{
-		ent.TakeDamage( 1, trigger.GetOwner(), null, { scriptType = DF_BYPASS_SHIELD | DF_DOOMED_HEALTH_LOSS, damageSourceId = eDamageSourceId.deathField } )
+		if(!IsDoor(ent))
+			ent.TakeDamage( 1, ent, null, { scriptType = DF_BYPASS_SHIELD | DF_DOOMED_HEALTH_LOSS, damageSourceId = eDamageSourceId.deathField } )
 		wait 0.15
 	}	
 }
