@@ -27,6 +27,7 @@
 	"fire_rate"                                    "50"
 	"is_semi_auto"								   "0"
 	"impulse_force"                                "1000"
+	"deploy_allow_ads"                             "0"
 
 	// Behavior - ADS (tied to animation)
 	"ads_fov_zoomfrac_start"                "0.2"
@@ -52,7 +53,8 @@
 	"damage_flags"                                 "DF_BULLET | DF_KNOCK_BACK | DF_DISMEMBERMENT"
 
 	// Viewmodel
-	"viewmodel_offset_ads"                         "0 -3.0 0"
+	"viewmodel_offset_hip"                         "3 0.7 -0.5"
+	"viewmodel_offset_ads"						   "3 0.25 0.0"
 	"viewmodel_shake_forward"                      "0.5"
 	"viewmodel_shake_up"                           "0.1"
 	"viewmodel_shake_right"                        "0.0"

@@ -149,7 +149,7 @@ void function OnProjectileCollision_weapon_FlameThrower( entity projectile, vect
 		fire.SetOwner(player)
 		fire.SetEnterCallback( NPCOrPlayerWillStartBurning )
 
-		StartParticleEffectInWorld_ReturnEntity(GetParticleSystemIndex(FIRE_PARTICLES.getrandom()), projectile.GetOrigin(), GoodAngles )
+		entity fireFX = StartParticleEffectInWorld_ReturnEntity(GetParticleSystemIndex(FIRE_PARTICLES.getrandom()), projectile.GetOrigin(), GoodAngles )
 		
 		if(IsDoor(hitEnt)) 
 		{
@@ -158,11 +158,19 @@ void function OnProjectileCollision_weapon_FlameThrower( entity projectile, vect
 			EmitSoundAtPosition( TEAM_ANY, hitEnt.GetOrigin(), "Door_Impact_Break" )	
 			hitEnt.Destroy()
 		}
+		thread FxOnDestroy( fire, fireFX )
 	}
 	#endif
 }
 
 #if SERVER
+void function FxOnDestroy( entity fire, entity fireFX )
+{
+	wait 3
+	fire.Destroy()
+	fireFX.Destroy()
+}
+
 void function NPCOrPlayerWillStartBurning( entity trigger, entity player )
 {
 	thread EntWillStartBurning_Thread(trigger, player)
