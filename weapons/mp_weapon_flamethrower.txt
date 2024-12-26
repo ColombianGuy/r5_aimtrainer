@@ -13,7 +13,7 @@
 	"hud_icon"										""
 
 	// Models
-	"viewmodel"                                    "mdl/Weapons/doubletake/ptpov_doubletake_legendary_02.rmdl"
+	"viewmodel"                                    "mdl/weapons/ported/ptpov_lmg_flamethrower.rmdl"
 	"playermodel"                                  "mdl/Weapons/doubletake/w_doubletake_legendary_02.rmdl"
 
 	// Script - Callbacks
