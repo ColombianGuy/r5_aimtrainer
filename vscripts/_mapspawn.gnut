@@ -285,6 +285,8 @@ void function CodeCallback_MapSpawn() // original script entry point
 	PrecacheWeapon( $"mp_weapon_sniper" )
 	PrecacheWeapon( $"mp_weapon_r97" )
 	PrecacheWeapon( $"mp_ability_holopilot" )
+	PrecacheWeapon( $"mp_ability_black_market" )
+	PrecacheWeapon( $"mp_ability_translocation" )
 	PrecacheWeapon( $"mp_weapon_hemlok" )
 	PrecacheWeapon( $"mp_weapon_autopistol" )
 	PrecacheWeapon( $"mp_weapon_wingman" )
@@ -400,7 +402,8 @@ void function CodeCallback_MapSpawn() // original script entry point
 	//PrecacheModel( $"mdl/Humans/pilots/ptpov_jackcooper.rmdl" )
 	PrecacheModel( $"mdl/Humans/class/medium/pilot_medium_loba.rmdl" )
 	PrecacheModel( $"mdl/Weapons/arms/pov_pilot_medium_loba.rmdl" )
-	
+	PrecacheModel( $"mdl/fx/loba_staff_holo_stand.rmdl" )
+
 	//PrecacheModel( $"mdl/Weapons/lightsaber/w_lightsaber.rmdl" )
 	//PrecacheModel( $"mdl/Weapons/lightsaber/ptpov_lightsaber.rmdl" )
 	//PrecacheModel( $"mdl/Humans/pilots/ballistic_base_w.rmdl" )
