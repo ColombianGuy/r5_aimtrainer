@@ -53,7 +53,7 @@
 	"damage_flags"                                 "DF_BULLET | DF_KNOCK_BACK | DF_DISMEMBERMENT"
 
 	// Viewmodel
-	"viewmodel_offset_hip"                         "3 0.7 -0.5"
+	"viewmodel_offset_hip"                         "4 1.7 0.5"
 	"viewmodel_offset_ads"						   "3 0.25 0.0"
 	"viewmodel_shake_forward"                      "0.5"
 	"viewmodel_shake_up"                           "0.1"
