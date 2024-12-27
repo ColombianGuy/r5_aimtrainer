@@ -283,6 +283,7 @@ global enum eDamageSourceId
 	mp_titanweapon_xo16_vanguard
 	mp_weapon_arc_trap
 	mp_weapon_arc_launcher
+	mp_weapon_flamethrower
 	core_overload
 	mp_titanweapon_stasis
 	mp_titanweapon_stealth_titan
@@ -537,6 +538,8 @@ void function DamageTypes_Init()
 	file.damageSourceIDToImage[eDamageSourceId.sp_weapon_arc_tool]			<- $"r2_ui/menus/loadout_icons/primary_weapon/primary_arc_tool"
 	file.damageSourceIDToImage[eDamageSourceId.mp_weapon_rspn101_og]		<- $"r2_ui/menus/loadout_icons/primary_weapon/primary_arc_tool"
 	file.damageSourceIDToImage[eDamageSourceId.mp_weapon_smart_pistol]		<- $"rui/weapon_icons/r5/weapon_smart_pistol"
+	
+	file.damageSourceIDToImage[eDamageSourceId.mp_weapon_flamethrower] 		<- $"rui/weapon_icons/kral/custom/flamethrower"
 
 	file.damageSourceIDToImage[eDamageSourceId.mp_weapon_titan_sword]		<- $"rui/gamemodes/shadow_squad/legend_icon"
 	file.damageSourceIDToImage[eDamageSourceId.mp_weapon_titan_sword_slam]	<- $"rui/gamemodes/shadow_squad/legend_icon"
@@ -654,6 +657,7 @@ void function DamageTypes_Init()
 		[ eDamageSourceId.melee_titan_punch_drone ] 				= "#DEATH_TITAN_MELEE",
 		[ eDamageSourceId.mp_weapon_volt_smg ] 						= "#WPN_VOLT_SMG",
 		[ eDamageSourceId.mp_weapon_pulse_lmg ] 					= "EM-4 Cold War",
+		[ eDamageSourceId.mp_weapon_flamethrower ] 					= "Flame Thrower",
 		[ eDamageSourceId.mp_weapon_arc_launcher ] 					= "#WPN_ARC_LAUNCHER",
 		[ eDamageSourceId.mp_ability_octane_stim ] 					= "#WPN_OCTANE_STIM_SHORT",		
 		[ eDamageSourceId.mp_weapon_tesla_trap ] 					= "#DEATH_TESLA_TRAP",

@@ -1174,6 +1174,9 @@ void function SetupWeapons()
 
 	// Dev
 	SetupDevCommand( "Dev: Dev Cubemap ", "give weapon_cubemap" )
+	
+	// Custom
+	SetupDevCommand( "Custom: Flame Thrower ", "give mp_weapon_flamethrower" )
 	#endif
 }
 
