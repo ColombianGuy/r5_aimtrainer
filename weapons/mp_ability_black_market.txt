@@ -132,10 +132,10 @@ WeaponData
 // Script hookups
 //
 
-	OnWeaponRegenEnd                    OnWeaponRegenEnd_ability_black_market
+	//OnWeaponRegenEnd                    OnWeaponRegenEnd_ability_black_market
 	//OnWeaponAttemptOffhandSwitch        OnWeaponAttemptOffhandSwitch_ability_black_market
 	//OnWeaponPrimaryAttack               OnWeaponPrimaryAttack_ability_black_market
-	OnWeaponActivate                    OnWeaponActivate_ability_black_market
+	//OnWeaponActivate                    OnWeaponActivate_ability_black_market
 	//OnWeaponDeactivate                  OnWeaponDeactivate_ability_black_market
 
 
