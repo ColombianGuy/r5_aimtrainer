@@ -387,6 +387,8 @@ void function CodeCallback_MapSpawn() // original script entry point
 	PrecacheWeapon( $"mp_ability_space_elevator_tac" )
 	PrecacheWeapon( $"mp_weapon_melee_boxing_ring" )
 	PrecacheWeapon( $"melee_boxing_ring" )
+	PrecacheWeapon( $"mp_ability_silence" )
+	PrecacheWeapon( $"mp_ability_revenant_death_totem" )
 
 	//PrecacheModel( $"mdl/Humans/pilots/w_blisk.rmdl" )
 	//PrecacheModel( $"mdl/Humans/pilots/pov_blisk.rmdl" )
@@ -403,6 +405,15 @@ void function CodeCallback_MapSpawn() // original script entry point
 	PrecacheModel( $"mdl/Humans/class/medium/pilot_medium_loba.rmdl" )
 	PrecacheModel( $"mdl/Weapons/arms/pov_pilot_medium_loba.rmdl" )
 	PrecacheModel( $"mdl/fx/loba_staff_holo_stand.rmdl" )
+
+
+	PrecacheModel( $"mdl/dev/empty_model_revenant.rmdl" )
+	PrecacheModel( $"mdl/humans/class/heavy/pilot_heavy_revenant.rmdl" )
+	PrecacheModel( $"mdl/props/revenant_totem/revenant_totem.rmdl" )
+	PrecacheModel( $"mdl/Weapons/arms/pov_pilot_heavy_revenant.rmdl" )
+	PrecacheModel( $"mdl/Weapons/empty_handed/ptpov_revenant_totem.rmdl" )
+	PrecacheModel( $"mdl/Weapons/revenant_grenade/ptpov_revenant_grenade.rmdl" )
+	PrecacheModel( $"mdl/weapons_r5/misc_revenant_grenade/projectile_revenant_grenade.rmdl" )
 
 	//PrecacheModel( $"mdl/Weapons/lightsaber/w_lightsaber.rmdl" )
 	//PrecacheModel( $"mdl/Weapons/lightsaber/ptpov_lightsaber.rmdl" )
