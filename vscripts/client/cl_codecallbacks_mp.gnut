@@ -100,6 +100,9 @@ void function ClientCodeCallback_OnShieldHealthChanged( entity ent )
 		{
 			PlayShieldActivateEffect( ent )
 		}
+	} else
+	{
+		Flowstate_HUD_UpdateShieldHealthForPlayer()
 	}
 
 	ent.Signal( "ShieldChanged" )

@@ -1741,10 +1741,26 @@ void function MapConVar_Init()
 	if( GetMapName() == "mp_flowstate" )
 		return
 
-	if( Playlist() == ePlaylists.fs_haloMod_survival && GetMapName() == "mp_rr_desertlands_64k_x_64k" )
+	if( Playlist() == ePlaylists.fs_haloMod_survival )
 	{
-		SetConVarFloat( "mat_sky_scale", 2.0 )
-		SetConVarString( "mat_sun_color", "1.0 1.0 1.0 1.0" )
+		switch( GetMapName() )
+		{
+			case "mp_rr_desertlands_64k_x_64k":
+				SetConVarFloat( "mat_sky_scale", 2.0 )
+				SetConVarString( "mat_sun_color", "1.0 1.0 1.0 1.0" )
+				break
+
+			default:
+				SetConVarToDefault( "mat_autoexposure_max" )
+				SetConVarToDefault( "mat_autoexposure_max_multiplier" )
+				SetConVarToDefault( "mat_autoexposure_min" )
+				SetConVarToDefault( "mat_autoexposure_min_multiplier" )
+
+				SetConVarToDefault( "mat_sky_scale" )
+				SetConVarToDefault( "mat_sky_color" )
+				SetConVarToDefault( "mat_sun_scale" )
+				SetConVarToDefault( "mat_sun_color" )
+		}
 		return
 	}
 	

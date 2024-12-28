@@ -60,8 +60,6 @@ global function Survival_AddCallback_OnPlayerKillDamage
 global function Survival_AddCallback_OnAttackerSquadWipe
 global function Survival_AddCallback_OnAttackerSoloRatEliminated
 
-//float SERVER_SHUTDOWN_TIME_AFTER_FINISH = -1 // 1 or more to wait the specified number of seconds before executing, 0 to execute immediately, -1 or less to not execute
-
 //updated. Cafe
 global const float REALBIG_CIRCLE_GRID_RADIUS = 52500
 const float PLANE_HEIGHT_REALBIG = 17000.0
@@ -229,6 +227,13 @@ void function GamemodeSurvival_Init()
 		)
 		
 		BannerAssets_Init()
+		
+		//Move faster while adsing
+		AddCallback_OnPlayerZoomIn( FS_HaloMod_OnPlayerZoomIn )
+		AddCallback_OnPlayerZoomOut( FS_HaloMod_OnPlayerZoomOut )
+		
+		//Precache Charm
+		PrecacheModel( $"mdl/flowstate_custom/charm_hiswattson.rmdl" )
 	}
 }
 
@@ -1202,18 +1207,12 @@ void function Sequence_Epilogue()
 		Remote_CallFunction_NonReplay( player, "ServerCallback_ShowWinningSquadSequence" )
 	}
 	
-	
-	//WaitForever() //(mk): There's really no reason to keep this thread alive, as it does nothing more and nothing when it closes
-	
-	// if( SERVER_SHUTDOWN_TIME_AFTER_FINISH >= 1 )
-		// wait SERVER_SHUTDOWN_TIME_AFTER_FINISH
-	// else if( SERVER_SHUTDOWN_TIME_AFTER_FINISH <= -1 )
-		// WaitForever()
-
-	// if( GetCurrentPlaylistVarBool( "survival_server_restart_after_end", false ) )
-		// GameRules_ChangeMap( GetMapName(), GameRules_GetGameMode() )
-	// else
-		// DestroyServer()
+	if( GetCurrentPlaylistVarBool( "survival_server_restart_after_end", false ) )
+	{
+		wait GetCurrentPlaylistVarFloat( "survival_server_restart_after_end_time", 30 )
+		
+		GameRules_ChangeMap( GetMapName(), GameRules_GetGameMode() )
+	}
 }
 
 void function UpdateMatchSummaryPersistentVars( int team )
@@ -1284,9 +1283,9 @@ void function OnPlayerDamaged( entity victim, var damageInfo )
 	
 	int sourceId = DamageInfo_GetDamageSourceIdentifier( damageInfo )
 	
-	#if DEVELOPER
-	Warning( "OnPlayerDamaged " + victim )
-	#endif
+	// #if DEVELOPER
+	// Warning( "OnPlayerDamaged " + victim )
+	// #endif
 	if ( sourceId == eDamageSourceId.bleedout || sourceId == eDamageSourceId.human_execution )
 		return
 
@@ -1738,12 +1737,12 @@ void function OnPlayerKilled( entity victim, entity attacker, var damageInfo )
 
 		return
 	}
-
+	
 	int victimTeamNum = victim.GetTeam()
 	array<entity> victimTeam = GetPlayerArrayOfTeam_Alive( victimTeamNum )
 	bool teamEliminated = victimTeam.len() == 0
 	bool canPlayerBeRespawned = PlayerRespawnEnabled() && !teamEliminated
-
+	
 	// PlayerFullyDoomed MUST be called before HandleSquadElimination
 	// HandleSquadElimination accesses player.p.respawnChanceExpiryTime which is set by PlayerFullyDoomed
 	// if it isn't called in this order, the survivalTime will be 0
@@ -1751,18 +1750,15 @@ void function OnPlayerKilled( entity victim, entity attacker, var damageInfo )
 	{
 		PlayerFullyDoomed( victim )
 	}
-
-	if ( teamEliminated )
-	{
-		HandleSquadElimination( victimTeamNum )
-		thread PlayerStartSpectating( victim, attacker, true, victimTeamNum, false, attackerEHandle)	
-	} else
-		thread PlayerStartSpectating( victim, attacker, false, 0, false, attackerEHandle)	
 	
-	// Restore weapons for deathbox
-	if ( victim.p.storedWeapons.len() > 0 )
-		RetrievePilotWeapons( victim )
+	if ( teamEliminated )
+		HandleSquadElimination( victimTeamNum )
 
+	//Disable until I debug it, Idk what this is for rn. Cafe
+	// // Restore weapons for deathbox
+	// if ( victim.p.storedWeapons.len() > 0 )
+		// RetrievePilotWeapons( victim )
+	
 	thread EnemyKilledDialogue( attacker, victimTeamNum, victim )
 }
 
@@ -1839,11 +1835,30 @@ void function OnClientConnected( entity player )
 			Remote_CallFunction_NonReplay( player, "ServerCallback_ShowWinningSquadSequence" )
 			break
 	}
+	
+	if( Playlist() == ePlaylists.fs_haloMod_survival ) //Assign random stance and frame for halo mod survival, which always uses bloodhound character. Cafe
+	{
+		LoadoutEntry entry = GetAllLoadoutSlots()[56] //character_bloodhound GCard Frame
+		ItemFlavor itemFlavor = ConvertLoadoutSlotContentsIndexToItemFlavor( entry, RandomIntRangeInclusive(2, 17) ) //1 does not exists, starts from 2
+		SetItemFlavorLoadoutSlot( ToEHI( player ), entry, itemFlavor )
+		
+		LoadoutEntry entry2 = GetAllLoadoutSlots()[57] //character_bloodhound GCard Stance
+		ItemFlavor itemFlavor2 = ConvertLoadoutSlotContentsIndexToItemFlavor( entry2, RandomIntRangeInclusive(2, 17) ) //1 does not exists, starts from 2
+		SetItemFlavorLoadoutSlot( ToEHI( player ), entry2, itemFlavor2 )
+
+		LoadoutEntry entry3 = GetAllLoadoutSlots()[37] //character_bloodhound Execution
+		ItemFlavor itemFlavor3 = ConvertLoadoutSlotContentsIndexToItemFlavor( entry3, RandomIntRangeInclusive(2, 4) ) //1 does not exists, starts from 2
+		SetItemFlavorLoadoutSlot( ToEHI( player ), entry3, itemFlavor3 )
+	}
 }
 
 void function Survival_OnClientConnected( entity player )
 {
-	const float DEFAULT_ZOOM_LEVEL = 4.0
+	float DEFAULT_ZOOM_LEVEL = 4.0
+	
+	if( Playlist() == ePlaylists.fs_haloMod_survival )
+		DEFAULT_ZOOM_LEVEL = 1.5
+	
 	player.SetMinimapZoomScale( DEFAULT_ZOOM_LEVEL, 0.0 )
 
 	SurvivalPlayerData data
@@ -2733,10 +2748,15 @@ void function SurvivalPlayerRespawnedInit( entity player )
 		}
 		else
 		{
+			// Cafe was here
+			// The following should be allowed only in dev modes, but those are handled in a different way in r5r, which allows us to completely disable this. 
+			// The fixed behavior for this part has been moved to OnClientConnected callback in sh_onboarding, where we do the pertinent checks before respawning the player.
+			
+			// Bad
 			// if a player is on the ground already, just spawn them near that player
-			ClearPlayerIntroDropSettings( player )
-			if ( IsValid( groundPlayer ) )
-				player.SetOrigin( groundPlayer.GetOrigin() )
+			// ClearPlayerIntroDropSettings( player )
+			// if ( IsValid( groundPlayer ) )
+				// player.SetOrigin( groundPlayer.GetOrigin() )
 		}
 	}
 
@@ -2802,4 +2822,20 @@ void function EndThreadOn_PlayerChangedClass( entity player )
 void function SignalThatPlayerChangedClass( entity player )
 {
 	player.Signal( "PlayerChangedClass" )
+}
+
+void function FS_HaloMod_OnPlayerZoomIn( entity player )
+{
+	if( !IsValid( player ) )
+		return
+	
+	GiveExtraWeaponMod( player, "unsc_super_soldier" )
+}
+
+void function FS_HaloMod_OnPlayerZoomOut( entity player )
+{
+	if( !IsValid( player ) )
+		return
+	
+	TakeExtraWeaponMod( player, "unsc_super_soldier" )
 }

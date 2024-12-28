@@ -12,6 +12,14 @@ const DEATH_CHAT_DELAY = 0.3
 const NON_FLINCH_MODES_BITMASK = ( 1 << ePlaylists.fs_lgduels_1v1 ) | ( 1 << ePlaylists.fs_1v1 )
 const NON_FLINCH_DAMAGE_BITMASK = 1 << eDamageSourceId.deathField
 
+global struct EliminatedPlayerData
+{
+	string name
+	int team
+}
+
+table< string, EliminatedPlayerData > EliminatedPlayers = {}
+
 global struct OutOfBoundsDataStruct //Have to globalize it because all functions are globalized in this file :/
 {
 	int outOfBoundsTriggersTouched = 0
@@ -27,10 +35,13 @@ struct
 	array<entity> hurtTriggers = []
 	bool functionref( entity, entity, var ) isProtectedFromFriendlyFire
 	table< entity, OutOfBoundsDataStruct > outOfBoundsTable
+	bool flowstate_allow_friendly_damage
 } file
 
 function BaseGametype_Init()
 {
+	file.flowstate_allow_friendly_damage = GetCurrentPlaylistVarBool( "flowstate_allow_friendly_damage", false )
+	
 	FlagInit( "APlayerHasSpawned" )
 	FlagInit( "PilotBot" )
 
@@ -83,9 +94,8 @@ function BaseGametype_Init()
 	AddCallback_EntitiesDidLoad( BaseGametypeEntitiesDidLoad )
 
 	BaseGametype_Init_MPSP()
-
+	
 	//AddCallback_OnTitanBecomesPilot( OnTitanBecomesPilot_OutOfBoundsCheck ) //disabled for r5r
-	AddDeathCallback( "player", PlayerOrNPCKilled )
 }
 
 void function BaseGametypeEntitiesDidLoad()
@@ -170,7 +180,6 @@ void function CodeCallback_OnPrecache()
 
 	if ( !IsMenuLevel() )
 	{
-		InitGameState()
 		SetGameState( eGameState.WaitingForPlayers )
 	}
 
@@ -223,6 +232,9 @@ bool function IsProtectedFromFriendlyFire_MP( entity attacker, entity ent, var d
 	if ( attacker == ent )
 		return false
 
+	if( file.flowstate_allow_friendly_damage )
+		return false
+	
 	if ( DamageIgnoresFriendlyFire( damageInfo ) )
 		return false
 
@@ -432,6 +444,13 @@ void function HandlePainSounds( entity ent, var damageInfo )
 
 float function GetHeadshotDamageMultiplierFromDamageInfo( var damageInfo )
 {
+	entity inflictor = DamageInfo_GetInflictor( damageInfo )
+	if ( IsValid( inflictor ) && inflictor.IsProjectile() )
+	{
+		float result = inflictor.GetProjectileWeaponSettingFloat( eWeaponVar.damage_headshot_scale )
+		return result
+	}
+
 	entity weapon = DamageInfo_GetWeapon( damageInfo )
 	if ( weapon )
 	{
@@ -439,12 +458,18 @@ float function GetHeadshotDamageMultiplierFromDamageInfo( var damageInfo )
 		return result
 	}
 
+	return 1.0
+}
+
+float function GetLegDamageMultiplierFromDamageInfo( var damageInfo )
+{
 	entity inflictor = DamageInfo_GetInflictor( damageInfo )
-	if ( inflictor && inflictor.IsProjectile() )
-	{
-		float result = inflictor.GetProjectileWeaponSettingFloat( eWeaponVar.damage_headshot_scale )
-		return result
-	}
+	if ( IsValid( inflictor ) && inflictor.IsProjectile() )
+		return inflictor.GetProjectileWeaponSettingFloat( eWeaponVar.damage_leg_scale )
+
+	entity weapon = DamageInfo_GetWeapon( damageInfo )
+	if ( IsValid( weapon ) )
+		return weapon.GetWeaponSettingFloat( eWeaponVar.damage_leg_scale )
 
 	return 1.0
 }
@@ -526,6 +551,11 @@ function HandleLocationBasedDamage( entity ent, var damageInfo )
 	{
 		damageMult_location = GetHeadshotDamageMultiplierFromDamageInfo( damageInfo )
 	}
+	else if ( IsLegDamage( ent, damageInfo ) )
+	{
+		if ( ShouldTakeLegDamage( ent ) )
+			damageMult_location = GetLegDamageMultiplierFromDamageInfo( damageInfo )
+	}
 
 	// modify damage value based on where we hit
 	if ( damageMult_location != 1.0 )
@@ -537,38 +567,84 @@ function HandleLocationBasedDamage( entity ent, var damageInfo )
 
 		DamageInfo_ScaleDamage( damageInfo, damageMult_location )
 	}
+
+	if ( isValidHeadShot )
+	{
+		RunClassHeadshotCallbacks( ent, damageInfo )
+	}
 }
 
-function PlayerDamageFeedback( entity ent, damageInfo, float shieldDmg = 0 )
+bool function ShouldTakeLegDamage( entity ent )
+{
+	if ( !ent.IsPlayer() )
+		return true
+
+	if ( GetCurrentPlaylistVarBool( "low_profile_no_leg_damage", true ) && PlayerHasPassive( ent, ePassives.PAS_LOWPROFILE ) )
+		return false
+
+	return true
+}
+
+function PlayerDamageFeedback( entity ent, damageInfo, int shieldDamage = 0 )
 {
 	if( Playlist() == ePlaylists.fs_dm_fast_instagib )
 		return
 
-//	printt( "player damage feedback for " + ent )
 	entity attacker = DamageInfo_GetAttacker( damageInfo )
-	Assert( attacker.IsPlayer(), "Attacker is not player" )
+	Assert( IsValid( attacker ) )
+	
+	if ( attacker.IsNPC() )
+	{
+		Assert( CanNPCDoDamageOnBehalfOfPlayer(attacker) )
 
+		entity playerOwner = attacker.GetBossPlayer()
+		if ( IsValid( playerOwner ) )
+		{
+			attacker = playerOwner
+		}
+		else
+		{
+			//player might have DC'd (or died)
+			return
+		}
+	}
+	
 	int customDamageType = DamageInfo_GetCustomDamageType( damageInfo )
 
 	if ( IsMaxRangeShot( damageInfo ) )
 		customDamageType = customDamageType | DF_MAX_RANGE
 	
+	if ( ent.GetHealth() - DamageInfo_GetDamage( damageInfo ) <= 0 )
+	{
+		if ( (!ent.IsNPC() || ent.ai.killShotSound) && ShouldDoKillFeedback( ent ) )
+			customDamageType = customDamageType | DF_KILLSHOT
+	}
+
+	DamageInfo_SetDidDamage( damageInfo, shieldDamage )
+
 	float damage = DamageInfo_GetDamage( damageInfo )
-	
-	if( shieldDmg > 0 )
-		damage = shieldDmg
-		
-	//Warning("notifying damage of: " + string( damage ) )
-	
-	attacker.NotifyDidDamage( ent, DamageInfo_GetHitBox( damageInfo ), DamageInfo_GetDamagePosition( damageInfo ), customDamageType, damage, DamageInfo_GetDamageFlags( damageInfo ), DamageInfo_GetHitGroup( damageInfo ), DamageInfo_GetWeapon( damageInfo ), DamageInfo_GetDistFromAttackOrigin( damageInfo ) )
+
+	if ( shieldDamage > 0 )
+		attacker.NotifyDidDamage( ent, DamageInfo_GetHitBox( damageInfo ), DamageInfo_GetDamagePosition( damageInfo ), customDamageType, shieldDamage, DamageInfo_GetDamageFlags( damageInfo ), DamageInfo_GetHitGroup( damageInfo ), DamageInfo_GetWeapon( damageInfo ), DamageInfo_GetDistFromAttackOrigin( damageInfo ) )
+	else if ( DamageInfo_GetDamage( damageInfo ) > 0 )
+		attacker.NotifyDidDamage( ent, DamageInfo_GetHitBox( damageInfo ), DamageInfo_GetDamagePosition( damageInfo ), ClearBitFlag( customDamageType, DF_SHIELD_DAMAGE ), DamageInfo_GetDamage( damageInfo ), DamageInfo_GetDamageFlags( damageInfo ), DamageInfo_GetHitGroup( damageInfo ), DamageInfo_GetWeapon( damageInfo ), DamageInfo_GetDistFromAttackOrigin( damageInfo ) )
 }
 
-void function UpdateLastDamageTime( entity ent )
+bool function ShouldDoKillFeedback( entity ent )
 {
 	if ( !ent.IsPlayer() )
-		return
-
-	ent.p.lastDamageTime = Time()
+		return true
+	if ( ent.IsShadowForm() )// && !IsInForgedShadows( ent ) )
+		return false
+	return true
+}
+void function UpdateLastDamageTime( entity ent )
+{
+	if ( ent.IsPlayer() )
+		ent.p.lastDamageTime = Time()
+	
+	if ( ent.IsNPC() )
+		ent.ai.lastDamageTime = Time()
 }
 
 void function PlayerDealtTitanDamage( entity attacker, entity victim, float savedDamage, var damageInfo )
@@ -576,20 +652,6 @@ void function PlayerDealtTitanDamage( entity attacker, entity victim, float save
 	if ( attacker != victim )
 	{
 		attacker.p.titanDamageDealt += savedDamage
-
-#if MP
-	// UpdateTitanWeaponDamageStat( attacker, savedDamage, damageInfo )
-
-	// if ( attacker.IsTitan() )
-	// {
-	// 	attacker.p.titanDamageDealt_Stat += savedDamage
-	// 	if ( attacker.p.titanDamageDealt_Stat >= 500 ) // buffer the titan stat damage so that we don't spam damage callbacks
-	// 	{
-	// 		UpdateTitanDamageStat( attacker, attacker.p.titanDamageDealt_Stat, damageInfo )
-	// 		attacker.p.titanDamageDealt_Stat = 0
-	// 	}
-	// }
-#endif
 	}
 }
 
@@ -603,7 +665,7 @@ function UpdateAttackerInfo( entity ent, entity attacker, damage )
 	if ( attackerPlayer == ent )
 		return
 
-	if ( !damage || damage <= 0 )
+	if ( damage <= 0 )
 		return
 
 	if ( !("attackerInfo" in ent.s) )
@@ -637,13 +699,14 @@ entity function GetAttackerPlayerOrBossPlayer( entity attacker )
 entity function GetAttackerOrLastAttacker( entity ent, var damageInfo )
 {
 	entity attacker = DamageInfo_GetAttacker( damageInfo )
-
-	if ( ShouldGetLastAttacker( ent, attacker ) == false )
+	if ( !ShouldGetLastAttacker( ent, attacker ) )
+	{
+		Assert( IsValid( attacker ) )
 		return attacker
+	}
 
 	entity lastAttacker = GetLastAttacker( ent ) //Attacker doesn't work, get last attacker
-
-	if ( IsValid( lastAttacker ) == true )
+	if ( IsValid( lastAttacker ) )
 		return lastAttacker
 
 	//last attacker doesn't work, get latestAssistingPlayerInfo
@@ -654,7 +717,8 @@ entity function GetAttackerOrLastAttacker( entity ent, var damageInfo )
 	if ( IsValid( attacker ) ) //No Last Attacker and No Lastest Assisting Player, e.g. when you suicide before taking damage. Just return the attacker if valid
 		return attacker
 
-	return null
+	Assert( false, "" )
+	return svGlobal.worldspawn
 }
 
 bool function ShouldGetLastAttacker( entity ent, entity attacker )
@@ -698,11 +762,11 @@ void function PlayerOrNPCKilled( entity ent, var damageInfo )
 	int damageSourceID = DamageInfo_GetDamageSourceIdentifier( damageInfo )
 
 	if ( damageSourceID == eDamageSourceId.round_end )
-		return //false
+		return
 
-	entity attacker = GetAttackerOrLastAttacker( ent, damageInfo )
-	if ( !IsValid( attacker ) )
-		return //false
+	entity attackerRaw = GetAttackerOrLastAttacker( ent, damageInfo )
+	entity attacker    = attackerRaw
+	Assert( IsValid( attacker ) )
 
 	if ( ent.IsPlayer() )
 	{
@@ -711,9 +775,6 @@ void function PlayerOrNPCKilled( entity ent, var damageInfo )
 		if ( attacker.IsPlayer() && (attacker != ent) )
 			LogPlayerMatchStat_KilledAPilot( attacker )
 	}
-
-	if ( ent.IsNPC() && !IsValidNPCTarget( ent ) )
-		return //false
 
 	if ( !attacker.IsPlayer() )
 	{
@@ -726,177 +787,220 @@ void function PlayerOrNPCKilled( entity ent, var damageInfo )
 	{
 		//Do callbacks. Main reason we call this here as opposed to CodeCallback_OnPlayerKilled() is legacy script compatibility reasons.
 		//For example: In script immediately above this we change the attacker to get the player behind the kill, e.g. owner of a pet titan, etc. Bunch of registered callbacks depends on this.
-		foreach( callbackFunc in svGlobal.onPlayerKilledCallbacks )
+		foreach ( callbackFunc in svGlobal.onPlayerKilledCallbacks )
 			callbackFunc( ent, attacker, damageInfo )
 	}
 	else if ( ent.IsNPC() )
 	{
 		//Do callbacks. Main reason we call this here as opposed to CodeCallback_OnNPCKilled() is legacy script compatibility reasons.
 		//For example: In script immediately above this we change the attacker to get the player behind the kill, e.g. owner of a pet titan, etc. Bunch of registered callbacks depends on this.
-		foreach( callbackFunc in svGlobal.onNPCKilledCallbacks )
-		{
+		foreach ( callbackFunc in svGlobal.onNPCKilledCallbacks )
 			callbackFunc( ent, attacker, damageInfo )
-		}
-	}
-
-	if ( ent.IsTitan() )
-	{
-		thread TitanVO_DelayedTitanDown( ent )
 	}
 
 	if ( !attacker.IsPlayer() )
 	{
 		// This gets the last player that did damage to the entity so that we can give him the kill
 		AssistingPlayerStruct attackerInfo = GetLatestAssistingPlayerInfo( ent )
-		attacker = attackerInfo.player
 
-		if ( !IsValid( attacker ) )
-			return //true
-
-		// Hack - attacker history isn't on client to calculate if a player should get credit for a kill when AI steals the final killing shot while a player is damaging them.
-		array<entity> playerArray = GetPlayerArray()
-		foreach ( player in playerArray )
+		if ( IsValid( attackerInfo.player ) )
 		{
-			Remote_CallFunction_Replay( player, "ServerCallback_SetAssistInformation", attackerInfo.damageSourceId, attacker.GetEncodedEHandle(), ent.GetEncodedEHandle(), attackerInfo.assistTime )
+			attacker = attackerInfo.player
+			// Hack - attacker history isn't on client to calculate if a player should get credit for a kill when AI steals the final killing shot while a player is damaging them.
+			array<entity> playerArray = GetPlayerArray()
+			foreach ( player in playerArray )
+				Remote_CallFunction_Replay( player, "ServerCallback_SetAssistInformation", attackerInfo.damageSourceId, attacker.GetEncodedEHandle(), ent.GetEncodedEHandle(), attackerInfo.assistTime )
 		}
 	}
 
-	// player attacker only from here down
+	if ( attacker.IsPlayer() )
+		DoPlayerScoreEventsForKill( attacker, ent, damageInfo, gamePlayingOrSuddenDeath )
+	else if ( ent.IsPlayer() )
+		ent.p.numberOfDeathsByWorld++ //still want to track total deaths regardless of whether killed by a player or not
+}
 
-	//PreScoreEventUpdateStats( attacker, ent )
-	
-	// this has to be here to detect a thirst as opposed to a death during squad wipe
-	if( IsPlaylistAllowedForDefaultKillNotifications() )
+int function GetTotalNumberOfDeaths( entity player )
+{
+	//total number of deaths at the hands of other players or world damage (falls, rings, etc)
+	return ( player.p.numberOfDeathsByWorld + player.p.numberOfDeaths )
+}
+
+void function DoPlayerScoreEventsForKill( entity player, entity victim, var damageInfo, bool gamePlayingOrSuddenDeath )
+{
+	PreScoreEventUpdateStats( player, victim )
+	if ( IsEnemyTeam( victim.GetTeam(), player.GetTeam() ) )
 	{
-		entity downingPlayer = Bleedout_GetBleedoutAttacker( ent )
-		if ( IsValid( downingPlayer ) && downingPlayer.IsPlayer() )
-		{
-			AddPlayerScore( downingPlayer, "EliminatePilot", ent )
-		}
-		
-		if( attacker != downingPlayer && ent.GetTeam() != attacker.GetTeam() ) //Cafe. Also show the obituary to the original killer (?)
-			AddPlayerScore( attacker, "EliminatePilot", ent )
+		if ( victim.IsPlayer() )
+			ScoreEvent_PlayerKilled( victim, player, damageInfo )
 	}
+	PostScoreEventUpdateStats( player, victim )
 
-	//PostScoreEventUpdateStats( attacker, ent )
-
-	if ( ent.GetTeam() == attacker.GetTeam() )
-	{
-		return //false
-	}
-
-	// Respawn Kill INFECTION!!
-	if ( ent.IsPlayer() && attacker.IsPlayer() && !DEV_ShouldIgnorePersistence() )
-	{
-		if ( ent.GetPersistentVar( "respawnKillInfected" ) && !attacker.GetPersistentVar( "respawnKillInfected" ) )
-			attacker.SetPersistentVar( "respawnKillInfected", true )
-	}
+	if ( IsFriendlyTeam( victim.GetTeam(), player.GetTeam() ) )
+		return
 
 	if ( gamePlayingOrSuddenDeath )
 	{
-		if ( ent.IsPlayer() )
+		if ( victim.IsPlayer() )
 		{
-			if ( ent.IsTitan() )
+			if ( victim.IsTitan() )
 			{
 				//if we killed a player in a titan count two kills (one for the pilot, one for the titan )
-				attacker.AddToPlayerGameStat( PGS_KILLS, 2 )
-				attacker.AddToPlayerGameStat( PGS_TITAN_KILLS, 1 )
-				attacker.AddToPlayerGameStat( PGS_PILOT_KILLS, 1 )
+				player.AddToPlayerGameStat( PGS_KILLS, 2 )
+				player.AddToPlayerGameStat( PGS_TITAN_KILLS, 1 )
+				player.AddToPlayerGameStat( PGS_PILOT_KILLS, 1 )
 			}
 			else
 			{
-				attacker.AddToPlayerGameStat( PGS_KILLS, 1 )
-				attacker.AddToPlayerGameStat( PGS_PILOT_KILLS, 1 )
+				player.AddToPlayerGameStat( PGS_KILLS, 1 )
+				player.AddToPlayerGameStat( PGS_PILOT_KILLS, 1 )
 			}
 		}
 		else
 		{
-			if ( ent.IsTitan() )
-				attacker.AddToPlayerGameStat( PGS_TITAN_KILLS, 1 )
+			if ( victim.IsTitan() )
+				player.AddToPlayerGameStat( PGS_TITAN_KILLS, 1 )
 
-			if( !IsMarvin( ent ) && !ent.IsTitan() )
-				attacker.AddToPlayerGameStat( PGS_NPC_KILLS, 1 )
+			if ( !IsMarvin( victim ) && !victim.IsTitan() )
+				player.AddToPlayerGameStat( PGS_NPC_KILLS, 1 )
 		}
 	}
-
-	return //true
 }
 
-// used to calculate build time credit in special cases. Cloak Drones and Suicide Spectres use it for now.
-// float function CalculateBuildTimeCredit( entity attacker, entity target, float damage, int health, int maxHealth, string playlistVarStr, float defaultCredit )
-// {
-// 	float titanSpawnDelay = GetTitanBuildTime( attacker )
-// 	float timerCredit = 0
-
-// 	health = maxint( 0, health )	// health should never be less then 0
-// 	if ( titanSpawnDelay && IsAlive( target ) )
-// 	{
-// 		timerCredit = GetCurrentPlaylistVarFloat( playlistVarStr, defaultCredit )
-
-// 		float dealtDamage = min( health, damage )
-// 		timerCredit = timerCredit * (dealtDamage / maxHealth )
-// 	}
-
-// 	return timerCredit
-// }
-
-function UpdateNextRespawnTime( entity player, float time )
+void function UpdateNextRespawnTime( entity player, float time )
 {
 	player.nv.nextRespawnTime = time
 }
 
+
 bool function ShouldSetObserverTarget( entity attacker )
 {
+	if ( !IsValid( attacker ) )
+		return false
+
+	if ( !GetCurrentPlaylistVarBool( "deathcam_enabled", false ) )
+		return false
+
 	if ( !IsAlive( attacker ) )
 		return false
 
-   	if ( attacker.IsPlayer() && attacker.IsObserver() )
-   		return false
+	if ( attacker.IsPlayer() && attacker.IsObserver() )
+		return false
 
-    return true
+	return true
 }
 
-float function CalculateLengthOfKillReplay( entity player, int methodOfDeath ) //Meant to be called on the same frame player dies
+float function CalculateLengthOfKillReplay( float attackerTimeSinceSpawning )
 {
-	return GetDeathCamLength() + GetKillReplayBeforeTime( player, methodOfDeath ) + GetKillReplayAfterTime( player )
+	return GetKillReplayBeforeTime( attackerTimeSinceSpawning ) + GetKillReplayAfterTime()
 }
 
-float function GetKillReplayBeforeTime( entity player, int methodOfDeath )
+float function CalculateReplayDelay( float currentTime, float timeOfDeath, float attackerTimeSinceSpawning )
 {
-	switch ( methodOfDeath )
-	{
-		case eDamageSourceId.damagedef_titan_fall:
-		case eDamageSourceId.damagedef_titan_hotdrop:
-		case eDamageSourceId.damagedef_reaper_fall:
-		case eDamageSourceId.droppod_impact:
-			return KILL_REPLAY_BEFORE_KILL_TIME_DROPPOD
-	}
+	return GetKillReplayBeforeTime( attackerTimeSinceSpawning ) + ( Time() - timeOfDeath )
+}
 
+float function GetKillReplayBeforeTime( float attackerTimeSinceSpawning )
+{
+	float playlistTime
 	if ( !GamePlayingOrSuddenDeath() )
-		return KILL_REPLAY_BEFORE_KILL_TIME_SHORT
-
-	float titanKillReplayTime = KILL_REPLAY_BEFORE_KILL_TIME_TITAN
-	float pilotKillReplayTime = KILL_REPLAY_BEFORE_KILL_TIME_PILOT
-	switch ( methodOfDeath )
 	{
-		case eDamageSourceId.titan_execution:
-			return titanKillReplayTime + 3.0
-
-		case eDamageSourceId.switchback_trap:
-			if ( player.IsTitan() )
-				return titanKillReplayTime + 6.0
-			else
-				return pilotKillReplayTime + 8.0
+		playlistTime = GetCurrentPlaylistVarFloat( "killreplay_before_time_short", 3.5 )
+	}
+	else
+	{
+		playlistTime = GetCurrentPlaylistVarFloat( "killreplay_before_time", 3.5 )
 	}
 
-	if ( player.IsTitan() )
-		return titanKillReplayTime
+	return min( playlistTime, attackerTimeSinceSpawning )
+}
 
-	// titan recently?
-	if ( Time() - player.lastTitanTime < 5.0 )
-		return titanKillReplayTime
+float function GetKillReplayAfterTime()
+{
+	if ( !GamePlayingOrSuddenDeath() )
+		return GetCurrentPlaylistVarFloat( "killreplay_after_time_short", 1.0 )
 
-	return pilotKillReplayTime
+	return GetCurrentPlaylistVarFloat( "killreplay_after_time", 1.0 )
+}
+
+bool function ShouldDoReplay( entity player, entity attacker, float replayTime, int methodOfDeath )
+{
+	if ( !ShouldDoReplayForGameState() )
+	{
+		print( "ShouldDoReplay(): Not doing a replay because ShouldDoReplayForGameState returned false\n" )
+		return false
+	}
+	
+	if ( GetCurrentPlaylistVarInt( "replay_disabled", 1 ) == 1 )
+	{
+		print( "ShouldDoReplay(): Not doing a replay because 'replay_disabled' is enabled in the current playlist.\n" )
+		return false
+	}
+
+	switch ( methodOfDeath )
+	{
+		case eDamageSourceId.human_execution:
+		case eDamageSourceId.titan_execution:
+		{
+			print( "ShouldDoReplay(): Not doing a replay because the player died from an execution.\n" )
+			return false
+		}
+	}
+
+	if ( Time() - player.p.connectTime <= replayTime ) //Bad things happen if we try to do a kill replay that lasts longer than the player entity existing on the server
+	{
+		print( "ShouldDoReplay(): Not doing a replay because the player is not old enough.\n" )
+		return false
+	}
+
+	if ( player == attacker )
+	{
+		print( "ShouldDoReplay(): Not doing a replay because the attacker is the player.\n" )
+		return false
+	}
+
+	if ( player.IsBot() == true )
+	{
+		print( "ShouldDoReplay(): Not doing a replay because the player is a bot.\n" )
+		return false
+	}
+
+	return AttackerShouldTriggerReplay( attacker )
+}
+
+bool function ShouldDoReplayForGameState()
+{
+	if ( !GamePlayingOrSuddenDeath() )
+	{
+		print( "ShouldDoReplayForGameState(): Not doing a replay because gamestate is invalid.\n" )
+		return false
+	}
+
+	return true
+}
+
+// Don't let things like killbrushes show replays
+bool function AttackerShouldTriggerReplay( entity attacker )
+{
+	if ( !IsValid( attacker ) )
+	{
+		print( "AttackerShouldTriggerReplay(): Not doing a replay because the attacker is not valid.\n" )
+		return false
+	}
+
+	if ( attacker.IsPlayer() )
+	{
+		print( "AttackerShouldTriggerReplay(): Doing a replay because the attacker is a player.\n" )
+		return true
+	}
+
+	if ( attacker.IsNPC() )
+	{
+		print( "AttackerShouldTriggerReplay(): Doing a replay because the attacker is an NPC.\n" )
+		return true
+	}
+
+	print( "AttackerShouldTriggerReplay(): Not doing a replay by default.\n" )
+	return false
 }
 
 function TrackDestroyTimeForReplay( entity attacker, table replayTracker )
@@ -920,51 +1024,6 @@ function TrackDestroyTimeForReplay( entity attacker, table replayTracker )
 		WaitSignalOnDeadEnt( attacker, signal )
 }
 
-#if MP
-function PlayerWatchesKillReplay( entity player, int inflictorEHandle, int attackerViewIndex, float timeSinceAttackerSpawned, float timeOfDeath, float beforeTime, table replayTracker )
-{
-	OnThreadEnd(
-		function () : ( player, replayTracker )
-		{
-			Signal( replayTracker, "OnDestroy" )
-		}
-	)
-
-	player.EndSignal( "RespawnMe" )
-
-	float timeBeforeKill = beforeTime
-	float timeAfterKill = GetKillReplayAfterTime( player )
-
-	if ( timeBeforeKill > timeSinceAttackerSpawned )
-		timeBeforeKill = timeSinceAttackerSpawned
-
-	float replayDelay = timeBeforeKill + ( Time() - timeOfDeath )
-	if ( replayDelay < 0 )
-	{
-		print( "PlayerWatchesKillReplay(): replayDelay is < 0 (" + replayDelay + "). Aborting kill replay.\n" )
-		return
-	}
-
-	player.SetKillReplayDelay( replayDelay, THIRD_PERSON_KILL_REPLAY_ALWAYS )
-	player.SetKillReplayInflictorEHandle( inflictorEHandle )
-	player.SetKillReplayVictim( player )
-	player.SetViewIndex( attackerViewIndex )
-
-	wait timeBeforeKill
-
-	if ( replayTracker.validTime != null && replayTracker.validTime < timeAfterKill )
-	{
-		float waitTime = expect float( replayTracker.validTime ) - 0.1 // cut off just before ent becomes invalid in the past
-		if ( waitTime > 0 )
-			wait waitTime
-	}
-	else
-	{
-		wait timeAfterKill
-	}
-}
-#endif // #if MP
-
 bool function ClientCommand_SelectRespawn( entity player, array<string> args )
 {
 	if ( IsAlive( player ) )
@@ -987,7 +1046,6 @@ bool function ClientCommand_SelectRespawn( entity player, array<string> args )
 
 	return true
 }
-
 
 bool function ClientCommand_RespawnPlayer( entity player, array<string>args )
 {
@@ -1028,6 +1086,28 @@ bool function ClientCommand_RespawnPlayer( entity player, array<string>args )
 	return true
 }
 
+// If the attacker in damageinfo is an NPC that is owned by a player, for replay we consider the attacker to be that player and the inflictor to be their owned NPC
+entity function GetAttackerForKillreplayFromDamageInfo( entity damageInfoAttacker )
+{
+	if ( damageInfoAttacker.IsNPC() && IsValidPlayer( damageInfoAttacker.GetBossPlayer() ) )
+	{
+		return damageInfoAttacker.GetBossPlayer()
+	}
+
+	return damageInfoAttacker
+}
+
+// if the inflictor is a projectile shot by an NPC owned by a player, use the NPC as the inflictor
+entity function GetInflictorForKillreplayFromDamageInfo( entity damageInfoAttacker, entity damageInfoInflictor )
+{
+	if ( damageInfoAttacker.IsNPC() && IsValidPlayer( damageInfoAttacker.GetBossPlayer() ) && damageInfoInflictor.IsProjectile() && damageInfoInflictor.GetOwner() == damageInfoAttacker )
+	{
+		return damageInfoAttacker
+	}
+
+	return damageInfoInflictor
+}
+		
 function AIChatter( string alias, int team, vector origin )
 {
 	array<entity> ai = GetNearbyFriendlyGrunts( origin, team )
@@ -1433,10 +1513,13 @@ function OnPlayerCloseClassMenu( entity player )
 //  playerconnected Reload
 void function CodeCallback_OnClientReloadConnectionCompleted( entity player )
 {
-	if( player.p.clientScriptInitialized )
-		return
-
 	FinishClientScriptInitialization( player )
+
+	// Added via AddCallback_OnClientReloadConnected
+	foreach ( callbackFunc in svGlobal.onClientReloadConnectedCallbacks )
+	{
+		callbackFunc( player )
+	}
 }
 
 
@@ -2028,14 +2111,22 @@ function ClearRespawnAvailable( entity player )
 	level.nv.respawnAvailableBits = level.nv.respawnAvailableBits & (~elimMask)
 }
 
-
+//Cafe's rework
 void function SetPlayerEliminated( entity player )
 {
 	if( !IsValid( player ) )
 		return
 
-	EliminatedPlayers[player.GetPlayerName()] <- player.GetPlatformUID()
-	printt("PLAYER ELIMINATED ADDED TO TABLE. " + player.GetPlayerName() + " - " + player.GetPlatformUID())
+	if( !(player.GetPlatformUID() in EliminatedPlayers) )
+	{
+		EliminatedPlayerData data
+		data.name = player.GetPlayerName()
+		data.team = player.GetTeam()
+		
+		EliminatedPlayers[ player.GetPlatformUID() ] <- data
+		
+		printt( "PLAYER ELIMINATED SAVED - EA ID: " + player.GetPlatformUID() + " - NAME: " + data.name + " - TEAM: " + data.team )
+	}
 }
 
 void function ClearPlayerEliminated( entity player )
@@ -2043,22 +2134,25 @@ void function ClearPlayerEliminated( entity player )
 	if( !IsValid( player ) )
 		return
 
-	if(player.GetPlayerName() in EliminatedPlayers)
+	if( player.GetPlatformUID() in EliminatedPlayers )
 	{
-		printt("CLEARING ELIMINATED STATE FOR PLAYER " + player.GetPlayerName() + " - " + player.GetPlatformUID())
-		delete EliminatedPlayers[player.GetPlayerName()]
+		EliminatedPlayerData data = EliminatedPlayers[ player.GetPlatformUID() ]
+		printt( "CLEARING ELIMINATED STATE FOR PLAYER " + player.GetPlatformUID() + " - NAME: " + data.name + " - TEAM: " + data.team )
+		
+		delete EliminatedPlayers[ player.GetPlatformUID() ]
 	}
 }
 
 bool function IsPlayerEliminated( entity player )
 {
 	// printt("CHECKING IF PLAYER IS ELIMINATED " + player.GetPlayerName() + " - " + player.GetPlatformUID())
-	foreach(playername, id in EliminatedPlayers)
-		if(player.GetPlayerName() == playername || id == player.GetPlatformUID())
-			return true
-		else
-			return false
-	return false
+
+	return ( player.GetPlatformUID() in EliminatedPlayers )
+}
+
+EliminatedPlayerData function GetPlayerEliminatedData( entity player )
+{
+	return EliminatedPlayers[ player.GetPlatformUID() ]
 }
 
 bool function IsTeamEliminated( int team )

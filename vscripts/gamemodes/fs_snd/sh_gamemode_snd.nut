@@ -453,7 +453,7 @@ void function TriggerEnter( entity trigger, entity ent )
 	}()
 	// Remote_CallFunction_NonReplay( ent, "Consumable_UseBomb" )
 	
-	Remote_CallFunction_ByRef( ent, "Consumable_UseBomb" )
+	// Remote_CallFunction_ByRef( ent, "Consumable_UseBomb" ) 
 }
 
 void function TriggerLeave( entity trigger, entity ent )

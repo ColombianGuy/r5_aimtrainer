@@ -256,7 +256,7 @@ int function PilotShieldModifyDamage( entity player, var damageInfo )
 			attacker.p.playerDamageDealt += ShieldDmgFloat
 			attacker.SetPlayerNetInt( "damage", attacker.GetPlayerNetInt( "damage" ) + shieldDamage )
 			//printt( "damageinfo get damage:", DamageInfo_GetDamage( damageInfo ), "shielddmgfloat:", ShieldDmgFloat )
-			PlayerDamageFeedback( player, damageInfo, ShieldDmgFloat )
+			PlayerDamageFeedback( player, damageInfo, int( normalDamage ) )
 		}
 	}
 	

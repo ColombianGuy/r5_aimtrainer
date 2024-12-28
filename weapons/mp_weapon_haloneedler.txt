@@ -9,7 +9,7 @@ WeaponData
 	"longdesc"										"Guided Munitions Launcher"
 
 	"weapon_type_flags"								"WPT_PRIMARY"
-	"ammo_pool_type"								"bullet"
+	"ammo_pool_type"								"special"
 
 	"menu_icon"										"rui/flowstate_custom/weapon/halo_needler"
 	"hud_icon"										"rui/flowstate_custom/weapon/halo_needler"
@@ -41,7 +41,7 @@ WeaponData
 	
 	"holster_time"									"0.15"
 	"is_smart_pistol"								"1"
-	"smart_ammo_search_angle" 						"8"
+	"smart_ammo_search_angle" 						"9"
 	"smart_ammo_search_npcs"						"1"
 	"smart_ammo_search_players"						"1"
 	"smart_ammo_search_projectiles"					"0"
@@ -67,14 +67,14 @@ WeaponData
 	"smart_ammo_tracker_status_effects"				"0"
 	"smart_ammo_tracked_targets_check_visibility"	"1"
 	
-	"smart_ammo_search_distance"  					"550"
+	"smart_ammo_search_distance"  					"800"
 	"smart_ammo_max_targeted_burst"					"1"
 	"smart_ammo_targeting_time_min"					"0"//"0.37"
 	"smart_ammo_targeting_time_max"					"0"//"0.65"
 	"smart_ammo_targeting_time_min_npc"				"0"
 	"smart_ammo_targeting_time_max_npc"				"0"
 
-	"red_crosshair_range" 							"550"
+	"red_crosshair_range" 							"800"
 
 	"smart_ammo_allow_search_while_firing"			"1"
 	"smart_ammo_allow_ads_lock"						"1" // "0" is default
@@ -144,12 +144,13 @@ WeaponData
 	"fire_rate"   									"10"
 
 	// Ammo
-	"ammo_clip_size"   								"30"
+	"ammo_clip_size"   								"18"
 
-    "ammo_default_total"							"100"
-    "ammo_stockpile_max"							"100"
-    "ammo_no_remove_from_stockpile"					"1"
+    "ammo_default_total"							"0"
+    "ammo_stockpile_max"							"18"
+    "ammo_no_remove_from_stockpile"					"0"
     "ammo_min_to_fire"								"1"
+	"uses_ammo_pool"								"1"
 
 	"damage_type" 									"bullet"
 

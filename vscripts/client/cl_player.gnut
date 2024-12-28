@@ -808,6 +808,7 @@ void function PlayerConnectedOrDisconnected( entity player, int state, string di
 		return
 	if ( !GetLocalViewPlayer() )
 		return
+	
 	if ( !ShouldShowObituaryLineForPlayer( player ) )
 		return
 
@@ -816,16 +817,20 @@ void function PlayerConnectedOrDisconnected( entity player, int state, string di
 	string playerName
 	if ( state == 0 )
 	{
-		if ( disconnectingPlayerName == "" )
+		if ( disconnectingPlayerName == "" || Gamemode() != eGamemodes.SURVIVAL )
 			return
+		
 		playerName = disconnectingPlayerName
+		
+		Obituary_Print_Localized( Localize( "#MP_PLAYER_DISCONNECTED", playerName ), <255, 255, 255> )
 	}
 	else
 	{
 		playerName = GetPlayerName( ToEHI( player ) )
 
-		if ( player.GetTeam() == GetLocalViewPlayer().GetTeam() )
-		{
+		// ShouldShowObituaryLineForPlayer checks for playlist var: obituary_only_teammates already. Cafe
+		// if ( player.GetTeam() == GetLocalViewPlayer().GetTeam() )
+		// {
 			vector playerNameColor = <255, 255, 255>
 
 			int teamMemberIndex = player.GetTeamMemberIndex()
@@ -835,7 +840,7 @@ void function PlayerConnectedOrDisconnected( entity player, int state, string di
 				playerNameColor = GetPlayerInfoColor( player )
 
 			Obituary_Print_Localized( Localize( "#MP_PLAYER_CONNECTED", playerName ), playerNameColor )
-		}
+		// }
 	}
 }
 

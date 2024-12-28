@@ -98,6 +98,7 @@ global function Dev_SpawnBotWithIncapShieldToView
 #endif
 #endif
 
+global function GetOpticAttachmentFromMods
 global function SURVIVAL_GetRefFromProp
 global function SURVIVAL_CanDismantleMods
 global function SURVIVAL_CanReplaceWeapon
@@ -921,6 +922,9 @@ void function OnClientConnected( entity player )
 	ValidateDataTable( player, "datatable/flowstate_weapon_mods.rpak" )
 	ValidateDataTable( player, "datatable/flowstate_all_new_groups.rpak" )
 	ValidateDataTable( player, "datatable/flowstate_weapon_attachment_data.rpak" )
+	
+	if( Playlist() == ePlaylists.fs_haloMod_survival ) 
+		ValidateDataTable( player, "datatable/flowstate_all_new_halomod_survival_groundloot.rpak" )
 }
 
 void function OnPlayerRespawned( entity player )
@@ -954,6 +958,7 @@ bool function ShouldDropOpticForKittedWeapon()
 
 string function GetWeaponClassNameWithLockedSet( entity weapon )
 {
+	// printw("GetWeaponClassNameWithLockedSet", weapon )
 	string result = weapon.GetWeaponClassName()
 
 	foreach ( mod, suffix in LOCKEDSET_MOD_TO_SUFFIX )
@@ -964,25 +969,40 @@ string function GetWeaponClassNameWithLockedSet( entity weapon )
 			return result
 		}
 	}
+	
+	int lockedSet = eWeaponLockedSet.INVALID
+	
+	try{
+		lockedSet = expect int( GetEntityVar( weapon, "weaponLockedSet" ) )
+	} catch( e420 ) //Why CodeCallback_OnSpawned doesn't work for "weaponx" class. Cafe
+	{
+		InitEntityVars( weapon )
+		
+		#if SERVER
+		SetEntityVar( weapon, "weaponLockedSet", GetLockedSetFromName( result ) )
+		#endif
+		
+		lockedSet = expect int( GetEntityVar( weapon, "weaponLockedSet" ) )
+	}
+	
+	switch( lockedSet ) //Cafe was here. Retail implementation uses weapon.GetWeaponLockedSet() code funct which we don't have in s3.
+	{
+		case eWeaponLockedSet.WHITESET:
+			result += WEAPON_LOCKEDSET_SUFFIX_WHITESET
+			break
 
-	// switch( weapon.GetWeaponLockedSet() )
-	// {
-		// case eWeaponLockedSet.WHITESET:
-			// result += WEAPON_LOCKEDSET_SUFFIX_WHITESET
-			// break
+		case eWeaponLockedSet.BLUESET:
+			result += WEAPON_LOCKEDSET_SUFFIX_BLUESET
+			break
 
-		// case eWeaponLockedSet.BLUESET:
-			// result += WEAPON_LOCKEDSET_SUFFIX_BLUESET
-			// break
+		case eWeaponLockedSet.PURPLESET:
+			result += WEAPON_LOCKEDSET_SUFFIX_PURPLESET
+			break
 
-		// case eWeaponLockedSet.PURPLESET:
-			// result += WEAPON_LOCKEDSET_SUFFIX_PURPLESET
-			// break
-
-		// case eWeaponLockedSet.GOLD:
-			// result += WEAPON_LOCKEDSET_SUFFIX_GOLD
-			// break
-	// }
+		case eWeaponLockedSet.GOLD:
+			result += WEAPON_LOCKEDSET_SUFFIX_GOLD
+			break
+	}
 
 	return result
 }
@@ -4047,6 +4067,23 @@ void function ReplaceOpticInMods( array<string> mods, string opticRef )
 		mods.append( opticRef )
 }
 
+string function GetOpticAttachmentFromMods( string weaponRef, array<string> mods )
+{
+	if( !SURVIVAL_Loot_IsRefValid( weaponRef ) )
+		return ""
+
+	foreach( mod in mods )
+	{
+		if( !SURVIVAL_Loot_IsRefValid( mod ) )
+			continue
+
+		if( GetAttachPointForAttachmentOnWeapon( weaponRef, mod ) == "sight" )
+			return mod
+	}
+
+	return ""
+}
+
 int function SURVIVAL_GetPlayerShieldHealthFromArmor( entity player )
 {
 	if ( player.GetShieldHealth() <= GetPlayerSettingBaseShield( player ) )
@@ -4284,7 +4321,7 @@ bool function IsAmmoInUse( entity player, string ref )
 
 	foreach ( weapon in SURVIVAL_GetPrimaryWeapons( player ) )
 	{
-		string className = weapon.GetWeaponClassName()
+		string className = GetWeaponClassNameWithLockedSet( weapon )
 		if ( SURVIVAL_Loot_IsRefValid( className ) )
 		{
 			LootData data = SURVIVAL_Loot_GetLootDataByRef( className )
@@ -4592,12 +4629,10 @@ array<string> function SURVIVAL_Weapon_GetBaseMods( string weaponName )
 LootData function SURVIVAL_GetLootDataFromWeapon( entity weapon )
 {
 	LootData data
-	string ref
+	string ref = IsValid( weapon ) ? GetWeaponClassNameWithLockedSet( weapon ) : ""
 
 	if ( IsValid( weapon ) )
 	{
-		ref = weapon.GetWeaponClassName()
-
 		if ( weapon.HasMod( "gold" ) )
 		{
 			ref = ref + "_gold"
@@ -4610,7 +4645,6 @@ LootData function SURVIVAL_GetLootDataFromWeapon( entity weapon )
 
 	return data
 }
-
 
 bool function SURVIVAL_Weapon_IsAttachmentLocked( string weaponName )
 {

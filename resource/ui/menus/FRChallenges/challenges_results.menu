@@ -259,8 +259,8 @@ scripts/resource/ui/menus/FRChallenges/challenges_results.menu
 		DummiesKilledResult
 		{
 			ControlName				Label
-			xpos                    %25
-			ypos					0
+			xpos                    -700
+			ypos					%-3
 			auto_wide_tocontents	1
 			tall					30
 			visible					1
@@ -270,9 +270,9 @@ scripts/resource/ui/menus/FRChallenges/challenges_results.menu
 			allcaps					1
 			fgcolor_override		"255 255 255 255"
 
-			pin_to_sibling			ResultsText
-			pin_corner_to_sibling	RIGHT
-			pin_to_sibling_corner	RIGHT
+			pin_to_sibling			ChallengeResultsFrame
+			pin_corner_to_sibling	LEFT
+			pin_to_sibling_corner	LEFT
 		}
 		
 		ResultsText2

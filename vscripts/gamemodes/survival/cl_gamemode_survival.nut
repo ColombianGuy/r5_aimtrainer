@@ -442,8 +442,8 @@ void function ClGamemodeSurvival_Init()
 
 	AddCallback_OnEquipSlotTrackingIntChanged( "backpack", BackpackChanged )
 
-	if ( IsSoloMode() )
-		SetCommsDialogueEnabled( false ) //
+	if ( IsSoloMode() || ShouldModeDisableCharacterComms() )
+		SetCommsDialogueEnabled( false )
 	
 	if( Playlist() == ePlaylists.fs_haloMod_survival )
 		RegisterSignal("NewKillChangeRui")
@@ -815,6 +815,7 @@ void function Cl_Survival_AddClient( entity player )
 
 	RuiSetBool( file.pilotRui, "isVisible", GetHudDefaultVisibility() )
 	RuiSetBool( file.pilotRui, "useShields", true )
+
 
 	WaitingForPlayersOverlay_Setup( player )
 
@@ -2155,6 +2156,12 @@ void function Sur_OnScoreboardShow()
 		return
 	}
 
+	if( Flowstate_IsHaloMode() )
+	{
+		FS_ForceDestroyCustomAdsOverlay()
+		GetLocalClientPlayer().ClientCommand( "-zoom" )
+	}
+	
 	ShowMapRui()
 	UpdateFullmapRuiTracks()
 
@@ -3435,10 +3442,13 @@ bool function GetWaitingForPlayersOverlayEnabled( entity player )
 
 	if ( IsTestMap() )
 		return false
-	if ( player.GetTeam() == TEAM_SPECTATOR )
-		return false
+
+	// if ( player.GetTeam() == TEAM_SPECTATOR )
+		// return false
+
 	if ( GetCurrentPlaylistVarBool( "survival_staging_area_enabled", false ) )
 		return false
+	
 	// if( GameRules_GetGameMode() != SURVIVAL )
 		// return false
 
@@ -3642,6 +3652,16 @@ array<WaitingForPlayersCameraLocPair> function GetCamerasForMap( string map )
 			cutsceneSpawns.append(NewCameraPair( <-15686.7402, 1259.25342, 2888.13013>, <0, 143.531845, 0> ))
 			cutsceneSpawns.append(NewCameraPair( <-26376.4258, -3842.12036, 2760.02759>, <0, 52.9255295, 0> ))
 			cutsceneSpawns.append(NewCameraPair( <28823.8867, 4136.58398, 4171.0459>, <0, -135.179871, 0> ))
+		break
+		
+		case "mp_rr_canyonlands_mu2":
+			cutsceneSpawns.append(NewCameraPair( <-6049.01807, 18478.2285, 2771.03174>, <0, -34.2617683, 0> ))
+			cutsceneSpawns.append(NewCameraPair( <-15686.7402, 1259.25342, 2888.13013>, <0, 143.531845, 0> ))
+			cutsceneSpawns.append(NewCameraPair( <-26376.4258, -3842.12036, 2760.02759>, <0, 52.9255295, 0> ))
+			cutsceneSpawns.append(NewCameraPair( <29186.4004, 4389.00684, 4393.5957>, <0, -144.792419, 0> ))
+			cutsceneSpawns.append(NewCameraPair( <19051.4375, 10624.1055, 4916.54883>, <0, -8.65356064, 0> ))
+			cutsceneSpawns.append(NewCameraPair( <34535.5469, 24481.7012, 4585.43506>, <0, -44.7645645, 0> ))
+			cutsceneSpawns.append(NewCameraPair( <-12433.5381, -9732.68555, 3427.97339>, <0, -48.9345093, 0> ))
 		break
 		
 		case "mp_rr_olympus_mu1":
@@ -4595,6 +4615,9 @@ void function ShowVictorySequence( bool placementMode = false )
 
 	ScreenFade( player, 255, 255, 255, 255, 0.4, 0.0, FFADE_IN | FFADE_PURGE )
 
+	if( GetCurrentPlaylistVarBool( "survival_server_restart_after_end", false ) )
+		DM_HintCatalog( 5, 0 )
+	
 	asset defaultModel                = GetGlobalSettingsAsset( DEFAULT_PILOT_SETTINGS, "bodyModel" )
 	LoadoutEntry loadoutSlotCharacter = Loadout_CharacterClass()
 	vector characterAngles            = < file.victorySequenceAngles.x / 2.0, file.victorySequenceAngles.y, file.victorySequenceAngles.z >
@@ -4662,6 +4685,51 @@ void function ShowVictorySequence( bool placementMode = false )
 			SetForceDrawWhileParented( characterModel, true )
 			characterModel.MakeSafeForUIScriptHack()
 			CharacterSkin_Apply( characterModel, characterSkin )
+			if( Flowstate_IsHaloMode() )
+			{
+				entity modelPlayer = FromEHI( data.eHandle )
+			
+				if( !IsValid( modelPlayer ) )
+					characterModel.SetModel( $"mdl/Humans/pilots/w_master_chief.rmdl" )
+				else
+				{
+					switch( modelPlayer.GetPlayerNetInt( "fs_haloMod_assignedMasterChief" ) )
+					{
+						case 0:
+						characterModel.SetModel( $"mdl/Humans/pilots/w_master_chief_yellow.rmdl" )
+						break
+						
+						case 1:
+						characterModel.SetModel( $"mdl/Humans/pilots/w_master_chief_white.rmdl" )
+						break
+						
+						case 2:
+						characterModel.SetModel( $"mdl/Humans/pilots/w_master_chief_red.rmdl" )
+						break
+						
+						case 3:
+						characterModel.SetModel( $"mdl/Humans/pilots/w_master_chief_purple.rmdl" )
+						break
+						
+						case 4:
+						characterModel.SetModel( $"mdl/Humans/pilots/w_master_chief_pink.rmdl" )
+						break
+						
+						case 5:
+						characterModel.SetModel( $"mdl/Humans/pilots/w_master_chief_orange.rmdl" )
+						break
+						
+						case 6:
+						characterModel.SetModel( $"mdl/Humans/pilots/w_master_chief_blue.rmdl" )
+						break
+
+						case 7:
+						characterModel.SetModel( $"mdl/Humans/pilots/w_master_chief.rmdl" )
+						break
+					}
+				}
+			}
+				
 			cleanupEnts.append( characterModel )
 
 			#if DEVELOPER

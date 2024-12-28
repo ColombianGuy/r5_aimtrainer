@@ -79,6 +79,7 @@ struct {
 
 	array<var> minimapOtherRuis
 	table<entity, var> minimapPlayers
+	table<entity, var> haloRadarPlayers
 	array<var> fullmapRuis
 
 	float threatMaxDist
@@ -103,6 +104,13 @@ struct {
 	var fullmap_challengeBoxRui
 
 	array<MapFeature> mapFeatureList
+	
+	
+	//Halo Radar
+	bool FLOWSTATE_ENEMIES_IN_MINIMAP_ENABLED
+	
+	float HALO_RADAR_MAX_SCAN_DISTANCE
+	float HALO_RADAR_UPDATE_TIME
 } file
 
 
@@ -353,6 +361,12 @@ void function ClMinimap_Init()
 	Fullmap_AddRui( file.fullmap_gamestateRui )
 	foreach( func in file.onFullmapCreated_Callbacks )
 		func( file.fullmap_gamestateRui )
+
+	//Flowstate
+	file.HALO_RADAR_MAX_SCAN_DISTANCE = GetCurrentPlaylistVarFloat( "halo_radar_max_scan_distance", 100 * METERS_TO_INCHES )
+	file.HALO_RADAR_UPDATE_TIME = GetCurrentPlaylistVarFloat( "halo_radar_update_time", 0.5 )
+	
+	file.FLOWSTATE_ENEMIES_IN_MINIMAP_ENABLED = GetCurrentPlaylistVarBool( "flowstate_see_enemies_in_minimap", false )
 }
 
 
@@ -797,8 +811,14 @@ void function OnPlayerCreate( entity player )
 		UpdateFullmapRuiTracks()
 
 	if ( player != GetLocalClientPlayer() )
+	{
+		if( file.FLOWSTATE_ENEMIES_IN_MINIMAP_ENABLED )
+			FS_Minimap_AddEnemyToMinimap_HACK( player )
+		else if( Flowstate_IsHaloMode() )
+			FS_HandleHaloRadarForPlayer( player )
 		return
-
+	}
+	
 	if ( file.minimap_coords != null )
 	{
 		RuiTrackFloat3( file.minimap_coords, "playerPos", player, RUI_TRACK_ABSORIGIN_FOLLOW )
@@ -927,7 +947,7 @@ void function UpdatePlayerRuiTracking( entity player )
 
 	entity viewPlayer = GetLocalViewPlayer()
 	
-	if( Gamemode() == eGamemodes.fs_snd || Flowstate_IsHaloMode() )
+	if( Gamemode() == eGamemodes.fs_snd )
 	{
 		thread HACK_TrackPlayerPositionOnScript( file.minimap_base, viewPlayer, false )
 	} else 
@@ -1847,8 +1867,8 @@ void function UpdateMapFeatures()
 	if ( Flowstate_IsHaloMode() && file.fullmap_legendRui != null )
 	{
 		RuiSetString( file.fullmap_legendRui, "itemTitle1", "Flowstate Halo Mod" )
-		RuiSetString( file.fullmap_legendRui, "itemDesc1", "Made in Colombia with love by @CafeFPS and Darkes65." )
-		RuiSetImage( file.fullmap_legendRui, "itemIcon1", $"" )
+		RuiSetString( file.fullmap_legendRui, "itemDesc1", "Made in Colombia with love by @CafeFPS." )
+		RuiSetImage( file.fullmap_legendRui, "itemIcon1", $"rui/hiswattson/ltm" )
 		return
 	}
 	
@@ -1894,6 +1914,159 @@ var function Minimap_AddIconAtPosition( vector position, vector angles, asset ic
 	RuiSetBool( rui, "useTeamColor", false )
 	RuiSetImage( rui, "defaultIcon", icon )
 	RuiSetImage( rui, "clampedDefaultIcon", $"" )
+
+	return rui
+}
+
+//Flowstate hack to put enemies in the minimap. Cafe
+var function FS_Minimap_AddEnemyToMinimap_HACK( entity enemy )
+{
+	entity viewPlayer = GetLocalViewPlayer()
+	var rui = Minimap_CommonAdd_PlayerTrack( $"ui/minimap_square_object.rpak", MINIMAP_Z_BASE + 20 )
+
+	RuiTrackInt( rui, "objectFlags", viewPlayer, RUI_TRACK_MINIMAP_FLAGS )
+	RuiTrackInt( rui, "customState", viewPlayer, RUI_TRACK_MINIMAP_CUSTOM_STATE )
+	
+	RuiSetFloat2( rui, "iconScale", < 0.7, 0.7, 0 > )
+	RuiSetBool( rui, "alwaysShowOnMinimap", true )
+	RuiSetBool( rui, "useTeamColor", false )
+	RuiSetImage( rui, "defaultIcon", $"rui/menu/buttons/new" )
+	RuiSetImage( rui, "clampedDefaultIcon", $"" )
+
+	if( Flowstate_IsHaloMode() )
+		thread FS_TrackPlayerPositionOnScript_NEW_HaloRadar( rui, enemy ) 
+	else
+		thread FS_TrackPlayerPositionOnScript_NEW( rui, enemy ) 
+	
+	return rui
+}
+
+void function FS_TrackPlayerPositionOnScript_NEW( var rui, entity player )
+{
+	if( !IsValid(player) ) return
+	
+	EndSignal( player, "OnDestroy" )
+
+	OnThreadEnd(
+		function() : ( rui )
+		{
+			if( rui != null )
+				RuiDestroy( rui )
+		}
+	)
+	
+	entity viewPlayer
+	
+	while( true )
+	{
+		viewPlayer = GetLocalViewPlayer()
+		
+		if( !IsValid( viewPlayer ) ||
+			!IsAlive( player ) || 
+ 			player.GetTeam() == viewPlayer.GetTeam() ||
+			!player.DoesShareRealms( viewPlayer ) )
+		{
+			RuiSetVisible( rui, false )
+			wait 0.1
+			continue
+		}
+
+		RuiSetVisible( rui, true )
+		
+		RuiSetFloat3( rui, "objectPos", <player.GetOrigin().x, player.GetOrigin().y, 0> )
+		RuiSetFloat3( rui, "objectAngles", <player.CameraAngles().x, player.CameraAngles().y, 0> )
+		
+		WaitFrame()
+	}
+}
+
+void function FS_TrackPlayerPositionOnScript_NEW_HaloRadar( var rui, entity player )
+{
+	if( !IsValid(player) ) return
+	
+	EndSignal( player, "OnDestroy" )
+
+	OnThreadEnd(
+		function() : ( rui )
+		{
+			if( rui != null )
+			{
+				RemovePlayerHaloRadarMinimapRui( rui )
+				RuiDestroy( rui )
+			}
+		}
+	)
+	
+	entity viewPlayer
+
+	while( true )
+	{
+		viewPlayer = GetLocalViewPlayer()
+		
+		if( !IsValid( viewPlayer ) ||
+			!IsAlive( player ) || 
+			!player.IsSprinting() && !player.IsSliding() && !player.Player_IsFreefalling() ||
+			Distance2D( viewPlayer.GetOrigin(), player.GetOrigin() ) > file.HALO_RADAR_MAX_SCAN_DISTANCE ||
+ 			player.GetTeam() == viewPlayer.GetTeam() ||
+			!player.DoesShareRealms( viewPlayer ) )
+		{
+			RuiSetVisible( rui, false )
+			wait 0.1
+			continue
+		}
+
+		RuiSetVisible( rui, true )
+		
+		RuiSetFloat3( rui, "objectPos", <player.GetOrigin().x, player.GetOrigin().y, 0> )
+		RuiSetFloat3( rui, "objectAngles", <player.CameraAngles().x, player.CameraAngles().y, 0> )
+
+		wait file.HALO_RADAR_UPDATE_TIME
+	}
+}
+
+
+//Halo Radar. Cafe
+void function FS_HandleHaloRadarForPlayer( entity player )
+{
+	if( !IsValid( player ) )
+		return
+	
+	var rui = FS_Minimap_AddEnemyToMinimap_HACK( player )
+	
+	if( !(player in file.haloRadarPlayers ) )
+		file.haloRadarPlayers[player] <- rui
+}
+
+void function RemovePlayerHaloRadarMinimapRui( var ruiToRemove )
+{
+	entity keyToRemove = null
+	foreach( player, rui in file.haloRadarPlayers )
+	{
+		if( rui == ruiToRemove )
+		{
+			keyToRemove = player
+			break
+		}
+	}
+
+	if( keyToRemove != null )
+		delete file.haloRadarPlayers[ keyToRemove ]
+}
+
+var function Minimap_CommonAdd_PlayerTrack( asset ruiAsset, int zOrder )
+{
+	entity viewPlayer = GetLocalViewPlayer()
+	var rui           = CreateMinimapRui( ruiAsset, MINIMAP_Z_BASE + zOrder )
+
+	RuiTrackFloat3( rui, "playerPos", viewPlayer, RUI_TRACK_ABSORIGIN_FOLLOW )
+	RuiTrackFloat3( rui, "playerAngles", viewPlayer, RUI_TRACK_CAMANGLES_FOLLOW )
+	
+	RuiSetFloat( rui, "displayDist", file.threatMaxDist )
+	RuiTrackFloat( rui, "minimapZoomScale", viewPlayer, RUI_TRACK_MINIMAP_ZOOM_SCALE )
+	RuiSetFloat( rui, "minimapSizeScale", file.minimapSizeScale )
+	RuiSetBool( rui, "isNorthFacing", !GetConVarBool( "hud_setting_minimapRotate" ) )
+
+	RuiSetVisible( rui, file.minimapEnabled)
 
 	return rui
 }

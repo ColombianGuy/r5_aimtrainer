@@ -523,85 +523,6 @@ float function EvaluatePolynomial( float x, array<float> coefficientArray )
 	return sum
 }
 
-#if SERVER
-
-bool function ShouldDoReplay( entity player, entity attacker, float replayTime, int methodOfDeath )
-{
-	if ( ShouldDoReplayIsForcedByCode() )
-	{
-		print( "ShouldDoReplay(): Doing a replay because code forced it." )
-		return true
-	}
-
-	if ( GetCurrentPlaylistVarInt( "replay_disabled", 1 ) == 1 )
-	{
-		print( "ShouldDoReplay(): Not doing a replay because 'replay_disabled' is enabled in the current playlist.\n" )
-		return false
-	}
-
-	switch ( methodOfDeath )
-	{
-		case eDamageSourceId.human_execution:
-		case eDamageSourceId.titan_execution:
-		{
-			print( "ShouldDoReplay(): Not doing a replay because the player died from an execution.\n" )
-			return false
-		}
-	}
-
-	if ( level.nv.replayDisabled )
-	{
-		print( "ShouldDoReplay(): Not doing a replay because replays are disabled for the level.\n" )
-		return false
-	}
-
-	if ( Time() - player.p.connectTime <= replayTime ) //Bad things happen if we try to do a kill replay that lasts longer than the player entity existing on the server
-	{
-		print( "ShouldDoReplay(): Not doing a replay because the player is not old enough.\n" )
-		return false
-	}
-
-	if ( player == attacker )
-	{
-		print( "ShouldDoReplay(): Not doing a replay because the attacker is the player.\n" )
-		return false
-	}
-
-	if ( player.IsBot() == true )
-	{
-		print( "ShouldDoReplay(): Not doing a replay because the player is a bot.\n" )
-		return false
-	}
-
-	return AttackerShouldTriggerReplay( attacker )
-}
-
-// Don't let things like killbrushes show replays
-bool function AttackerShouldTriggerReplay( entity attacker )
-{
-	if ( !IsValid( attacker ) )
-	{
-		print( "AttackerShouldTriggerReplay(): Not doing a replay because the attacker is not valid.\n" )
-		return false
-	}
-
-	if ( attacker.IsPlayer() )
-	{
-		print( "AttackerShouldTriggerReplay(): Doing a replay because the attacker is a player.\n" )
-		return true
-	}
-
-	if ( attacker.IsNPC() )
-	{
-		print( "AttackerShouldTriggerReplay(): Doing a replay because the attacker is an NPC.\n" )
-		return true
-	}
-
-	print( "AttackerShouldTriggerReplay(): Not doing a replay by default.\n" )
-	return false
-}
-#endif // #if SERVER
-
 table function ArrayValuesToTableKeys( arr )
 {
 	Assert( type( arr ) == "array", "Not an array" )
@@ -2954,19 +2875,6 @@ int function GetRoundsPlayed()
 	return expect int( level.nv.roundsPlayed )
 }
 
-
-bool function IsEliminationBased()
-{
-	return GetCurrentPlaylistVarBool( "is_elimination_based", true )
-}
-
-
-bool function IsPilotEliminationBased()
-{
-	return true
-}
-
-
 void function __WarpInEffectShared( vector origin, vector angles, string sfx, float preWaitOverride = -1.0, entity ornull vehicle = null )
 {
 	float preWait = 2.0
@@ -3271,14 +3179,6 @@ float function GetDeathCamLength( )
 float function GetRespawnButtonCamTime( entity player )
 {
 	return DEATHCAM_TIME + RESPAWN_BUTTON_BUFFER
-}
-
-float function GetKillReplayAfterTime( entity player )
-{
-	if ( !GamePlayingOrSuddenDeath() )
-		return KILL_REPLAY_AFTER_KILL_TIME_SHORT
-
-	return KILL_REPLAY_AFTER_KILL_TIME
 }
 
 bool function IntroPreviewOn()
@@ -3665,6 +3565,12 @@ string function GetPlayerVoice( entity player )
 void function SetTeam( entity ent, int team )
 {
 	int oldTeam = ent.GetTeam()
+	
+	#if DEVELOPER
+	if( ent.IsPlayer() )
+		printw( "TEAMING - ASSIGNING TEAM TO PLAYER", ent, "NEW", team, "OLD", oldTeam )
+	#endif
+	
 	ent.Code_SetTeam( team )
 
 	#if SERVER
@@ -5429,6 +5335,14 @@ array<entity> function GetFilteredArray_Connected( array<entity> playerArray )
 	}
 
 	return results
+}
+
+void function DebugTeamsForPlayers()
+{
+	foreach( player in GetPlayerArray() )
+	{
+		printw( player, player.GetTeam() )
+	}
 }
 
 array<entity> function GetPlayerArray_ConnectedNotSpectatorTeam()

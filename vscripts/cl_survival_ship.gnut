@@ -28,6 +28,9 @@ void function ClSurvivalShip_Init()
 
 bool function IsPlayerInPlane( entity player )
 {
+	if( !IsValid( player ) )
+		return false
+	
 	return player.GetPlayerNetBool( "playerInPlane" )
 }
 

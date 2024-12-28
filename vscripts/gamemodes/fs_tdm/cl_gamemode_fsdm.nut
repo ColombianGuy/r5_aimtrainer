@@ -1776,6 +1776,10 @@ void function DM_HintCatalog(int index, int eHandle)
 		DM_QuickHint( "You have to kill the two dummies at the same time before you can continue!", true, 3 )
 		break
 
+		case 5:
+		DM_QuickHint( "Starting new game in " + GetCurrentPlaylistVarFloat( "survival_server_restart_after_end_time", 30 ) + " seconds.", true, 5 )
+		break
+		
 		case -1:
 		if(file.activeQuickHint != null)
 		{
@@ -2491,8 +2495,8 @@ void function HaloBrIntroSequence()
 		var rui = RuiCreate( $"ui/cockpit_console_text_top_right.rpak", clGlobal.topoFullScreen, RUI_DRAW_HUD, 0)
 		RuiSetInt( rui, "maxLines", 1 );
 		RuiSetInt( rui, "lineNum", 0 );
-		RuiSetFloat2( rui, "msgPos", <0.45, 0.35, 0> )
-		RuiSetString( rui, "msgText", "HisWattson LLC Presents" )
+		RuiSetFloat2( rui, "msgPos", <0.45, 0.2, 0> )
+		RuiSetString( rui, "msgText", "HisWattson Presents" )
 		RuiSetFloat3( rui, "msgColor", <1, 1, 1> )
 		RuiSetFloat( rui, "msgFontSize", 50.0)
 		RuiSetFloat( rui, "msgAlpha", 0.9 )
@@ -2510,8 +2514,8 @@ void function HaloBrIntroSequence()
 		rui = RuiCreate( $"ui/cockpit_console_text_top_left.rpak", clGlobal.topoFullScreen, RUI_DRAW_HUD, 0)
 		RuiSetInt( rui, "maxLines", 1 );
 		RuiSetInt( rui, "lineNum", 0 );
-		RuiSetFloat2( rui, "msgPos", <0.55, 0.32, 0> )
-		RuiSetString( rui, "msgText", "Designed by CafeFPS\nPowered by R5Reloaded" )
+		RuiSetFloat2( rui, "msgPos", <0.55, 0.17, 0> )
+		RuiSetString( rui, "msgText", "Designed by CafeFPS\nHosted by karma-gaming.net\nPowered by R5Reloaded" )
 		RuiSetFloat3( rui, "msgColor", <1, 1, 1> )
 		RuiSetFloat( rui, "msgFontSize", 50.0)
 		RuiSetFloat( rui, "msgAlpha", 0.9 )

@@ -4631,6 +4631,7 @@ void function HaloMod_HandlePlayerModel( entity player )
 		// break
 	}
 
+	player.SetPlayerNetInt( "fs_haloMod_assignedMasterChief", assignedColor )
 	// #if DEVELOPER
 	// if( player.GetPlayerName() == "7bt2ft55kl7i" || player.GetPlayerName() == "r5r_CafeFPS" )
 	// {

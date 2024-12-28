@@ -414,12 +414,12 @@ void function BubbleShieldDamageEnemies( entity bubbleShield, entity bubbleShiel
 	trigger.SetBelowHeight( 0 )
 	trigger.SetOrigin( bubbleShield.GetOrigin() )
 	trigger.SetParent( bubbleShield )
+
+	SetTeam( trigger, bubbleShield.GetTeam() )
 	
 	trigger.SetEnterCallback( GibbyOp_OnEnter )
 	trigger.SetLeaveCallback( GibbyOp_OnLeave )
 
-	trigger.SetOwner( bubbleShieldPlayer )
-	
 	DispatchSpawn( trigger )
 	
 	file.allBubbleTriggers.append( trigger )
@@ -429,7 +429,7 @@ void function BubbleShieldDamageEnemies( entity bubbleShield, entity bubbleShiel
 	/*DebugDrawCylinder( trigger.GetOrigin(), <270,0,0>, TITAN_BUBBLE_SHIELD_INVULNERABILITY_RANGE, TITAN_BUBBLE_SHIELD_CYLINDER_TRIGGER_HEIGHT, 255, 255, 255, true, 20.0 )
 	DebugDrawSphere( bubbleShield.GetOrigin(), TITAN_BUBBLE_SHIELD_INVULNERABILITY_RANGE, 255, 0, 0, true, 20 )*/
 	OnThreadEnd(
-	function() : ( trigger )
+		function() : ( trigger )
 		{
 			if( file.allBubbleTriggers.contains( trigger ) )
 				file.allBubbleTriggers.removebyvalue( trigger )
@@ -459,18 +459,10 @@ void function GibbyOp_OnEnter( entity trigger, entity ent )
 {
 	if( !IsValid( ent ) || !ent.IsPlayer() )
 		return
-	
-	entity owner = trigger.GetOwner()
-	
-	if( !IsValid( owner ) ) //shouldn't happen
-	{
-		printw("debug bubble trigger not having owner pls" )
-		return
-	}
-	
+
 	// We don't need to check for extra teammates bubble here, it's ok if it tries to apply
 	
-	if( ent.GetTeam() == owner.GetTeam() ) //is gibby team
+	if( ent.GetTeam() == trigger.GetTeam() ) //is gibby team
 	{
 		#if DEVELOPER
 		printw( ent, " gained bubble mods" )
@@ -499,8 +491,7 @@ void function GibbyOp_OnEnter( entity trigger, entity ent )
 		if ( StatusEffect_GetSeverity( ent, eStatusEffect.ring_immunity ) == 0.0 )
 			StatusEffect_AddEndless( ent, eStatusEffect.ring_immunity, 1.0 )
 		
-		if( !ent.GetPlayerNetBool( "hasDeathFieldImmunity" ) )
-			ent.SetPlayerNetBool( "hasDeathFieldImmunity", true )
+		ent.SetPlayerNetBool( "hasDeathFieldImmunity", true )
 	}
 }
 
@@ -508,36 +499,26 @@ void function GibbyOp_OnLeave( entity trigger, entity ent )
 {
 	if( !IsValid( ent ) || !ent.IsPlayer() )
 		return
-	
-	entity owner = trigger.GetOwner()
 
-	if( !IsValid( owner ) ) //shouldn't happen
-	{
-		printw("debug bubble trigger not having owner pls" )
-		return
-	}
-	
 	bool shouldRemoveStuff = true
 	
 	foreach( anotherTrigger in file.allBubbleTriggers )
 	{
-		if( !IsValid( anotherTrigger ) || anotherTrigger == trigger )
+		if( !IsValid( anotherTrigger ) || anotherTrigger == trigger || ent.GetTeam() != anotherTrigger.GetTeam())
 			continue
-		
-		entity ownerTrigger = anotherTrigger.GetOwner()
-		
-		if( anotherTrigger.IsTouching( ent ) && IsValid( ownerTrigger ) && ent.GetTeam() == owner.GetTeam() ) //Don't remove passives if player is inside another teammate's bubble and this one is being destroyed
+
+		if( anotherTrigger.IsTouching( ent ) ) //Don't remove passives if player is inside another teammate's bubble and this one is being destroyed. Cafe
 			shouldRemoveStuff = false
 	}
-	
-	if( ent.GetTeam() == owner.GetTeam() && shouldRemoveStuff ) //is gibby team
+
+	#if DEVELOPER
+	printw( ent, " try to remove bubble mods: actually remove?", shouldRemoveStuff )
+	#endif
+		
+	if( ent.GetTeam() == trigger.GetTeam() && shouldRemoveStuff ) //is gibby team
 	{
-		#if DEVELOPER
-		printw( ent, " removed bubble mods" )
-		#endif
 		// TakeExtraWeaponMod( ent, "gibbyv1" )
 		
-		printt( "take bubble bunker and fast heal passive")
 		if( PlayerHasPassive( ent, ePassives.PAS_FAST_HEAL ) )
 		{
 			TakePassive( ent, ePassives.PAS_FAST_HEAL )
@@ -553,15 +534,10 @@ void function GibbyOp_OnLeave( entity trigger, entity ent )
 			TakePassive( ent, ePassives.PAS_BONUS_SMALL_HEAL )
 		}
 		
-		if ( StatusEffect_GetSeverity( ent, eStatusEffect.bubble_bunker ) > 0.0 )
-			StatusEffect_StopAllOfType( ent, eStatusEffect.bubble_bunker )
-
-		if ( StatusEffect_GetSeverity( ent, eStatusEffect.ring_immunity ) > 0.0 )
-			StatusEffect_StopAllOfType( ent, eStatusEffect.ring_immunity )
+		StatusEffect_StopAllOfType( ent, eStatusEffect.bubble_bunker )
+		StatusEffect_StopAllOfType( ent, eStatusEffect.ring_immunity )
 		
-		if( ent.GetPlayerNetBool( "hasDeathFieldImmunity" ) )
-			ent.SetPlayerNetBool( "hasDeathFieldImmunity", false )
-
+		ent.SetPlayerNetBool( "hasDeathFieldImmunity", false )
 	}
 }
 

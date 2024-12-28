@@ -237,7 +237,8 @@ void function GivePassive( entity player, int passive )
 	bool didHavePassive = player.HasPassive( passive )
 
 	#if DEVELOPER
-		printt( "give passive ", passive, GetPassiveName( passive ) )
+		// DumpStack()
+		printt( "[+] Give passive: ", passive, GetPassiveName( passive ) )
 	#endif
 		
 	player.GivePassive( passive )
@@ -254,7 +255,7 @@ void function TakePassive( entity player, int passive )
 	bool didHavePassive = player.HasPassive( passive )
 
 	#if DEVELOPER
-		printt( "take passive ", passive, GetPassiveName( passive )  )
+		printt( "[+] Take passive: ", passive, GetPassiveName( passive )  )
 	#endif
 		
 	player.RemovePassive( passive )
@@ -606,18 +607,18 @@ void function Wattson_PassiveToggle(  entity player, int passive, bool didHave, 
 
 	if ( didHave )
 	{
-		#if DEVELOPER
-			printt("[Passive Spark Of Genius - Reimplemented by @CafeFPS] - stopped for player ", player)
-		#endif
+		// #if DEVELOPER
+			// printt("[Passive Spark Of Genius - Reimplemented by @CafeFPS] - stopped for player ", player)
+		// #endif
 			
 		Signal( player, "EndSparkOfGeniusThread" )
 	}
 
 	if ( nowHas )
 	{
-		#if DEVELOPER
-			printt("[Passive Spark Of Genius - Reimplemented by @CafeFPS] - started for player ", player)
-		#endif
+		// #if DEVELOPER
+			// printt("[Passive Spark Of Genius - Reimplemented by @CafeFPS] - started for player ", player)
+		// #endif
 		
 		thread SparkOfGenius_Passive_Body( player )
 	}
@@ -627,11 +628,20 @@ void function SparkOfGenius_Passive_Body( entity player )
 {
 	float healthRegenStartDelay = 6.0
 	float healthRegenRate = 1.0
+	float healthWait = 2.0
+	
+	if( Flowstate_IsHaloMode() )
+	{
+		healthRegenStartDelay = 5.0
+		healthRegenRate = 1.0
+		healthWait = 0.5
+	}
+	
 	EndSignal( player, "EndSparkOfGeniusThread" )
 	
 	while ( IsValid( player ) && PlayerHasPassive( player, ePassives.PAS_BATTERY_POWERED ) )
 	{
-		wait 2
+		wait healthWait
 		
 		if ( !IsAlive( player ) || Bleedout_IsBleedingOut(player) || Time() - player.p.lastDamageTime < healthRegenStartDelay || player.IsPhaseShifted())
 		{

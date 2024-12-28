@@ -62,6 +62,7 @@ global struct SvGlobals
 	array<pilotEliminationDialogueCallbackType> pilotEliminationDialogueCallbacks
 	table<string, array<bool functionref( entity player, entity healthpack)> > onTouchHealthKitCallbacks
 	array<void functionref( entity )> onClientConnectedCallbacks
+	array<void functionref( entity )> onClientReloadConnectedCallbacks
 	array<void functionref(entity)> onPlayerRespawnedCallbacks
 	array<void functionref( entity player, entity npc_titan )> onPilotBecomesTitanCallbacks
 	array<void functionref( entity player, entity npc_titan )> onTitanBecomesPilotCallbacks

@@ -96,7 +96,6 @@ const DEV_COUNTDOWNTIMER = 0//turn on to see the countdown timer to match starts
 
 void function ClGameState_Init()
 {
-	RegisterSignal( "GameStateChanged" )
 	RegisterServerVarChangeCallback( "gameState", ClGameState_Changed )
 	//RegisterServerVarChangeCallback( "badRepPresent", UpdateScoreboardBadRepPresentMessage )
 	AddOnSpectatorTargetChangedCallback( GameState_SpectatorTargetChanged )
@@ -897,9 +896,10 @@ void function ClGameState_Changed()
 
 void function GameState_SpectatorTargetChanged( entity player, entity previousTarget, entity currentTarget )
 {
-	UpdateGamestateRuiTracking( currentTarget )
-	UpdateGamestateRuiTracking( previousTarget )
-	UpdateGamestateRuiTracking( player )
+	if ( IsValid( currentTarget ) )
+		UpdateGamestateRuiTracking( currentTarget )
+	else
+		UpdateGamestateRuiTracking( player )
 }
 
 void function SetGameModeSuddenDeathAnnouncementSubtext( string text )

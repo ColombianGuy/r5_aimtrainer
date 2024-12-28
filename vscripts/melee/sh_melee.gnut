@@ -601,6 +601,14 @@ void function CodeCallback_OnMeleeStartActivity( entity attacker, entity meleeAt
 	else if ( !IsValid( attacker ) || !IsValid( meleeAttackWeapon ) || !attacker.PlayerMelee_IsAttackActive() ) 
 		return // todo(dw): workaround for R5DEV-53982
 
+	#if CLIENT
+	if( Flowstate_IsHaloMode() )
+	{
+		FS_ForceDestroyCustomAdsOverlay()
+		GetLocalClientPlayer().ClientCommand( "-zoom" )
+	}
+	#endif
+	
 	#if SERVER
 	const float STUN_EFFECT_CUTOFF = 0.05
 	float movestunEffect = StatusEffect_GetSeverity( attacker, eStatusEffect.move_slow )

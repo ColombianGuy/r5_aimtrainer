@@ -1383,7 +1383,7 @@ void function CreateBuyMenuRUI( )
 			continue
 
 		RuiSetImage( rui, "optionIcon" + count, GetAllBuyMenuElements()[i].icon )
-		RuiSetInt( rui, "optionTier" + count, GetAllBuyMenuElements()[i].tier )
+		RuiSetInt( rui, "optionTier" + count, GetAllBuyMenuElements()[i].tier - 1 )
 		RuiSetFloat3( rui, "optionColor" + count, SrgbToLinear( outerCircleColor / 255.0 ) )
 		RuiSetString( rui, "optionCenterText" + count, GetAllBuyMenuElements()[i].text )
 		RuiSetString( rui, "optionText" + count, GetAllBuyMenuElements()[i].name )
@@ -1494,19 +1494,19 @@ void function FillWeaponBoxTest(int slot)
 		switch(lvlToUse)
 		{
 			case -1:
-				RuiSetInt( rui, "lootTier", 2 )
+				RuiSetInt( rui, "lootTier", 0 )
 			break
 			
 			case 0:
-				RuiSetInt( rui, "lootTier", 3 )
+				RuiSetInt( rui, "lootTier", 1 )
 			break
 			
 			case 1:
-				RuiSetInt( rui, "lootTier", 4 )
+				RuiSetInt( rui, "lootTier", 2 )
 			break
 			
 			case 2:
-				RuiSetInt( rui, "lootTier", 5 )
+				RuiSetInt( rui, "lootTier", 3 )
 			break
 			
 			default:
@@ -1649,13 +1649,13 @@ void function FillRuiElementsWithDatatableData(int chosenMenu)
 		if( GetAllBuyMenuElements()[i].menuID != chosenMenu )
 			continue
 
-		RuiSetImage( rui, "optionIcon" + count, GetAllBuyMenuElements()[i].icon )
-		RuiSetInt( rui, "optionTier" + count, GetAllBuyMenuElements()[i].tier )
+		RuiSetImage( rui, "optionIcon" + count, GetAllBuyMenuElements()[i].icon)
+		RuiSetInt( rui, "optionTier" + count, 0 ) //GetAllBuyMenuElements()[i].tier - 1 )
 		
 		if(GetAllBuyMenuElements()[i].weaponID == file.weapon1ID)			
-			RuiSetInt( rui, "optionTier" + count, file.weapon1lvl + 3 )
+			RuiSetInt( rui, "optionTier" + count, file.weapon1lvl + 1 )
 		else if(GetAllBuyMenuElements()[i].weaponID == file.weapon2ID)	
-			RuiSetInt( rui, "optionTier" + count, file.weapon2lvl + 3 )	
+			RuiSetInt( rui, "optionTier" + count, file.weapon2lvl + 1 )	
 
 		RuiSetFloat3( rui, "optionColor" + count, SrgbToLinear( outerCircleColor / 255.0 ) )
 		RuiSetString( rui, "optionCenterText" + count, GetAllBuyMenuElements()[i].text )
@@ -1705,12 +1705,12 @@ void function SetTierForSlotFromWeaponIDAndLVL(int weaponID, int weaponlvl, bool
 	if(GetAllBuyMenuElements()[i].weaponID == weaponID)
 	{	
 		if( file.activeMenu == GetMenuForWeaponID( weaponID ) && !wasAbsoluteSell )
-			RuiSetInt( Hud_GetRui( HudElement( "WheelTest" ) ), "optionTier" + count, weaponlvl + 3 )
+			RuiSetInt( Hud_GetRui( HudElement( "WheelTest" ) ), "optionTier" + count, weaponlvl + 1 )
 		
 		if(wasAbsoluteSell)
 		{
 			if( weaponID != -1 )
-				RuiSetInt( Hud_GetRui( HudElement( "WheelTest" ) ), "optionTier" + count, 1 )
+				RuiSetInt( Hud_GetRui( HudElement( "WheelTest" ) ), "optionTier" + count, 0 )
 			
 			if(weaponID == file.weapon1ID)
 			{

@@ -1347,14 +1347,14 @@ void function SURVIVAL_RemoveAllAttachmentsFromWeapon( entity player, int slot, 
 	string weaponRef = SURVIVAL_GetLootDataFromWeapon( weapon ).ref
 	array<string> mods = weapon.GetMods()
 
-	// if( WeaponLootRefIsLockedSet( weaponRef ) )
-	// {
-		// string optic = GetOpticAttachmentFromMods( weaponRef, mods )
-		// if( optic != "" )
-			// SURVIVAL_RemoveAttachmentFromWeapon( player, optic, slot, toGround )
+	if( WeaponLootRefIsLockedSet( weaponRef ) )
+	{
+		string optic = GetOpticAttachmentFromMods( weaponRef, mods )
+		if( optic != "" )
+			SURVIVAL_RemoveAttachmentFromWeapon( player, optic, slot, toGround )
 
-		// return
-	// }
+		return
+	}
 
 	array<string> baseMods = SURVIVAL_Weapon_GetBaseMods( weaponRef )
 	foreach ( string modName in mods )
@@ -2441,7 +2441,15 @@ entity function SURVIVAL_GiveMainWeapon( entity player, entity pickup, array<str
 
 	if( !IsValid( newWeapon ) )
 		return null
+
+	InitEntityVars( newWeapon )
 	
+	if( pickup.e.lockedSet != eWeaponLockedSet.INVALID )
+	{
+		SetEntityVar( newWeapon, "weaponLockedSet", pickup.e.lockedSet )
+		// printw( "weapon is a locked set weapon" )
+	}
+		
 	newWeapon.SetProScreenOwner( ( ( pickup.e.firstOwner == null) ? player : pickup.e.firstOwner) )
 	// TryRemoveExtraWeaponModsThatMustBeOnPlayer( player, newWeapon, mods ) //for rampart. Cafe
 
@@ -2473,10 +2481,13 @@ entity function SURVIVAL_GiveMainWeapon( entity player, entity pickup, array<str
 	if ( settings.flowstate_givecharms_weapons )
 		weaponCharmOrNull = GetItemFlavorByGUID( chosenCharm )
 
-	if( Playlist() != ePlaylists.fs_haloMod_survival && GetCurrentPlaylistVarBool( "is_hiswattson_mode", false ) )
-		newWeapon.SetWeaponCharm( $"mdl/flowstate_custom/charm_hiswattson.rmdl", "CHARM" )
-	else
-		WeaponCosmetics_Apply( newWeapon, weaponSkinOrNull, weaponCharmOrNull )
+	if( newWeapon.LookupAttachment( "CHARM" ) > 0 )
+	{
+		if( GetCurrentPlaylistVarBool( "is_hiswattson_event", false ) )
+			newWeapon.SetWeaponCharm( $"mdl/flowstate_custom/charm_hiswattson.rmdl", "CHARM" )
+		else
+			WeaponCosmetics_Apply( newWeapon, weaponSkinOrNull, weaponCharmOrNull )
+	}
 
 	if ( WeaponHasCosmetics( newWeapon ) && ( pickup.e.firstOwner != null ) && ( pickup.e.firstOwner != player ) && CodeCallback_CanStartCustomWeaponActivity( player, ACT_VM_WEAPON_INSPECT ) )
 		Remote_CallFunction_ByRef( player, "SCB_WeaponInspectHint" )
@@ -2521,11 +2532,13 @@ entity function SURVIVAL_GiveMainWeapon( entity player, entity pickup, array<str
 	// set the mods here so extended ammo doesn't take effect until after we give ammo
 	newWeapon.SetMods( mods )
 
+	// Used to set a weapon locked set properly when a weapon is being given to a player from a loot ref
 	//We have to know if it's a locked set before infinite ammo tags are applied
 	// if( !newWeapon.HasMod( "crate" ) )
 	// {
 		// SetWeaponLockedSetFromLootTags( lootTags, newWeapon )
 	// }
+	
 	if( Gamemode() == eGamemodes.fs_duckhunt && newWeapon.GetWeaponClassName() == "mp_weapon_sniper" )
 		newWeapon.AddMod("duckhunt")
 		
@@ -3042,6 +3055,8 @@ entity function SpawnGenericLoot( string ref, vector origin, vector overrideAngl
 
 	if ( lootType == eLootType.MAINWEAPON )
 	{
+		ent.e.lockedSet = GetLockedSetFromName( ref )
+		
 		string baseWeapon = lootData.baseWeapon
 		ent.SetWeaponName( baseWeapon )
 
@@ -5169,7 +5184,7 @@ void function SURVIVAL_Death_DropLoot_Internal( entity player, entity attacker, 
 	int itemFrameCount = 0
 	
 	//Todo: Create separate loot dropper function for halomode. 
-	if( Flowstate_IsHaloMode() )
+	if( Flowstate_IsHaloMode() && Playlist() != ePlaylists.fs_haloMod_survival )
 		RemoveRefs( VALID_FOR_HALO, playerWeapons )
 		
 	for ( int i = 0; i < playerWeapons.len(); i++ )
@@ -5193,7 +5208,7 @@ void function SURVIVAL_Death_DropLoot_Internal( entity player, entity attacker, 
 	}
 
 	//Todo: Create separate loot dropper function for halomode. 
-	if( Flowstate_IsHaloMode() )
+	if( Flowstate_IsHaloMode() && Playlist() != ePlaylists.fs_haloMod_survival )
 		RemoveRefs( VALID_FOR_HALO, playerEquipment )
 
 	foreach ( itemName in playerEquipment )
@@ -5275,7 +5290,7 @@ void function SURVIVAL_Death_DropLoot_Internal( entity player, entity attacker, 
 	}
 
 	//Todo: Create separate loot dropper function for halomode. 
-	if( Flowstate_IsHaloMode() )
+	if( Flowstate_IsHaloMode() && Playlist() != ePlaylists.fs_haloMod_survival )
 		RemoveRefs_Loot( VALID_FOR_HALO, playerInventory )
 		
 	foreach ( invItem in playerInventory )
