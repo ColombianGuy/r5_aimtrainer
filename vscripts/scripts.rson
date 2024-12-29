@@ -1021,6 +1021,11 @@ Scripts:
 [
 	ui/fs_scenarios/scenarios_ui.nut
 	ui/fs_1v1/1v1_coaching.nut
+	
+	//Flowstate Team Selector. Cafe
+	ui/FS_TeamSelector/team_selector_lobby.nut
+	ui/FS_TeamSelector/team_selector_lobby_roster.nut
+	ui/FS_TeamSelector/team_selector_lobby_team.nut
 ]
 
 When: "SERVER || CLIENT"

@@ -1877,6 +1877,11 @@ void function InitMenus()
 	var coachingMenu = AddMenu( "1v1CoachingModeMenu", $"platform/scripts/resource/ui/menus/FS_1v1_Coaching/fs_1v1_coaching.menu", InitCoachingMenu, "1v1 Coaching" )
 	AddPanel( coachingMenu, "CoachingRecordingsList", Init_CoachingRecordingsList )
 
+	//FS Battle Royale Team Selector. Cafe
+	var teamSelectorLobby = AddMenu( "FSTeamSelector_Lobby", $"platform/scripts/resource/ui/menus/FS_TeamSelector/team_selector_lobby.menu", InitTeamSelectorMenu )
+	var teamSelectorLobbyRoster = AddPanel( teamSelectorLobby, "LobbyRosterPanel", InitTeamSelectorLobbyRosterPanel )
+	var teamSelectorLobbyTeams = AddPanel( teamSelectorLobby, "LobbyTeamsPanel", InitTeamSelectorLobbyTeamPanel )
+	
 	InitTabs()
 	InitSurveys()
 	ShMenuModels_UIInit()

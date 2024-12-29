@@ -1,0 +1,211 @@
+"resource/ui/menus/FS_TeamSelector/team_selector_lobby.menu"
+{
+	menu
+	{
+		ControlName				Frame
+		xpos					0
+		ypos					0
+		zpos					1
+		wide					f0
+		tall					f0
+		autoResize				0
+		visible					1
+		enabled					1
+		pinCorner				0
+		PaintBackgroundType		0
+		infocus_bgcolor_override	"0 0 0 0"
+		outoffocus_bgcolor_override	"0 0 0 0"
+
+		ScreenFrame
+		{
+		    ControlName				RuiPanel
+		    xpos					0
+		    ypos					0
+		    wide					%100
+		    tall					%100
+		    visible					0
+		    enabled 				1
+		    scaleImage				1
+		    rui				     "ui/screen_blur.rpak"
+		    drawColor				"255 255 255 255"
+		}
+
+		Vignette
+		{
+		    ControlName		     ImagePanel
+		    InheritProperties       MenuVignette
+		}
+		
+		TabsCommon
+		{
+			ControlName				CNestedPanel
+			classname				"TabsCommonClass"
+			zpos					1
+			wide					f0
+			tall					95
+			xpos 0
+			ypos 0
+			ypos					128
+			visible					1
+			controlSettingsFile		"resource/ui/menus/panels/tabs_settings.res"
+
+			pin_to_sibling			ScreenFrame
+			pin_corner_to_sibling	TOP
+			pin_to_sibling_corner	TOP
+		}
+		
+		PanelFrame
+		{
+			ControlName				Label
+			wide					1826
+			tall					1080
+			ypos				    -55
+			labelText				""
+			visible				    0
+			bgcolor_override		"255 255 0 64"
+			paintbackground		 1
+			proportionalToParent    1
+			clipRui				 0
+
+			pin_to_sibling			ScreenFrame
+			pin_corner_to_sibling   TOP
+			pin_to_sibling_corner	TOP
+		}
+
+		LeftColumn
+		{
+			ControlName				Label
+			wide				    372
+			tall				    835
+			labelText				""
+			proportionalToParent    1
+
+			pin_to_sibling		  PanelFrame
+			pin_corner_to_sibling   LEFT
+			pin_to_sibling_corner   LEFT
+		}
+
+		JoinTeamHelper
+		{
+			ControlName				Label
+			xpos					0
+			ypos				    0
+			zpos					5
+			auto_wide_tocontents 	1
+			// wide				    1000
+			tall					30
+			textAlignment			center
+			visible					1
+			labelText				"Select a team to join"
+			font					DefaultRegularFont
+			fontHeight				45
+			allcaps					1
+			fgcolor_override		"255 255 255 255"
+
+			pin_to_sibling			TabsCommon
+			pin_corner_to_sibling	CENTER
+			pin_to_sibling_corner	CENTER
+		}
+
+		LobbyRosterPanel
+		{
+			ControlName		     CNestedPanel
+			controlSettingsFile     "scripts/resource/ui/menus/FS_TeamSelector/team_selector_lobby_roster.res"
+
+			wide				    372
+			tall				    400
+
+			ypos				    6
+			// visible					0
+			pin_to_sibling		  LeftColumn
+			pin_corner_to_sibling   TOP
+			pin_to_sibling_corner   TOP
+		}
+
+		ChatPanel
+		{
+			ControlName		     CBaseHudChat
+			InheritProperties       ChatBox
+
+			bgcolor_override		"0 0 0 80"
+			chatBorderThickness     1
+			chatHistoryBgColor      "24 27 30 120"
+			chatEntryBgColor		"24 27 30 120"
+			chatEntryBgColorFocused "24 27 30 120"
+
+			destination				    "global"
+			hideInputBox			0
+			visible				    1
+			teamChat				   0
+			stopMessageModeOnFocusLoss 0
+			menuModeWithFade		   0
+			messageModeAlwaysOn		1
+
+			ypos				    10
+			wide				    372
+			tall				    300
+			zpos				    200
+
+			pin_to_sibling		  LobbyRosterPanel
+			pin_corner_to_sibling   TOP
+			pin_to_sibling_corner   BOTTOM
+		}
+
+		ChatFrame
+		{
+			ControlName				RuiButton
+			ypos				    281
+			zpos				    30
+			wide				    358
+			tall				    30
+
+			labelText				""
+			visible				    1
+			proportionalToParent    1
+			clipRui				 0
+
+			pin_to_sibling		  LobbyRosterPanel
+			pin_corner_to_sibling   TOP
+			pin_to_sibling_corner   BOTTOM
+		}
+
+		StartButton
+		{
+			ControlName				RuiButton
+			classname		       "MenuButton"
+			wide				    372
+			tall				    114
+
+			pin_to_sibling		  LeftColumn
+			pin_corner_to_sibling   BOTTOM
+			pin_to_sibling_corner   BOTTOM
+
+			rui				     "ui/generic_ready_button.rpak"
+			ruiArgs
+			{
+				buttonText		  "#READY"
+			}
+		}
+
+		LobbyTeamsPanel
+		{
+			ControlName		   CNestedPanel
+			wide				    1480
+			tall				    850
+			xpos				    20
+			ypos				    0
+			zpos				    1
+			visible				 1
+			
+			enabled				 1
+			controlSettingsFile     "scripts/resource/ui/menus/FS_TeamSelector/team_selector_lobby_team.res"
+
+			xcounterscroll		 0.0
+			ycounterscroll		 0.0
+
+			pin_to_sibling		  PanelFrame
+			pin_corner_to_sibling   RIGHT
+			pin_to_sibling_corner   RIGHT
+		}
+	}
+}

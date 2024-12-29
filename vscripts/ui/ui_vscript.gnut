@@ -17,6 +17,39 @@ global function UICallback_AdminStatus
 global function SetShowingMap
 global function IsShowingMap
 
+global struct TeamSelector_LobbyPlayer
+{
+	string uid
+	string uidHashed
+	string eaid
+	string firstPartyID
+	string hardware
+	string name
+	string tag
+	bool isAdmin = false
+	int team = 1
+	int flags = 0
+}
+
+global struct TeamSelector_LobbyState
+{
+	int maxTeams = 20
+	int maxPlayers = 60
+	int maxSpectators = 20
+	int matchState = 0
+	int tokenVer = 1
+	int selfIdx = -1
+	string playlist
+	bool adminChat = false
+	bool teamRename = false
+	bool selfAssign = true
+	bool aimAssist = true
+	bool anonMode = false
+	array<TeamSelector_LobbyPlayer> players
+	// array<CustomMatch_MatchHistory> matches
+	table<int, string> teamNames
+}
+
 global struct TabDef
 {
 	var                                                    button
