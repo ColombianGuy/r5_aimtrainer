@@ -1,0 +1,179 @@
+#base "_base_ability_ultimate.txt"
+
+WeaponData
+{
+	// General
+	"printname"   									"#ABL_DEATH_TOTEM"
+	"shortprintname"								"#ABL_DEATH_TOTEM_SHORT"
+	"description" 									"#ABL_DEATH_TOTEM_DESC"
+	"longdesc" 										"#ABL_DEATH_TOTEM_LONGDESC"
+
+	"menu_icon"										"rui/pilot_loadout/ordnance/electric_smoke_menu"
+	"hud_icon"										"rui/hud/ultimate_icons/ultimate_revenant"
+
+	"offhand_default_inventory_slot"				"1"
+	"minimap_reveal_distance"						"32000"
+	"fast_swap_to"									"1"
+	"offhand_switch_force_draw"						"0"
+	"offhand_holster_primary"	                    "1"
+	"offhand_interupts_weapon_anims"				"1"
+	"play_offhand_charging_anim"  					"0"
+	"play_offhand_start_end_anim"					"1"
+
+	"fire_mode"   									"offhand"
+
+	//"OnWeaponActivate"								"OnWeaponActivate_ability_revenant_death_totem"
+	//"OnWeaponDeactivate"							"OnWeaponDeactivate_ability_revenant_death_totem"
+	"OnWeaponRegenEnd"                              "OnWeaponRegenEndGeneric"
+	//"OnWeaponAttemptOffhandSwitch"					"OnWeaponAttemptOffhandSwitch_ability_revenant_death_totem"
+
+	// Models
+	"viewmodel"   									"mdl/weapons/empty_handed/ptpov_revenant_totem.rmdl"
+	"playermodel" 									"mdl/weapons/empty_hands/ptpov_empty_hands.rmdl"
+
+	// Audio
+	"battle_chatter_event"                          "bc_super"
+
+	// Damage - When Used by Players
+	"damage_type" 									"burn"
+	"damage_near_distance"							"0"
+	"damage_far_distance" 							"0"
+	"damage_near_value"   							"0"
+	"damage_far_value"								"0"
+	"damage_near_value_titanarmor"					"0"
+	"damage_far_value_titanarmor" 					"0"
+	"explosion_damage"								"0"
+	"explosion_damage_heavy_armor"					"0"
+	"explosion_inner_radius"  						"0"
+	"explosionradius" 								"0"
+	"impulse_force"   								"0"
+	"explosion_shake_radius"						"0"
+	"explosion_shake_amplitude"						"0"
+	"explosion_shake_frequency"						"0"
+	"explosion_shake_duration"						"0"
+    "zoom_effects"                                  "0"
+
+
+	// Behavior
+	"fire_rate"   									"1.42"  // = 1 divided by authored_anim_length (time)
+	"fire_duration"									"0.0"
+	//"fire_anim_rate"  							"1"
+	"deploy_time" 								    "1.0"
+	//"raise_time" 									"0.05"
+	//"lower_time"  								"0.15"
+	"allow_empty_fire"								"0"
+	"no_ammo_used_on_primary_attack"				"0"
+	"reload_enabled"  								"0"
+	"allow_empty_click"   							"0"
+	"empty_reload_only"   							"0"
+	"trigger_snipercam"   							"0"
+	"allow_headshots" 								"0"
+	"primary_fire_does_not_block_sprint"			"1"
+	"aimassist_disable_hipfire"						"1"
+	"aimassist_disable_ads"							"1"
+	"cooldown_type"									"ammo_instant"
+
+
+	// Spread
+	"ammo_suck_behavior"							"offhand_weapons"
+
+
+	// View Kick
+	"viewkick_spring" 								"pistol"
+
+	"ammo_drains_to_empty_on_fire"					"0"
+
+
+
+	MP_BASE
+	{
+		"ammo_clip_size"   								"180"
+		"ammo_default_total"							"0"
+		"ammo_display"									"count"
+		"ammo_min_to_fire"								"180"
+		"ammo_per_shot"									"180"
+		"ammo_stockpile_max"							"180"
+		"regen_ammo_refill_rate"						"1"
+		"regen_ammo_refill_start_delay"					"0.0"
+
+		"enable_highlight_networking_on_creation"		"<KEEP_DEFAULT>"
+	}
+
+	SP_BASE
+	{
+		"ammo_clip_size"   								"40"
+		"ammo_default_total"							"40"
+		"ammo_display"									"count"
+		"ammo_min_to_fire"								"40"
+		"ammo_per_shot"									"40"
+		"ammo_stockpile_max"							"40"
+		"regen_ammo_refill_rate"						"1"
+		"regen_ammo_refill_start_delay"					"0.0"
+
+		"enable_highlight_networking_on_creation"		"1"
+	}
+
+	Mods
+	{
+	    survival_armor_cooldown_mod
+        {
+            "regen_ammo_refill_rate"    "*1.25"
+        }
+
+	    burn_card_weapon_mod
+        {
+
+        }
+
+        survival_finite_ordnance
+        {
+
+        }
+
+	    ultimate_active
+	    {
+	    	"regen_ammo_refill_rate"		"0"
+	    }
+	}
+
+	active_crosshair_count				"0"
+	rui_crosshair_index					"0"
+
+	"ordnance_crosshair_always_on_start_index"	"1"
+
+	RUI_CrosshairData
+	{
+		DefaultArgs
+		{
+			adjustedSpread				weapon_spread
+			adsFrac 					player_zoomFrac
+			isSprinting					player_is_sprinting
+			isReloading					weapon_is_reloading
+			teamColor					crosshair_team_color
+			isAmped						weapon_is_amped
+		    crosshairMovementX          crosshair_movement_x
+		    crosshairMovementY          crosshair_movement_y
+		}
+
+		Crosshair_1
+		{
+			"ui"						"ui/crosshair_mine"
+			"base_spread"				"0.0"
+			Args
+			{
+				isFiring				weapon_is_firing
+			}
+		}
+
+
+		Crosshair_2
+		{
+			"ui"						"ui/crosshair_tactical"
+			Args
+			{
+			    ammoFrac                "progress_weapon_clip_ammo_frac"
+			    dryfireTime             "weapon_latest_dryfire_time"
+			}
+		}
+	}
+}

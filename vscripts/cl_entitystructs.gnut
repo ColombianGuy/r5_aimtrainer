@@ -105,6 +105,10 @@ global struct ClientEntityStruct
 	int extraSurvivalProperty = -1
 
 	array<DamageHistoryStruct>       recentDamageHistory
+	string clientEntMinimapClassName
+	int    clientEntMinimapCustomState
+	int    clientEntMinimapFlags
+	float  clientEntMinimapScale = 1.0
 }
 
 

@@ -6,6 +6,7 @@ global function Minimap_AddCustomLayer
 
 global function RegisterMinimapPackage
 
+global function CreateMinimapRui
 global function Minimap_SetSizeScale
 global function Minimap_IsUsingLargeMinimap
 global function Minimap_SetBlankBackground

@@ -1,0 +1,158 @@
+#base "_base_ability_ultimate.txt"
+
+WeaponData
+{
+//
+//  Info
+//
+	printname       "#LOBA_ULT_BLACK_MARKET_NAME"
+	shortprintname  "#LOBA_ULT_BLACK_MARKET_NAME"
+	description     "#LOBA_ULT_BLACK_MARKET_DESC"
+	longdesc        "#LOBA_ULT_BLACK_MARKET_LONGDESC"
+	menu_icon       "white"
+	hud_icon        "rui/hud/ultimate_icons/ultimate_loba"
+
+
+//
+//  Mechanics
+//
+	fire_mode                           offhandHybrid
+	offhand_interupts_weapon_anims      1
+
+	cooldown_type                       ammo_timed
+	regen_ammo_refill_rate              1.0
+	reload_enabled                      0 // required to make ammo regen work
+	ammo_default_total                  0
+
+	fire_rate                           99.0 // makes gun come up quickly after placement
+
+//
+//  Balance
+//
+	fire_duration                       0.5
+	deploy_time                         1.9 // not sure if used?
+	holster_time						0.15
+	raise_time							1.9 // see ANIMATION before adjusting (it affects AE_WPN_READYTOFIRE)
+	lower_time                          0.15
+	play_offhand_start_end_anim     "1"
+
+	ammo_clip_size                      180 // seconds to full charge
+	ammo_per_shot                       180
+	ammo_min_to_fire                    180
+
+	aimassist_disable_hipfire           1
+	aimassist_disable_ads               1
+
+
+//
+//  Viewmodel Bob and Sway
+//
+
+	// Bob
+	"bob_cycle_time"  								"0.4"
+	"bob_vert_dist"   								"0.19"
+	"bob_horz_dist"   								"0.1"
+	"bob_max_speed"   								"150"
+	"bob_pitch"   									"0.75"
+	"bob_yaw" 										"-1.7"
+	"bob_roll"										"1.2"
+
+	// Sway
+	"sway_rotate_attach"  							"SWAY_ROTATE"
+	"sway_min_x"  									"-0.5"
+	"sway_min_y"  									"-0.5"
+	"sway_min_z"  									"-0.6"
+	"sway_max_x"  									"0.5"
+	"sway_max_y"  									"0.5"
+	"sway_max_z"  									"0.6"
+	"sway_min_pitch"  								"-3"
+	"sway_min_yaw"									"-2.5"
+	"sway_min_roll"   								"-4"
+	"sway_max_pitch"  								"3"
+	"sway_max_yaw"									"2.5"
+	"sway_max_roll"   								"4"
+	"sway_translate_gain" 							"2.5"
+	"sway_rotate_gain"								"7"
+	"sway_move_forward_translate_x"   				"-0.1"
+	"sway_move_forward_translate_z"   				"-0.5"
+	"sway_move_back_translate_x"  					"0.2"
+	"sway_move_back_translate_z"  					"-0.2"
+	"sway_move_left_translate_y"  					"-1"
+	"sway_move_left_translate_z"  					"-0.5"
+	"sway_move_left_rotate_roll"  					"-4"
+	"sway_move_right_translate_y" 					"1"
+	"sway_move_right_translate_z" 					"-0.5"
+	"sway_move_right_rotate_roll" 					"4"
+	"sway_move_up_translate_z"						"-1"
+	"sway_move_down_translate_z"  					"1"
+	"sway_turn_left_rotate_yaw"   					"-2.5"
+	"sway_turn_right_rotate_yaw"  					"2.5"
+
+	"sway_turn_left_translate_y"  					".5"
+	"sway_turn_right_translate_y"  					"-.5"
+	"sway_turn_up_translate_z"  					".2"
+	"sway_turn_down_translate_z"  					"-.2"
+	"sway_turn_up_translate_x"  					".1"
+	"sway_turn_down_translate_x"  					"-.1"
+
+	"sway_turn_left_rotate_roll"   					"4"
+	"sway_turn_right_rotate_roll"  					"-4"
+	"sway_turn_up_rotate_pitch"   					"3"
+	"sway_turn_down_rotate_pitch" 					"-3"
+	"sway_turn_up_rotate_roll"   					"-0.8"
+	"sway_turn_down_rotate_roll" 					"0.8"
+
+	// View Drift
+	"viewdrift_hipfire_stand_scale_pitch" 			"0.325"
+	"viewdrift_hipfire_crouch_scale_pitch"			"0.275"
+	"viewdrift_hipfire_air_scale_pitch"   			"0.5"
+	"viewdrift_hipfire_stand_scale_yaw"   			"0.12"
+	"viewdrift_hipfire_crouch_scale_yaw"  			"0.10"
+	"viewdrift_hipfire_air_scale_yaw" 				"0.22"
+	"viewdrift_hipfire_speed_pitch"   				"0.6"
+	"viewdrift_hipfire_speed_yaw" 					"1.22"
+
+
+
+//
+//  Aesthetics
+//
+	zoom_effects                        0
+
+	viewmodel                           "mdl/weapons/loba_loot_stick/ptpov_loba_loot_stick.rmdl"
+    playermodel                         "mdl/weapons/loba_loot_stick/w_loba_loot_stick.rmdl"
+
+	sound_deploy_1p                     "weapon_sentryfragdrone_pinpull_1p"
+	sound_deploy_3p                     "weapon_sentryfragdrone_pinpull_3p"
+
+	viewkick_spring                     "pistol"
+
+
+//
+// Script hookups
+//
+
+	//OnWeaponRegenEnd                    OnWeaponRegenEnd_ability_black_market
+	//OnWeaponAttemptOffhandSwitch        OnWeaponAttemptOffhandSwitch_ability_black_market
+	//OnWeaponPrimaryAttack               OnWeaponPrimaryAttack_ability_black_market
+	//OnWeaponActivate                    OnWeaponActivate_ability_black_market
+	//OnWeaponDeactivate                  OnWeaponDeactivate_ability_black_market
+
+
+//
+// Mods
+//
+
+	Mods
+	{
+		survival_armor_cooldown_mod
+		{
+			"regen_ammo_refill_rate"    "*1.25"
+		}
+
+		survival_finite_ordnance
+		{
+
+		}
+	}
+}

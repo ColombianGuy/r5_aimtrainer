@@ -20,10 +20,10 @@ struct {
 void function CodeCallback_MapInit()
 {
 	printt( "----------------------------" )
-	printt( "Welcome to Kings Canyon MU2" )
-	printt( "-- textures and models port: AyeZee" )
-	printt( "-- models collision and engine fixes: rexx & Amos" )
-	printt( "-- map scripts: CafeFPS" )
+	printt( "Welcome to Kings Canyon Map Update 2 (Season 5)" )
+	printt( "-- All Map Assets, Models, Textures, Materials and More Ported by @LorryLeKral" )
+	printt( "-- Tools, Repak and RSX: Rexx & AmosModz" )
+	printt( "-- Map Scripts: CafeFPS and LorryLeKral" )
 	printt( "----------------------------" )
 
 	SetVictorySequencePlatformModel( $"mdl/rocks/victory_platform.rmdl", < 0, 0, -10 >, < 0, 0, 0 > )
@@ -32,7 +32,16 @@ void function CodeCallback_MapInit()
 	SURVIVAL_SetMapCenter( <0, 0, 0> )
     SURVIVAL_SetMapDelta( 4900 )
 
-	MapZones_RegisterDataTable( $"datatable/map_zones/zones_mp_rr_canyonlands_mu2_1.rpak" )
+
+	PrecacheModel($"mdl/levels_terrain/mp_rr_canyonlands/crypto_holo_map_01.rmdl")
+	PrecacheModel($"mdl/levels_terrain/mp_rr_canyonlands/crypto_holo_map_02.rmdl")
+	PrecacheModel($"mdl/levels_terrain/mp_rr_canyonlands/crypto_holo_map_03.rmdl")
+	PrecacheModel($"mdl/levels_terrain/mp_rr_canyonlands/crypto_holo_map_04.rmdl")
+	PrecacheModel($"mdl/levels_terrain/mp_rr_canyonlands/crypto_holo_map_05.rmdl")
+	
+	thread InitCryptoMap()
+
+	MapZones_RegisterDataTable( $"datatable/map_zones/zones_mp_rr_canyonlands_mu2.rpak" )
 	
 	//Clean up unused ents
 	AddCallback_EntitiesDidLoad( KCMU2_OnEntitiesDidLoad )

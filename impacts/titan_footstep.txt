@@ -1,0 +1,48 @@
+// "Gamematerial" "effect_name"
+
+
+ImpactTable
+{
+	FX
+	{
+		"C" "xo_footstep_concrete" // Concrete, rock, porcelain, boulder, gravel, asphalt, brick, concrete_block, plaster
+		"D" "xo_footstep_dirt"     //Dirt, slipperyslime, snow, carpet, cardboard, floatingstandable, ceiling_tile, papercup
+		"E" "xo_footstep_metal"	  // metal_titan
+
+		"F" "" //flesh
+		"G" "xo_footstep_metal"	  //metalgrate, chainlink, chain
+		"H" "" //alienflesh
+
+		"J" "xo_footstep_dirt"	  //grass
+		"K" "xo_footstep_mud"		//Mud
+		"L" "xo_footstep_concrete" //plastic_barrel, plastic_box, item, rubber, rubbertire, jeeptire, slidingrubbertire, brakingrubbertire, slidingrubbertire_front, slidingrubbertire_rear
+		"M" "xo_footstep_metal" //Default, metal, metal_box, solidmetal, armorflesh, metal_bouncy, slippery_metal, shellcasing_small, shellcasing_large, metal_barrel, floating_metal_barrel, weapon
+		"N" "P_xo_footstep_slime" //Slime
+		"O" "xo_footstep_mud" //Foliage
+		"P" "xo_footstep_metal" //Computer
+
+		"R" "xo_footstep_metal" //metalpanel, grenade, canister
+
+		"R" "xo_footstep_metal" //metalpanel, grenade, canister
+		"S" "P_impact_exp_med_water" //water, slime
+		"T" "xo_footstep_concrete" //tile
+		"U" ""						 //glass_breakable
+
+		"V" "xo_footstep_metal" //Metal Vent
+		"W" "xo_footstep_concrete" //Wood, Wood_lowdensity, Wood_Box, Wood_Crate, Wood_Plank, Wood_Solid, Wood_Furniture, Wood_Panel watermelon
+
+		"Y" "" //glass, brokenglass, glassbottle, pottery
+		"Z" "xo_footstep_sand"  //sand
+
+		"0" "xo_footstep_concrete"
+		"1" "xo_footstep_concrete"
+		"2" "xo_footstep_concrete"
+		"3" "xo_footstep_concrete"
+		"4" "xo_footstep_concrete"
+		"5" "xo_footstep_concrete"
+		"6" "xo_footstep_concrete"
+		"7" "xo_footstep_concrete"
+		"8" "xo_footstep_concrete"
+		"9" "xo_footstep_concrete" //puddle
+	}
+}

@@ -149,7 +149,7 @@ void function OnProjectileCollision_weapon_FlameThrower( entity projectile, vect
 		fire.SetOwner(player)
 		fire.SetEnterCallback( NPCOrPlayerWillStartBurning )
 
-		StartParticleEffectInWorld_ReturnEntity(GetParticleSystemIndex(FIRE_PARTICLES.getrandom()), projectile.GetOrigin(), GoodAngles )
+		entity fireFX = StartParticleEffectInWorld_ReturnEntity(GetParticleSystemIndex(FIRE_PARTICLES.getrandom()), projectile.GetOrigin(), GoodAngles )
 		
 		if(IsDoor(hitEnt)) 
 		{
@@ -158,11 +158,19 @@ void function OnProjectileCollision_weapon_FlameThrower( entity projectile, vect
 			EmitSoundAtPosition( TEAM_ANY, hitEnt.GetOrigin(), "Door_Impact_Break" )	
 			hitEnt.Destroy()
 		}
+		thread FxOnDestroy( fire, fireFX )
 	}
 	#endif
 }
 
 #if SERVER
+void function FxOnDestroy( entity fire, entity fireFX )
+{
+	wait 3
+	fire.Destroy()
+	fireFX.Destroy()
+}
+
 void function NPCOrPlayerWillStartBurning( entity trigger, entity player )
 {
 	thread EntWillStartBurning_Thread(trigger, player)
@@ -195,7 +203,8 @@ void function EntWillStartBurning_Thread(entity trigger, entity ent)
 
 	while(Time() <= endTime && IsValid(ent))
 	{
-		ent.TakeDamage( 1, trigger.GetOwner(), null, { scriptType = DF_BYPASS_SHIELD | DF_DOOMED_HEALTH_LOSS, damageSourceId = eDamageSourceId.deathField } )
+		if(!IsDoor(ent))
+			ent.TakeDamage( 1, ent, null, { scriptType = DF_BYPASS_SHIELD | DF_DOOMED_HEALTH_LOSS, damageSourceId = eDamageSourceId.deathField } )
 		wait 0.15
 	}	
 }

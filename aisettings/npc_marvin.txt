@@ -27,8 +27,8 @@ npc_marvin
 	DefaultModelName				"mdl/robots/marvin/marvin.rmdl"
 	DefaultWeapon					""
 
-	Health							10 [$sp]
-	Health							10 [$mp]
+	Health							100 [$sp]
+	Health							100 [$mp]
 
 	FOV_Vert_Offset					-10
     FOV_Near_Dist					150		// distance at which we transition between near and far FOV values

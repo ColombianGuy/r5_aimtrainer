@@ -1,0 +1,47 @@
+// "Gamematerial" "effect_name"
+
+
+ImpactTable
+{
+	FX
+	{
+		"C" "impact_concrete_OS"
+		"D" "impact_dirt_OS"
+		"E" "impact_metal_titan_OS"
+
+		"F" "impact_metal_OS"
+		"G" "impact_metal_OS"
+		"H" "impact_alienflesh"
+
+		"J" "impact_dirt_OS"
+		"K" "impact_dirt_OS"
+		"L" "impact_concrete_OS"
+		"M" "impact_metal_OS"
+		"N" "impact_dirt_OS"
+		"O" "impact_dirt_OS"
+		"P" "impact_metal_OS"
+
+		"R" "impact_concrete_OS"
+		"S" "impact_water_OS"
+		"T" "impact_concrete_OS"
+		"U" "impact_concrete_OS" //breakble_glass
+
+		"V" "impact_metal_OS"
+		"W" "impact_concrete_OS"
+
+		"Y" "impact_concrete_OS" //glass
+
+		"0" "impact_dirt_OS"
+		"1" "impact_concrete_OS"
+		"2" "impact_dirt_OS"
+		"3" "impact_concrete_OS"
+		"4" "impact_concrete_OS"
+		"5" "impact_concrete_OS"
+		"6" "impact_concrete_OS"
+		"7" "impact_concrete_OS"
+		"8" "impact_concrete_OS"
+		"9" "impact_puddle"
+
+		"critical_hit" "impact_metal_titan_OS"
+	}
+}

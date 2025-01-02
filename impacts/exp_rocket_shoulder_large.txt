@@ -1,0 +1,174 @@
+// "Gamematerial" "effect_name"
+
+
+ImpactTable
+{
+	Info
+	{
+		"whizby_sound_from_player"	"Rockets.ShoulderNearmiss"
+		"whizby_sound_from_AI"		"Rockets.ShoulderNearmiss"
+		"whizby_maxDistancePilot"	"500"
+		"whizby_maxDistanceTitan"	"800"
+	}
+
+	FX
+	{
+		"C" "P_impact_exp_med_concrete" //Concrete, rock, porcelain, boulder, gravel, asphalt, brick, concrete_block, plaster
+		"D" "P_impact_exp_med_dirt" //Dirt, slipperyslime, snow, carpet, cardboard, floatingstandable, ceiling_tile, papercup
+		"E" "P_impact_exp_med_metal" // metal_titan
+
+		"F" "P_impact_exp_med_metal" //flesh
+		"G" "P_impact_exp_med_metal" //metalgrate, chainlink, chain
+		"H" "P_impact_exp_med_metal" //alienflesh
+
+		"J" "P_impact_exp_med_dirt" //grass
+		"K" "P_impact_exp_med_dirt" //Mud
+		"L" "P_impact_exp_med_metal" //plastic_barrel, plastic_box, item, rubber, rubbertire, jeeptire, slidingrubbertire, brakingrubbertire, slidingrubbertire_front, slidingrubbertire_rear
+		"M" "P_impact_exp_med_metal" //Default, metal, metal_box, solidmetal, armorflesh, metal_bouncy, slippery_metal, shellcasing_small, shellcasing_large, metal_barrel, floating_metal_barrel, weapon
+		"N" "P_impact_exp_med_slime" //Slime
+		"O" "P_impact_exp_med_dirt" //Foliage
+		"P" "P_impact_exp_med_metal" //Computer
+
+		"R" "P_impact_exp_med_metal" //metalpanel, grenade, canister
+		"S" "P_impact_exp_med_water" //water, slime
+		"T" "P_impact_exp_med_concrete" //tile
+		"U" "P_impact_exp_med_metal" //glass_breakable
+
+		"V" "P_impact_exp_med_metal" //Metal Vent
+		"W" "P_impact_exp_med_metal" //Wood, Wood_lowdensity, Wood_Box, Wood_Crate, Wood_Plank, Wood_Solid, Wood_Furniture, Wood_Panel watermelon
+
+		"X" "P_impact_exp_med_xo_shield" //xo_shield
+
+		"Y" "P_impact_exp_med_metal" //glass, brokenglass, glassbottle, pottery
+		"Z" "P_impact_exp_med_sand"  //sand
+
+		"0" "P_impact_exp_med_metal"
+		"1" "P_impact_exp_med_metal"
+		"2" "P_impact_exp_med_metal"
+		"3" "P_impact_exp_med_metal"
+		"4" "P_impact_exp_med_metal"
+		"5" "P_impact_exp_med_metal"
+		"6" "P_impact_exp_med_metal"
+		"7" "P_impact_exp_med_metal"
+		"8" "P_impact_exp_med_metal"
+		"9" "P_impact_exp_med_metal" //puddle
+
+		"airburst" "P_impact_exp_med_air"
+		"shieldhit" "P_impact_exp_med_metal"
+		"critical_hit" "P_impact_exp_med_metal"
+	}
+
+	///This is 2nd set of impacts for shield fx to play with explosion
+	FX
+	{
+		"shieldhit" "P_xo_armor_impact_EXP"
+	}
+
+	Sound
+	{
+		"C" "Default.Rocket_Explosion_3P_vs_3P"
+		"D" "Default.Rocket_Explosion_3P_vs_3P"
+		"E" "Default.Rocket_Explosion_3P_vs_3P"
+
+		"F" "Default.Rocket_Explosion_3P_vs_3P"
+		"G" "Default.Rocket_Explosion_3P_vs_3P"
+		"H" "Default.Rocket_Explosion_3P_vs_3P"
+
+		"J" "Default.Rocket_Explosion_3P_vs_3P"
+		"K" "Default.Rocket_Explosion_3P_vs_3P"  // mud?
+		"L" "Default.Rocket_Explosion_3P_vs_3P"
+		"M" "Default.Rocket_Explosion_3P_vs_3P"
+		"N" "Default.Rocket_Explosion_3P_vs_3P"	// sand?
+		"O" "Default.Rocket_Explosion_3P_vs_3P"
+		"P" "Default.Rocket_Explosion_3P_vs_3P"
+
+		"R" "Default.Rocket_Explosion_3P_vs_3P"
+		"S" "Default.Rocket_Explosion_3P_vs_3P"
+		"T" "Default.Rocket_Explosion_3P_vs_3P"
+		"U" "Default.Rocket_Explosion_3P_vs_3P" //glass_breakable
+
+		"V" "Default.Rocket_Explosion_3P_vs_3P"
+		"W" "Default.Rocket_Explosion_3P_vs_3P"
+		"X"	"TitanBubbleShield.Explosive.BulletImpact_3P_vs_3P"
+		"Y" "Default.Rocket_Explosion_3P_vs_3P"
+		"Z" "Default.Rocket_Explosion_3P_vs_3P"
+
+		//"splash" "Water.BulletImpact"
+		//"slime_splash" "Water.BulletImpact"
+
+		"airburst" "Default.Rocket_Explosion_3P_vs_3P"
+		"shieldhit" "TitanShield.Explosive.BulletImpact_3P_vs_3P"
+	}
+
+	Sound_attacker
+	{
+		"C" "Default.Rocket_Explosion_1P_vs_3P"
+		"D" "Default.Rocket_Explosion_1P_vs_3P"
+		"E" "Default.Rocket_Explosion_1P_vs_3P"
+
+		"F" "Default.Rocket_Explosion_1P_vs_3P"
+		"G" "Default.Rocket_Explosion_1P_vs_3P"
+		"H" "Default.Rocket_Explosion_1P_vs_3P"
+
+		"J" "Default.Rocket_Explosion_1P_vs_3P"
+		"K" "Default.Rocket_Explosion_1P_vs_3P"  // mud?
+		"L" "Default.Rocket_Explosion_1P_vs_3P"
+		"M" "Default.Rocket_Explosion_1P_vs_3P"
+		"N" "Default.Rocket_Explosion_1P_vs_3P"	// sand?
+		"O" "Default.Rocket_Explosion_1P_vs_3P"
+		"P" "Default.Rocket_Explosion_1P_vs_3P"
+
+		"R" "Default.Rocket_Explosion_1P_vs_3P"
+		"S" "Default.Rocket_Explosion_1P_vs_3P"
+		"T" "Default.Rocket_Explosion_1P_vs_3P"
+		"U" "Default.Rocket_Explosion_1P_vs_3P"
+
+		"V" "Default.Rocket_Explosion_1P_vs_3P"
+		"W" "Default.Rocket_Explosion_1P_vs_3P"
+		"X"	"TitanBubbleShield.Explosive.BulletImpact_1P_vs_3P"
+		"Y" "Default.Rocket_Explosion_1P_vs_3P"
+		"Z" "Default.Rocket_Explosion_1P_vs_3P"
+
+		//"splash" "Water.BulletImpact"
+		//"slime_splash" "Water.BulletImpact"
+
+		"airburst" "Default.Rocket_Explosion_1P_vs_3P"
+		"shieldhit" "TitanShield.Explosive.BulletImpact_1P_vs_3P"
+	}
+
+	Sound_victim
+	{
+		"C" "Default.Rocket_Explosion_3P_vs_1P"
+		"D" "Default.Rocket_Explosion_3P_vs_1P"
+		"E" "Titan.Rocket_Explosion_3P_vs_1P"
+
+		"F" "Default.Rocket_Explosion_3P_vs_1P"
+		"G" "Default.Rocket_Explosion_3P_vs_1P"
+		"H" "Default.Rocket_Explosion_3P_vs_1P"
+
+		"J" "Default.Rocket_Explosion_3P_vs_1P"
+		"K" "Default.Rocket_Explosion_3P_vs_1P"  // mud?
+		"L" "Default.Rocket_Explosion_3P_vs_1P"
+		"M" "Default.Rocket_Explosion_3P_vs_1P"
+		"N" "Default.Rocket_Explosion_3P_vs_1P"	// sand?
+		"O" "Default.Rocket_Explosion_3P_vs_1P"
+		"P" "Default.Rocket_Explosion_3P_vs_1P"
+
+		"R" "Default.Rocket_Explosion_3P_vs_1P"
+		"S" "Default.Rocket_Explosion_3P_vs_1P"
+		"T" "Default.Rocket_Explosion_3P_vs_1P"
+		"U" "Default.Rocket_Explosion_3P_vs_1P"
+
+		"V" "Default.Rocket_Explosion_3P_vs_1P"
+		"W" "Default.Rocket_Explosion_3P_vs_1P"
+		"X"	"TitanBubbleShield.Explosive.BulletImpact_3P_vs_3P"
+		"Y" "Default.Rocket_Explosion_3P_vs_1P"
+		"Z" "Default.Rocket_Explosion_3P_vs_1P"
+
+		//"splash" "Water.BulletImpact"
+		//"slime_splash" "Water.BulletImpact"
+
+		"airburst" "Default.Rocket_Explosion_3P_vs_1P"
+		"shieldhit" "TitanShield.Explosive.BulletImpact_3P_vs_1P"
+	}
+}

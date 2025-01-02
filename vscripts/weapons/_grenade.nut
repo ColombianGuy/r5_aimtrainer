@@ -26,6 +26,7 @@ global function Grenade_OnProjectileIgnite
 global function OnProjectileCollision_weapon_impulse_grenade
 #if SERVER
 	global function Grenade_OnPlayerNPCTossGrenade_Common
+	global function ProxMine_Triggered
 	global function EnableTrapWarningSound
 	global function AddToProximityTargets
 	global function ProximityMineThink
@@ -95,11 +96,14 @@ void function Grenade_FileInit()
 		level._empForcedCallbacks <- {}
 		level._proximityTargetArrayID <- CreateScriptManagedEntArray()
 
+	    //AddDamageCallbackSourceID( eDamageSourceId.mp_weapon_proximity_mine, ProxMine_Triggered )
 		AddDamageCallbackSourceID( eDamageSourceId.mp_weapon_thermite_grenade, Thermite_DamagedPlayerOrNPC )
 		AddDamageCallbackSourceID( eDamageSourceId.mp_weapon_frag_grenade, Frag_DamagedPlayerOrNPC )
 		AddDamageCallbackSourceID( eDamageSourceId.mp_weapon_frag_grenade_halomod, Frag_DamagedPlayerOrNPC )
 
 		level._empForcedCallbacks[eDamageSourceId.mp_weapon_grenade_emp] <- true
+		//level._empForcedCallbacks[eDamageSourceId.mp_weapon_arc_blade] <- true
+		//level._empForcedCallbacks[eDamageSourceId.mp_weapon_proximity_mine] <- true
 
 		PrecacheParticleSystem( THERMITE_GRENADE_FX )
 	#endif
@@ -696,6 +700,29 @@ void function HACK_DropGrenadeOnDeath( entity weapon, entity weaponOwner )
 
 
 #if SERVER
+void function ProxMine_Triggered( entity ent, var damageInfo )
+{
+	if ( !IsValid( ent ) )
+		return
+
+	if ( DamageInfo_GetCustomDamageType( damageInfo ) & DF_DOOMED_HEALTH_LOSS )
+		return
+
+	entity attacker = DamageInfo_GetAttacker( damageInfo )
+
+	if ( !IsValid( attacker ) )
+		return
+
+	if ( attacker == ent )
+		return
+
+	//if ( ent.IsPlayer() || ent.IsNPC() )
+		//thread ShowProxMineTriggeredIcon( ent )
+
+	//If this feature is good, we should add this to NPCs as well. Currently script errors if applied to an NPC.
+	//if ( ent.IsPlayer() )
+	//	thread ProxMine_ShowOnMinimapTimed( ent, GetOtherTeam( ent.GetTeam() ), PROX_MINE_MARKER_TIME )
+}
 
 /*
 function ProxMine_ShowOnMinimapTimed( ent, teamToDisplayEntTo, duration )

@@ -23,7 +23,7 @@ struct
 
 void function GunRacks_Init()
 {
-	if ( MapName() != eMaps.mp_rr_desertlands_mu2 )
+	if (MapName() != eMaps.mp_rr_desertlands_mu2 && MapName() != eMaps.mp_rr_desertlands_mu1_tt)
 		return
 
 	PrecacheModel( GUNRACK_MODEL )

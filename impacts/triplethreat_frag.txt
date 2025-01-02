@@ -1,0 +1,164 @@
+// "Gamematerial" "effect_name"
+
+ImpactTable
+{
+	Info
+	{
+		"whizby_sound_from_player"	"none"
+		"whizby_sound_from_AI"		"none"
+	}
+
+	FX
+	{
+		"C" "P_impact_exp_triplethreat_full"
+		"D" "P_impact_exp_triplethreat_full"
+		"E" "P_impact_exp_triplethreat_full"
+
+		"F" "P_impact_exp_triplethreat_full"
+		"G" "P_impact_exp_triplethreat_full"
+		"H" "P_impact_exp_triplethreat_full"
+
+		"J" "P_impact_exp_triplethreat_full"
+		"K" "P_impact_exp_triplethreat_full"
+		"L" "P_impact_exp_triplethreat_full"
+		"M" "P_impact_exp_triplethreat_full"
+		"N" "P_impact_exp_triplethreat_full"
+		"O" "P_impact_exp_triplethreat_full"
+		"P" "P_impact_exp_triplethreat_full"
+
+		"R" "P_impact_exp_triplethreat_full"
+		"S" "P_impact_exp_triplethreat_full"
+		"T" "P_impact_exp_triplethreat_full"
+		"U" "P_impact_exp_triplethreat_full"
+
+		"V" "P_impact_exp_triplethreat_full"
+		"W" "P_impact_exp_triplethreat_full"
+
+		"Y" "P_impact_exp_triplethreat_full"
+		"Z" "P_impact_exp_triplethreat_full"
+
+		"0" "P_impact_exp_triplethreat_full"
+		"1" "P_impact_exp_triplethreat_full"
+		"2" "P_impact_exp_triplethreat_full"
+		"3" "P_impact_exp_triplethreat_full"
+		"4" "P_impact_exp_triplethreat_full"
+		"5" "P_impact_exp_triplethreat_full"
+		"6" "P_impact_exp_triplethreat_full"
+		"7" "P_impact_exp_triplethreat_full"
+		"8" "P_impact_exp_triplethreat_full"
+		"9" "impact_puddle"
+
+		"airburst" "P_impact_exp_triplethreat_full"
+		"critical_hit" "P_impact_exp_triplethreat_full"
+	}
+
+	Sound
+	{
+		"C" "Explo_TripleThreat_Impact_3P"
+		"D" "Explo_TripleThreat_Impact_3P"
+		"E" "Explo_TripleThreat_Impact_3P"
+
+		"F" "Explo_TripleThreat_Impact_3P"
+		"G" "Explo_TripleThreat_Impact_3P"
+		"H" "Explo_TripleThreat_Impact_3P"
+
+		"J" "Explo_TripleThreat_Impact_3P"
+		"K" "Explo_TripleThreat_Impact_3P"
+		"L" "Explo_TripleThreat_Impact_3P"
+		"M" "Explo_TripleThreat_Impact_3P"
+		"N" "Explo_TripleThreat_Impact_3P"
+		"O" "Explo_TripleThreat_Impact_3P"
+		"P" "Explo_TripleThreat_Impact_3P"
+
+		"R" "Explo_TripleThreat_Impact_3P"
+		"S" "Explo_TripleThreat_Impact_3P"
+		"T" "Explo_TripleThreat_Impact_3P"
+		"U" "Explo_TripleThreat_Impact_3P"
+
+		"V" "Explo_TripleThreat_Impact_3P"
+		"W" "Explo_TripleThreat_Impact_3P"
+		"X"	"TitanBubbleShield.Explosive.BulletImpact_3P_vs_3P"
+		"Y" "Explo_TripleThreat_Impact_3P"
+		"Z" "Explo_TripleThreat_Impact_3P"
+
+		//"splash" "Water.BulletImpact"
+		//"slime_splash" "Water.BulletImpact"
+
+		"airburst" "Explo_TripleThreat_Impact_3P"
+		"shieldhit" "TitanShield.Explosive.BulletImpact_3P_vs_3P"
+	}
+
+	Sound_attacker
+	{
+		"C" "Explo_TripleThreat_Impact_1P"
+		"D" "Explo_TripleThreat_Impact_1P"
+		"E" "Explo_TripleThreat_Impact_1P"
+
+		"F" "Explo_TripleThreat_Impact_1P"
+		"G" "Explo_TripleThreat_Impact_1P"
+		"H" "Explo_TripleThreat_Impact_1P"
+
+		"J" "Explo_TripleThreat_Impact_1P"
+		"K" "Explo_TripleThreat_Impact_1P"  // mud?
+		"L" "Explo_TripleThreat_Impact_1P"
+		"M" "Explo_TripleThreat_Impact_1P"
+		"N" "Explo_TripleThreat_Impact_1P"	// sand?
+		"O" "Explo_TripleThreat_Impact_1P"
+		"P" "Explo_TripleThreat_Impact_1P"
+
+		"R" "Explo_TripleThreat_Impact_1P"
+		"S" "Explo_TripleThreat_Impact_1P"
+		"T" "Explo_TripleThreat_Impact_1P"
+		"U" "Explo_TripleThreat_Impact_1P"
+
+		"V" "Explo_TripleThreat_Impact_1P"
+		"W" "Explo_TripleThreat_Impact_1P"
+		"X"	"TitanBubbleShield.Explosive.BulletImpact_1P_vs_3P"
+		"Y" "Explo_TripleThreat_Impact_1P"
+		"Z" "Explo_TripleThreat_Impact_1P"
+
+		//"splash" "Water.BulletImpact"
+		//"slime_splash" "Water.BulletImpact"
+
+		"airburst" "Explo_TripleThreat_Impact_1P"
+		"shieldhit" "TitanShield.Explosive.BulletImpact_1P_vs_3P"
+	}
+
+	Sound_victim
+	{
+		"C" "Explo_TripleThreat_Impact_3P"
+		"D" "Explo_TripleThreat_Impact_3P"
+		"E" "Titan.TripleThreat_Impact_3P_vs_1P"
+
+		"F" "Explo_TripleThreat_Impact_3P"
+		"G" "Explo_TripleThreat_Impact_3P"
+		"H" "Explo_TripleThreat_Impact_3P"
+
+		"J" "Explo_TripleThreat_Impact_3P"
+		"K" "Explo_TripleThreat_Impact_3P"
+		"L" "Explo_TripleThreat_Impact_3P"
+		"M" "Explo_TripleThreat_Impact_3P"
+		"N" "Explo_TripleThreat_Impact_3P"
+		"O" "Explo_TripleThreat_Impact_3P"
+		"P" "Explo_TripleThreat_Impact_3P"
+
+		"R" "Explo_TripleThreat_Impact_3P"
+		"S" "Explo_TripleThreat_Impact_3P"
+		"T" "Explo_TripleThreat_Impact_3P"
+		"U" "Explo_TripleThreat_Impact_3P"
+
+		"V" "Explo_TripleThreat_Impact_3P"
+		"W" "Explo_TripleThreat_Impact_3P"
+		"X"	"TitanBubbleShield.Explosive.BulletImpact_3P_vs_3P"
+		"Y" "Explo_TripleThreat_Impact_3P"
+		"Z" "Explo_TripleThreat_Impact_3P"
+
+		//"splash" "Water.BulletImpact"
+		//"slime_splash" "Water.BulletImpact"
+
+		"airburst" "Explo_TripleThreat_Impact_3P"
+		"shieldhit" "TitanShield.Explosive.BulletImpact_3P_vs_1P"
+	}
+
+}
+

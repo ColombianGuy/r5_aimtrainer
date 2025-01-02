@@ -38,7 +38,7 @@ global const FX_DRONE_P_EXPLOSION 			= $"P_drone_exp_plasma"
 global const FX_DRONE_W_EXPLOSION 			= $"P_drone_exp_worker"
 global const FX_DRONE_SHIELD_ROPE_GLOW 		= $"acl_light_white"
 
-function AiDrone_Init()
+void function AiDrone_Init()
 {
 	PrecacheParticleSystem( FX_DRONE_EXPLOSION )
 	PrecacheParticleSystem( FX_DRONE_R_EXPLOSION )
@@ -48,8 +48,8 @@ function AiDrone_Init()
 	PrecacheParticleSystem( FX_DRONE_SHIELD_WALL_HUMAN )
 	PrecacheParticleSystem( FX_DRONE_SHIELD_ROPE_GLOW )
 
-	PrecacheModel( $"mdl/robots/drone_air_attack/drone_air_attack_rockets.rmdl" ) // TODO: Does this exist in r5?
-	PrecacheModel( $"mdl/robots/drone_air_attack/drone_air_attack_plasma.rmdl" )  // TODO: Does this exist in r5?
+	PrecacheModel( $"mdl/robots/drone_air_attack/drone_air_attack_rockets.rmdl" ) // TODO: Does this exist in r5? // it does now -kral
+	PrecacheModel( $"mdl/robots/drone_air_attack/drone_air_attack_plasma.rmdl" )
 
 	PrecacheMaterial( $"cable/cable_selfillum.vmt" )
 	PrecacheModel( $"cable/cable_selfillum.vmt" )
@@ -58,7 +58,7 @@ function AiDrone_Init()
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Fallback behavior if we can't find a valid owner for an orphan Drone
-function DroneHasNoOwner( entity drone )
+void function DroneHasNoOwner( entity drone )
 {
 	switch ( GetDroneType( drone ) )
 	{
@@ -117,16 +117,17 @@ void function DroneTransformsToRocketClass( entity drone )
 
 }
 
-function EngineerDroneHasNoOwner( drone )
+void function EngineerDroneHasNoOwner( drone )
 {
 	//TODO: Should probably protect nearest ally, and return to Engineer when he gets close.
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Change drone type on spawn or during gameplay (may transform from one to the other eventually)
-function RunDroneTypeThink( drone )
+void function RunDroneTypeThink( entity drone )
 {
-	expect entity( drone )
+	CreateDuckTapeHitBox( drone )
+
 	#if DEVELOPER
 	Assert( !( "RunDroneTypeThink" in drone.s ), "Already ran drone think!" )
 	drone.s.RunDroneTypeThink <- true
@@ -164,8 +165,96 @@ function RunDroneTypeThink( drone )
 	}
 }
 
+void function CreateDuckTapeHitBox( entity drone )
+{
+    if( IsValid( drone ) )
+    {
+		drone.kv.solid = 0
+
+		printl("created ducktape hitbox")
+
+        entity proxy = CreateEntity( "prop_script" )
+        {
+            proxy.SetValueForModelKey( drone.GetModelName() )
+            proxy.SetScriptName("npc_Drone_hitbox")
+
+            proxy.SetAngles( drone.GetAngles() )
+            proxy.SetOrigin( drone.GetOrigin() )
+            //proxy.SetModelScale(0.6)
+
+            proxy.kv.solid = SOLID_VPHYSICS
+            proxy.kv.rendermode = 3
+            proxy.kv.rendercolor = "255 255 255 0"
+            proxy.kv.spawnflags = SF_INFOTARGET_ALWAYS_TRANSMIT_TO_CLIENT
+
+            AddEntityCallback_OnKilled( proxy , OnDroneHitBoxDeath )
+            AddEntityCallback_OnDamaged( proxy , OnDroneDamaged )
+
+            proxy.SetOwner( drone )
+            proxy.SetParent( drone )
+			SetTeam(proxy, drone.GetTeam() )
+
+            proxy.DisableRenderAlways()
+            DispatchSpawn( proxy )
+
+            proxy.SetArmorType( ARMOR_TYPE_HEAVY )
+            proxy.SetTitle( drone.GetTitle() )
+            proxy.SetMaxHealth( drone.GetMaxHealth() )
+            proxy.SetHealth( drone.GetMaxHealth() )
+        }
+
+        proxy.SetTakeDamageType( DAMAGE_YES )
+		proxy.SetNoTargetSmartAmmo(false)
+        proxy.SetSmartAmmoLockType( eSmartAmmoLockType.anyType )
+    }
+}
+
+void function OnDroneDamaged( entity proxy, var damageInfo )
+{
+	entity Drone = proxy.GetOwner()
+
+	entity weapon               = DamageInfo_GetWeapon( damageInfo )
+	entity attacker 			= DamageInfo_GetAttacker( damageInfo )
+	entity inflictor 			= DamageInfo_GetInflictor( damageInfo )
+	float damage				= DamageInfo_GetDamage( damageInfo )
+	int damageSourceId 			= DamageInfo_GetDamageSourceIdentifier( damageInfo )
+	float distance              = Distance( attacker.GetOrigin() , Drone.GetOrigin() )
+
+	//Tried to give visual shield indicator, but it doesn't seem to work?
+	DamageInfo_AddCustomDamageType( damageInfo, DF_SHIELD_DAMAGE )
+
+	// store the damage so all hits can be tallied
+	Assert( IsValid( inflictor ) )//Done so we can still get the error in dev
+	if ( !IsValid( inflictor ) ) //JFS Defensive fix
+		return
+
+	StoreDamageHistoryAndUpdate( Drone, 120.0, damage, inflictor.GetOrigin(), DamageInfo_GetCustomDamageType( damageInfo ), damageSourceId, attacker )
+
+    if(damage >= Drone.GetHealth())
+	   Drone.SetHealth(0)
+	else
+	   Drone.SetHealth( Drone.GetHealth() - damage )
+
+	proxy.SetHealth( Drone.GetHealth() )
+
+	if ( damage < 450 )
+		return
+
+	//vector pos = DamageInfo_GetDamagePosition( damageInfo )
+	//PlayFX( FX_Drone_DAMAGE, pos )
+	//EmitSoundOnEntity( Drone, "crow_flyer_dropshipattack" )
+}
+
+void function OnDroneHitBoxDeath( entity proxy, var damageInfo )
+{
+    entity ent = proxy.GetOwner()
+
+	if( IsValid( ent ) )
+	    ent.Die()
+}
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function DroneRocketThink( entity drone )
+void function DroneRocketThink( entity drone )
 {
 	drone.EndSignal( "OnDeath" )
 
@@ -227,7 +316,7 @@ function DroneRocketThink( entity drone )
 
 }
 
-function ShieldDroneShieldsUser( entity drone )
+void function ShieldDroneShieldsUser( entity drone )
 {
 	for ( ;; )
 	{
@@ -238,7 +327,7 @@ function ShieldDroneShieldsUser( entity drone )
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function DroneShieldThink( drone )
+void function DroneShieldThink( drone )
 {
 	expect entity( drone )
 	if ( !IsValid( drone ) )
@@ -387,7 +476,7 @@ function DroneShieldThink( drone )
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function EngineerCombatDroneThink( entity drone )
+void function EngineerCombatDroneThink( entity drone )
 {
 	if ( !IsValid( drone ) )
 		return
@@ -1037,12 +1126,6 @@ function DroneGruntThink( entity npc, string aiSettings )
 
 	while ( true )
 	{
-		//if ( npc.GetNPCState() == "idle" )
-		//{
-		//	npc.WaitSignal( "OnStateChange" )
-		//	continue
-		//}
-
 		wait ( RandomFloatRange( 0, 1.0 ) )
 
 		//dont do stuff when animating on a parent
@@ -1154,19 +1237,10 @@ void function DroneDeath( entity drone, var damageInfo )
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-function DroneDialogue( drone, event, player = null )
+void function DroneDialogue( entity drone, string event, entity player = null )
 {
-	expect entity( drone )
-	expect entity( player )
-
-	if ( !IsAlive( drone ) )
+	if ( !IsAlive( drone ) || player != null && !IsAlive( player ) )
 		return
-
-	if ( player != null )
-	{
-		if ( !IsAlive( player ) )
-			return
-	}
 
 	local alias
 	bool playToPlayerOnly = true
@@ -1225,30 +1299,33 @@ diag_gs_drone_targetLost
 Target acquired
 diag_gs_drone_targetAcquired
 */
-
 }
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function DroneOnLeeched( drone, player )
+void function DroneOnLeeched( entity drone, entity player )
 {
 	//global behavior when this npc gets leeched
 	delaythread ( 1 ) DroneDialogue( drone, "hack_success", player )
 }
 
-function DroneSelfDestruct( drone, delay )
+void function DroneSelfDestruct( entity drone, delay )
 {
 	drone.EndSignal( "OnDeath" )
 	wait delay
 	drone.Die()
 }
 
-function RepairDroneThink( entity drone )
+void function RepairDroneThink( entity drone )
 {
 	drone.EndSignal( "OnDeath" )
-	local attachID
 	EmitSoundOnEntity( drone, "colony_spectre_initialize_beep" )
-	thread DroneSelfDestruct( drone, 60 )
+
+    thread function() : ( drone )
+	{
+		wait 60
+		drone.Die()
+	}()
 
 	for ( ;; )
 	{
@@ -1312,7 +1389,7 @@ bool function DroneCanRepairTarget( drone, ent, attachName )
 	return trace == 1.0
 }
 
-function DroneRepairsTarget( drone, ent, attachName )
+void function DroneRepairsTarget( drone, ent, attachName )
 {
 	expect entity( drone )
 	expect entity( ent )
@@ -1357,7 +1434,7 @@ function DroneRepairsTarget( drone, ent, attachName )
 	}
 }
 
-function DroneRepairFX( drone, ent, attachName )
+void function DroneRepairFX( drone, ent, attachName )
 {
 	// Control point sets the end position of the effect
 	entity cpEnd = CreateEntity( "info_placement_helper" )
@@ -1366,15 +1443,18 @@ function DroneRepairFX( drone, ent, attachName )
 	DispatchSpawn( cpEnd )
 
 	entity zapBeam = CreateEntity( "info_particle_system" )
-	zapBeam.kv.cpoint1 = cpEnd.GetTargetName()
+	{
+		zapBeam.kv.cpoint1 = cpEnd.GetTargetName()
 
-	zapBeam.SetValueForEffectNameKey( ARC_CANNON_BEAM_EFFECT )
-	zapBeam.kv.start_active = 0
-	zapBeam.SetOwner( drone )
-	zapBeam.kv.VisibilityFlags = (ENTITY_VISIBLE_TO_FRIENDLY | ENTITY_VISIBLE_TO_ENEMY)
-	zapBeam.SetParent( drone, "ORIGIN", false, 0.0 )
+		zapBeam.SetValueForEffectNameKey( ARC_CANNON_BEAM_EFFECT )
+		zapBeam.kv.start_active = 0
+		zapBeam.SetOwner( drone )
+		zapBeam.kv.VisibilityFlags = (ENTITY_VISIBLE_TO_FRIENDLY | ENTITY_VISIBLE_TO_ENEMY)
+		zapBeam.SetParent( drone, "ORIGIN", false, 0.0 )
+
+
 	DispatchSpawn( zapBeam )
-
+	}
 	zapBeam.Fire( "Start" )
 	zapBeam.Fire( "StopPlayEndCap", "", 2.0 )
 	zapBeam.Kill_Deprecated_UseDestroyInstead( 2.0 )

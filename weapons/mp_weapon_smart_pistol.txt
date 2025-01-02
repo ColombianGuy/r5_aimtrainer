@@ -1,5 +1,4 @@
-#base "_base_handgun.txt"
-#base "_base_mags_light.txt"
+//#base "_base_handgun.txt"
 WeaponData
 {
 	// General
@@ -40,11 +39,8 @@ WeaponData
 	"stat_rof"										"45"
 
 	// Models
-	//"viewmodel"   									"mdl/weapons/p2011sp/ptpov_p2011sp.rmdl"
-	//"playermodel" 									"mdl/weapons/p2011sp/w_p2011sp.rmdl"
-
-	"viewmodel"   									"mdl/weapons/p2011/ptpov_p2011.rmdl"
-	"playermodel" 									"mdl/weapons/p2011/w_p2011.rmdl"
+	"viewmodel"   									"mdl/weapons/p2011sp/ptpov_p2011sp.rmdl"
+	"playermodel" 									"mdl/weapons/p2011sp/w_p2011sp.rmdl"
 	
 	"activitymodifier"								"pistol"
 	"holster_type"									"pistol"
@@ -94,10 +90,8 @@ WeaponData
 
 	"is_smart_pistol"								"1"
 
-	MP_BASE
-	{
-		"ammo_default_total"							"12"
-		"ammo_stockpile_max"							"12"
+		"ammo_default_total"							"24"
+		"ammo_stockpile_max"							"24"
 		"ammo_no_remove_from_stockpile"				"0"
 		//"ammo_default_total"							"120" //GoldenGun
 		//"ammo_stockpile_max"							"120" //GoldenGun
@@ -105,8 +99,10 @@ WeaponData
 		"aimassist_adspull_weaponclass"					"broad"
 
 		// Damage - When Used by Players
-		"damage_near_value"   							"11"
-		"damage_far_value"								"11"
+		"damage_near_value"   							"40"
+		"damage_far_value"								"40"
+		"damage_near_value_titanarmor"					"115"
+		"damage_far_value_titanarmor" 					"95"
 
 		"damage_rodeo" 									"200"
 		"damage_near_distance"							"1250"  // match to search distance and red crosshair range
@@ -115,11 +111,19 @@ WeaponData
 		"red_crosshair_range" 							"1250"
 
 		"smart_ammo_search_distance"  					"1250"
-		"smart_ammo_max_targeted_burst"					"3"
+		"smart_ammo_max_targeted_burst"					"12"
 		"smart_ammo_targeting_time_min"					"0.25"//"0.37"
 		"smart_ammo_targeting_time_max"					"0.45"//"0.65"
 		"smart_ammo_targeting_time_min_npc"				"0.1"
 		"smart_ammo_targeting_time_max_npc"				"0.2"
+
+		// Damage - When Used by NPCs
+		"npc_damage_near_value"   						"20"
+		"npc_damage_far_value"							"20"
+		"npc_damage_near_value_titanarmor"				"0"
+		"npc_damage_far_value_titanarmor" 				"0"
+		"npc_damage_near_distance"						"800"
+		"npc_damage_far_distance" 						"1000"
 
 		// NPC
 		"npc_min_range"   								"0"
@@ -130,39 +134,15 @@ WeaponData
 		"npc_rest_time_between_bursts_min"				"0.2"
 		"npc_rest_time_between_bursts_max"				"0.3"
 
-		"enable_highlight_networking_on_creation"		"<KEEP_DEFAULT>"
+		"enable_highlight_networking_on_creation"		"1"
+
+		//"damage_heavyarmor_nontitan_scale"				"0.35"
 
 		"primary_fire_does_not_block_sprint"			"1" //Run and gun default for MP
 
 		"ammo_clip_size"   								"12"
 
-		"destroy_on_drop"								"1"
-	}
-
-	SP_BASE
-	{
-		"ammo_default_total"							"24"
-		"ammo_stockpile_max"							"72"
-		"ammo_no_remove_from_stockpile"					"0"
-
-		"aimassist_adspull_weaponclass"					"broad_sp"
-
-		// Damage - When Used by Players
-		"damage_near_value"   							"45"
-		"damage_far_value"								"35"
-		"damage_rodeo" 									"200"
-		"damage_near_distance"							"750"  // match to search distance and red crosshair range
-		"damage_far_distance" 							"850"
-
-		"red_crosshair_range" 							"750"
-
-		"smart_ammo_search_distance"  					"1050"
-		"smart_ammo_max_targeted_burst"					"12"
-		"smart_ammo_targeting_time_min"					"0.45"//"0.37"
-		"smart_ammo_targeting_time_max"					"0.8"//"0.65"
-		"smart_ammo_targeting_time_min_npc"				"0.1"
-		"smart_ammo_targeting_time_max_npc"				"0.2"
-	}
+		"destroy_on_drop"								"0"
 
 	"proficiency_poor_spreadscale"					"7.0"
 	"proficiency_average_spreadscale" 				"5.0"
@@ -380,8 +360,6 @@ WeaponData
 	"smart_ammo_npc_targets_must_be_tracked"		"0"
 	"smart_ammo_tracker_status_effects"				"1"
 	"smart_ammo_tracked_targets_check_visibility"	"1"
-	
-	"viewmodel_ads_centerpoint_attachment"      	"sight_on"
 
 	//Bodygroups:
 	"bodygroup1_name"	"suppressor_cyl_sm"
@@ -409,25 +387,35 @@ WeaponData
 			"uses_ammo_pool"								"1"
 			"low_ammo_fraction" 							"0.3"
 		}
-		
+		iron_sights
+		{
+		}
+		extended_ammo
+		{
+			"ammo_stockpile_max"							"240"
+			"ammo_clip_size"   								"16"
+			"ammo_default_total"							"240"
+		}
 		silencer //HACK JFS: Doesn't get applied on amped weapons. See bug 170460
 		{
-			"silenced"							"1"
-			"fire_sound_2_player_1p"						"Weapon_p2011_FireSuppressed_1P"
-			"fire_sound_2_player_3p"						"Weapon_p2011_FireSuppressed_3P"
-			"fire_sound_2_npc"							"Weapon_p2011_FireSuppressed_3P"
-			"damage_near_value"   				"--2"
-			"damage_far_value"					"--2"
-			"damage_very_far_value"				"--2"
-			"bodygroup27_set"					"1"
+			"silenced"										"1"
+			"bodygroup2_set"								"1"
+			"damage_near_value"   							"20"
+			"damage_far_value"								"12"
+			//"rumble"  									"4"
+			"tracer_effect"   								"P_wpn_tracer_pistol"
+			"minimap_reveal_distance"						"1"
+			"smart_ammo_targeting_time_min"					"0.45"
+			"smart_ammo_targeting_time_max"					"0.8"
+			"smart_ammo_targeting_time_min_npc"				"0.1"
+			"smart_ammo_targeting_time_max_npc"				"0.25"
+			"smart_ammo_new_target_delay"					"0.22"
 
-			//"rumble"  						"4"
-			"tracer_effect"   					"P_wpn_tracer_pistol"
-			"minimap_reveal_distance"			"1"
-
-			"fx_muzzle_flash_view"				"wpn_muzzleflash_pistol_sup_FP"
-			"fx_muzzle_flash_world"				"wpn_muzzleflash_pistol_sup"
-			"fx_muzzle_flash_attach"			"muzzle_flash_suppressor_sq"
+			"fx_muzzle_flash_view"							"wpn_muzzleflash_pistol_sup_FP"
+			"fx_muzzle_flash_world"							"wpn_muzzleflash_pistol_sup"
+			"fx_muzzle_flash_attach"						"muzzle_flash_suppressor_sq"
+			"fire_sound_1_player_1p"						"Weapon_SmartPistol_FireSuppressed_1P"
+			"fire_sound_1_player_3p"						"Weapon_SmartPistol_FireSuppressed_3P"
 		}
 		enhanced_targeting
 		{
@@ -438,48 +426,25 @@ WeaponData
 			"smart_ammo_targeting_time_max_npc"		"0.15"
 			"smart_ammo_new_target_delay"			"0.0"
 		}
-		optic_cq_hcog_classic
+		hcog
 		{
-			"bodygroup3_set"	"1"
 		}
-
-		optic_cq_hcog_bruiser
+		threat_scope
 		{
-			"bodygroup3_set"	"1"
+			"threat_scope_enabled"			"1"
+			"threat_scope_zoomfrac_start"	"0.0"
+			"threat_scope_zoomfrac_end"		"0.0"
+			"threat_scope_bounds_width"		"0.49"
+			"threat_scope_bounds_height"	"0.31"
 		}
-
-		optic_cq_holosight
+		pro_screen
 		{
-			"bodygroup3_set"	    "1"
+			"ui8_enable"		"1"
+			"bodygroup6_set"	"1"
 		}
-
-		optic_cq_holosight_variable
+		tactical_cdr_on_kill
 		{
-			"bodygroup3_set"	"1"
-		}
 
-		optic_cq_threat
-		{
-			"bodygroup3_set"	"1"
-
-			"viewmodel_offset_ads"                  "0 15 0"
-
-			"dof_zoom_nearDepthStart"               "0.75"
-			"dof_zoom_nearDepthEnd"                 "10.0"
-		}
-		energy_mag_l1
-		{
-			"ammo_clip_size"   							"15"
-		}
-
-		energy_mag_l2
-		{
-			"ammo_clip_size"   							"18"
-		}
-
-		energy_mag_l3
-		{
-			"ammo_clip_size"   							"21"
 		}
 		pas_fast_reload
 		{
@@ -567,13 +532,10 @@ WeaponData
 	UiData1
 	{
 		"ui"							"ui/diamond_reticle_rear"
-		"mesh"							"models/weapons/attachments/diamond_reticle_rear"
+		"mesh"							"models/weapons/attachments/mk6_rui_upper"
 		Args
 		{
 			vis							player_zoomfrac
-			ammo						weapon_ammo
-			clipSize					weapon_clipSize
-			clipCount					weapon_ammoClipCount
         }
 	}
 

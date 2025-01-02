@@ -143,9 +143,20 @@ void function RegisterCustomComs()
 
 	// weapons
 	RegisterCustomCom( eCommsAction.PING_WEAPON_VOLT, "ping_foundVoltSmg")
-	RegisterCustomCom( eCommsAction.PING_WEAPON_SMART_PISTOL, "ping_foundPistol")
+	RegisterCustomCom( eCommsAction.PING_WEAPON_THUNDERBOLT, "ping_foundLauncher")
+	RegisterCustomCom( eCommsAction.PING_WEAPON_SMARTPISTOL, "ping_foundPistol")
+	RegisterCustomCom( eCommsAction.PING_WEAPON_CAR, "ping_foundCarSmg")
+	RegisterCustomCom( eCommsAction.PING_WEAPON_EPG, "ping_foundEPG")
+	RegisterCustomCom( eCommsAction.PING_WEAPON_SMR, "ping_foundLauncher")
+	RegisterCustomCom( eCommsAction.PING_WEAPON_WINGMAN_N, "ping_foundWingman")
+	RegisterCustomCom( eCommsAction.PING_WEAPON_SOFTBALL, "ping_foundSoftball")
+	RegisterCustomCom( eCommsAction.PING_WEAPON_ARCHER, "ping_foundArcher")
+	RegisterCustomCom( eCommsAction.PING_WEAPON_ARC_TOOL, "ping_foundWeapon")
+	RegisterCustomCom( eCommsAction.PING_WEAPON_MGL, "ping_foundGrenadeLauncher")
+	RegisterCustomCom( eCommsAction.PING_WEAPON_COLDWAR, "ping_foundColdWar")
 	RegisterCustomCom( eCommsAction.PING_WEAPON_SENTINEL, "ping_foundSentinel")
 	RegisterCustomCom( eCommsAction.PING_WEAPON_3030, "ping_found3030")
+	RegisterCustomCom( eCommsAction.PING_WEAPON_R201, "ping_foundR301")
 
     // npcs
 	asset icon = $"rui/hud/ping/icon_ping_enemy"

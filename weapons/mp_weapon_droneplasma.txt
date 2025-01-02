@@ -1,0 +1,193 @@
+WeaponData
+{
+	// General
+	"printname"   									""
+	"shortprintname"								""
+	"description" 									""
+	"weaponClass" 									"other"
+	"fire_mode"   									"automatic"
+	"is_semi_auto"									"1"
+
+	"OnWeaponNpcPrimaryAttack"						"OnWeaponNpcPrimaryAttack_DronePlasma"
+	"OnWeaponNpcPreAttack"							"OnWeaponNpcPreAttack_DronePlasma"
+
+	// Menu Stats
+	"statsRecord"									"false"
+
+	"npc_miss_fast_player"							"0"
+
+	// Models
+	"projectilemodel" 								"mdl/dev/empty_model.rmdl"
+
+	// Effects
+	//"tracer_effect"   							"weapon_tracers_xo16"
+	"impact_effect_table" 							"exp_plasma_sm"
+	"projectile_trail_effect_0" 					"P_plasma_proj_SM"
+	"projectile_trail_effect_1" 					"P_plasma_proj_SM"
+	"vortex_absorb_effect"							"wpn_vortex_projectile_SuperSpec_FP"
+	"vortex_absorb_effect_third_person"				"wpn_vortex_projectile_SuperSpec"
+	"vortex_absorb_sound"							"Vortex_Shield_AbsorbRocket"
+	"vortex_absorb_sound_1p_vs_3p"					"Vortex_Shield_AbsorbRocket_1P_VS_3P"
+	"vortex_drain"									"0.0"
+	"projectile_adjust_to_gun_barrel"				"1"
+
+	// Damage - When Used by Players
+	"damage_type" 									"burn"
+	"damage_near_distance"							"2000"
+	"damage_far_distance" 							"2400"
+	"damage_near_value"   							"10"
+	"damage_far_value"								"5"
+	"damage_near_value_titanarmor"					"2"
+	"damage_far_value_titanarmor" 					"2"
+	"explosion_damage"								"40"
+	"explosion_damage_heavy_armor"					"300"
+
+	// Damage - When Used by NPCs
+	"npc_damage_near_value_titanarmor"				"50"
+	"npc_damage_far_value_titanarmor" 				"30"
+	"npc_damage_near_distance"						"1000"
+	"npc_damage_far_distance" 						"3000"
+	"npc_damage_near_value"   						"10"
+	"npc_damage_far_value"							"5"
+	"npc_explosion_damage"							"10"
+	"npc_explosion_damage_heavy_armor"				"50"
+
+	"explosion_damages_owner"						"0"
+	"explosion_inner_radius"  						"30"
+	"explosionradius" 								"50"
+	"impulse_force"   								"10000"
+	//"impulse_force"   							"32000" //"15000"
+
+	"explosion_shake_radius"						"150"
+	"explosion_shake_amplitude"						"4"
+	"explosion_shake_frequency"						"55"
+	"explosion_shake_duration"						"0.35"
+
+	// Ammo
+	"ammo_stockpile_max"							"350"
+	"ammo_clip_size"   								"-1"
+	"ammo_default_total"							"350"
+
+	// NPC
+	"proficiency_poor_spreadscale"					"4.0"
+	"proficiency_average_spreadscale" 				"3.0"
+	"proficiency_good_spreadscale"					"2.0"
+	"proficiency_very_good_spreadscale"   			"1.5"
+
+	"npc_spread_defocused_cone_multiplier"			"1.0"
+
+	"npc_min_engage_range"							"0"
+	"npc_max_engage_range"							"2200"
+	"npc_min_engage_range_heavy_armor"				"1800"
+	"npc_max_engage_range_heavy_armor"				"3000"
+	"npc_min_range"   								"0"
+	"npc_max_range"   								"4000"
+
+	"npc_min_burst"   								"6"
+	"npc_max_burst"   								"9"
+
+	//"npc_burst_secondary"   						"6"
+	//"npc_rest_time_secondary"						"20"
+	//"npc_aim_at_feet"								"1"
+
+	"npc_pre_fire_delay"							"0.5"
+	"npc_pre_fire_delay_interval"					"1.5"
+	"npc_rest_time_between_bursts_min"				"0.1"
+	"npc_rest_time_between_bursts_max"				"2"
+	"npc_rest_time_between_bursts_expedite"			"1.5"
+
+	"npc_lead_time_scale"							"0.0011"
+	"npc_lead_time_min_dist"						"100"
+	"npc_lead_time_max_dist"						"4000"
+	"npc_fire_at_enemy_defense_time"				"1.0"
+
+	"bolt_hitsize"									"30.0"
+	"bolt_hitsize_grow1_time"						"0.1"
+	"bolt_hitsize_grow1_size"						"30.0"
+	"bolt_hitsize_grow2_time"						"0.2"
+	"bolt_hitsize_grow2_size"						"40.0"
+	"bolt_hitsize_growfinal_lerptime"				"0.3"
+	"bolt_hitsize_growfinal_size"					"40.0"
+
+	"fire_rate"   									"15.0"
+
+	"zoom_time_in"									"0.1"
+	"zoom_time_out"   								"0.1"
+	"zoom_fov"										"40"
+	"reload_time" 									"3.0"
+//	"reloadempty_time"								"3.0"
+//	"deploy_time" 									"0.8"
+//	"lower_time"  									"0.25"
+//	"raise_time"  									"0.3"
+	"vortex_refire_behavior"  						"rocket"
+	"allow_empty_fire"								"0"
+	"reload_enabled"  								"1"
+	"allow_empty_click"   							"1"
+	"empty_reload_only"   							"0"
+	"trigger_snipercam"   							"0"
+	"allow_headshots" 								"0"
+	"critical_hit"									"0"
+	"scripted_projectile_max_timestep"				"0.2"
+
+	// Spread
+	"spread_stand_hip"  							"0"
+	"spread_stand_ads"   							"0"
+	"spread_decay_rate"   							"5"
+	"spread_decay_delay"  							".2"
+
+	"ammo_suck_behavior"							"primary_weapons"
+
+	// View Kick
+	"viewkick_spring" 								"pistol"
+
+	// Bob
+	"bob_cycle_time"  								"0"
+	"bob_vert_dist"   								"0.125"
+	"bob_horz_dist"   								"0.25"
+	"bob_max_speed"   								"320.0"
+
+	// View Drift
+
+	// Rumble
+	"rumble"  										"6"
+
+	// Sway
+
+	// WeaponED Unhandled Key/Values and custom script Key/Values
+	"sway_turn_angle_factor"  						".3"
+	"sway_turn_origin_factor" 						"0.15"
+	"sway_turn_angle_factor_zoomed"   				"0.06"
+	"sway_turn_origin_factor_zoomed"  				"0.06"
+	"sway_move_angle_factor"  						"-.3"
+	"sway_move_origin_factor" 						"-.15"
+	"sway_move_angle_factor_zoomed"   				"-0.02"
+	"sway_move_origin_factor_zoomed"  				"-0.02"
+	"sway_gain"   									"15.0"
+
+
+
+	MP_BASE
+	{
+		"enable_highlight_networking_on_creation"		"<KEEP_DEFAULT>"
+	}
+
+	SP_BASE
+	{
+		"enable_highlight_networking_on_creation"		"1"
+	}
+
+	Mods
+	{
+		fd_damage
+		{
+			"npc_damage_near_value_titanarmor"				"150"
+			"npc_damage_far_value_titanarmor" 				"130"
+			"npc_damage_near_distance"						"1000"
+			"npc_damage_far_distance" 						"3000"
+			"npc_damage_near_value"   						"20"
+			"npc_damage_far_value"							"15"
+			"npc_explosion_damage"							"0"
+			"npc_explosion_damage_heavy_armor"				"100"
+		}
+	}
+}

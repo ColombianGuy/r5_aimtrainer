@@ -1,0 +1,167 @@
+ImpactTable
+{
+	FX
+	{
+
+		"C" "P_melee_concrete_lg" //Concrete, rock, porcelain, boulder, gravel, asphalt, brick, concrete_block, plaster
+		"D" "P_melee_dirt_lg" //Dirt, slipperyslime, snow, carpet, cardboard, floatingstandable, ceiling_tile, papercup
+		"E" "P_melee_metal_titan_lg" // metal_titan
+
+		"F" "P_melee_metal_lg" //flesh
+		"G" "P_melee_metal_lg" //metalgrate, chainlink, chain
+		"H" "P_melee_metal_lg" //alienflesh
+
+		"J" "P_melee_dirt_lg" //grass
+		"K" "P_melee_mud_lg" //Mud
+		"L" "P_melee_metal_lg" //plastic_barrel, plastic_box, item, rubber, rubbertire, jeeptire, slidingrubbertire, brakingrubbertire, slidingrubbertire_front, slidingrubbertire_rear
+		"M" "P_melee_metal_lg" //Default, metal, metal_box, solidmetal, armorflesh, metal_bouncy, slippery_metal, shellcasing_small, shellcasing_large, metal_barrel, floating_metal_barrel, weapon
+		"N" "P_xo_footstep_slime" //Slime
+		"O" "P_melee_dirt_lg" //Foliage
+		"P" "P_melee_metal_lg" //Computer
+
+		"R" "P_melee_metal_lg" //metalpanel, grenade, canister
+		"S" "xo_footstep_water" //water
+		"T" "P_melee_concrete_lg" //tile
+		"U" "P_melee_metal_lg" //glass_breakable
+
+		"V" "P_melee_metal_lg" //Metal Vent
+		"W" "P_melee_dirt_lg" //Wood, Wood_lowdensity, Wood_Box, Wood_Crate, Wood_Plank, Wood_Solid, Wood_Furniture, Wood_Panel watermelon
+
+		"X" "P_impact_exp_med_xo_shield" //xo_shield
+
+		"Y" "P_melee_metal_lg" //glass, brokenglass, glassbottle, pottery
+		"Z" "P_melee_sand_lg"  //sand
+
+//		"0" "openslot"
+//		"1" "openslot"
+//		"2" "openslot"
+//		"3" "openslot"
+//		"4" "openslot"
+//		"5" "openslot"
+//		"6" "openslot"
+//		"7" "openslot"
+//		"8" "openslot"
+//		"9" "openslot"
+
+		"splash" "xo_footstep_water" //brush water
+		"slime_splash" "P_xo_footstep_slime"
+		"airburst" ""
+		"shieldhit" "P_xo_armor_impact"
+		"critical_hit" "xo_damage_exp_1"
+	}
+
+	Sound
+	{
+
+		"C" "titan_melee_hit_3P"
+		"D" "titan_melee_hit_3P"
+		"E" "titan_melee_hit_3P"
+
+		"F" "titan_punch_human_impact"
+		"G" "titan_melee_hit_3P"
+		"H" "titan_punch_human_impact"
+
+		"J" "titan_melee_hit_3P"
+		"K" "titan_melee_hit_3P"
+		"L" "titan_melee_hit_3P"
+		"M" "titan_melee_hit_3P"
+		"N" "titan_melee_hit_3P"
+		"O" "titan_melee_hit_3P"
+		"P" "titan_punch_android_impact"
+
+		"R" "titan_melee_hit_3P"
+		"S" "titan_melee_hit_3P"
+		"T" "titan_melee_hit_3P"
+		"U" "titan_melee_hit_3P"
+
+		"V" "titan_melee_hit_3P"
+		"W" "titan_melee_hit_3P"
+
+		"Y" "titan_melee_hit_3P"
+		"Z" "titan_melee_hit_3P"
+
+		"splash" "titan_melee_hit_3P"
+		"slime_splash" "titan_melee_hit_3P"
+
+		"airburst" ""
+		"shieldhit" "TitanShield.MeleeImpact_3P_vs_3P"
+	}
+
+	Sound_attacker
+	{
+		"C" "titan_melee_hit"
+		"D" "titan_melee_hit"
+		"E" "titan_melee_hit"
+
+		"F" "titan_punch_human_impact"
+		"G" "titan_melee_hit"
+		"H" "titan_punch_human_impact"
+
+		"J" "titan_melee_hit"
+		"K" "titan_melee_hit"
+		"L" "titan_melee_hit"
+		"M" "titan_melee_hit"
+		"N" "titan_melee_hit"
+		"O" "titan_melee_hit"
+		"P" "titan_punch_android_impact"
+
+		"R" "titan_melee_hit"
+		"S" "titan_melee_hit"
+		"T" "titan_melee_hit"
+		"U" "titan_melee_hit"
+
+		"V" "titan_melee_hit"
+		"W" "titan_melee_hit"
+
+		"Y" "titan_melee_hit"
+		"Z" "titan_melee_hit"
+
+		"splash" "titan_melee_hit"
+		"slime_splash" "titan_melee_hit"
+
+		"airburst" ""
+		"shieldhit" "TitanShield.MeleeImpact_1P_vs_3P"
+	}
+
+	Sound_victim
+	{
+		"C" "titan_melee_hit_3P"
+		"D" "titan_melee_hit_3P"
+		"E" "titan_melee_hit_3P_vs_1P"
+
+		"F" "titan_punch_human_impact"
+		"G" "titan_melee_hit_3P"
+		"H" "titan_punch_human_impact"
+
+		"J" "titan_melee_hit_3P"
+		"K" "titan_melee_hit_3P"
+		"L" "titan_melee_hit_3P"
+		"M" "titan_melee_hit_3P"
+		"N" "titan_melee_hit_3P"
+		"O" "titan_melee_hit_3P"
+		"P" "titan_punch_android_impact"
+
+		"R" "titan_melee_hit_3P"
+		"S" "titan_melee_hit_3P"
+		"T" "titan_melee_hit_3P"
+		"U" "titan_melee_hit_3P"
+
+		"V" "titan_melee_hit_3P"
+		"W" "titan_melee_hit_3P"
+
+		"Y" "titan_melee_hit_3P"
+		"Z" "titan_melee_hit_3P"
+
+		"splash" "titan_melee_hit_3P"
+		"slime_splash" "titan_melee_hit_3P"
+
+		"airburst" ""
+		"shieldhit" "TitanShield.MeleeImpact_3P_vs_1P"
+	}
+
+	Sound_victim_from_AI
+	{
+		"F" "titan_punch_human_impact"
+		"P" "titan_punch_android_impact"
+	}
+}

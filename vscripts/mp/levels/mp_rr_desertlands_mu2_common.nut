@@ -115,6 +115,7 @@ struct
 {
 	bool siloDoorHasBeenActivated = false
 	#if SERVER
+	entity arcToolMarvin
 	array<LootData> weapons
 	array<LootData> items
 	array<LootData> ordnance
@@ -150,8 +151,12 @@ void function Desertlands_MapInit_Common()
 		SURVIVAL_SetAirburstHeight( 2500 )
 		SURVIVAL_SetMapCenter( <0, 0, 0> )
 		// Survival_SetMapFloorZ( -8000 )
+		thread MarvinOperatesArcTool()
 
 		RegisterSignal( "ReachedPathEnd" )
+		RegisterSignal( "MarvinStopWorkingArcTool" )
+		RegisterSignal( "marvin_lose_arc_tool" )
+		RegisterSignal( "attach_arc_tool" )
 		AddSpawnCallback_ScriptName( "conveyor_rotator_mover", OnSpawnConveyorRotatorMover )
 		AddSpawnCallbackEditorClass( "prop_dynamic", "script_survival_crafting_harvester", SetupFakeCraftingSiphon )
 		AddSpawnCallbackEditorClass( "prop_dynamic", "script_survival_crafting_workbench_cluster", SetupFakeReplicator )
@@ -1025,9 +1030,7 @@ void function FillLootTable()
 	file.ordnance.extend(SURVIVAL_Loot_GetByType( eLootType.ORDNANCE ))
 	file.weapons.extend(SURVIVAL_Loot_GetByType( eLootType.MAINWEAPON ))
 }
-#endif
 
-#if SERVER
 void function SpawnGrenades(vector pos, vector ang, int wait_time = 6, array which_nades = ["thermite", "frag", "arc"], int num_rows = 1)
 //By michae\l/#1125 & @CafeFPS
 {
@@ -1052,9 +1055,173 @@ void function SpawnGrenades(vector pos, vector ang, int wait_time = 6, array whi
 		entity loot = SpawnGenericLoot(item.ref, posfixed, ang, 1)
 		thread RespawnItem(loot, item.ref, 1, wait_time)
 	}}}
-#endif
 
-#if SERVER
+void function MarvinOperatesArcTool()
+{
+	wait 5
+	entity player = gp()[0]
+	entity spawner = GetSpawnerByScriptName( "arc_marvin_spawner" )
+	entity marvin = spawner.SpawnEntity()
+	DispatchSpawn( marvin )
+	marvin.SetNPCFlag( NPC_NO_WEAPON_DROP, true )
+
+	Signal( marvin, "StopDoingJobs" )
+	marvin.AssaultSetArrivalTolerance( 4 )
+	marvin.AssaultPoint( marvin.GetOrigin() )
+
+	marvin.GiveWeapon( "sp_weapon_arc_tool", WEAPON_INVENTORY_SLOT_PRIMARY_1 )
+	file.arcToolMarvin = marvin
+	Assert( IsValid( marvin ) )
+
+	EndSignal( marvin, "OnDeath" )
+	EndSignal( marvin, "OnDestroy" )
+	EndSignal( marvin, "MarvinStopWorkingArcTool" )
+
+	entity arc_switch = GetEntByScriptName( "arc_tool_marvin_target" )
+	entity marvin_node = GetEntByScriptName( "arc_marvin_node" )
+
+	thread MarvinGivesArcToolToPlayerPeacefully( marvin )
+	thread GetArcToolFromMarvinDialogue( marvin, player )
+	//thread MarvinShotActivatesSwitch( marvin, arc_switch )
+
+	while( IsAlive( marvin ) )
+	{
+		// Shoot
+		marvin.Anim_ScriptedPlayWithRefPoint( "mv_arctool_fire", marvin_node.GetOrigin(), marvin_node.GetAngles(), 0.1 )
+		WaittillAnimDone( marvin )
+
+		// Idle
+		marvin.Anim_ScriptedPlayWithRefPoint( "mv_arctool_idle", marvin_node.GetOrigin(), marvin_node.GetAngles(), 0.1 )
+
+		wait 1.0
+	}
+}
+
+void function GetArcToolFromMarvinDialogue( entity marvin, entity player )
+{
+	WaitTillLookingAt( player, marvin, true, 45, 1300, 20.0 )
+	//FlagWait( "ArcToolDetected" )
+
+	//Objective_Set( "#BEACON_OBJECTIVE_GET_ARC_TOOL_FROM_MARVIN", GetEntByScriptName( "arc_marvin_node" ).GetOrigin() + < 0, 0, 52 > )
+
+	if ( IsValid( marvin ) )
+	{
+		// Arc Tool detected at 30 meters.
+		waitthread PlayDialogue( "bt_radio_template", player )
+	}
+}
+
+void function MarvinGivesArcToolToPlayerPeacefully( entity marvin )
+{
+	EndSignal( marvin, "OnDeath" )
+	EndSignal( marvin, "OnDestroy" )
+
+	marvin.SetUsableByGroup( "pilot" )
+	marvin.SetUsePrompts( "#BEACON_MARVIN_USE_HINT_HOLD" , "#BEACON_MARVIN_USE_HINT_PRESS" )
+	marvin.SetUsable()
+
+	entity player
+	while( true )
+	{
+		table results = marvin.WaitSignal( "OnPlayerUse" )
+		player = expect entity( results.player )
+		if ( !IsValid( player ) )
+			continue
+		if ( !player.IsPlayer() )
+			continue
+		break
+	}
+	marvin.UnsetUsable()
+
+	// Stop marvin from doing arc tool cycle
+	Signal( marvin, "MarvinStopWorkingArcTool" )
+	marvin.Code_Anim_Stop()
+
+	// Player first person sequence taking the gun
+	waitthread ArcToolFirstPersonSequence( player, marvin )
+
+	// Idle after losing the arc tool
+	entity marvin_node = GetEntByScriptName( "arc_marvin_node" )
+	marvin.Anim_ScriptedPlayWithRefPoint( "mv_arctool_steal_react", marvin_node.GetOrigin(), marvin.GetAngles(), 1.0 )
+}
+
+void function ArcToolFirstPersonSequence( entity player, entity marvin )
+{
+	player.DisableWeapon()
+
+	entity node = GetEntByScriptName( "arc_marvin_node" )
+	vector playerFacingAngles = VectorToAngles( node.GetOrigin() - player.GetOrigin() )
+	entity mover = CreateScriptMover( node.GetOrigin(), FlattenAngles( playerFacingAngles ) )
+
+	FirstPersonSequenceStruct sequence
+	sequence.blendTime = 0.3
+	sequence.attachment = "ref"
+	sequence.firstPersonAnim = ""
+	sequence.thirdPersonAnim = ""
+	sequence.viewConeFunction = ViewConeTight
+
+	player.ContextAction_SetBusy()
+
+	OnThreadEnd(
+		function() : ( player )
+		{
+			if ( IsValid( player ) )
+			{
+				player.Anim_Stop()
+				player.ClearParent()
+				ClearPlayerAnimViewEntity( player )
+				if ( player.ContextAction_IsBusy() )
+					player.ContextAction_ClearBusy()
+
+				// Give arc tool to player
+				//if ( !HasWeapon( player, "sp_weapon_arc_tool" ) )
+					//GiveBatteryChargeTool( player )
+				player.GiveWeapon( "sp_weapon_arc_tool", WEAPON_INVENTORY_SLOT_PRIMARY_1 )
+				player.SetActiveWeaponByName( eActiveInventorySlot.mainHand,"sp_weapon_arc_tool" )
+				player.EnableWeapon()
+			}
+		}
+	)
+
+	entity fpProxy = player.GetFirstPersonProxy()
+	int attachID = fpProxy.LookupAttachment( "PROPGUN" )
+	//entity weaponModel = CreatePropDynamic( $"mdl/weapons/arc_tool_sp/w_arc_tool_sp.rmdl", fpProxy.GetAttachmentOrigin( attachID ), fpProxy.GetAttachmentAngles( attachID ) )
+	//weaponModel.SetParent( player.GetFirstPersonProxy(), "PROPGUN", false, 0.0 )
+	//weaponModel.MakeInvisible()
+	//weaponModel.RenderWithViewModels( true )
+	//weaponModel.Anim_Play( "arc_tool_steal" )
+
+	//weaponModel.Destroy()
+
+	thread MarvinLoseArcToolSignal( marvin )
+	//thread AnimAttachArcTool( player, weaponModel )
+	thread PlayAnim( marvin, "mv_arctool_steal", mover, null, 0.0 )
+	marvin.Anim_AdvanceCycleEveryFrame( true )
+	waitthread FirstPersonSequence( sequence, player, mover )
+
+	//if ( IsValid( weaponModel ) )
+		//weaponModel.Destroy()
+}
+
+void function MarvinLoseArcToolSignal( entity marvin )
+{
+	EndSignal( marvin, "OnDeath" )
+
+	WaitSignal( marvin, "marvin_lose_arc_tool" )
+
+	marvin.TakeActiveWeapon( WEAPON_INVENTORY_SLOT_ANY )
+
+	wait 3.0
+	marvin.SetSkin(2) //sad face
+}
+
+void function AnimAttachArcTool( entity player, entity weaponModel )
+{
+	EndSignal( player, "OnDeath" )
+	WaitSignal( player.GetFirstPersonProxy(), "attach_arc_tool" )
+	weaponModel.Show()
+}
+
 entity function CreateEditorPropLobby(asset a, vector pos, vector ang, bool mantle = false, float fade = 2000, int realm = -1)
 {
     entity e = CreatePropDynamic(a,pos,ang,SOLID_VPHYSICS,fade)

@@ -1514,6 +1514,27 @@ entity function CreatePropDynamic( asset model, vector ornull origin = null, vec
 }
 
 
+entity function CreateEnvDecoy( asset model, vector ornull origin = null, vector ornull angles = null, int solidType = 0, float fadeDist = -1, bool dispatchSpawn = true )
+{
+	entity decoy = CreateEntity( "env_decoy" )
+	decoy.SetModel( model )
+	decoy.kv.fadedist = fadeDist
+	decoy.kv.renderamt = 255
+	decoy.kv.rendercolor = "255 255 255"
+	decoy.kv.solid = solidType // 0 = no collision, 2 = bounding box, 6 = use vPhysics, 8 = hitboxes only
+
+	if ( dispatchSpawn )
+		DispatchSpawn( decoy )
+
+	if ( origin )
+	{
+		decoy.SetOrigin( expect vector( origin ) )
+		if ( angles )
+			decoy.SetAngles( expect vector( angles ) )
+	}
+
+	return decoy
+}
 //-----------------------------------------------------------
 // CreatePropDynamicLightweight( model ) - create a generic prop_dynamic_lightweight with default properties
 //------------------------------------------------------------
@@ -4041,6 +4062,8 @@ void function RandomizeHead( entity model ) //Randomize head across all availabl
 {
 	var headIndex
 	if ( model.GetModelName() == "mdl/robots/spectre/imc_spectre.rmdl" )
+		return//headIndex = model.FindBodyGroup( "removableHead" )
+	if ( model.GetModelName() == "mdl/humans/pilots/pilot_medium_reaper_m.rmdl" )
 		return//headIndex = model.FindBodyGroup( "removableHead" )
 	else
 		headIndex = model.FindBodyGroup( "head" )

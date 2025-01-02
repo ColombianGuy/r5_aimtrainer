@@ -1,9 +1,10 @@
 untyped
 
 global function AiMarvins_Init
+global function SpawnAmbientMarvin
 
 
-function AiMarvins_Init()
+void function AiMarvins_Init()
 {
 	FlagInit( "Disable_Marvins" )
 	FlagSet( "Disable_Marvins" )
@@ -16,28 +17,28 @@ function AiMarvins_Init()
 
 void function EntitiesDidLoad()
 {
-	// if ( IsAutoPopulateEnabled() == false )
-	// 	return
+	if ( IsAutoPopulateEnabled() == false )
+		return
 
-	// FlagEnd( "disable_npcs" )
+	FlagEnd( "disable_npcs" )
 
-	// array<entity> marvin_spawners = GetEntArrayByClass_Expensive( "info_spawnpoint_marvin" )
+	array<entity> marvin_spawners = GetEntArrayByClass_Expensive( "info_spawnpoint_marvin" )
 
-	// if ( !marvin_spawners.len() )
-	// 	return
+	if ( !marvin_spawners.len() )
+		return
 
-	// for ( ;; )
-	// {
-	// 	wait 3
+	for ( ;; )
+	{
+		wait 3
 
-	// 	if ( !Flag( "Disable_Marvins" ) )
-	// 	{
-	// 		if ( TotalLivingMarvins() < 5 )
-	// 		{
-	// 			SpawnRandomMarvin( marvin_spawners )
-	// 		}
-	// 	}
-	// }
+		if ( !Flag( "Disable_Marvins" ) )
+		{
+			if ( TotalLivingMarvins() < 5 )
+			{
+				SpawnRandomMarvin( marvin_spawners )
+			}
+		}
+	}
 }
 
 void function LivingMarvinSpawned( entity self )
@@ -119,23 +120,39 @@ entity function SpawnAmbientMarvin( entity spawnpoint )
 
 function Marvin_SetModels( entity npc_marvin, entity spawnpoint )
 {
-	// //default
-	// npc_marvin.s.bodytype <- MARVIN_TYPE_WORKER
+	//default
+	npc_marvin.s.bodytype <- MARVIN_TYPE_WORKER
 
-	// // set body and head based on KVP
-	// if ( spawnpoint.HasKey( "bodytype" ) )
-	// {
-	// 	local bodytype = spawnpoint.GetValueForKey( "bodytype" ).tointeger()
+	// set body and head based on KVP
+	if ( spawnpoint.HasKey( "bodytype" ) )
+	{
+		local bodytype = spawnpoint.GetValueForKey( "bodytype" ).tointeger()
 
-	// 	Assert( bodytype >= MARVIN_TYPE_SHOOTER && bodytype <= MARVIN_TYPE_FIREFIGHTER, "Specified invalid body type index " + bodytype + " for info_spawnpoint_marvin " + spawnpoint + ", Use values from 0-2 instead." )
+		Assert( bodytype >= MARVIN_TYPE_SHOOTER && bodytype <= MARVIN_TYPE_FIREFIGHTER, "Specified invalid body type index " + bodytype + " for info_spawnpoint_marvin " + spawnpoint + ", Use values from 0-2 instead." )
 
-	// 	npc_marvin.s.bodytype = bodytype
-	// }
+		npc_marvin.s.bodytype = bodytype
+	}
 
 
-	// if ( spawnpoint.HasKey( "headtype" ) )
-	// {
-	// 	local headtype = spawnpoint.GetValueForKey( "headtype" )
-	// 	npc_marvin.kv.body = headtype
-	// }
+	if ( spawnpoint.HasKey( "headtype" ) )
+	{
+		local headtype = spawnpoint.GetValueForKey( "headtype" )
+		npc_marvin.kv.body = headtype
+	}
+}
+
+bool function IsAutoPopulateEnabled( var team = null )
+{
+	if ( IsNPCSpawningEnabled() == false )
+		return false
+
+	if ( Flag( "disable_npcs" ) )
+		return false
+
+	if ( team == TEAM_MILITIA && Flag( "Disable_MILITIA" ) )
+		return false
+	if ( team == TEAM_IMC && Flag( "Disable_IMC" ) )
+		return false
+
+	return true
 }

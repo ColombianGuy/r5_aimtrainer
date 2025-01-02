@@ -1,0 +1,178 @@
+// "Gamematerial" "effect_name"
+
+
+ImpactTable
+{
+	Info
+	{
+		"whizby_sound_from_player"	"none"
+		"whizby_sound_from_AI"		"none"
+	}
+
+	FX
+	{
+		"C" "P_exp_monbeam_med_default" //Concrete, rock, porcelain, boulder, gravel, asphalt, brick, concrete_block, plaster
+		"D" "P_exp_monbeam_med_dirt" //Dirt, slipperyslime, snow, carpet, cardboard, floatingstandable, ceiling_tile, papercup
+		"E" "P_exp_monbeam_med_default" // metal_titan
+
+		"F" "P_exp_monbeam_med_default" //flesh
+		"G" "P_exp_monbeam_med_default" //metalgrate, chainlink, chain
+		"H" "P_exp_monbeam_med_default" //alienflesh
+
+		"J" "P_exp_monbeam_med_dirt" //grass
+		"K" "P_exp_monbeam_med_default" //Mud
+		"L" "P_exp_monbeam_med_default" //plastic_barrel, plastic_box, item, rubber, rubbertire, jeeptire, slidingrubbertire, brakingrubbertire, slidingrubbertire_front, slidingrubbertire_rear
+		"M" "P_exp_monbeam_med_default" //Default, metal, metal_box, solidmetal, armorflesh, metal_bouncy, slippery_metal, shellcasing_small, shellcasing_large, metal_barrel, floating_metal_barrel, weapon
+		"N" "P_exp_monbeam_med_default"
+		"O" "P_exp_monbeam_med_default" //Foliage
+		"P" "P_exp_monbeam_med_default" //Computer
+
+		"R" "P_exp_monbeam_med_default" //metalpanel, grenade, canister
+		"S" "P_exp_monbeam_med_default" //water, slime
+		"T" "P_exp_monbeam_med_default" //tile
+		"U" "P_exp_monbeam_med_default" //glass_breakable
+
+		"V" "P_exp_monbeam_med_default" //Metal Vent
+		"W" "P_exp_monbeam_med_default" //Wood, Wood_lowdensity, Wood_Box, Wood_Crate, Wood_Plank, Wood_Solid, Wood_Furniture, Wood_Panel watermelon
+
+		"Y" "P_exp_monbeam_med_default" //glass, brokenglass, glassbottle, pottery
+		"Z" "P_exp_monbeam_med_dirt"  //sand
+
+		"0" "P_exp_monbeam_med_default"
+		"1" "P_exp_monbeam_med_default"
+		"2" "P_exp_monbeam_med_default"
+		"3" "P_exp_monbeam_med_default"
+		"4" "P_exp_monbeam_med_default"
+		"5" "P_exp_monbeam_med_default"
+		"6" "P_exp_monbeam_med_default"
+		"7" "P_exp_monbeam_med_default"
+		"8" "P_exp_monbeam_med_default"
+		"9" "P_exp_monbeam_med_default" //puddle
+
+		"airburst" "P_exp_monbeam_med_air"
+		"critical_hit" "P_exp_monbeam_med_default"
+		"shieldhit" "P_exp_monbeam_med_default" // metal_titan
+
+		"headshot_flesh" "P_exp_monbeam_med_default"
+		"headshot_mechanical" "P_exp_monbeam_med_default"
+	}
+
+	Sound
+	{
+		"C" "Weapon_EnergySyphon_Impact_Lvl1_3P"
+		"D" "Weapon_EnergySyphon_Impact_Lvl1_3P"
+		"E" "Weapon_EnergySyphon_Impact_Lvl1_3P"
+
+		"F" "Weapon_EnergySyphon_Impact_Lvl1_3P"
+		"G" "Weapon_EnergySyphon_Impact_Lvl1_3P"
+		"H" "Weapon_EnergySyphon_Impact_Lvl1_3P"
+
+		"J" "Weapon_EnergySyphon_Impact_Lvl1_3P"
+		"K" "Weapon_EnergySyphon_Impact_Lvl1_3P"
+		"L" "Weapon_EnergySyphon_Impact_Lvl1_3P"
+		"M" "Weapon_EnergySyphon_Impact_Lvl1_3P"
+		"N" "Weapon_EnergySyphon_Impact_Lvl1_3P"
+		"O" "Weapon_EnergySyphon_Impact_Lvl1_3P"
+		"P" "Weapon_EnergySyphon_Impact_Lvl1_3P"
+
+		"R" "Weapon_EnergySyphon_Impact_Lvl1_3P"
+		"S" "Weapon_EnergySyphon_Impact_Lvl1_3P"
+		"T" "Weapon_EnergySyphon_Impact_Lvl1_3P"
+		"U" "Weapon_EnergySyphon_Impact_Lvl1_3P"
+
+		"V" "Weapon_EnergySyphon_Impact_Lvl1_3P"
+		"W" "Weapon_EnergySyphon_Impact_Lvl1_3P"
+		"X" "TitanBubbleShield.Explosive.BulletImpact_3P_vs_3P"
+		"Y" "Weapon_EnergySyphon_Impact_Lvl1_3P"
+		"Z" "Weapon_EnergySyphon_Impact_Lvl1_3P"
+
+		//"splash" "Water.BulletImpact"
+		//"slime_splash" "Water.BulletImpact"
+
+		"airburst" "Weapon_EnergySyphon_Impact_Lvl1_3P"
+		"shieldhit" "TitanShield.Explosive.BulletImpact_3P_vs_3P"
+
+		"headshot_flesh" "Weapon_EnergySyphon_Impact_Lvl1_3P"
+		"headshot_mechanical" "Weapon_EnergySyphon_Impact_Lvl1_3P"
+	}
+
+	Sound_attacker
+	{
+		"C" "Weapon_EnergySyphon_Impact_Lvl1_1P"
+		"D" "Weapon_EnergySyphon_Impact_Lvl1_1P"
+		"E" "Weapon_EnergySyphon_Impact_Lvl1_1P"
+
+		"F" "Weapon_EnergySyphon_Impact_Lvl1_1P"
+		"G" "Weapon_EnergySyphon_Impact_Lvl1_1P"
+		"H" "Weapon_EnergySyphon_Impact_Lvl1_1P"
+
+		"J" "Weapon_EnergySyphon_Impact_Lvl1_1P"
+		"K" "Weapon_EnergySyphon_Impact_Lvl1_1P"  // mud?
+		"L" "Weapon_EnergySyphon_Impact_Lvl1_1P"
+		"M" "Weapon_EnergySyphon_Impact_Lvl1_1P"
+		"N" "Weapon_EnergySyphon_Impact_Lvl1_1P"	// sand?
+		"O" "Weapon_EnergySyphon_Impact_Lvl1_1P"
+		"P" "Weapon_EnergySyphon_Impact_Lvl1_1P"
+
+		"R" "Weapon_EnergySyphon_Impact_Lvl1_1P"
+		"S" "Weapon_EnergySyphon_Impact_Lvl1_1P"
+		"T" "Weapon_EnergySyphon_Impact_Lvl1_1P"
+		"U" "Weapon_EnergySyphon_Impact_Lvl1_1P"
+
+		"V" "Weapon_EnergySyphon_Impact_Lvl1_1P"
+		"W" "Weapon_EnergySyphon_Impact_Lvl1_1P"
+		"X"	"TitanBubbleShield.Explosive.BulletImpact_1P_vs_3P"
+		"Y" "Weapon_EnergySyphon_Impact_Lvl1_1P"
+		"Z" "Weapon_EnergySyphon_Impact_Lvl1_1P"
+
+		//"splash" "Water.BulletImpact"
+		//"slime_splash" "Water.BulletImpact"
+
+		"airburst" "Weapon_EnergySyphon_Impact_Lvl1_1P"
+		"shieldhit" "TitanShield.Explosive.BulletImpact_1P_vs_3P"
+
+		"headshot_flesh" "Weapon_EnergySyphon_Impact_Lvl1_1P"
+		"headshot_mechanical" "Weapon_EnergySyphon_Impact_Lvl1_1P"
+	}
+
+	Sound_victim
+	{
+		"C" "Weapon_EnergySyphon_Impact_Lvl1_3P"
+		"D" "Weapon_EnergySyphon_Impact_Lvl1_3P"
+		"E" "Weapon_EnergySyphon_Impact_Lvl1_3P"
+
+		"F" "Weapon_EnergySyphon_Impact_Lvl1_3P"
+		"G" "Weapon_EnergySyphon_Impact_Lvl1_3P"
+		"H" "Weapon_EnergySyphon_Impact_Lvl1_3P"
+
+		"J" "Weapon_EnergySyphon_Impact_Lvl1_3P"
+		"K" "Weapon_EnergySyphon_Impact_Lvl1_3P"
+		"L" "Weapon_EnergySyphon_Impact_Lvl1_3P"
+		"M" "Weapon_EnergySyphon_Impact_Lvl1_3P"
+		"N" "Weapon_EnergySyphon_Impact_Lvl1_3P"
+		"O" "Weapon_EnergySyphon_Impact_Lvl1_3P"
+		"P" "Weapon_EnergySyphon_Impact_Lvl1_3P"
+
+		"R" "Weapon_EnergySyphon_Impact_Lvl1_3P"
+		"S" "Weapon_EnergySyphon_Impact_Lvl1_3P"
+		"T" "Weapon_EnergySyphon_Impact_Lvl1_3P"
+		"U" "Weapon_EnergySyphon_Impact_Lvl1_3P"
+
+		"V" "Weapon_EnergySyphon_Impact_Lvl1_3P"
+		"W" "Weapon_EnergySyphon_Impact_Lvl1_3P"
+		"X" "TitanBubbleShield.Explosive.BulletImpact_3P_vs_3P"
+		"Y" "Weapon_EnergySyphon_Impact_Lvl1_3P"
+		"Z" "Weapon_EnergySyphon_Impact_Lvl1_3P"
+
+		//"splash" "Water.BulletImpact"
+		//"slime_splash" "Water.BulletImpact"
+
+		"airburst" "Weapon_EnergySyphon_Impact_Lvl1_3P"
+		"shieldhit" "TitanShield.Explosive.BulletImpact_3P_vs_1P"
+
+		"headshot_flesh" "Weapon_EnergySyphon_Impact_Lvl1_3P"
+		"headshot_mechanical" "Weapon_EnergySyphon_Impact_Lvl1_3P"
+	}
+
+
+}

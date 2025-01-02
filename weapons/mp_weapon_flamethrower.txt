@@ -1,20 +1,20 @@
-//By @CafeFPS
+//Scripts By @CafeFPS, Models By @LorryLeKral
 "WeaponData"
 {
 	// General
 	"printname"                                 	"FLAME THROWER"
 	"shortprintname"                            	"FLAME THROWER"
-	"description"                               	"FLAME THROWER"
-	"longdesc"                                  	"FLAME THROWER"
+	"description"                               	"Hand crafted flame thrower. Burns everything that comes to it's way."
+	"longdesc"                                  	"Hand crafted flame thrower. Burns everything that comes to it's way."
 	"weapon_type_flags"								"WPT_PRIMARY"
 	
 	// UI - HUD
-	"menu_icon"										"rui/weapon_icons/r5/weapon_triple_take"
-	"hud_icon"										""
+	"menu_icon"										"rui/weapon_icons/kral/custom/flamethrower"
+	"hud_icon"										"rui/weapon_icons/kral/custom/flamethrower"
 
 	// Models
-	"viewmodel"                                    "mdl/Weapons/doubletake/ptpov_doubletake_legendary_02.rmdl"
-	"playermodel"                                  "mdl/Weapons/doubletake/w_doubletake_legendary_02.rmdl"
+	"viewmodel"                                    "mdl/weapons/ported/ptpov_lmg_flamethrower.rmdl"
+	"playermodel"                                  "mdl/weapons/ported/w_lmg_flamethrower.rmdl"
 
 	// Script - Callbacks
 	"OnWeaponPrimaryAttack"                         "OnWeaponPrimaryAttack_weapon_FlameThrower"
@@ -27,6 +27,7 @@
 	"fire_rate"                                    "50"
 	"is_semi_auto"								   "0"
 	"impulse_force"                                "1000"
+	"deploy_allow_ads"                             "0"
 
 	// Behavior - ADS (tied to animation)
 	"ads_fov_zoomfrac_start"                "0.2"
@@ -52,7 +53,8 @@
 	"damage_flags"                                 "DF_BULLET | DF_KNOCK_BACK | DF_DISMEMBERMENT"
 
 	// Viewmodel
-	"viewmodel_offset_ads"                         "0 -3.0 0"
+	"viewmodel_offset_hip"                         "4 1.7 0.5"
+	"viewmodel_offset_ads"						   "3 0.25 0.0"
 	"viewmodel_shake_forward"                      "0.5"
 	"viewmodel_shake_up"                           "0.1"
 	"viewmodel_shake_right"                        "0.0"
@@ -83,8 +85,9 @@
 	// Ammo
 	//
 
-	"ammo_pool_type"                               "special"
-	"ammo_clip_size"                               "500"
+	"ammo_pool_type"                               "explosive"
+	"uses_ammo_pool"                               "0"
+	"ammo_clip_size"                               "250"
 	"ammo_stockpile_max"                           "500"
 	"ammo_default_total"                           "500"
 	"ammo_per_shot"                                "1"
@@ -93,12 +96,12 @@
 	"ammo_no_remove_from_stockpile"                "1"
 	"reload_enabled"                               "1"
 	"allow_empty_click"                            "1"
-	"empty_reload_only"                            "0"
+	"empty_reload_only"                            "1"
 
     "low_ammo_fraction"              "0.1"
 
-	"reload_time"                                  "2.6"
-	"reload_time_late1"                            "1.32"
+	"reload_time"                                  "3.6"
+	"reload_time_late1"                            "2.32"
 	"reloadempty_time"                             "3.4"
 	"reloadempty_time_late1"                       "2.26"
 	"reloadempty_time_late2"                       "1.26"

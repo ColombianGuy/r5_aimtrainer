@@ -1,0 +1,176 @@
+// "Gamematerial" "effect_name"
+
+
+ImpactTable
+{
+	Info
+	{
+		"whizby_sound_from_player"	"Rockets.ARLNearmiss"
+		"whizby_sound_from_AI"		"Rockets.ARLNearmiss"
+		"whizby_maxDistancePilot"	"500"
+		"whizby_maxDistanceTitan"	"750"
+	}
+	FX
+	{
+		"C" "P_impact_exp_xsmll_concrete" //Concrete, rock, porcelain, boulder, gravel, asphalt, brick, concrete_block, plaster
+		"D" "P_impact_exp_xsmll_dirt" //Dirt, slipperyslime, snow, carpet, cardboard, floatingstandable, ceiling_tile, papercup
+		"E" "P_impact_exp_xsmll_metal" // metal_titan
+
+		"F" "P_impact_exp_xsmll_metal" //flesh
+		"G" "P_impact_exp_xsmll_metal" //metalgrate, chainlink, chain
+		"H" "P_impact_exp_xsmll_metal" //alienflesh
+
+		"J" "P_impact_exp_xsmll_dirt" //grass
+		"K" "P_impact_exp_xsmll_metal" //Mud
+		"L" "P_impact_exp_xsmll_metal" //plastic_barrel, plastic_box, item, rubber, rubbertire, jeeptire, slidingrubbertire, brakingrubbertire, slidingrubbertire_front, slidingrubbertire_rear
+		"M" "P_impact_exp_xsmll_metal" //Default, metal, metal_box, solidmetal, armorflesh, metal_bouncy, slippery_metal, shellcasing_small, shellcasing_large, metal_barrel, floating_metal_barrel, weapon
+		"N" "P_impact_exp_xsmll_slime" //Slime
+		"O" "P_impact_exp_xsmll_dirt" //Foliage
+		"P" "P_impact_exp_xsmll_metal" //Computer
+
+		"R" "P_impact_exp_xsmll_metal" //metalpanel, grenade, canister
+		"S" "P_impact_exp_xsmll_water" //water
+		"T" "P_impact_exp_xsmll_concrete" //tile
+		"U" "P_impact_exp_xsmll_metal" //glass_breakable
+
+		"V" "P_impact_exp_xsmll_metal" //Metal Vent
+		"W" "P_impact_exp_xsmll_metal" //Wood, Wood_lowdensity, Wood_Box, Wood_Crate, Wood_Plank, Wood_Solid, Wood_Furniture, Wood_Panel watermelon
+
+		"X" "P_impact_exp_xsmll_xo_shield" //xo_shield
+
+		"Y" "P_impact_exp_xsmll_metal" //glass, brokenglass, glassbottle, pottery
+		"Z" "P_impact_exp_xsmll_sand"  //sand
+
+		"0" "P_impact_exp_xsmll_metal"
+		"1" "P_impact_exp_xsmll_metal"
+		"2" "P_impact_exp_xsmll_metal"
+		"3" "P_impact_exp_xsmll_metal"
+		"4" "P_impact_exp_xsmll_metal"
+		"5" "P_impact_exp_xsmll_metal"
+		"6" "P_impact_exp_xsmll_metal"
+		"7" "P_impact_exp_xsmll_metal"
+		"8" "P_impact_exp_xsmll_metal"
+		"9" "P_impact_exp_xsmll_metal" //puddle
+
+		"airburst" "P_impact_exp_xsmll_air"
+		"shieldhit" "P_impact_exp_xsmll_metal"
+		"critical_hit" "P_impact_exp_xsmll_metal"
+	}
+
+	///This is 2nd set of impacts for shield fx to play with explosion
+	FX
+	{
+		"shieldhit" "P_xo_armor_impact_EXP"
+	}
+
+	Sound
+	{
+// Update these when custom explosions are created.
+		"C" "null_temp"
+		"D" "null_temp"
+		"E" "null_temp"
+
+		"F" "null_temp"
+		"G" "null_temp"
+		"H" "null_temp"
+
+		"J" "null_temp"
+		"K" "null_temp"  // mud?
+		"L" "null_temp"
+		"M" "null_temp"
+		"N" "null_temp"	// sand?
+		"O" "null_temp"
+		"P" "null_temp"
+
+		"R" "null_temp"
+		"S" "null_temp"
+		"T" "null_temp"
+		"U" "null_temp"
+
+		"V" "null_temp"
+		"W" "null_temp"
+		"X"	"null_temp"
+		"Y" "null_temp"
+		"Z" "null_temp"
+
+		//"splash" "Water.BulletImpact"
+		//"slime_splash" "Water.BulletImpact"
+
+		"airburst" "null_temp"
+		"shieldhit" "null_temp"
+	}
+
+	Sound_attacker
+	{
+// Update these when custom explosions are created.
+		"C" "null_temp"
+		"D" "null_temp"
+		"E" "null_temp"
+
+		"F" "null_temp"
+		"G" "null_temp"
+		"H" "null_temp"
+
+		"J" "null_temp"
+		"K" "null_temp"  // mud?
+		"L" "null_temp"
+		"M" "null_temp"
+		"N" "null_temp"	// Slime
+		"O" "null_temp"
+		"P" "null_temp"
+
+		"R" "null_temp"
+		"S" "null_temp"
+		"T" "null_temp"
+		"U" "null_temp"
+
+		"V" "null_temp"
+		"W" "null_temp"
+		"X"	"null_temp"
+		"Y" "null_temp"
+		"Z" "null_temp"
+
+		//"splash" "Water.BulletImpact"
+		//"slime_splash" "Water.BulletImpact"
+
+		"airburst" "null_temp"
+		"shieldhit" "null_temp"
+	}
+
+	Sound_victim
+	{
+// Update these when custom explosions are created.
+		"C" "null_temp"
+		"D" "null_temp"
+		"E" "Titan.ARLRocket_Explosion_3P_vs_1P"
+
+		"F" "null_temp"
+		"G" "null_temp"
+		"H" "null_temp"
+
+		"J" "null_temp"
+		"K" "null_temp"  // mud?
+		"L" "null_temp"
+		"M" "null_temp"
+		"N" "null_temp"	// Slime
+		"O" "null_temp"
+		"P" "null_temp"
+
+		"R" "null_temp"
+		"S" "null_temp"
+		"T" "null_temp"
+		"U" "null_temp"
+
+		"V" "null_temp"
+		"W" "null_temp"
+		"X"	"null_temp"
+		"Y" "null_temp"
+		"Z" "null_temp"
+
+		//"splash" "Water.BulletImpact"
+		//"slime_splash" "Water.BulletImpact"
+
+		"airburst" "null_temp"
+		"shieldhit" "null_temp" // Custom for ARL so rapid-fire shieldhit explos don't get overbearing
+	}
+}

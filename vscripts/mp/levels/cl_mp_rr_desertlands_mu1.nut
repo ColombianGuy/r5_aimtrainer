@@ -7,7 +7,7 @@ void function ClientCodeCallback_MapInit()
 	DesertlandsTrainAnnouncer_Init()
 	ClLaserMesh_Init()
 	Desertlands_MapInit_Common()
-	MapZones_RegisterDataTable( $"datatable/map_zones/zones_mp_rr_desertlands_64k_x_64k.rpak")
+	MapZones_RegisterDataTable( $"datatable/map_zones/zones_mp_rr_desertlands_mu1.rpak" )
 
 	AddCreateCallback( "trigger_cylinder_heavy", Geyser_OnJumpPadCreated )
 	//New zones
@@ -33,7 +33,7 @@ void function ClientCodeCallback_MapInit()
 
 	//TownTakerover Zones
 	SURVIVAL_AddMinimapLevelLabel( "#DES_ZONE_8_MIRAGE", 0.23, 0.54, 0.5 )
-
+	SURVIVAL_AddMinimapLevelLabel( "#DES_ZONE_1_BLOOD_SHORT", 0.2175, 0.195, 0.5 )
 }
 
 void function Geyser_OnJumpPadCreated( entity trigger )

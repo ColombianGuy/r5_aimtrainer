@@ -1,0 +1,48 @@
+// "Gamematerial" "effect_name"
+
+
+ImpactTable
+{
+	FX
+	{
+		"C" "xo_dodge_trail_concrete" // Concrete, rock, porcelain, boulder, gravel, asphalt, brick, concrete_block, plaster
+		"D" "xo_dodge_trail_dirt"     //Dirt, slipperyslime, snow, carpet, cardboard, floatingstandable, ceiling_tile, papercup
+		"E" "xo_dodge_trail_metal"	  // metal_titan
+
+		"F" "" //flesh
+		"G" "xo_dodge_trail_metal"	  //metalgrate, chainlink, chain
+		"H" "" //alienflesh
+
+		"J" "xo_dodge_trail_dirt"	  //grass
+		"K" "xo_dodge_trail_mud"		//Mud
+		"L" "xo_dodge_trail_concrete" //plastic_barrel, plastic_box, item, rubber, rubbertire, jeeptire, slidingrubbertire, brakingrubbertire, slidingrubbertire_front, slidingrubbertire_rear
+		"M" "xo_dodge_trail_metal" //Default, metal, metal_box, solidmetal, armorflesh, metal_bouncy, slippery_metal, shellcasing_small, shellcasing_large, metal_barrel, floating_metal_barrel, weapon
+		"N" "P_xo_dodge_trail_slime" //Slime
+		"O" "xo_dodge_trail_mud" //Foliage
+		"P" "xo_dodge_trail_metal" //Computer
+
+		"R" "xo_dodge_trail_metal" //metalpanel, grenade, canister
+
+		"R" "xo_dodge_trail_metal" //metalpanel, grenade, canister
+		"S" "P_impact_exp_med_water" //water
+		"T" "xo_dodge_trail_concrete" //tile
+		"U" ""						 //glass_breakable
+
+		"V" "xo_dodge_trail_metal" //Metal Vent
+		"W" "xo_dodge_trail_concrete" //Wood, Wood_lowdensity, Wood_Box, Wood_Crate, Wood_Plank, Wood_Solid, Wood_Furniture, Wood_Panel watermelon
+
+		"Y" "" //glass, brokenglass, glassbottle, pottery
+		"Z" "xo_dodge_trail_sand"  //sand
+
+		"0" "xo_dodge_trail_concrete"
+		"1" "xo_dodge_trail_concrete"
+		"2" "xo_dodge_trail_concrete"
+		"3" "xo_dodge_trail_concrete"
+		"4" "xo_dodge_trail_concrete"
+		"5" "xo_dodge_trail_concrete"
+		"6" "xo_dodge_trail_concrete"
+		"7" "xo_dodge_trail_concrete"
+		"8" "xo_dodge_trail_concrete"
+		"9" "xo_dodge_trail_concrete" //puddle
+	}
+}

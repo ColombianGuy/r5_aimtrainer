@@ -1,0 +1,159 @@
+// "Gamematerial" "effect_name"
+
+
+ImpactTable
+{
+	FX
+	{
+		"C" "drone_frag_open_sparks" //Concrete, rock, porcelain, boulder, gravel, asphalt, brick, concrete_block, plaster
+		"D" "drone_frag_open_sparks" //Dirt, slipperyslime, snow, carpet, cardboard, floatingstandable, ceiling_tile, papercup
+		"E" "drone_frag_open_sparks" // metal_titan
+
+		"F" "drone_frag_open_sparks" //flesh
+		"G" "drone_frag_open_sparks" //metalgrate, chainlink, chain
+		"H" "drone_frag_open_sparks" //alienflesh
+
+		"J" "drone_frag_open_sparks" //grass
+		"K" "drone_frag_open_sparks" //Mud
+		"L" "drone_frag_open_sparks" //plastic_barrel, plastic_box, item, rubber, rubbertire, jeeptire, slidingrubbertire, brakingrubbertire, slidingrubbertire_front, slidingrubbertire_rear
+		"M" "drone_frag_open_sparks" //Default, metal, metal_box, solidmetal, armorflesh, metal_bouncy, slippery_metal, shellcasing_small, shellcasing_large, metal_barrel, floating_metal_barrel, weapon
+		"N" "drone_frag_open_sparks"
+		"O" "drone_frag_open_sparks" //Foliage
+		"P" "drone_frag_open_sparks" //Computer
+
+		"R" "drone_frag_open_sparks" //metalpanel, grenade, canister
+		"S" "drone_frag_open_sparks" //water, slime
+		"T" "drone_frag_open_sparks" //tile
+		"U" "drone_frag_open_sparks" //glass_breakable
+
+		"V" "drone_frag_open_sparks" //Metal Vent
+		"W" "drone_frag_open_sparks" //Wood, Wood_lowdensity, Wood_Box, Wood_Crate, Wood_Plank, Wood_Solid, Wood_Furniture, Wood_Panel watermelon
+
+		"Y" "drone_frag_open_sparks" //glass, brokenglass, glassbottle, pottery
+		"Z" "drone_frag_open_sparks"  //sand
+
+		"0" "drone_frag_open_sparks"
+		"1" "drone_frag_open_sparks"
+		"2" "drone_frag_open_sparks"
+		"3" "drone_frag_open_sparks"
+		"4" "drone_frag_open_sparks"
+		"5" "drone_frag_open_sparks"
+		"6" "drone_frag_open_sparks"
+		"7" "drone_frag_open_sparks"
+		"8" "drone_frag_open_sparks"
+		"9" "drone_frag_open_sparks" //puddle
+
+		"airburst" "drone_frag_open_sparks"
+		"critical_hit" "drone_frag_open_sparks"
+	}
+
+	Sound
+	{
+		"C" "Wpn_TripleThreat_Grenade.ImpactHard"
+		"D" "Wpn_TripleThreat_Grenade.ImpactHard"
+		"E" "Wpn_TripleThreat_Grenade.ImpactHard"
+
+		"F" "Wpn_TripleThreat_Grenade.ImpactHard"
+		"G" "Wpn_TripleThreat_Grenade.ImpactHard"
+		"H" "Wpn_TripleThreat_Grenade.ImpactHard"
+
+		"J" "Wpn_TripleThreat_Grenade.ImpactHard"
+		"K" "Wpn_TripleThreat_Grenade.ImpactHard"
+		"L" "Wpn_TripleThreat_Grenade.ImpactHard"
+		"M" "Wpn_TripleThreat_Grenade.ImpactHard"
+		"N" "Wpn_TripleThreat_Grenade.ImpactHard"
+		"O" "Wpn_TripleThreat_Grenade.ImpactHard"
+		"P" "Wpn_TripleThreat_Grenade.ImpactHard"
+
+		"R" "Wpn_TripleThreat_Grenade.ImpactHard"
+		"S" "Wpn_TripleThreat_Grenade.ImpactHard"
+		"T" "Wpn_TripleThreat_Grenade.ImpactHard"
+		"U" "Wpn_TripleThreat_Grenade.ImpactHard"
+
+		"V" "Wpn_TripleThreat_Grenade.ImpactHard"
+		"W" "Wpn_TripleThreat_Grenade.ImpactHard"
+		"X" "TitanBubbleShield.Explosive.BulletImpact_3P_vs_3P"
+		"Y" "Wpn_TripleThreat_Grenade.ImpactHard"
+		"Z" "Wpn_TripleThreat_Grenade.ImpactHard"
+
+		//"splash" "Water.BulletImpact"
+		//"slime_splash" "Water.BulletImpact"
+
+		"airburst" "Wpn_TripleThreat_Grenade.ImpactHard"
+		"shieldhit" "TitanShield.Explosive.BulletImpact_3P_vs_3P"
+	}
+
+	Sound_attacker
+	{
+		"C" "Wpn_TripleThreat_Grenade.ImpactHard"
+		"D" "Wpn_TripleThreat_Grenade.ImpactHard"
+		"E" "Wpn_TripleThreat_Grenade.ImpactHard"
+
+		"F" "Wpn_TripleThreat_Grenade.ImpactHard"
+		"G" "Wpn_TripleThreat_Grenade.ImpactHard"
+		"H" "Wpn_TripleThreat_Grenade.ImpactHard"
+
+		"J" "Wpn_TripleThreat_Grenade.ImpactHard"
+		"K" "Wpn_TripleThreat_Grenade.ImpactHard"  // mud?
+		"L" "Wpn_TripleThreat_Grenade.ImpactHard"
+		"M" "Wpn_TripleThreat_Grenade.ImpactHard"
+		"N" "Wpn_TripleThreat_Grenade.ImpactHard"	// sand?
+		"O" "Wpn_TripleThreat_Grenade.ImpactHard"
+		"P" "Wpn_TripleThreat_Grenade.ImpactHard"
+
+		"R" "Wpn_TripleThreat_Grenade.ImpactHard"
+		"S" "Wpn_TripleThreat_Grenade.ImpactHard"
+		"T" "Wpn_TripleThreat_Grenade.ImpactHard"
+		"U" "Wpn_TripleThreat_Grenade.ImpactHard"
+
+		"V" "Wpn_TripleThreat_Grenade.ImpactHard"
+		"W" "Wpn_TripleThreat_Grenade.ImpactHard"
+		"X"	"TitanBubbleShield.Explosive.BulletImpact_1P_vs_3P"
+		"Y" "Wpn_TripleThreat_Grenade.ImpactHard"
+		"Z" "Wpn_TripleThreat_Grenade.ImpactHard"
+
+		//"splash" "Water.BulletImpact"
+		//"slime_splash" "Water.BulletImpact"
+
+		"airburst" "Wpn_TripleThreat_Grenade.ImpactHard"
+		"shieldhit" "TitanShield.Explosive.BulletImpact_1P_vs_3P"
+	}
+
+	Sound_victim
+	{
+		"C" "Wpn_TripleThreat_Grenade.ImpactHard"
+		"D" "Wpn_TripleThreat_Grenade.ImpactHard"
+		"E" "Wpn_TripleThreat_Grenade.ImpactHard"
+
+		"F" "Wpn_TripleThreat_Grenade.ImpactHard"
+		"G" "Wpn_TripleThreat_Grenade.ImpactHard"
+		"H" "Wpn_TripleThreat_Grenade.ImpactHard"
+
+		"J" "Wpn_TripleThreat_Grenade.ImpactHard"
+		"K" "Wpn_TripleThreat_Grenade.ImpactHard"
+		"L" "Wpn_TripleThreat_Grenade.ImpactHard"
+		"M" "Wpn_TripleThreat_Grenade.ImpactHard"
+		"N" "Wpn_TripleThreat_Grenade.ImpactHard"
+		"O" "Wpn_TripleThreat_Grenade.ImpactHard"
+		"P" "Wpn_TripleThreat_Grenade.ImpactHard"
+
+		"R" "Wpn_TripleThreat_Grenade.ImpactHard"
+		"S" "Wpn_TripleThreat_Grenade.ImpactHard"
+		"T" "Wpn_TripleThreat_Grenade.ImpactHard"
+		"U" "Wpn_TripleThreat_Grenade.ImpactHard"
+
+		"V" "Wpn_TripleThreat_Grenade.ImpactHard"
+		"W" "Wpn_TripleThreat_Grenade.ImpactHard"
+		"X" "TitanBubbleShield.Explosive.BulletImpact_3P_vs_3P"
+		"Y" "Wpn_TripleThreat_Grenade.ImpactHard"
+		"Z" "Wpn_TripleThreat_Grenade.ImpactHard"
+
+		//"splash" "Water.BulletImpact"
+		//"slime_splash" "Water.BulletImpact"
+
+		"airburst" "Wpn_TripleThreat_Grenade.ImpactHard"
+		"shieldhit" "TitanShield.Explosive.BulletImpact_3P_vs_1P"
+	}
+
+
+}

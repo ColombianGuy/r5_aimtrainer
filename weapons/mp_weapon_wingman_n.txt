@@ -1,6 +1,3 @@
-#base "_base_handgun.txt"
-#base "_base_mags_heavy.txt"
-
 WeaponData
 {
 	// General
@@ -19,7 +16,7 @@ WeaponData
 	"is_semi_auto"									"1"
 	"weapon_type_flags"								"WPT_PRIMARY"
 
-	//"OnWeaponPrimaryAttack"							"OnWeaponPrimaryAttack_weapon_sniper"
+	"OnWeaponPrimaryAttack"							"OnWeaponPrimaryAttack_weapon_sniper"
 
 	"damage_flags"									"DF_BULLET | DF_KNOCK_BACK | DF_DISMEMBERMENT"
 
@@ -37,8 +34,8 @@ WeaponData
 	"projectilemodel" 								"mdl/Weapons/bullets/projectile_20mm.rmdl"
 
 	// Effects
-//	"tracer_effect_first_person"                    "P_wpn_tracer"
-//	"tracer_effect"   								"P_wpn_tracer"
+	//"tracer_effect_first_person"                  "P_wpn_tracer"
+	//"tracer_effect"   							"P_wpn_tracer"
 	"impact_effect_table" 							"wingman_elite"
 	"vortex_absorb_effect"							"wpn_vortex_projectile_rifle_FP"
 	"vortex_absorb_effect_third_person"				"wpn_vortex_projectile_rifle"
@@ -49,6 +46,9 @@ WeaponData
 	"projectile_trail_effect_0" 					"weapon_kraber_projectile"
 	"projectile_do_predict_impact_effects"			"1"//0"
 
+	"projectile_launch_speed"                  		"18000"
+	"projectile_lifetime" 							"3.5"
+	"impulse_force"   								"3000"
 
 	//"fx_shell_eject_view"							"wpn_shelleject_pistol_FP"
 	//"fx_shell_eject_world"							"wpn_shelleject_pistol"
@@ -123,8 +123,8 @@ WeaponData
 	"damage_far_value"								"55"
 	"damage_near_distance"							"1500"
 	"damage_far_distance" 							"2000"
-	"damage_near_value_titanarmor"					"65"
-	"damage_far_value_titanarmor" 					"65"
+	"damage_near_value_titanarmor"					"300"
+	"damage_far_value_titanarmor" 					"250"
 	"damage_rodeo" 									"350"
 
    	"damage_very_far_value"							"35"
@@ -160,6 +160,7 @@ WeaponData
 	"proficiency_good_spreadscale"					"1.66667"
 	"proficiency_very_good_spreadscale"   			"1.66667"
 
+	"viewmodel_offset_ads"							"0 0 0"
 	"dof_zoom_nearDepthStart"						"4.750"
 	"dof_zoom_nearDepthEnd"							"11.000"
 	"dof_nearDepthStart"							"3.683"
@@ -198,9 +199,7 @@ WeaponData
 
 	"sprint_fractional_anims"						"0"
 
-	"projectile_launch_speed"                  		"18000"
-	"projectile_lifetime" 							"3.5"
-	"impulse_force"   								"3000"
+	"impulse_force"   								"10"
 	"ammo_suck_behavior"							"primary_weapons"
 
 	// View Kick
@@ -360,15 +359,6 @@ WeaponData
 	"holster_type"									"pistol"
 
 	// Bodygroups:
-    "clip_bodygroup"						"b3wing_magazine"
-    "clip_bodygroup_index_shown"			"0"
-    "clip_bodygroup_index_hidden"			"1"
-    "clip_bodygroup_show_for_milestone_0"	"1"
-    "clip_bodygroup_show_for_milestone_1"	"0"
-    "clip_bodygroup_show_for_milestone_2"	"1"
-    "clip_bodygroup_show_for_milestone_3"	"1"
-
-
 	"bodygroup1_name"	"suppressor_cyl_sm"
 	"bodygroup1_set"	"0"
 	"bodygroup2_name"	"suppressor_sq_sm"
@@ -382,29 +372,27 @@ WeaponData
 	"bodygroup6_name"	"proscreen"
 	"bodygroup6_set"	"0"
 
+
+    "clip_bodygroup"						"b3wing_magazine"
+    "clip_bodygroup_index_shown"			"0"
+    "clip_bodygroup_index_hidden"			"1"
+    "clip_bodygroup_show_for_milestone_0"	"1"
+    "clip_bodygroup_show_for_milestone_1"	"0"
+    "clip_bodygroup_show_for_milestone_2"	"1"
+    "clip_bodygroup_show_for_milestone_3"	"1"
+
 	Mods
 	{
-		pro_screen
+		iron_sights
 		{
-			"ui8_enable"		"1"
-			"bodygroup6_set"	"1"
 		}
-
-	    gold
-	    {
-	    }
-
-		survival_finite_ammo
-        {
-            "ammo_default_total"			"0"
-            "ammo_stockpile_max"			"20"
-            "ammo_no_remove_from_stockpile"	"0"
-
-            "low_ammo_fraction" 			"0.3"
-
-	   		"uses_ammo_pool"				"1"
-        }
-        silencer //HACK JFS: Doesn't get applied on amped weapons. See bug 170460
+		extended_ammo
+		{
+			"ammo_stockpile_max"				"160"
+			"ammo_clip_size"   					"8"
+			"ammo_default_total"				"160"
+		}
+		silencer //HACK JFS: Doesn't get applied on amped weapons. See bug 170460
 		{
 			"silenced"							"1"
 			"fire_sound_2_player_1p"			"Weapon_Wingman_FireSuppressed_1P"
@@ -413,7 +401,7 @@ WeaponData
 			"damage_near_value"   				"--10"
 			"damage_far_value"					"--10"
 			"damage_very_far_value"				"--10"
-            "bodygroup2_set" "1"
+			"bodygroup2_set"					"1"
 
 			//"rumble"  						"4"
 			"tracer_effect"   					"P_wpn_tracer_pistol"
@@ -423,7 +411,6 @@ WeaponData
 			"fx_muzzle_flash_world"				"wpn_muzzleflash_pistol_sup"
 			"fx_muzzle_flash_attach"			"muzzle_flash_suppressor_sq"
 		}
-
         hcog
 		{
 			"bodygroup3_set"	"1"
@@ -445,7 +432,6 @@ WeaponData
 			"dof_zoom_nearDepthStart"						"4.491"
 			"dof_zoom_nearDepthEnd"							"5.545"
 		}
-		
 		threat_scope
 		{
 			"bodygroup3_set"	"0"
@@ -463,7 +449,39 @@ WeaponData
 			"ui8_enable"		"1"
 			"bodygroup6_set"	"1"
 		}
+		tactical_cdr_on_kill
+		{
 
+		}
+		pas_fast_reload
+		{
+			"reload_time"								"*0.7"
+			"reload_time_late1"							"*0.7"
+			"reloadempty_time"							"*0.7"
+			"reloadempty_time_late1"					"*0.7"
+		}
+		pas_run_and_gun
+		{
+			"primary_fire_does_not_block_sprint"			"1"
+			"crosshair_force_sprint_fade_disabled"          "1"
+		}
+		pas_fast_ads
+		{
+			//Fast ADS
+			"zoom_time_in"									"*0.5"
+			"zoom_time_out"   								"*0.6"
+		}
+		pas_fast_swap
+		{
+			//Fast Swap
+			"fast_swap_to"									"1"
+		}
+		ricochet
+		{
+			"bolt_bounce_frac"								"0.7"
+			"projectile_damages_owner"						"0"
+			"projectile_ricochet_max_count"					"2"
+		}
 		burn_mod_wingman_n
 		{
 			//FX
@@ -482,41 +500,27 @@ WeaponData
 			"damage_near_value_titanarmor"					"450"
 			"damage_far_value_titanarmor" 					"400"
 		}
-
-        highcal_mag_l1
-		{
-			"ammo_clip_size"   							"6"
-		}
-		highcal_mag_l2
-		{
-			"ammo_clip_size"   							"8"
-		}
-		highcal_mag_l3
-		{
-			"ammo_clip_size"   							"10"
-		}
 	}
 
-	"viewmodel_offset_ads"							"0 0 -0.3"
-
 	"ui1_enable"		"1"
-	"ui1_draw_cloaked"	"1"
 	UiData1
 	{
-		"ui"							"ui/wingman_rui_upper"
-		"mesh"							"models/weapons/attachments/re45_rui_upper"
+		"ui"								"ui/r97_reticle"
+		"mesh"							"models/weapons/attachments/r97_rui_upper"
 		Args
 		{
 			vis							player_zoomfrac
+			ammo						weapon_ammo
+			clipSize					weapon_clipSize
 		}
 	}
 
-	"ui2_enable"		"1"
-	"ui2_draw_cloaked"	"1"
-	UiData2
+	"ui6_enable"		"1"
+	"ui6_draw_cloaked"	"1"
+	UiData6
 	{
-		"ui"							"ui/wingman_rui_lower"
-		"mesh"							"models/weapons/attachments/b3wing_rui_lower"
+		"ui"								"ui/wingman_rui_lower"
+		"mesh"					"models/weapons/attachments/b3wing_rui_lower"
 		Args
 		{
 			vis							player_zoomfrac
@@ -556,7 +560,7 @@ WeaponData
 
 		Crosshair_1
 		{
-			"ui"						"ui/crosshair_plus_dot"
+			"ui"						"ui/crosshair_wingman"
 			"base_spread"				"100"
 			Args
 			{

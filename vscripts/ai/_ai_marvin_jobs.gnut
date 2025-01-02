@@ -562,11 +562,11 @@ void function DebugMarvinJobs()
 MarvinJob function GetMarvinJobForNode( entity node )
 {
 	MarvinJob marvinJob
-	// foreach ( MarvinJob marvinJob in file.marvinJobs )
-	// {
-	// 	if ( marvinJob.node == node )
-	// 		return marvinJob
-	// }
+	//foreach ( MarvinJob marvinJob in file.marvinJobs )
+	{
+		if ( marvinJob.node == node )
+			return marvinJob
+	}
 	return marvinJob
 }
 
