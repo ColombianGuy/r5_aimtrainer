@@ -65,8 +65,6 @@ void function Desertlands_MapInit_Common()
 	SetVictorySequencePlatformModel( $"mdl/rocks/desertlands_victory_platform.rmdl", < 0, 0, -10 >, < 0, 0, 0 > )
 
 	#if SERVER
-		if ( MapName() == eMaps.mp_rr_desertlands_64k_x_64k_tt )
-			thread MirageVoyageSetup()
 		AddCallback_EntitiesDidLoad( EntitiesDidLoad )
 		SURVIVAL_SetPlaneHeight( 15250 )
 		SURVIVAL_SetAirburstHeight( 2500 )

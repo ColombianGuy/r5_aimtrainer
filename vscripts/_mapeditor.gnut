@@ -94,7 +94,9 @@ const bool IS_FLOWSTATE_SCRIPT = true
 
 void function ReMap_Init()
 {
-    
+    if ( MapName() == eMaps.mp_rr_desertlands_64k_x_64k || MapName() == eMaps.mp_rr_desertlands_64k_x_64k_nx || MapName() == eMaps.mp_rr_desertlands_holiday || MapName() == eMaps.mp_rr_desertlands_mu1 || MapName() == eMaps.mp_rr_desertlands_mu1_tt)
+		return 
+		
     AddCallback_OnClientConnected( MapEditor_CreateTextInfoPanel_Internal )
     
     PrecacheModel( BALLON_BASE_MDL )
