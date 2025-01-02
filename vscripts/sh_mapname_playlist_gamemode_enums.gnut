@@ -519,7 +519,9 @@ void function MapHasTrain_Init()
 		eMaps.mp_rr_desertlands_64k_x_64k,
 		eMaps.mp_rr_desertlands_64k_x_64k_nx,
 		eMaps.mp_rr_desertlands_64k_x_64k_tt,
-		eMaps.mp_rr_desertlands_holiday
+		eMaps.mp_rr_desertlands_holiday,
+		eMaps.mp_rr_desertlands_mu1,
+		eMaps.mp_rr_desertlands_mu1_tt
 	]
 	
 	modeSettings.mapHasTrain = trainEnabledMaps.contains( MapName() )
