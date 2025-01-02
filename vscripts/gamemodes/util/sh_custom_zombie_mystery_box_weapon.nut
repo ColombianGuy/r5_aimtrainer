@@ -1,5 +1,5 @@
-//Made by Julefox#0050
-//Fixes by @CafeFPS
+//Made by julefox (discord)
+//Fixes by @CafeFPS (X/twitter)
 
 global function ShZombieMysteryBoxWeapon_Init
 

@@ -1,4 +1,4 @@
-//Made by @CafeFPS and Julefox#0050 ( 2022, dev script )
+//Made by @CafeFPS (X/twitter) and julefox (discord) ( 2022, dev script )
 
 global function OnWeaponTossReleaseAnimEvent_Turret
 global function OnWeaponAttemptOffhandSwitch_Turret
@@ -603,7 +603,7 @@ void function weaponEnemyWatcher( entity dummy, entity turret )
 }
 
 void function PlayTurretSound( entity turret )
-//By Julefox#0050
+//By julefox (discord)
 {   
 	EndSignal(turret, "OnDestroy")
 	while ( true )
@@ -614,7 +614,7 @@ void function PlayTurretSound( entity turret )
 }
 
 void function PlayRandomTurretSound( entity turret )
-//By Julefox#0050
+//By julefox (discord)
 {   
 	EndSignal(turret, "OnDestroy")
 	while ( true )
@@ -626,7 +626,7 @@ void function PlayRandomTurretSound( entity turret )
 
 void function MakeLookAt(entity entityToRotate, vector targetPos, entity targetType, entity fx ) 
 {
-//By Julefox#0050
+//By julefox (discord)
 	vector entityPos    = entityToRotate.GetOrigin()
 	vector distance     = targetPos - entityPos
 
