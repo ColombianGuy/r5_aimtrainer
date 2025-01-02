@@ -19,6 +19,7 @@ global function ReMapCreateEvacTower
 global function ReMapCreateRespawnableHeal
 global function ReMapCreateSpeedBoost
 global function ReMapCreateCamera
+global function RemapCreateInvisButton
 
 global function External_ReMapSetOrigin
 global function External_ReMapSetAngles
@@ -1325,6 +1326,12 @@ void function MoveCamera( entity camera_mover, float maxLeft, float maxRight, fl
 
         wait rotationTime + transitionTime
     }
+}
+
+// Invis_Button
+void function RemapCreateInvisButton( vector pos, vector ang, bool up, vector destination, vector direction, string message = "", string submessage = "", int type = 4, float duration = 5.0, string token = "#FS_STRING_VAR", bool addToArray = false )
+{
+    Invis_Button( pos, ang, up, destination, direction, message, submessage, type, duration, token, addToArray )
 }
 
 //  ██╗   ██╗███╗   ██╗██╗████████╗██╗   ██╗    ██████╗ ███████╗███╗   ███╗ ██████╗ ████████╗███████╗    ███████╗██╗   ██╗███╗   ██╗ ██████╗████████╗██╗ ██████╗ ███╗   ██╗

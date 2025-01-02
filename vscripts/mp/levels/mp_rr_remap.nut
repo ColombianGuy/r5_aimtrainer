@@ -1,9 +1,8 @@
 
 global function ReMapLive_Init
 
-// Generated with Unity ReMap Editor Version 1.0.1
-// Made with love by AyeZee#6969 & Julefox#0050 :)
-
+// Generated with Unity ReMap Editor Version 1.1.0
+// Made with love by zee_x64 & julefox (discord) :)
 
 void function ReMapLive_Init()
 {

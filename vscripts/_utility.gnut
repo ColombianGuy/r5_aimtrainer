@@ -5283,7 +5283,7 @@ entity function Create_Invis_Button(vector pos, vector ang, bool up)
     return button
 }
 
-void function Invis_Button(vector pos, vector ang, bool up, vector destination, vector direction, string message = "", string submessage = "", int type = 4, float duration = 5.0, string token = "#FS_STRING_VAR") {
+void function Invis_Button(vector pos, vector ang, bool up, vector destination, vector direction, string message = "", string submessage = "", int type = 4, float duration = 5.0, string token = "#FS_STRING_VAR", bool addToArray = false ) {
     // arrow
     vector offset_pos = <0,0,100>
     vector offset_angle = <90,-90,0>
@@ -5292,7 +5292,7 @@ void function Invis_Button(vector pos, vector ang, bool up, vector destination, 
         offset_angle = <-90, 90, 0>
     }
 
-    MapEditor_CreateProp( $"mdl/Weapons/bullets/damage_arrow.rmdl", pos + offset_pos, ang + offset_angle, false, 300, -1, 10)
+    entity arrow = MapEditor_CreateProp( $"mdl/Weapons/bullets/damage_arrow.rmdl", pos + offset_pos, ang + offset_angle, false, 300, -1, 10)
 
     // button
     entity panel = Create_Invis_Button(pos, ang, up)
@@ -5315,6 +5315,11 @@ void function Invis_Button(vector pos, vector ang, bool up, vector destination, 
 			LocalMsg(ent, token, "", type, duration, message, submessage, "", false)
     })
 
+	if ( addToArray )
+	{
+		MapEditorEnts.append( arrow )
+		MapEditorEnts.append( panel )
+	}
 }
 
 void function RegisterDynamicEntCleanupItem_Parented_Scriptname( string scriptname, void functionref(entity) func = null )
