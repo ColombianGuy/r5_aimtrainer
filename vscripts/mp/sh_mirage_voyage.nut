@@ -166,7 +166,9 @@ struct
 
 #if CLIENT
 void function ClMirageVoyage_Init()
-{	return
+{
+	if ( !IsMirageVoyageEnabled() )
+		return
 	AddCallback_EntitiesDidLoad( InitMirageVoyageMusicEnts )
 }
 #endif // CLIENT
@@ -175,9 +177,6 @@ void function ClMirageVoyage_Init()
 #if CLIENT
 void function InitMirageVoyageMusicEnts()
 {
-	//if ( !IsMirageVoyageEnabled() )
-		return
-
 	entity musicController = GetEntByScriptName( MIRAGE_VOYAGE_MUSIC_CONTROLLER_SCRIPT_NAME )
 	entity ambientGeneric  = GetEntByScriptName( MIRAGE_VOYAGE_AMBIENT_GENERIC_SCRIPT_NAME )
 
@@ -189,13 +188,14 @@ void function InitMirageVoyageMusicEnts()
 #if SERVER
 void function MirageVoyage_Init()
 {
-	return
+	if ( !IsMirageVoyageEnabled() )
+		return
+	
 	PrecacheModel( MIRAGE_DECOY_MODEL_ASSET )
 	PrecacheModel( LOOT_LAUNCHER_MODEL_OFF )
 
 	PrecacheParticleSystem( MIRAGE_DECOY_FX )
 	PrecacheParticleSystem( LOOT_LAUNCHER_FX )
-	//PrecacheScriptString( MIRAGE_VOYAGE_DECOY_SCRIPT_NAME )
 
 	FlagInit( FLAG_MIRAGE_VOYAGE_BUTTON_ENABLED )
 	FlagInit( FLAG_MIRAGE_VOYAGE_MAIN_FX )
@@ -209,7 +209,7 @@ void function MirageVoyage_Init()
 #if SERVER
 void function EntitiesDidLoad()
 {
-	//if ( !IsMirageVoyageEnabled() )
+	if ( !IsMirageVoyageEnabled() )
 		return
 
 	// decoys
@@ -433,46 +433,14 @@ void function OnDeathFieldStageChanged_KillInitialParty( int stage, float nextCi
 #if SERVER
 void function SetMirageVoyagePartyInitialState( entity partyButton )
 {
-	//if ( Survival_IsPlaneEnabled() )
-		thread SetMirageVoyagePartyActive( partyButton, true )
-	//else
-		//thread SetMirageVoyagePartyDisabled( partyButton )
+	thread SetMirageVoyagePartyActive( partyButton, true )
 }
 #endif
 
 bool function IsMirageVoyageEnabled()
 {
-	/*if ( GetCurrentPlaylistVarBool( "mirage_tt_enabled", true ) )
-	{
-		array<string> entScriptnamesToCheck
-		#if SERVER
-			entScriptnamesToCheck.append( MIRAGE_VOYAGE_BUTTON_SCRIPT_NAME )
-			entScriptnamesToCheck.append( "fireworks_burst_target" )
-			entScriptnamesToCheck.append( PARTY_MUSIC_ENT_SCRIPT_NAME )
-			entScriptnamesToCheck.append( DANCEFLOOR_SCRIPT_NAME )
-		#elseif CLIENT
-			entScriptnamesToCheck.append( MIRAGE_VOYAGE_AMBIENT_GENERIC_SCRIPT_NAME )
-		#endif
-
-		bool allEntsPresent = true
-		foreach ( string scriptName in entScriptnamesToCheck )
-		{
-			array<entity> entsToCheck = GetEntArrayByScriptName( scriptName )
-
-			if ( entsToCheck.len() == 0 )
-			{
-				allEntsPresent = false
-				break
-			}
-		}
-
-		if ( allEntsPresent )
-			return true
-
-		return true
-
-	}*/
-
+	if ( MapName() != eMaps.mp_rr_desertlands_mu1 )
+		return false
 	return true
 }
 
@@ -552,7 +520,7 @@ void function SetMirageVoyagePartyActive( entity button, bool activatedFromPlane
 		thread FillerFXSequence()
 
 	// change the console skin
-	button.SetUsePrompts( "#VOYAGE_PARTY_ACTIVE_HINT", "#VOYAGE_PARTY_ACTIVE_HINT" )
+	button.SetUsePrompts( "Party Already Active", "Party Already Active" )
 	button.SetSkin( 1 )
 
 	// play music
@@ -591,8 +559,8 @@ void function SetMirageVoyagePartyActive( entity button, bool activatedFromPlane
 
 				launcher.SetModel( LOOT_LAUNCHER_MODEL_OFF )
 
-				//LootRollerData launchRoller = LootRollers_CreateLootRoller( launcher.GetOrigin(), launcher.GetAngles(), 3 )
-				//LaunchLootRoller( launchRoller, <0, 0, 1>, 1200.0 )
+				entity launchRoller = SpawnLootRoller_DispatchSpawn( launcher.GetOrigin(), launcher.GetAngles() )
+				thread LaunchLootRoller( launchRoller, <0, 0, 1>, 1200.0 )
 			}
 
 			file.partyLootBallsDeployed = true
@@ -621,7 +589,6 @@ void function SetMirageVoyagePartyActive( entity button, bool activatedFromPlane
 #if SERVER
 void function FillerFXSequence()
 {
-	return
 	float desiredTimeIncrement = 60.0 / float( MIRAGE_VOYAGE_FILLER_FX_BPM )
 	float totalDesiredTime     = 0.0
 	float startTime            = Time()
@@ -638,12 +605,10 @@ void function FillerFXSequence()
 			{
 				if ( sequenceTable[ idx ] )
 				{
-					FlagSet( fxFlag )
 					effectTurningOn = true
 				}
 				else
 				{
-					FlagClear( fxFlag )
 					effectTurningOn = false
 				}
 			}
@@ -651,25 +616,12 @@ void function FillerFXSequence()
 			if ( !effectTurningOn )
 				continue
 
-			if ( fxFlag == "F_F_01" )
 				EmitSoundOnEntity( GetEntByScriptName( "F_F_sound" ), FIREWORKS_STREAMER_SFX )
-
-			else if ( fxFlag == "F_B_01" )
 				EmitSoundOnEntity( GetEntByScriptName( "F_B_sound" ), FIREWORKS_STREAMER_SFX )
-
-			else if ( fxFlag == "F_S_01" )
 				EmitSoundOnEntity( GetEntByScriptName( "F_S_sound" ), FIREWORKS_STREAMER_SFX )
-
-			else if ( fxFlag == "F_T_01" )
 				EmitSoundOnEntity( GetEntByScriptName( "F_T_sound" ), FIREWORKS_STREAMER_SFX )
-
-			else if ( fxFlag == "F_A_01" )
 				EmitSoundOnEntity( GetEntByScriptName( "F_A_sound" ), FIREWORKS_STREAMER_SFX )
-
-			else if ( fxFlag == "F_R_01" )
 				EmitSoundOnEntity( GetEntByScriptName( "F_R_sound" ), FIREWORKS_STREAMER_SFX )
-
-			else if ( fxFlag == "F_P_01" )
 				EmitSoundOnEntity( GetEntByScriptName( "F_P_sound" ), FIREWORKS_STREAMER_SFX )
 		}
 
@@ -686,10 +638,6 @@ void function FillerFXSequence()
 				WaitFrame()
 		}
 	}
-
-	// turn all the fx off again just to be sure
-	foreach ( string fxFlag, table<int, bool> sequenceTable in FLAGS_MIRAGE_VOYAGE_FILLER_FX )
-		FlagClear( fxFlag )
 }
 #endif
 
@@ -739,7 +687,7 @@ void function SetMirageVoyagePartyDisabled( entity button )
 
 	wait 1
 
-	button.SetUsePrompts( "#VOYAGE_PARTY_HINT", "#VOYAGE_PARTY_HINT" )
+	button.SetUsePrompts( "Press %use% To Party", "Press %use% To Party" )
 	button.SetSkin( 0 )
 
 	FlagClear( FLAG_MIRAGE_VOYAGE_BUTTON_ENABLED )
@@ -787,8 +735,7 @@ void function SetPartyMusic( bool partyOn )
 #if SERVER
 void function CreateFakeMirageDecoy( FakeDecoyData data )
 {
-	return
-	data.decoy = CreateEnvDecoy( MIRAGE_DECOY_MODEL_ASSET, data.animRef.GetOrigin(), data.animRef.GetAngles(), 6, MIRAGE_VOYAGE_FAKE_DECOY_FADE_DIST )
+	data.decoy = CreatePropDynamic( MIRAGE_DECOY_MODEL_ASSET, data.animRef.GetOrigin(), data.animRef.GetAngles(), 6, MIRAGE_VOYAGE_FAKE_DECOY_FADE_DIST )
 	Attachment result = data.decoy.Anim_GetAttachmentAtTime( data.loopingAnim, "ORIGIN", 0.0 )
 	data.decoy.SetOrigin( result.position )
 	data.decoy.SetAngles( result.angle )
@@ -812,7 +759,7 @@ void function CreateFakeMirageDecoy( FakeDecoyData data )
 	data.decoy.SetPassThroughThickness( 0 )
 
 	// highlight
-	Highlight_SetNeutralHighlight( data.decoy, "sp_objective_entity" )
+	Highlight_SetNeutralHighlight( data.decoy, "decoy_prop"  )
 
 	// anim
 	thread PlayAnim( data.decoy, data.loopingAnim, data.animRef, null, 0.0 )
@@ -984,10 +931,6 @@ void functionref( entity panel, entity player, int useInputFlags ) function Crea
 void function OnAudioLogActivate_Desertlands( entity log, entity player, int useInputFlags )
 {
 	const float MIRAGE_AUDIO_LOG_DURATION = 52.0
-
-	if ( !IsBitFlagSet( useInputFlags, USE_INPUT_DEFAULT ) )
-		return
-
 	log.UnsetUsable()
 
 	EmitSoundAtPosition( TEAM_UNASSIGNED, log.GetCenter(), "diag_mp_mirage_tt_01_3p", log )
