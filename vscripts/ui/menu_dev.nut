@@ -1177,6 +1177,8 @@ void function SetupWeapons()
 	
 	// Custom
 	SetupDevCommand( "Custom: Flame Thrower ", "give mp_weapon_flamethrower" )
+	SetupDevCommand( "Custom: Flowstate Sword", "playerRequestsSword")
+	SetupDevCommand( "Custom: Suppressor Turret", "give mp_weapon_turret")
 	#endif
 }
 
@@ -1205,7 +1207,6 @@ void function SetupTitanfallWeapons()
 	// Dev
 	SetupDevCommand( "Dev: Softball Apex Version", "give mp_weapon_softball apex_model" )
 	SetupDevCommand( "Dev: Flight Core", "give mp_titanweapon_flightcore_rockets")
-	SetupDevCommand( "Dev: Titan Sword", "playerRequestsSword")
 	SetupDevCommand( "Dev: Satchel", "give mp_weapon_satchel")
 	#endif
 }
