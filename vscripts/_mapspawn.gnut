@@ -455,7 +455,7 @@ void function CodeCallback_MapSpawn() // original script entry point
 	PrecacheModel( $"mdl/props/loba_loot_stick/loba_loot_stick.rmdl" )
 	PrecacheModel( $"mdl/Weapons/p2011/w_p2011_loba_prop_version.rmdl" )
 
-	//PrecacheWeapon( $"mp_weapon_turret" )
+	PrecacheWeapon( $"mp_weapon_turret" )
 	// PrecacheWeapon( $"mp_weapon_satchel" )
 	PrecacheWeapon( $"melee_titan_sword" )
 	PrecacheWeapon( $"mp_weapon_titan_sword" )
