@@ -94,9 +94,6 @@ const bool IS_FLOWSTATE_SCRIPT = true
 
 void function ReMap_Init()
 {
-    if ( MapName() == eMaps.mp_rr_desertlands_64k_x_64k || MapName() == eMaps.mp_rr_desertlands_64k_x_64k_nx || MapName() == eMaps.mp_rr_desertlands_holiday || MapName() == eMaps.mp_rr_desertlands_mu1 || MapName() == eMaps.mp_rr_desertlands_mu1_tt)
-		return 
-		
     AddCallback_OnClientConnected( MapEditor_CreateTextInfoPanel_Internal )
     
     PrecacheModel( BALLON_BASE_MDL )
@@ -120,11 +117,13 @@ void function ReMap_Init()
     PrecacheModel( BOOST_CIRCLE )
     PrecacheParticleSystem( BOOST_SPRINT_FP )
 
-    PrecacheModel( CAMERA_BASE_MDL )
-    PrecacheModel( CAMERA_MDL )
-
     MapTriggers_Init()
     AddCallback_EntitiesDidLoad( ReMapDidLoad )
+	
+	if ( MapName() != eMaps.mp_rr_desertlands_mu1 )
+		return
+	PrecacheModel( CAMERA_BASE_MDL )
+    PrecacheModel( CAMERA_MDL )
 }
 
 void function MapTriggers_Init()
