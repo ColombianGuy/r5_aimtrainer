@@ -1107,7 +1107,8 @@ Scripts:
 	custom_maps/_custom_gymmovementmap.nut
 	custom_maps/_custom_ithurtsmap.nut
 	custom_maps/_custom_rankupmap.nut
-
+	custom_maps/_custom_strafeitmap.nut
+	
 	//map editor props
 	_place_map_editor_props_here.nut
 	_mapeditor.gnut

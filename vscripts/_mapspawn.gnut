@@ -538,6 +538,11 @@ void function CodeCallback_MapSpawn() // original script entry point
 		case "fs_ithurtsmovementmappractice":
 		ithurtsmap_init()
 		break
+
+		case "fs_strafeitmovementmappractice":
+		strafeitmap_init()
+		break
+
 		
 		case "fs_lgduels_1v1":
 			
