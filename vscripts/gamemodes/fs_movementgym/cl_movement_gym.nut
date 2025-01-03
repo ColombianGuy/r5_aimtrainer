@@ -1354,9 +1354,9 @@ void function MG_Spawn_PB_Timers()
 	MG_CreateTextInfoPanel( "Difficulty: Hard", "", < -126, 553.9, 40455 >, < -15, 90, 0 >, 10, 99, 1)
 	MG_CreateTextInfoPanel( "","by: LoyTakian", < -76, 559.1, 40435.67 >, < -15, 90, 0 >, 10, 99, 3)
 	//
-	// ** Mantle Jump Map **
-	MG_CreateTextInfoPanel( "Mantle Jump Map", "", < -640.96, -3, 40368 >, < -15, -180, 0 >, 10, 99, 3)
-	MG_CreateTextInfoPanel( "Difficulty: Medium", "", < -617.96, -60, 40455 >, < -15, -180, 0 >, 10, 99, 1)
+	// ** Strafe It Map **
+	MG_CreateTextInfoPanel( "Strafe It", "", < -640.96, -3, 40368 >, < -15, -180, 0 >, 10, 99, 3)
+	MG_CreateTextInfoPanel( "Difficulty: Hard", "", < -617.96, -55, 40455 >, < -15, -180, 0 >, 10, 99, 1)
 	MG_CreateTextInfoPanel( "", "by: LoyTakian  &  Treeree", < -623.06, -3, 40435.57 >, < -15, -180, 0 >, 10, 99, 3)
 	//
 	// ** First Map **
