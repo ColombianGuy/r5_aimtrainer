@@ -439,7 +439,7 @@ void function SetMirageVoyagePartyInitialState( entity partyButton )
 
 bool function IsMirageVoyageEnabled()
 {
-	if ( MapName() != eMaps.mp_rr_desertlands_mu1 )
+	if (MapName() != eMaps.mp_rr_desertlands_mu1 && MapName() != eMaps.mp_rr_desertlands_mu1_tt && MapName() != eMaps.mp_rr_desertlands_64k_x_64k_tt )
 		return false
 	return true
 }
