@@ -165,8 +165,8 @@ void function MU1_EntitiesDidLoad()
 
 	thread InitWraithAudioLog()
 	thread PlaceOctaneTownTakeoverLoot()
-	//if (MapName() == eMaps.mp_rr_canyonlands_mu2 && MapName() == eMaps.mp_rr_canyonlands_mu2_tt)
-		//thread InitCryptoMap()
+	if ( GetMapName()  == "mp_rr_canyonlands_mu2_mv" ) 
+		InitLootRollers()
 }
 
 
