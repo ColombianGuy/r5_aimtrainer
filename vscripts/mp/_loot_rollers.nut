@@ -65,8 +65,8 @@ entity function SpawnLootRoller_DispatchSpawn( vector origin, vector angles )
     roller.SetAngles(angles)
 
     // Health is handled by callbacks
-	roller.SetMaxHealth( 100 )
-	roller.SetHealth( 100 )
+	roller.SetMaxHealth( 1 )
+	roller.SetHealth( 1 )
 	roller.SetTakeDamageType( DAMAGE_EVENTS_ONLY )
 	DispatchSpawn( roller )
 	AddEntityCallback_OnKilled( roller, LootRollers_OnKilled)
@@ -178,9 +178,9 @@ void function SoloRollers_OnDamaged(entity ent, var damageInfo)
 }
 
 
-void function LaunchLootRoller( entity launchroller, vector launchDirection = <0, 0, 1>, float speed = 2500.0 )
+void function LaunchLootRoller( entity rollerModel, vector launchDirection = <0, 0, 1>, float speed = 2500.0 )
 {
-	entity rollerModel = SpawnLootRoller_DispatchSpawn( launchroller.GetOrigin(), <0,0,0> )
+	//entity rollerModel = SpawnLootRoller_DispatchSpawn( launchroller.GetOrigin(), <0,0,0> )
 
 	rollerModel.SetVelocity( launchDirection * speed )
 	rollerModel.SetAngularVelocity( launchDirection.x * speed, launchDirection.y * speed, launchDirection.z * speed )
