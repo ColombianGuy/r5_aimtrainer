@@ -37,11 +37,17 @@ WeaponData
 	"critical_hit_damage_scale"						"2"
 
 	// Callbacks
-    "OnWeaponActivate"                              "OnWeaponActivate_Car"
-    "OnWeaponDeactivate"                            "OnWeaponDeactivate_Car"
-    "OnWeaponPrimaryAttack"                         "OnWeaponPrimaryAttack_weapon_Car"
-    "OnWeaponReadyToFire"                          	"OnWeaponReadyToFire_Car"
-    "OnWeaponReloadFailed"                          "OnWeaponReloadFailed_Car"
+    // "OnWeaponActivate"                              "OnWeaponActivate_Car"
+    // "OnWeaponDeactivate"                            "OnWeaponDeactivate_Car"
+    // "OnWeaponPrimaryAttack"                         "OnWeaponPrimaryAttack_weapon_Car"
+    // "OnWeaponReadyToFire"                          	"OnWeaponReadyToFire_Car"
+    // "OnWeaponReloadFailed"                          "OnWeaponReloadFailed_Car"
+
+	"OnWeaponActivate"								"OnWeaponActivate_weapon_basic_bolt"
+	"OnClientAnimEvent"								"OnClientAnimEvent_weapon_basic_bolt"
+	"OnWeaponPrimaryAttack"							"OnWeaponPrimaryAttack_weapon_basic_bolt"
+	"OnWeaponNpcPrimaryAttack"						"OnWeaponNpcPrimaryAttack_weapon_basic_bolt"
+	"OnProjectileCollision"							"OnProjectileCollision_weapon_basic_bolt"
 
 
 	// Menu
