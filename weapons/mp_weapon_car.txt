@@ -489,7 +489,7 @@ WeaponData
 			Args
 			{
 				isFiring				weapon_is_firing
-				playerFov             player_fov
+				//playerFov             player_fov
 			}
 		}
 	}
