@@ -54,24 +54,19 @@ var function OnWeaponTossReleaseAnimEvent_weapon_proximity_mine( entity weapon, 
 	vector attackVec = attackParams.dir
 	vector angularVelocity = Vector( 600, RandomFloatRange( -300, 300 ), 0 )
 
-	float fuseTime = 3.0	// infinite
+	float fuseTime = 0.0	// infinite
 
 	int damageFlags = weapon.GetWeaponDamageFlags()
-
-
-	int damageType = DF_RAGDOLL | DF_EXPLOSION
-
 	WeaponFireGrenadeParams fireGrenadeParams
 	fireGrenadeParams.pos = attackPos
 	fireGrenadeParams.vel = attackVec
 	fireGrenadeParams.angVel = angularVelocity
 	fireGrenadeParams.fuseTime = fuseTime
-	fireGrenadeParams.scriptTouchDamageType = damageType // when a grenade "bonks" something, that shouldn't count as explosive.explosive
-	fireGrenadeParams.scriptExplosionDamageType = damageType
+	fireGrenadeParams.scriptTouchDamageType = damageFlags
+	fireGrenadeParams.scriptExplosionDamageType = damageFlags
 	fireGrenadeParams.clientPredicted = true
 	fireGrenadeParams.lagCompensated = true
 	fireGrenadeParams.useScriptOnDamage = true
-
 	entity proximityMine = weapon.FireWeaponGrenade( fireGrenadeParams )
 
 	if ( proximityMine == null )
@@ -83,7 +78,7 @@ var function OnWeaponTossReleaseAnimEvent_weapon_proximity_mine( entity weapon, 
 		EmitSoundOnEntityExceptToPlayer( player, player, "weapon_proximitymine_throw" )
 		ProximityCharge_PostFired_Init( proximityMine, player )
 		thread ProximityMineThink( proximityMine, player )
-		thread TrapDestroyOnRoundEnd( player, proximityMine )
+		// thread TrapDestroyOnRoundEnd( player, proximityMine )
 		PROTO_PlayTrapLightEffect( proximityMine, "BLINKER", player.GetTeam() )
 	#endif
 	return weapon.GetWeaponSettingInt( eWeaponVar.ammo_per_shot )
@@ -115,7 +110,7 @@ void function OnProjectileCollision_weapon_proximity_mine( entity projectile, ve
 		hitEnt = hitEnt,
 		hitbox = hitbox
 	}
-	bool result = PlantStickyEntity( projectile, collisionParams )
+	bool result = PlantStickyEntity( projectile, collisionParams, Vector( 90, 0, 0 ) )
 
 	#if SERVER
 		entity player = projectile.GetOwner()
