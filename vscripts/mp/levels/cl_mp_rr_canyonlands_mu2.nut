@@ -9,7 +9,10 @@ file
 void function ClientCodeCallback_MapInit()
 {
 	Canyonlands_MapInit_Common()
-	MapZones_RegisterDataTable( $"datatable/map_zones/zones_mp_rr_canyonlands_mu2.rpak" )
+	if (MapName() == eMaps.mp_rr_canyonlands_mu2_mv )
+		MapZones_RegisterDataTable( $"datatable/map_zones/zones_mp_rr_canyonlands_mu2_mv.rpak" )
+	else
+		MapZones_RegisterDataTable( $"datatable/map_zones/zones_mp_rr_canyonlands_mu2.rpak" )
 	MinimapLabelsCanyonlandsMU2()
 	AddCallback_GameStateEnter( eGameState.WinnerDetermined, MU1_OnWinnerDetermined )
 			AddCallback_EntitiesDidLoad( EntitiesDidLoad )
@@ -65,6 +68,8 @@ void function MinimapLabelsCanyonlandsMU2()
 	SURVIVAL_AddMinimapLevelLabel( GetZoneMiniMapNameForZoneId( MapZones_GetZoneIdForTriggerName( "Z_12_A" ) ), 0.16, 0.23, 0.6 )//"Slum Lakes"
 	SURVIVAL_AddMinimapLevelLabel( GetZoneMiniMapNameForZoneId( MapZones_GetZoneIdForTriggerName( "Z_16_MALL" ) ), 0.49, 0.68, 0.6 ) //"Market"
 	SURVIVAL_AddMinimapLevelLabel( GetZoneMiniMapNameForZoneId( MapZones_GetZoneIdForTriggerName( "Z_16_RIG" ) ), 0.35, 0.73, 0.6 ) //"Skull Rig"
+	if (MapName() == eMaps.mp_rr_canyonlands_mu2_mv )
+		SURVIVAL_AddMinimapLevelLabel( GetZoneMiniMapNameForZoneId( MapZones_GetZoneIdForTriggerName( "Z_20_A" ) ), 0.33, 0.8, 0.6 ) //"Skull Rig"
 }
 
 void function EntitiesDidLoad()
