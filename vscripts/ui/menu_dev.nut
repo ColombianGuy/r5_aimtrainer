@@ -1186,7 +1186,7 @@ void function SetupTitanfallWeapons()
 {
 	#if UI
 	// Titanfall guns, ported by @LorryLeKral with the help from @AmosModz
-	SetupDevCommand( "Titanfall guns, ported by LorryLeKral with the help from @AmosModz", "give mp" )
+	SetupDevCommand( "Titanfall weapons, ported by LorryLeKral with the help from @AmosModz", "give mp" )
 	SetupDevCommand( "Please credit us properly if you are going to create content using them!", "give mp" )
 	SetupDevCommand( "Titanfall 2: EPG", "give mp_weapon_epg" )
 	SetupDevCommand( "Titanfall 2: Sidewinder", "give mp_weapon_smr" )
@@ -1200,7 +1200,7 @@ void function SetupTitanfallWeapons()
 	SetupDevCommand( "Titanfall 2: Arc Tool", "give sp_weapon_arc_tool" )
 	SetupDevCommand( "Titanfall 2: Wingman Elite", "give mp_weapon_wingman_n" )
 	SetupDevCommand( "Titanfall 2: R101 Assault Rifle", "give mp_weapon_rspn101_og iron_sights" )
-	SetupDevCommand( " ", "give mp" )
+	SetupDevCommand( "Titanfall 2: Proximity Mine", "give mp_weapon_proximity_mine" )
 	SetupDevCommand( " ", "give mp" )
 	SetupDevCommand( " ", "give mp" )
 

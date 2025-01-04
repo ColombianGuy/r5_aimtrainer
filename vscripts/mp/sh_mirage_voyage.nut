@@ -53,6 +53,8 @@ const string FIREWORKS_BURST_SFX = "Desertlands_Mirage_TT_Firework_SkyBurst"
 const string FIREWORKS_STREAMER_SFX = "Desertlands_Mirage_TT_Firework_Streamer"
 const string PARTY_MUSIC = "Music_TT_Mirage_PartyTrackButtonPress"
 
+const string MIRAGE_PHONE = "mirage_cell_phone_model"
+
 const float FAKE_DECOY_RESPAWN_WAIT_DURATION = 4.0
 const float MIRAGE_VOYAGE_PARTY_DURATION = 20.0
 const float MIRAGE_VOYAGE_FAKE_DECOY_FADE_DIST = 2000.0
@@ -190,6 +192,8 @@ void function MirageVoyage_Init()
 {
 	if ( !IsMirageVoyageEnabled() )
 		return
+
+	CreateAudioLogFunc()
 	
 	PrecacheModel( MIRAGE_DECOY_MODEL_ASSET )
 	PrecacheModel( LOOT_LAUNCHER_MODEL_OFF )
@@ -903,26 +907,24 @@ void function OnFakeMirageDecoyKilled_Thread( entity decoy )
 
 
 #if SERVER
-void functionref( entity panel, entity player, int useInputFlags ) function CreateAudioLogFunc( entity audioLodModel )
+void function CreateAudioLogFunc()
 {
-	if ( IsMapDesertlands() )
-	{
-		return void function( entity audioLodModel, entity player, int useInputFlags ) : ()
+	entity audioLodModel = CreatePropDynamic( $"mdl/desertlands/mirage_phone_01.rmdl", < -23554, -6324, -2929.17 >, < 40.962, -55.506, 17.1326 > )
+	audioLodModel.Hide()
+	audioLodModel.SetUsable()
+	audioLodModel.SetUsePrompts( "%use% PLAY AUDIO LOG", "%use% PLAY AUDIO LOG" )
+	AddCallback_OnUseEntity( audioLodModel, void function(entity audioLodModel, entity player, int useInputFlags )
 		{
-
-			thread OnAudioLogActivate_Desertlands( audioLodModel, player, useInputFlags )
+			//if ( IsMapDesertlands() )
+			{
+				//thread OnAudioLogActivate_Desertlands( audioLodModel, player, useInputFlags )
+			}
+			//else if ( IsMapCanyonlands() )
+			{
+				thread OnAudioLogActivate_Canyonlands( audioLodModel, player, useInputFlags )
+			}
 		}
-	}
-	else if ( IsMapCanyonlands() )
-	{
-		return void function( entity audioLodModel, entity player, int useInputFlags ) : ()
-		{
-
-			thread OnAudioLogActivate_Canyonlands( audioLodModel, player, useInputFlags )
-		}
-	}
-
-	unreachable
+	)
 }
 #endif // SERVER
 

@@ -190,7 +190,7 @@ void function CreateSkydiveLauncherFromEditorClass_Thread( entity ent )
 	DefaultLauncherData defaultLauncherData
 	if ( launcherType == eSkydiveLauncherType.DEFAULT )
 	{
-		defaultLauncherData.worldModel = $"mdl/props/octane_jump_pad/octane_jump_pad.rmdl" //$"mdl/dev/empty_model.rmdl" Cafe was here
+		defaultLauncherData.worldModel = $"mdl/dev/empty_model.rmdl"
 		if( ent.HasKey( "use_world_model" ) && ent.GetValueForKey( "use_world_model" ) == "1" )
 			defaultLauncherData.worldModel = ent.GetValueForModelKey()
 
@@ -338,7 +338,7 @@ void function EntitiesDidLoad()
 		// if ( ent.HasKey( "landing_location" ) )
 			// landingLocation = StringToVector( ent.GetValueForKey( "landing_location" ) )
 
-		// GravityCannon_Create( ent.GetOrigin(), ent.GetAngles(), landingLocation ) //implement this. Cafe
+		// GravityCannon_Create( ent.GetOrigin(), ent.GetAngles(), landingLocation ) //TODO: implement this. Cafe
 		// ent.Destroy() //no need to hang onto the reference spawner ent
 	// }
 
@@ -556,12 +556,6 @@ entity function CreateSkydiveLauncher( vector origin, vector angles, int skydive
 		launcherModel.SetCanBeMeleed( false )
 		SetVisibleEntitiesInConeQueriableEnabled( launcherModel, false )
 		launcherModel.Highlight_Enable()
-
-		if( Gamemode() == eGamemodes.WINTEREXPRESS )
-		{
-			launcherModel.SetOrigin( launcherModel.GetOrigin() - <0,0,16> )
-			launcherModel.SetModelScale( 2.0 )
-		}
 	}
 
 	if ( skydiveLauncherType == eSkydiveLauncherType.IMC_ARMORY || launcherScriptName == "district_launcher_horizontal" )
