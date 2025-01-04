@@ -25,7 +25,7 @@ void function CodeCallback_MapInit()
 	//thread S5_Quest()
 	//thread CryptoTTIdle()
 	//thread InitCryptoMap()
-	//thread MainButton()
+	thread InitLootRollers()
 	///Canyonlands_MU1_CommonMapInit()
 		
 	//PrecacheModel( $"mdl/props/quest_s05/object.rmdl" )
