@@ -270,12 +270,13 @@ function strafeitmap_load() {
 
     prop = MapEditor_CreateProp( $"mdl/thunderdome/thunderdome_cage_frame_128_01.rmdl", < 7831.57, -24937.88, 46957.76 >, < 0, -15, 0 >, true, 50000, -1, 1 )
     prop.kv.solid = 1; Highlight_SetNeutralHighlight( prop, PROP_DEFAULT_COLOR )
-    prop = MapEditor_CreateProp( $"mdl/thunderdome/thunderdome_cage_ceiling_256x256_06.rmdl", < 8470.86, -23726.33, 47326.36 >, < -90, -105, 0 >, false, 50000, -1, 1 )
+    prop = MapEditor_CreateProp( $"mdl/thunderdome/thunderdome_cage_ceiling_256x256_06.rmdl", < 7957.48, -24467.72, 47326.36 >, < -90, -105, 0 >, false, 50000, -1, 1 )
     prop.kv.solid = 1; Highlight_SetNeutralHighlight( prop, PROP_INTERACT_COLOR )
-    prop = MapEditor_CreateProp( $"mdl/thunderdome/thunderdome_cage_ceiling_256x256_06.rmdl", < 7883.45, -23569.04, 47326.36 >, < -90, -105, 0 >, false, 50000, -1, 1 )
+    prop = MapEditor_CreateProp( $"mdl/thunderdome/thunderdome_cage_ceiling_256x256_06.rmdl", < 7886.3, -23558.42, 47326.36 >, < -90, -105, 0 >, false, 50000, -1, 1 )
     prop.kv.solid = 1; Highlight_SetNeutralHighlight( prop, PROP_INTERACT_COLOR )
-    prop = MapEditor_CreateProp( $"mdl/thunderdome/thunderdome_cage_ceiling_256x256_06.rmdl", < 7954.63, -24478.35, 47326.36 >, < -90, -105, 0 >, false, 50000, -1, 1 )
+    prop = MapEditor_CreateProp( $"mdl/thunderdome/thunderdome_cage_ceiling_256x256_06.rmdl", < 8473.7, -23715.71, 47326.36 >, < -90, -105, 0 >, false, 50000, -1, 1 )
     prop.kv.solid = 1; Highlight_SetNeutralHighlight( prop, PROP_INTERACT_COLOR )
+
     prop = MapEditor_CreateProp( $"mdl/thunderdome/thunderdome_cage_wall_128x352_04.rmdl", < 10106.86, -22924.78, 47839.24 >, < 0, -105, 0 >, true, 50000, -1, 1 )
     prop.kv.solid = 1; Highlight_SetNeutralHighlight( prop, PROP_INTERACT_COLOR )
     prop = MapEditor_CreateProp( $"mdl/thunderdome/thunderdome_cage_wall_128x352_04.rmdl", < 10073.63, -23048.4, 47839.46 >, < 0, -105, 0 >, true, 50000, -1, 1 )
@@ -940,6 +941,26 @@ file.cp_table[ent] <- < 7231.66, -24927.05, 46450.86 >
 file.cp_angle[ent] <- < 0, -15, 0 >
     })
     DispatchSpawn( trigger )
+    trigger = MapEditor_CreateTrigger( < 10567.29, -21936.56, 47939.96 >, < 0, -15, 0 >, 671, 50, false )
+    trigger.SetEnterCallback( void function( entity trigger, entity ent )
+    {
+    if (!IsValidPlayer(ent) || !IsAlive(ent) || ent.GetPhysics() == MOVETYPE_NOCLIP)
+    return
+
+if (!(ent in file.cp_table))
+    file.cp_table[ent] <- file.first_cp
+
+ent.SetOrigin(file.cp_table[ent])
+
+if (!(ent in file.cp_angle))
+    file.cp_angle[ent] <- < 0, 0, 0 >
+
+ent.SetAngles(file.cp_angle[ent])
+ent.SetVelocity(< 0, 0, 0 >)
+    })
+    DispatchSpawn( trigger )
+
+
 
     // Text Info Panels
     MapEditor_CreateTextInfoPanel( "Strafe It", "by: Loy & Treeree", < 11486.01, -21094.64, 46810.16 >, < 0, 120, 0 >, false, 2 )
