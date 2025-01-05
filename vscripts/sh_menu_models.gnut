@@ -332,6 +332,8 @@ void function ShMenuModels_UIInit()
 #if CLIENT
 void function ClMenuModels_Init()
 {
+	thread StoryEvents_OnMenuPlayPanelEnter()
+
 	PrecacheParticleSystem( CHARACTER_BASE_EFFECT )
 	PrecacheParticleSystem( SHADOW_TRAIL_FX )
 	PrecacheParticleSystem( SHADOW_EYE_FX )
@@ -416,7 +418,7 @@ void function ApplyEventPositioning()
 
 void function StoryEvents_OnMenuPlayPanelEnter()
 {
-	wait 2
+	wait 4
 	entity mover
 
 	array<entity> movers = GetEntArrayByScriptName( S05T_BG_MOVER_SCRIPTNAME )
@@ -902,8 +904,6 @@ void function InitPresentationData()
 
 void function StartPresentation_PLAY()
 {
-	thread StoryEvents_OnMenuPlayPanelEnter()
-
 	ModelData_SetAnim( file.playCharacter, "ACT_MP_MENU_LOBBY_CENTER_IDLE" )
 	UpdateMenuCharacterModel( GetLocalClientPlayer(), -1 )
 
