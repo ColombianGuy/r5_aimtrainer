@@ -36,6 +36,7 @@ function ithurtsmap_precache() {
     PrecacheModel($"mdl/desertlands/icelandic_moss_mod_01.rmdl")
     PrecacheModel($"mdl/beacon/kodai_metal_beam_02_256.rmdl")
     PrecacheModel($"mdl/homestead/homestead_floor_panel_01.rmdl")
+    file.characters = GetAllCharacters()
 }
 
 
@@ -44,6 +45,7 @@ struct {
         table < entity, vector > cp_table = {}
     table < entity, vector > cp_angle = {}
     table < entity, bool > last_cp = {}
+    array<ItemFlavor> characters
 }
 file
 
@@ -60,42 +62,40 @@ function ItHurtsMapEntitiesDidLoad() {
 }
 
 void
-function ithurtsmap_SpawnInfoText(entity player) {
-    EndSignal(player, "OnDestroy") //fix to entity may become invalid after the wait, causing server to crash. Cafe
-    FlagWait("EntitiesDidLoad")
-    wait 1
-    CreatePanelText(player, "It hurts", "by: Loy", < 29890.02, -1092.1, 50179.2 > , < 0, -90, 0 > , false, 1)
-}
-
-void
 function ithurtsmap_player_setup(entity player) {
     if (!IsValidPlayer(player))
 		return
 
-	CharacterSelect_AssignCharacter( ToEHI( player ), GetAllCharacters()[8] )
-
-	ItemFlavor playerCharacter = LoadoutSlot_GetItemFlavor( ToEHI( player ), Loadout_CharacterClass() )
-	asset characterSetFile = CharacterClass_GetSetFile( playerCharacter )
-	player.SetPlayerSettingsWithMods( characterSetFile, [] )
-	TakeAllPassives(player)
-    player.SetPlayerNetBool("pingEnabled", false)
-    player.SetPersistentVar("gen", 0)
-    player.SetOrigin(file.first_cp)
-    TakeAllPassives(player)
-    TakeAllWeapons(player)
-    player.SetAngles( < 0, -90, 0 > )
+    file.cp_table[player] <- file.first_cp
+    file.cp_angle[player] <- <0,-90,0>
     file.last_cp[player] <- false
-	player.TakeOffhandWeapon(OFFHAND_TACTICAL)
-	player.TakeOffhandWeapon(OFFHAND_ULTIMATE)
+
+    player.SetPersistentVar("gen", 0)
+
     LocalMsg(player, "#FS_STRING_VAR", "", 9, 5.0, "It Hurts Map", "By: Loy Takian", "", false)
 
-    thread ithurtsmap_SpawnInfoText(player)
+    thread
+    (
+        void
+        function() : (player) {
+            wait 3.0 
+            CharacterSelect_AssignCharacter( ToEHI( player ), file.characters[8] )
+            ItemFlavor playerCharacter = LoadoutSlot_GetItemFlavor( ToEHI( player ), Loadout_CharacterClass() )
+            asset characterSetFile = CharacterClass_GetSetFile( playerCharacter )
+            player.SetPlayerSettingsWithMods( characterSetFile, [] )
+            player.TakeOffhandWeapon(OFFHAND_TACTICAL)
+            player.TakeOffhandWeapon(OFFHAND_ULTIMATE)
+            player.SetOrigin(file.cp_table[player])
+            player.SetAngles(file.cp_angle[player]) 
+        }
+    )()
 }
 
 void
 function ithurtsmap_load() {
     // Props
     entity prop
+    MapEditor_CreateTextInfoPanel("It hurts", "by: Loy", < 29890.02, -1092.1, 50179.2 > , < 0, -90, 0 > , false, 1)
     prop = MapEditor_CreateProp($"mdl/beacon/construction_scaff_128_32.rmdl", < 35398.1, 7835.18, 51615.7 > , < 0.0002, -90.0002, -90.0003 > , false, 50000, -1, 1)
     prop.kv.solid = 3
     prop = MapEditor_CreateProp($"mdl/slum_city/slumcity_fencewall_32x72_dirty.rmdl", < 34288.64, 8053.41, 50653.08 > , < 0, -89.9985, -180 > , false, 50000, -1, 1)

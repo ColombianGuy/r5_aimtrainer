@@ -41,13 +41,15 @@ function Firstmap_precache() {
     PrecacheModel($"mdl/eden/beacon_small_screen_02_off.rmdl")
     PrecacheModel($"mdl/desertlands/industrial_cargo_container_320_01.rmdl")
     PrecacheModel($"mdl/vehicles_r5/land_med/msc_freight_tortus_mod/veh_land_msc_freight_tortus_mod_cargo_holder_v1_static.rmdl")
+    file.characters = GetAllCharacters()
 }
 
 struct {
     vector first_cp = < 7148.8, 6934.9, 16105.8 >
-        table < entity, vector > cp_table = {}
+    table < entity, vector > cp_table = {}
     table < entity, vector > cp_angle = {}
     table < entity, bool > last_cp = {}
+    array<ItemFlavor> characters
 }
 file
 
@@ -67,38 +69,30 @@ void
 function Firstmap_player_setup(entity player) {
     if (!IsValidPlayer(player))
 		return
+    
+    file.cp_table[player] <- file.first_cp
+    file.cp_angle[player] <- < 0, 90, 0 >
+    file.last_cp[player] <- false
 
-	CharacterSelect_AssignCharacter( ToEHI( player ), GetAllCharacters()[8] )
-
-	ItemFlavor playerCharacter = LoadoutSlot_GetItemFlavor( ToEHI( player ), Loadout_CharacterClass() )
-	asset characterSetFile = CharacterClass_GetSetFile( playerCharacter )
-	player.SetPlayerSettingsWithMods( characterSetFile, [] )
-	player.TakeOffhandWeapon(OFFHAND_TACTICAL)
-	player.TakeOffhandWeapon(OFFHAND_ULTIMATE)
-	TakeAllPassives(player)
-    player.SetPlayerNetBool("pingEnabled", false)
     player.SetPersistentVar("gen", 0)
 
-    file.cp_table[player] <- file.first_cp
-    file.cp_angle[player] <-  < 0, 0, 0 >
-        file.last_cp[player] <- false
-
-    player.SetOrigin(file.cp_table[player])
-    player.SetAngles(file.cp_angle[player])
     LocalMsg(player, "#FS_STRING_VAR", "", 9, 5.0, "First Map", "By: Treeree & JayTheYggDrasil & Loy", "", false)
-    TakeAllPassives(player)
-    TakeAllWeapons(player)
-    thread Firstmap_SpawnInfoText(player)
-}
 
-void
-function Firstmap_SpawnInfoText(entity player) {
-    FlagWait("EntitiesDidLoad")
-    wait 1
-    CreatePanelText(player, "First Map", "Made by:", < 7132, 7055, 16267 > , < 0, 90, 0 > , false, 2)
-    CreatePanelText(player, "JayTheYggDrasil", "", < 7131.725, 7055, 16150 > , < 0, 90, 0 > , false, 1)
-    CreatePanelText(player, "Treeree", "", < 7131.725, 7056, 16127.3 > , < 0, 90, 0 > , false, 1)
-    CreatePanelText(player, "Loy", "", < 7131.725, 7057, 16104.3 > , < 0, 90, 0 > , false, 1)
+    thread
+    (
+        void
+        function() : (player) {
+            wait 3.0 
+            CharacterSelect_AssignCharacter( ToEHI( player ), file.characters[8] )
+            ItemFlavor playerCharacter = LoadoutSlot_GetItemFlavor( ToEHI( player ), Loadout_CharacterClass() )
+            asset characterSetFile = CharacterClass_GetSetFile( playerCharacter )
+            player.SetPlayerSettingsWithMods( characterSetFile, [] )
+            player.TakeOffhandWeapon(OFFHAND_TACTICAL)
+            player.TakeOffhandWeapon(OFFHAND_ULTIMATE)
+            player.SetOrigin(file.cp_table[player])
+            player.SetAngles(file.cp_angle[player]) 
+        }
+    )()
 }
 
 void
@@ -111,6 +105,11 @@ function Firstmap_load() {
     array < entity > NoCollisionArray;
 
     // Props
+    MapEditor_CreateTextInfoPanel("First Map", "Made by:", < 7132, 7055, 16267 > , < 0, 90, 0 > , false, 2)
+    MapEditor_CreateTextInfoPanel("JayTheYggDrasil", "", < 7131.725, 7055, 16150 > , < 0, 90, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("Treeree", "", < 7131.725, 7056, 16127.3 > , < 0, 90, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("Loy", "", < 7131.725, 7057, 16104.3 > , < 0, 90, 0 > , false, 1)
+
     ClipNoGrappleNoClimb.append( MapEditor_CreateProp( $"mdl/barriers/guard_rail_01_256.rmdl", < 2434.7, 3230.2, 16622.3 >, < 0, -90.0001, 0 >, false, 50000, -1, 1 ) )
     MapEditor_CreateProp( $"mdl/desertlands/desertlands_cafeteria_light_01.rmdl", < 6236.725, 2856, 16563.15 >, < 0, -90, 0 >, true, 50000, -1, 1 )
     ClipInvisibleNoGrappleNoClimbArray.append( MapEditor_CreateProp( $"mdl/desertlands/construction_bldg_platform_01.rmdl", < 6362.726, 2361.998, 17347 >, < -90, -179.9998, 0 >, true, 50000, -1, 1 ) )

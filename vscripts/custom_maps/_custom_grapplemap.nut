@@ -36,11 +36,13 @@ function grapplemap_precache() {
     PrecacheModel($"mdl/industrial/security_fence_post.rmdl")
     PrecacheModel($"mdl/barriers/concrete/concrete_barrier_fence.rmdl")
     PrecacheModel($"mdl/garbage/trash_bin_single_wtrash_Blue.rmdl")
+    file.characters = GetAllCharacters()
 }
 
 
 struct {
     table < entity, vector > cp_table = {}
+    array<ItemFlavor> characters
     vector first_cp = < 0, -2, 20100 >
 }
 file
@@ -58,51 +60,34 @@ function GrappleMapEntitiesDidLoad() {
 }
 
 void
-function grapplemap_SpawnInfoText(entity player) {
-    FlagWait("EntitiesDidLoad")
-    wait 1
-    CreatePanelText(player, "1", "Hint: over the bubble, slide jump through ring", <- 6.1387, -58.8598, 20134.77 > , < 0, -89.9999, 0 > , false, 1)
-    CreatePanelText(player, "2", "Hint: over the wall and forward", < 3206, 0, 19912 > , < 0, 0, 0 > , false, 1)
-    CreatePanelText(player, "3", "Hint: over the wall and forward", < 5469, 0, 20923 > , < 0, 0, 0 > , false, 1)
-    CreatePanelText(player, "4", "Hint: around the bubble from the right", < 7453.562, -49.6098, 21938.04 > , < 0, -89.9999, 0 > , false, 1)
-    CreatePanelText(player, "5", "Hint: slide down, grapple up", < 8874.461, 1932.34, 21943.77 > , < 0, -45, 0 > , false, 1)
-    CreatePanelText(player, "6", "Hint: slide jump, grapple up", < 9909.262, 2341.19, 22534.64 > , < 0, 90, 0 > , false, 1)
-    CreatePanelText(player, "7", "Hint: slide jump, grapple up", < 9178.661, 2005.08, 23534.5 > , < 0, -90, 0 > , false, 1)
-    CreatePanelText(player, "8", "Hint: slide jump, grapple up", < 9909.722, 2340.67, 24577.46 > , < 0, 90, 0 > , false, 1)
-    CreatePanelText(player, "9", "Hint: run off the platform, looking forward", < 9169.692, 2005.39, 25571.64 > , < 0, -90, 0 > , false, 1)
-    CreatePanelText(player, "10", "Hint: superglide", < 18458.53, 1988.69, 17881.73 > , < 0, -90, 0 > , false, 1)
-    CreatePanelText(player, "11", "Hint: slide off the platform", < 19488, -2259.8, 17888.8 > , < 0, 180, 0 > , false, 1)
-    CreatePanelText(player, "12", "Hint: wait a little before the 2nd jump", < 19490.3, -5511.4, 17613.2 > , < 0, -180, 0 > , false, 1)
-    CreatePanelText(player, "13", "Hint: Hyper Jump", < 19487.4, -9029.3, 17781.7 > , < 0, 180, 0 > , false, 1)
-    CreatePanelText(player, "14", "Hint: be like Spiderman", < 19550.7, -9804.5, 18216 > , < 0, 180, 0 > , false, 1)
-    CreatePanelText(player, "15", "Hint: Slide Grapple", < 18940.8, -15315, 18308 > , < 0, -180, 0 > , false, 1)
-    CreatePanelText(player, "Loy", "Made by:", <- 6.1387, 55.8902, 20134.77 > , < 0, 90, 0 > , false, 1)
-}
-
-void
 function grapplemap_player_setup(entity player) {
     if (!IsValidPlayer(player))
 		return
 
-	CharacterSelect_AssignCharacter( ToEHI( player ), GetAllCharacters()[7] )
+    file.cp_table[player] <- file.first_cp
 
-	ItemFlavor playerCharacter = LoadoutSlot_GetItemFlavor( ToEHI( player ), Loadout_CharacterClass() )
-	asset characterSetFile = CharacterClass_GetSetFile( playerCharacter )
-	player.SetPlayerSettingsWithMods( characterSetFile, [] )
-	player.TakeOffhandWeapon(OFFHAND_TACTICAL)
-	player.TakeOffhandWeapon(OFFHAND_ULTIMATE)
-    player.SetPlayerNetBool("pingEnabled", false)
     player.SetPersistentVar("gen", 0)
-    player.SetOrigin(file.first_cp)
-    TakeAllPassives(player)
-    TakeAllWeapons(player)
-    player.GiveOffhandWeapon("mp_ability_grapple", OFFHAND_TACTICAL)
-    player.GetOffhandWeapon(OFFHAND_LEFT).SetWeaponPrimaryClipCount(300)
-    player.SetSuitGrapplePower(100)
-    player.SetAngles( < 0, -90, 0 > )
+
     LocalMsg(player, "#FS_STRING_VAR", "", 9, 5.0, "It Hurts Map", "By: Loy Takian", "", false)
 
-    thread grapplemap_SpawnInfoText(player)
+    thread
+    (
+        void
+        function() : (player) {
+            wait 3.0 
+            CharacterSelect_AssignCharacter( ToEHI( player ), file.characters[7] )
+            ItemFlavor playerCharacter = LoadoutSlot_GetItemFlavor( ToEHI( player ), Loadout_CharacterClass() )
+            asset characterSetFile = CharacterClass_GetSetFile( playerCharacter )
+            player.SetPlayerSettingsWithMods( characterSetFile, [] )
+            player.TakeOffhandWeapon(OFFHAND_TACTICAL)
+            player.TakeOffhandWeapon(OFFHAND_ULTIMATE)
+            player.SetOrigin(file.cp_table[player])
+            player.SetAngles( < 0, -90, 0 > ) 
+            player.GiveOffhandWeapon("mp_ability_grapple", OFFHAND_TACTICAL)
+            player.GetOffhandWeapon(OFFHAND_LEFT).SetWeaponPrimaryClipCount(300)
+            player.SetSuitGrapplePower(100)
+        }
+    )()
 }
 
 
@@ -115,6 +100,23 @@ function grapplemap_load() {
     array < entity > NoGrappleNoClimbArray;
 
     // Props
+    MapEditor_CreateTextInfoPanel("1", "over the bubble, slide jump through ring", <- 6.1387, -58.8598, 20134.77 > , < 0, -89.9999, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("2", "over the wall and forward", < 3206, 0, 19912 > , < 0, 0, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("3", "", < 5469, 0, 20923 > , < 0, 0, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("4", "around the bubble from the right", < 7453.562, -49.6098, 21938.04 > , < 0, -89.9999, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("5", "slide down, grapple up", < 8874.461, 1932.34, 21943.77 > , < 0, -45, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("6", "", < 9909.262, 2341.19, 22534.64 > , < 0, 90, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("7", "", < 9178.661, 2005.08, 23534.5 > , < 0, -90, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("8", "", < 9909.722, 2340.67, 24577.46 > , < 0, 90, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("9", "run off the platform, looking forward", < 9169.692, 2005.39, 25571.64 > , < 0, -90, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("10", "superglide", < 18458.53, 1988.69, 17881.73 > , < 0, -90, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("11", "slide off the platform", < 19488, -2259.8, 17888.8 > , < 0, 180, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("12", "wait a little before the 2nd jump", < 19490.3, -5511.4, 17613.2 > , < 0, -180, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("13", "Hyper Jump", < 19487.4, -9029.3, 17781.7 > , < 0, 180, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("14", "be like Spiderman", < 19550.7, -9804.5, 18216 > , < 0, 180, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("15", "Slide Grapple", < 18940.8, -15315, 18308 > , < 0, -180, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("Loy", "Made by:", <- 6.1387, 55.8902, 20134.77 > , < 0, 90, 0 > , false, 1)
+
     NoGrappleArray.append(MapEditor_CreateProp($"mdl/beacon/beacon_fence_sign_01.rmdl", < 3059, 0, 19835.5 > , < 0, 0, 90 > , true, 50000, -1, 1))
     NoGrappleArray.append(MapEditor_CreateProp($"mdl/containers/plastic_pallet_01.rmdl", < 5128.6, 0, 20849.4 > , < 0, 0, 180 > , true, 50000, -1, 1))
     MapEditor_CreateProp($"mdl/fx/core_energy.rmdl", < 3217, 0.0001, 20745.4 > , < 0, 0, 0 > , true, 50000, -1, 1.215689)
