@@ -27,7 +27,7 @@ void function InitR5RMainMenu( var newMenuArg )
 	//Setup subtitle
 	file.subtitle = Hud_GetChild( file.menu, "Subtitle" )
 	var subtitleRui = Hud_GetRui( file.subtitle )
-	RuiSetString( subtitleRui, "subtitleText", "Flowstate ".toupper() + FLOWSTATE_VERSION )
+	RuiSetString( subtitleRui, "subtitleText", "R5RELOADED".toupper() )
 }
 
 void function OnR5RSB_Show()

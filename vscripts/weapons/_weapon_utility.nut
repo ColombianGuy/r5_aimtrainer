@@ -3788,8 +3788,8 @@ void function EMPGrenade_EffectsPlayer( entity player, var damageInfo )
 	//vector origin = inflictor.GetOrigin()
 	
 	int dmgSource = DamageInfo_GetDamageSourceIdentifier( damageInfo )
-	if ( dmgSource == eDamageSourceId.mp_weapon_proximity_mine || dmgSource == eDamageSourceId.mp_titanweapon_stun_laser )
-		strength *= 0.1
+	//if ( dmgSource == eDamageSourceId.mp_weapon_proximity_mine || dmgSource == eDamageSourceId.mp_titanweapon_stun_laser )
+		//strength *= 0.1
 
 	if( dmgSource == eDamageSourceId.mp_weapon_tesla_trap )
 		duration = 3

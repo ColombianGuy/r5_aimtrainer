@@ -419,10 +419,10 @@ void function CodeCallback_MapSpawn() // original script entry point
 	PrecacheModel( $"mdl/Weapons/revenant_grenade/ptpov_revenant_grenade.rmdl" )
 	PrecacheModel( $"mdl/weapons_r5/misc_revenant_grenade/projectile_revenant_grenade.rmdl" )
 
-	//PrecacheModel( $"mdl/Weapons/lightsaber/w_lightsaber.rmdl" )
-	//PrecacheModel( $"mdl/Weapons/lightsaber/ptpov_lightsaber.rmdl" )
-	//PrecacheModel( $"mdl/Humans/pilots/ballistic_base_w.rmdl" )
-	//PrecacheModel( $"mdl/Humans/pilots/ballistic_base_v.rmdl" )
+	PrecacheModel( $"mdl/Weapons/lightsaber/w_lightsaber.rmdl" )
+	PrecacheModel( $"mdl/Weapons/lightsaber/ptpov_lightsaber.rmdl" )
+	PrecacheModel( $"mdl/Humans/pilots/ballistic_base_w.rmdl" )
+	PrecacheModel( $"mdl/Humans/pilots/ballistic_base_v.rmdl" )
 	PrecacheModel( $"mdl/flowstate_custom/w_marvin.rmdl" )
 	//PrecacheModel( $"mdl/flowstate_custom/evac_tower_balloon.rmdl" )
 	//PrecacheModel( $"mdl/flowstate_custom/evac_tower_weight.rmdl" )
@@ -456,7 +456,7 @@ void function CodeCallback_MapSpawn() // original script entry point
 	PrecacheModel( $"mdl/Weapons/p2011/w_p2011_loba_prop_version.rmdl" )
 
 	PrecacheWeapon( $"mp_weapon_turret" )
-	// PrecacheWeapon( $"mp_weapon_satchel" )
+	PrecacheWeapon( $"mp_weapon_satchel" )
 	PrecacheWeapon( $"melee_titan_sword" )
 	PrecacheWeapon( $"mp_weapon_titan_sword" )
 	PrecacheWeapon( $"npc_weapon_turret_volt" )

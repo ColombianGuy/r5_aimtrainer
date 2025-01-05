@@ -596,8 +596,11 @@ playlists
 				mp_rr_desertlands_64k_x_64k						1
 				mp_rr_desertlands_64k_x_64k_nx					1
 				mp_rr_canyonlands_mu1_night						1
-				mp_rr_olympus_mu1								1
+				mp_rr_desertlands_mu1						  	1
+				mp_rr_desertlands_mu1_tt						1
 				mp_rr_desertlands_mu2						  	1
+				mp_rr_desertlands_mu3						  	0
+				mp_rr_olympus_mu1								1
 			} } }
 		}
 
@@ -4255,13 +4258,10 @@ playlists
 			"Language" "english"
 			"Tokens"
 			{
-				"MP_RR_DESERTLANDS_HOLIDAY"						"WINTER EXPRESS"
 				"MP_RR_CONSTRUCT"								"MP_RR_CONSTRUCT"
 				"MP_RR_OLYMPUS_MU1"					  			"Olympus MU1 (Alpha Version)"
 				"MP_FLOWSTATE"						  			"Creative"
-				"MP_RR_DESERTLANDS_64K_X_64K_NX"	  			"World's Edge After Dark"
-				"MP_RR_DESERTLANDS_64K_X_64K"		 			"World's Edge"
-				"MP_RR_DESERTLANDS_64K_X_64K_TT"	  			"World's Edge Mirage Voyage"
+
 				"MP_RR_ASHS_REDEMPTION"			   				"Ash's Redemption"
 				"MP_RR_AQUEDUCT"					  			"Overflow"
 				"MP_RR_AQUEDUCT_NIGHT"							"Overflow After Dark"
@@ -4271,10 +4271,24 @@ playlists
 				"MP_RR_PARTY_CRASHER" 		  		  			"Party Crasher"
 				"mp_rr_arena_phase_runner"						"Phase Runner"
 
-				"MP_RR_CANYONLANDS_64K_X_64K"		 			"Kings Canyon"
-				"MP_RR_CANYONLANDS_MU1"			   				"Kings Canyon MU1"
-				"MP_RR_CANYONLANDS_MU2"			   				"Kings Canyon MU2"
+				"MP_RR_DESERTLANDS_64K_X_64K_NX"	  			"World's Edge After Dark"
+				"MP_RR_DESERTLANDS_NIGHT"	  					"World's Edge After Dark"
+				"MP_RR_DESERTLANDS_64K_X_64K"		 			"World's Edge Season 3"
+				"MP_RR_DESERTLANDS_64K_X_64K_TT"	  			"World's Edge Season 3 - Mirage Voyage"
+				"MP_RR_DESERTLANDS_MU1"		 					"World's Edge Season 4"
+				"MP_RR_DESERTLANDS_MU1_TT"		 				"World's Edge Season 4 - Trials"
+				"MP_RR_DESERTLANDS_MU2"		 					"World's Edge Season 6"
+				"MP_RR_DESERTLANDS_MU3"		 					"World's Edge Season 10"
+				"MP_RR_DESERTLANDS_HOLIDAY"						"WINTER EXPRESS"
+
+				"MP_RR_CANYONLANDS_64K_X_64K"		 			"Kings Canyon Season 1"
+				"MP_RR_CANYONLANDS_MU1"			   				"Kings Canyon Season 2"
+				"MP_RR_CANYONLANDS_MU2_TT"			   			"Kings Canyon Season 6 - Map Room"
+				"MP_RR_CANYONLANDS_MU2_UFO"			   			"Kings Canyon Season 6 - Olympus Teaser"
+				"MP_RR_CANYONLANDS_MU2_MV"			   			"Kings Canyon Season 7 - Mirage Voyage"
 				"MP_RR_CANYONLANDS_MU1_NIGHT"		 			"Kings Canyon After Dark"
+
+
 				"Playtest"										"Playtest"
 				"Playtest_Only"					   				"Playtest"
 				"PLAYER_KILLSTREAK"				   				"`1%s1`0 is on a `1%s2`0 player killstreak"
@@ -4284,9 +4298,6 @@ playlists
 				"VALVE_REJECT_BANNED"				 			"You have been banned from this server."
 				"DISCONNECT_BANNED"				   				"The client's game account has been banned."
 
-				"WPN_ARC_TOOL_RUI_READY"                         "READY"
-				"WPN_ARC_TOOL_RUI_DANGER"                        "DANGER"
-				"WPN_ARC_TOOL_RUI_CHARGING"                      "CHARGING"
 				"DISCONNECT_SEND_RELIABLEOVERFLOW"				"Connection to server overflowed (code:river)."
 				"DISCONNECT_SEND_OVERFLOW"						"Connection to server overflowed (code:dam)."
 				"DISCONNECT_NETCHAN_OVERFLOW"		 			"Connection to server overflowed (code:vulkan)."
@@ -4295,6 +4306,24 @@ playlists
 				"BETA_BUILD_WATERMARK" 				  			""
 				"FS_PLAYLIST_MOTD"					  			"Flowstate x R5Reloaded" 		//1000 char max
 				"FS_PLAYLIST_MOTD_CONTINUE"			  			"" 								//append to first - 1000 char limit
+
+				"SILO_DOOR_PANEL_HINT"							"Press %use% to activate silo doors"
+				"PRESS_TO_ACTIVATE_GENERIC"						"Press %use% to activate"
+
+				"SILO_DOOR_PANEL_HINT"							"Press %use% to activate silo doors"
+				"PRESS_TO_ACTIVATE_GENERIC"						"Press %use% to activate"
+
+				"BLOOD_TT_PANEL_0_HINT"                      	"%&use% To Begin First Trial"
+				"BLOOD_TT_PANEL_1_HINT"                      	"%&use% To Begin Second Trial"
+				"BLOOD_TT_PANEL_2_HINT"                      	"%&use% To Begin Third Trial"
+				"BLOOD_TT_PANEL_1_DISABLED_HINT"             	"First Trial Incomplete"
+				"BLOOD_TT_PANEL_2_DISABLED_HINT"             	"Second Trial Incomplete"
+				
+				"WPN_ARC_TOOL"									"Arc Tool"
+				"WPN_ARC_TOOL_DESC"								"Beacon Substation Tool"
+				"WPN_ARC_TOOL_RUI_READY"						"RDY"
+				"WPN_ARC_TOOL_RUI_DANGER"						"DNGR"
+				"WPN_ARC_TOOL_RUI_CHARGING"						"CHARGING"
 			}
 		}
 	}

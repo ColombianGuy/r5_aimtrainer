@@ -42,7 +42,7 @@ WeaponData
 
 	// Effects
 	"bounce_effect_table"							"bounce_frag_drone"
-	"impact_effect_table"							"frag_drone"
+	"impact_effect_table"							"exp_frag_grenade"
 	"projectile_trail_effect_0"						"wpn_grenade_frag"
 	"vortex_absorb_effect"							"wpn_vortex_projectile_frag_FP"
 	"vortex_absorb_effect_third_person"				"wpn_vortex_projectile_frag"
@@ -72,15 +72,19 @@ WeaponData
 	"damage_far_value"								"0"
 	"damage_near_value_titanarmor"					"0"
 	"damage_far_value_titanarmor" 					"0"
-	"explosion_damage"								"0"
-	"explosion_damage_heavy_armor"					"0"
-	"explosion_inner_radius"  						"0"
-	"explosionradius" 								"0"
-	"impulse_force"   								"0"
+
+	"explosion_damage"								"100"
+	"explosion_damage_heavy_armor"					"100"
+	"explosion_inner_radius"						"125"
+	"explosionradius"								"350"
+
+	"impulse_force"									"0" //It needs a script approach
+	"impulse_force_explosions"						"0" //It needs a script approach
 	"explosion_shake_radius"						"500"
-	"explosion_shake_amplitude"						"5"
+	"explosion_shake_amplitude"						"60"
 	"explosion_shake_frequency"						"45"
-	"explosion_shake_duration"						"0.1"
+	"explosion_shake_duration"						"0.75"
+
 	"damage_flags"									"DF_RAGDOLL | DF_EXPLOSION"
 	"cooldown_type"									"ammo_deployed"
 
@@ -121,8 +125,8 @@ WeaponData
 	// Behavior
 	"fire_rate"										"0.83"
 	"max_cook_time"									"-1"
-	"grenade_fuse_time"								"3.5"
-	"start_fuse_on_launch"                          "1"
+	"grenade_fuse_time"								"0"
+	"start_fuse_on_launch"                          "0"
 	"grenade_ignition_time"							"0.0"
 	"toss_pullout_time"								"0.5"
 	"toss_time"										"0.4"

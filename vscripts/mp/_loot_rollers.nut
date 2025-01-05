@@ -3,6 +3,8 @@
 global function InitLootRollers
 global function SpawnLootRoller_Parented
 global function SpawnLootRoller_NoDispatchSpawn
+global function SpawnLootRoller_DispatchSpawn
+global function LaunchLootRoller
 global const string LOOT_ROLLER_MODEL_SCRIPTNAME   = "LootRollerModel"
 
 struct{
@@ -49,6 +51,26 @@ entity function SpawnLootRoller_NoDispatchSpawn( vector origin, vector angles )
 	roller.SetTakeDamageType( DAMAGE_EVENTS_ONLY )
 	AddEntityCallback_OnKilled( roller, LootRollers_OnKilled)
 	AddEntityCallback_OnDamaged( roller, LootRollers_OnDamaged)
+    roller.kv.CollisionGroup = TRACE_COLLISION_GROUP_NONE
+    return roller
+}
+
+entity function SpawnLootRoller_DispatchSpawn( vector origin, vector angles )
+{
+    entity roller = CreateEntity( "prop_physics" )
+	roller.SetValueForModelKey( $"mdl/props/loot_sphere/loot_sphere.rmdl" )
+
+    roller.SetScriptName( LOOT_ROLLER_MODEL_SCRIPTNAME )
+    roller.SetOrigin(origin)
+    roller.SetAngles(angles)
+
+    // Health is handled by callbacks
+	roller.SetMaxHealth( 1 )
+	roller.SetHealth( 1 )
+	roller.SetTakeDamageType( DAMAGE_EVENTS_ONLY )
+	DispatchSpawn( roller )
+	AddEntityCallback_OnKilled( roller, LootRollers_OnKilled)
+	AddEntityCallback_OnDamaged( roller, SoloRollers_OnDamaged)
     roller.kv.CollisionGroup = TRACE_COLLISION_GROUP_NONE
     return roller
 }
@@ -118,6 +140,50 @@ void function LootRollers_OnDamaged(entity ent, var damageInfo)
 	}
 
 	ent.SetHealth(nextHealth)
+}
+
+void function SoloRollers_OnDamaged(entity ent, var damageInfo)
+{
+	if( !IsValid( ent ) )
+		return
+	
+    // Don't get damaged by the drone crashing on it
+    if( DamageInfo_GetDamageSourceIdentifier( damageInfo ) == LOOT_DRONE_EXPLOSION_DAMAGEID )
+        return
+	
+	entity attacker = DamageInfo_GetAttacker( damageInfo )
+
+    // Only players can break it
+	if( !IsValid( attacker ) || !attacker.IsPlayer() )
+		return
+	
+	attacker.NotifyDidDamage
+	(
+		ent,
+		DamageInfo_GetHitBox( damageInfo ),
+		DamageInfo_GetDamagePosition( damageInfo ),
+		DamageInfo_GetCustomDamageType( damageInfo ),
+		DamageInfo_GetDamage( damageInfo ),
+		DamageInfo_GetDamageFlags( damageInfo ),
+		DamageInfo_GetHitGroup( damageInfo ),
+		DamageInfo_GetWeapon( damageInfo ),
+		DamageInfo_GetDistFromAttackOrigin( damageInfo )
+	)
+
+	// Handle damage, props get destroyed on death, we don't want that.
+	float nextHealth = max( 0, ent.GetHealth() - DamageInfo_GetDamage( damageInfo ) ) 
+	DamageInfo_SetDamage( damageInfo, 0 )
+
+	ent.SetHealth(nextHealth)
+}
+
+
+void function LaunchLootRoller( entity rollerModel, vector launchDirection = <0, 0, 1>, float speed = 2500.0 )
+{
+	//entity rollerModel = SpawnLootRoller_DispatchSpawn( launchroller.GetOrigin(), <0,0,0> )
+
+	rollerModel.SetVelocity( launchDirection * speed )
+	rollerModel.SetAngularVelocity( launchDirection.x * speed, launchDirection.y * speed, launchDirection.z * speed )
 }
 
 void function LootDrone_Panic( LootDroneData data )

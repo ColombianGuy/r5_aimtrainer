@@ -59,9 +59,11 @@ global enum eMaps
 	mp_rr_desertlands_mu1, //24
 	mp_rr_desertlands_mu1_tt, //25
 	mp_rr_desertlands_mu2, //26
-	mp_rr_canyonlands_mu2, //27
-	mp_rr_canyonlands_mu2_tt, //28
-	mp_lobby_s4,
+	mp_rr_desertlands_night, //27
+	mp_rr_canyonlands_mu2, //28
+	mp_rr_canyonlands_mu2_tt, //29
+	mp_rr_canyonlands_mu2_mv, //30
+	mp_rr_canyonlands_mu2_ufo, //31
 	
 	
 	_MAP_COUNT //LAST

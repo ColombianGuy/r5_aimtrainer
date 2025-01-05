@@ -1121,11 +1121,11 @@ void function InitMenuEntities()
 
 	Assert( MenuMapEntitiesExist() )
 
-	if ( IsLobbyFallLTM() )
+	/*if ( IsLobbyFallLTM() )  //S4 Lobby does not have shadowfall lobby
 	{
 		ApplyEventPositioning()
 		SpawnShadowEyeEffects()
-	}
+	}*/
 
 	InitPresentationData()
 
