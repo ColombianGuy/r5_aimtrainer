@@ -914,17 +914,27 @@ void function OnFakeMirageDecoyKilled_Thread( entity decoy )
 #if SERVER
 void function CreateAudioLogFunc()
 {
-	entity audioLodModel = CreatePropDynamic( $"mdl/desertlands/mirage_phone_01.rmdl", < -23554, -6324, -2929.17 >, < 40.962, -55.506, 17.1326 > )
+	entity audioLodModel = CreatePropDynamic( $"mdl/desertlands/mirage_phone_01.rmdl", < 0, 0, 0 >, < 0, 0, 0 > )
+	if ( IsMapDesertlands() )
+	{
+		audioLodModel.SetOrigin(< -23554, -6324, -2929.17 > )
+		audioLodModel.SetAngles(< 40.962, -55.506, 17.1326 > )
+	}
+	else
+	{
+		audioLodModel.SetOrigin(< -11458.6, -20108.9, 3434.01 > )
+		audioLodModel.SetAngles(< 0, -152.312, 1.09681e-06 > )
+	}
 	audioLodModel.Hide()
 	audioLodModel.SetUsable()
 	audioLodModel.SetUsePrompts( "%use% PLAY AUDIO LOG", "%use% PLAY AUDIO LOG" )
 	AddCallback_OnUseEntity( audioLodModel, void function(entity audioLodModel, entity player, int useInputFlags )
 		{
-			//if ( IsMapDesertlands() )
+			if ( IsMapDesertlands() )
 			{
-				//thread OnAudioLogActivate_Desertlands( audioLodModel, player, useInputFlags )
+				thread OnAudioLogActivate_Desertlands( audioLodModel, player, useInputFlags )
 			}
-			//else if ( IsMapCanyonlands() )
+			else
 			{
 				thread OnAudioLogActivate_Canyonlands( audioLodModel, player, useInputFlags )
 			}
@@ -961,9 +971,6 @@ const table< string, float > CLANDS_AUDIO_LOG_LINE_LIST = {
 
 void function OnAudioLogActivate_Canyonlands( entity log, entity player, int useInputFlags )
 {
-	if ( !IsBitFlagSet( useInputFlags, USE_INPUT_DEFAULT ) )
-		return
-
 	log.UnsetUsable()
 
 	foreach( string alias, float duration in CLANDS_AUDIO_LOG_LINE_LIST )

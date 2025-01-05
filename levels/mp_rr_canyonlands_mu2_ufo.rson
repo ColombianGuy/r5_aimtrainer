@@ -1,0 +1,22 @@
+When: "SERVER || CLIENT"
+Scripts:
+[
+                   
+	//sh_s05_end_precache.nut
+      
+
+	mp/levels/mp_rr_canyonlands_common.nut
+	mp/levels/sh_crypto_tt_common.nut
+]
+When: "SERVER"
+Scripts:
+[
+	mp/levels/mp_rr_canyonlands_mu2.nut
+	mp/levels/mp_rr_canyonlands_mu1_common.nut
+	mp/levels/survival_preprocess/mp_rr_canyonlands_mu1.nut
+]
+When: "CLIENT"
+Scripts:
+[
+	mp/levels/cl_mp_rr_canyonlands_mu2.nut
+]

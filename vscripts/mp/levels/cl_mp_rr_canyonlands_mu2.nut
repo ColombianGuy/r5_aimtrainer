@@ -11,6 +11,8 @@ void function ClientCodeCallback_MapInit()
 	Canyonlands_MapInit_Common()
 	if (MapName() == eMaps.mp_rr_canyonlands_mu2_mv )
 		MapZones_RegisterDataTable( $"datatable/map_zones/zones_mp_rr_canyonlands_mu2_mv.rpak" )
+	else if (MapName() == eMaps.mp_rr_canyonlands_mu2_tt )
+		MapZones_RegisterDataTable( $"datatable/map_zones/zones_mp_rr_canyonlands_mu2_tt.rpak" )
 	else
 		MapZones_RegisterDataTable( $"datatable/map_zones/zones_mp_rr_canyonlands_mu2.rpak" )
 	MinimapLabelsCanyonlandsMU2()
