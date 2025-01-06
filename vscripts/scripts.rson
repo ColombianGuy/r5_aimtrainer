@@ -277,6 +277,7 @@ Scripts:
 	weapons/mp_ability_cloak.nut
 	weapons/mp_ability_grapple.nut
 	weapons/mp_ability_holopilot.nut
+	weapons/mp_ability_silence.nut
 
 	weapons/mp_weapon_flamethrower.nut
 	weapons/sp_weapon_arc_tool.nut

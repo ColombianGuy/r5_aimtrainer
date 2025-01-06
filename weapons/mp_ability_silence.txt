@@ -32,11 +32,11 @@ WeaponData
 
     "fire_in_real_world_while_phased"				"1"
 
-	//"OnWeaponTossReleaseAnimEvent"					"OnWeaponTossReleaseAnimEvent_ability_silence"
+	"OnWeaponTossReleaseAnimEvent"					"OnWeaponTossReleaseAnimEvent_ability_silence"
 	"OnWeaponTossPrep"								"Grenade_OnWeaponTossPrep"
-	//"OnWeaponReadyToFire"                           "OnWeaponReadyToFire_ability_silence"
-	"OnWeaponDeactivate"							"OnWeaponDeactivate_weapon_grenade_gas"
-	//"OnProjectileCollision"							"OnProjectileCollision_ability_silence"
+	"OnWeaponReadyToFire"                           "OnWeaponReadyToFire_ability_silence"
+	"OnWeaponDeactivate"							"OnWeaponDeactivate_ability_silence"
+	"OnProjectileCollision"							"OnProjectileCollision_ability_silence"
 	"OnWeaponRegenEnd"                              "OnWeaponRegenEndGeneric"
 
 
