@@ -25,6 +25,13 @@ const vector PLAYER_INFO_OFFSET = <0, 0, 74>
 const vector WEAPON_BASE_ANGLES = <0, 180, 0>
 const float[2] WEAPON_BASE_ROTATION_DELTA = [-35.2458, -14.5691]
 
+const asset S05T_BG_MDL = $"mdl/Humans/class/medium/pilot_medium_loba.rmdl"
+const string S05T_BG_REF_TARGET_SCRIPTNAME = "behind_banner_ref"
+const string S05T_BG_MOVER_SCRIPTNAME = "behind_banner_mover"
+const string S05T_BG_MDL_SCRIPTNAME = "se05t_bg_mdl"
+const string S05T_LIGHT_SCRIPTNAME = "light_play_button_banner_area"
+const string S05T_CANCEL_SIGNAL = "CancelS05TAnimation"
+
 global struct MenuCharacterDef
 {
 	ItemFlavor ornull characterSkin = null
@@ -325,6 +332,8 @@ void function ShMenuModels_UIInit()
 #if CLIENT
 void function ClMenuModels_Init()
 {
+	thread StoryEvents_OnMenuPlayPanelEnter()
+
 	PrecacheParticleSystem( CHARACTER_BASE_EFFECT )
 	PrecacheParticleSystem( SHADOW_TRAIL_FX )
 	PrecacheParticleSystem( SHADOW_EYE_FX )
@@ -405,6 +414,33 @@ void function ApplyEventPositioning()
 
 	foreach ( ent in ents )
 		ent.SetOrigin( ent.GetOrigin() + <0, 5120, 0> )
+}
+
+void function StoryEvents_OnMenuPlayPanelEnter()
+{
+	wait 4
+	entity mover
+
+	array<entity> movers = GetEntArrayByScriptName( S05T_BG_MOVER_SCRIPTNAME )
+	if ( movers.len() < 1 )
+	{
+		entity refTarget = GetEntByScriptName( S05T_BG_REF_TARGET_SCRIPTNAME )
+		mover = CreateClientsideScriptMover( $"mdl/dev/empty_model.rmdl", refTarget.GetOrigin(), refTarget.GetAngles() )
+		mover.SetScriptName( S05T_BG_MOVER_SCRIPTNAME )
+	}
+	else
+	{
+		mover = movers[0]
+	}
+
+	entity tweakLight = GetEntByScriptName( S05T_LIGHT_SCRIPTNAME )
+	tweakLight.SetTweakLightUpdateShadowsEveryFrame( true )
+
+	entity model = CreatePropDynamic( S05T_BG_MDL, mover.GetOrigin(), mover.GetAngles() )
+	model.MakeSafeForUIScriptHack()
+	model.SetScriptName( S05T_BG_MDL_SCRIPTNAME )
+
+	thread PlayAnim( model, "loba_teaser_lobby_scene", mover, null, 0.0 )
 }
 
 void function InitTeammatePosition( string scriptName, string idle )
