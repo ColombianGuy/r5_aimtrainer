@@ -22,7 +22,8 @@ WeaponData
 
 	"OnWeaponPrimaryAttack"							"OnWeaponPrimaryAttack_weapon_shotgun_pistol"
 	"OnWeaponNpcPrimaryAttack"						"OnWeaponNpcPrimaryAttack_weapon_shotgun_pistol"
-
+	"OnProjectileCollision"                         "OnProjectileCollision_Generic"
+	
 	// Menu
 	"menu_category"                                 "handgun"
 	"menu_anim_class"                               "small"
@@ -266,10 +267,16 @@ WeaponData
 
 	Mods
 	{
+		funny_selector
+		{
+			"projectile_ricochet_max_count"					"9999"
+			"bolt_bounce_frac" 								"1"
+			"projectile_damages_owner"						"1"
+		}
+		
         gold
         {
         }
-
 
         silencer //HACK JFS: Doesn't get applied on amped weapons. See bug 170460
 		{

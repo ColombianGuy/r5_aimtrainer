@@ -295,7 +295,11 @@ void function SetupDefaultDevCommandsMP()
 		SetupDevMenu( "Equip Weapons", SetDevMenu_Weapons )
 		SetupDevMenu( "Equip Titanfall Weapons", SetDevMenu_R2Weapons )
 		SetupDevMenu( "Equip Throwables", SetDevMenu_Throwables )
-
+		
+		SetupDevMenu( "Custom: Weapons (All)", SetDevMenu_SurvivalLoot, "weapon_custom" )
+		SetupDevMenu( "Custom: Attachments", SetDevMenu_SurvivalLoot, "attachment_custom" )
+		SetupDevMenu( "Custom: Player Models", SetDevMenu_CustomPRModel )
+		
 		if ( IsSurvivalMenuEnabled() )
 		{
 			SetupDevMenu( "Change Character", SetDevMenu_SurvivalCharacter )
@@ -327,10 +331,6 @@ void function SetupDefaultDevCommandsMP()
 		SetupDevCommand( "Enable God Mode", "script EnableDemigod( gp()[0] )" )
 		SetupDevCommand( "Disable God Mode", "script DisableDemigod( gp()[0] )" )
 		SetupDevCommand( "Toggle Third Person Mode", "ToggleThirdPerson" )
-		
-		//SetupDevMenu( "Custom: Weapons", SetDevMenu_SurvivalLoot, "weapon_custom" )
-		//SetupDevMenu( "Custom: Attachments", SetDevMenu_SurvivalLoot, "attachment_custom" )
-		SetupDevMenu( "Custom: Player Models", SetDevMenu_CustomPRModel )
 
 		SetupDevMenu( "Prototypes", SetDevMenu_Prototypes )
 	}

@@ -39,6 +39,7 @@ WeaponData
 
     "OnWeaponActivate"                              "OnWeaponActivate_Energy_AR"
     "OnWeaponDeactivate"                            "OnWeaponDeactivate_Energy_AR"
+	"OnProjectileCollision"                         "OnProjectileCollision_Generic"
 	
 	"projectile_launch_speed"						"30500"
 
@@ -280,6 +281,13 @@ WeaponData
 
 	Mods
 	{
+		funny_selector
+		{
+			"projectile_ricochet_max_count"					"9999"
+			"bolt_bounce_frac" 								"1"
+			"projectile_damages_owner"						"1"
+		}
+		
 		gold
         {
         }

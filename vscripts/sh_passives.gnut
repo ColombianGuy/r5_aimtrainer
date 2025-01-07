@@ -96,7 +96,9 @@ global enum ePassives
 	PAS_ARMOR_6,
 	PAS_ARMOR_7,
 	PAS_SLIPSTREAM,
-	PAS_SUPPORT
+	PAS_SUPPORT,
+	PAS_SHOTGUN_KICK, //husaria
+	PAS_LIGHT_STEP, //skunner
 	
 	_count,
 }

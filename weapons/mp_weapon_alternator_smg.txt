@@ -243,9 +243,37 @@ WeaponData
 
 	Mods
 	{
+		barrel_synchronizer
+		{
+			"ammo_clip_size"   								"8"
+			
+			"damage_near_value"   							"32"
+			"damage_far_value"								"32"
+			"damage_very_far_value"							"32"
+			"damage_near_value_titanarmor"					"32"
+			"damage_far_value_titanarmor" 					"32"
+			"damage_very_far_value_titanarmor" 				"32"
+			
+			"fire_rate"   									"4"
+
+			"burst_or_looping_fire_sound_start_1p"					""
+			"burst_or_looping_fire_sound_middle_1p"					""
+			"burst_or_looping_fire_sound_end_1p"					""
+			"fire_sound_1_player_1p"						"weapon_devotion_singleshot_1p"
+			"fire_sound_1_player_3p"						"weapon_devotion_secondshot_3p"
+
+			"tracer_effect"   								"P_wpn_tracer_pulse"
+			"impact_effect_table" 							"pulse_bullet"
+		}
+
+		blood_harvest
+		{
+		}
+		
         gold
         {
         }
+		
 		survival_finite_ammo
 		{
 			"ammo_default_total"							"0"
@@ -259,21 +287,21 @@ WeaponData
 
 		hopup_shield_breaker
 		{
-		"damage_shield_scale"                       "1.20"
-		"projectile_trail_effect_0"                 "P_tracer_proj_smg_shield_breaker"
-		"impact_effect_table" 				        "shield_breaker_bullet"
+			"damage_shield_scale"                       "1.20"
+			"projectile_trail_effect_0"                 "P_tracer_proj_smg_shield_breaker"
+			"impact_effect_table" 				        "shield_breaker_bullet"
 
-		"burst_or_looping_fire_sound_start_1p"		"Weapon_Alternator_FirstShot_1P"
-		"burst_or_looping_fire_sound_middle_1p"		"Weapon_Alternator_Loop_ShieldBreaker_1P"
-		"burst_or_looping_fire_sound_end_1p"		"Weapon_Alternator_LoopEnd_ShieldBreaker_1P"
+			"burst_or_looping_fire_sound_start_1p"		"Weapon_Alternator_FirstShot_1P"
+			"burst_or_looping_fire_sound_middle_1p"		"Weapon_Alternator_Loop_ShieldBreaker_1P"
+			"burst_or_looping_fire_sound_end_1p"		"Weapon_Alternator_LoopEnd_ShieldBreaker_1P"
 
-		"burst_or_looping_fire_sound_start_3p"		""
-		"burst_or_looping_fire_sound_middle_3p"		"Weapon_Alternator_Loop_ShieldBreaker_3P"
-		"burst_or_looping_fire_sound_end_3p"		"Weapon_Alternator_LoopEnd_ShieldBreaker_3P"
+			"burst_or_looping_fire_sound_start_3p"		""
+			"burst_or_looping_fire_sound_middle_3p"		"Weapon_Alternator_Loop_ShieldBreaker_3P"
+			"burst_or_looping_fire_sound_end_3p"		"Weapon_Alternator_LoopEnd_ShieldBreaker_3P"
 
-		"burst_or_looping_fire_sound_start_npc"		""
-		"burst_or_looping_fire_sound_middle_npc"	"Weapon_Alternator_Loop_3p_NPC_a"
-		"burst_or_looping_fire_sound_end_npc"		"Weapon_Alternator_LoopEnd_NPC"
+			"burst_or_looping_fire_sound_start_npc"		""
+			"burst_or_looping_fire_sound_middle_npc"	"Weapon_Alternator_Loop_3p_NPC_a"
+			"burst_or_looping_fire_sound_end_npc"		"Weapon_Alternator_LoopEnd_NPC"
 		}
 
 		optic_cq_hcog_classic
