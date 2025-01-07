@@ -272,6 +272,65 @@ WeaponData
 		{
 		}
 
+		fullauto_rounds
+		{
+			"is_semi_auto"									"0"
+
+			"burst_fire_count"								"0"
+			"burst_fire_delay"								"0"
+
+			"viewkick_scale_valueDecayDelay"  				"0.15"
+            "viewkick_scale_valueDecayRate"   				"35"
+
+            // EVAL- for now just use burst pattern
+            //"viewkick_pattern"                              ""
+
+			//"viewkick_pitch_base" 							"-0.95"
+            //"viewkick_pitch_random"   						"0.1"
+            //"viewkick_pitch_softScale"						"0.6"
+            //"viewkick_pitch_hardScale"						"0.4"
+
+            //"viewkick_yaw_base"   							"0.05"
+            //"viewkick_yaw_random" 							"0.05"
+
+			"fire_sound_1_player_1p"						"Weapon_bulletCasings.Bounce"
+			"fire_sound_1_player_3p"						"Weapon_bulletCasings.Bounce"
+
+			"fire_sound_2_player_1p"						"Weapon_Hemlok_SingleShot_1P"
+			"fire_sound_2_player_3p"						"Weapon_Hemlok_SingleShot_3P"
+
+			"fire_sound_partial_burst_player_1p"			""
+			"fire_sound_partial_burst_player_3p"			""
+
+			"burst_or_looping_fire_sound_start_1p"			""
+			"burst_or_looping_fire_sound_middle_1p"			""
+			"burst_or_looping_fire_sound_end_1p"			""
+
+			"burst_or_looping_fire_sound_start_3p"			""
+			"burst_or_looping_fire_sound_middle_3p"			""
+			"burst_or_looping_fire_sound_end_3p"			""
+
+			"burst_or_looping_fire_sound_start_npc"			""
+			"burst_or_looping_fire_sound_middle_npc"		""
+			"burst_or_looping_fire_sound_end_npc"			""
+
+			"low_ammo_sound_name_1"							"Hemlok_LowAmmo_Shot1"
+			"low_ammo_sound_name_2"							"Hemlok_LowAmmo_Shot2"
+			"low_ammo_sound_name_3"							"Hemlok_LowAmmo_Shot2"
+			"low_ammo_sound_name_4"							"Hemlok_LowAmmo_Shot3"
+			"low_ammo_sound_name_5"							"Hemlok_LowAmmo_Shot3"
+		}
+		
+		incendiary_rounds
+		{
+			"damage_near_value"   							"15"
+			"damage_far_value"								"15"
+			"damage_very_far_value"							"15"
+			"damage_near_value_titanarmor"					"15"
+			"damage_far_value_titanarmor" 					"15"
+			"damage_very_far_value_titanarmor" 				"15"
+		}
+		
 		barrel_stabilizer_l3
 		{
 			"bodygroup27_set"	                "1"

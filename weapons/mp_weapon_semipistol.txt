@@ -194,10 +194,24 @@ WeaponData
 
 	Mods
 	{
+		blood_harvest
+		{
+		}
+		
         gold
         {
         }
 
+		fullauto_rounds
+		{
+			"fire_sound_2_player_1p"						"Weapon_p2011_FireSuppressed_1P"
+			"fire_sound_2_player_3p"						"Weapon_p2011_FireSuppressed_3P"
+			"fire_sound_2_npc"							"Weapon_p2011_FireSuppressed_3P"
+			
+			"fire_rate"                                "8"
+			"is_semi_auto"				                "0"
+			"viewkick_pitch_base"                        "-2.0"
+		}
 		
 		silencer //HACK JFS: Doesn't get applied on amped weapons. See bug 170460
 		{

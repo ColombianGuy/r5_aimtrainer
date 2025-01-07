@@ -9,6 +9,7 @@ global function OnWeaponTossPrep_WeaponBubbleBunker
 global function GetBubbleBunkerRui
 #endif
 global function GibraltarIsInDome
+global function InDomeShield
 
 const float BUBBLE_BUNKER_DEPLOY_DELAY = 1.0
 const float BUBBLE_BUNKER_DURATION_WARNING = 5.0
@@ -413,6 +414,10 @@ var function GetBubbleBunkerRui()
 }
 #endif //CLIENT
 
+bool function InDomeShield( entity player )
+{
+	return StatusEffect_GetSeverity( player, eStatusEffect.bubble_bunker ) > 0.0
+}
 
 bool function GibraltarIsInDome( entity player )
 {
@@ -618,96 +623,62 @@ void function CreateBubbleShieldAroundProjectile_MasterChief( entity projectile,
 	if ( !IsValid( owner ) )
 		return
 
-	// owner.EndSignal( "CleanUpPlayerAbilities" )
-	vector origin = owner.GetOrigin()
-	vector angles = owner.GetAngles() + Vector( 0, 0, 180 )
-
-	float shieldWallRadius = 150 // 90
-	float wallFOV = 360
-	float shieldWallHeight = 102
-
-	//------------------------------
-	// Vortex to block the actual bullets
-	//------------------------------
-	// entity vortexSphere = CreateEntity( "vortex_sphere" )
-
-	// vortexSphere.kv.spawnflags = SF_CENTERED_CYLINDER | SF_ABSORB_BULLETS //| SF_BLOCK_OWNER_WEAPON | SF_BLOCK_NPC_WEAPON_LOF 
-	// vortexSphere.kv.enabled = 1
-	// vortexSphere.kv.radius = shieldWallRadius
-	// vortexSphere.kv.height = shieldWallRadius * 2
-	// vortexSphere.kv.bullet_fov = wallFOV
-	// vortexSphere.kv.physics_pull_strength = 25
-	// vortexSphere.kv.physics_side_dampening = 6
-	// vortexSphere.kv.physics_fov = 360
-	// vortexSphere.kv.physics_max_mass = 2
-	// vortexSphere.kv.physics_max_size = 6
-	
-	// DebugDrawHemiSphere( projectile.GetOrigin(), <0,0,0>, shieldWallRadius, 20, 210, 255, false, 999.0 )
-	
-	// vortexSphere.SetOrigin( projectile.GetOrigin() )
-	// vortexSphere.SetAngles( <0,0,0> )
+	owner.EndSignal( "CleanUpPlayerAbilities" )
 
 	entity bubbleShield = CreateBubbleShieldWithSettings_MasterChief( owner.GetTeam(), projectile.GetOrigin(), <0,0,0>/*projectile.GetAngles()*/, owner, duration )
-	// bubbleShield.Hide()
-	
-	// bubbleShield.RemoveFromAllRealms()
-	// bubbleShield.AddToOtherEntitysRealms( projectile )
+	bubbleShield.RemoveFromAllRealms()
+	bubbleShield.AddToOtherEntitysRealms( projectile )
 
-	// bubbleShield.SetParent( projectile, "", true )
+	bubbleShield.SetParent( projectile, "", true )
 	bubbleShield.SetCollisionDetailHigh()
-	
-	projectile.Destroy()
-	
-	// bubbleShield.SetModelScale( 0.65 )
 
-	// AddEntityCallback_OnPostDamaged( bubbleShield, void function( entity bubbleShield, var damageInfo ) : ( owner ) {
-		// if ( IsValid( owner ) )
-			// StatsHook_BubbleShield_OnDamageAbsorbed( owner, damageInfo )
-	// })
+	AddEntityCallback_OnPostDamaged( bubbleShield, void function( entity bubbleShield, var damageInfo ) : ( owner ) {
+		if ( IsValid( owner ) )
+			StatsHook_BubbleShield_OnDamageAbsorbed( owner, damageInfo )
+	})
 
-	// OnThreadEnd(
-		// function() : ( oldEffects, bubbleShield )
-		// {
+	OnThreadEnd(
+		function() : ( oldEffects, bubbleShield )
+		{
 
-			// if ( IsValid( oldEffects.friendlyColoredFX ) )
-				// EffectStop( oldEffects.friendlyColoredFX )
-			// if ( IsValid( oldEffects.enemyColoredFX ) )
-				// EffectStop( oldEffects.enemyColoredFX )
-			// if ( IsValid( bubbleShield ) )
-				// DestroyBubbleShield( bubbleShield )
-		// }
-	// )
+			if ( IsValid( oldEffects.friendlyColoredFX ) )
+				EffectStop( oldEffects.friendlyColoredFX )
+			if ( IsValid( oldEffects.enemyColoredFX ) )
+				EffectStop( oldEffects.enemyColoredFX )
+			if ( IsValid( bubbleShield ) )
+				DestroyBubbleShield( bubbleShield )
+		}
+	)
 
-	// //Wait until we are getting close to ending the shield
-	// wait duration - BUBBLE_BUNKER_DURATION_WARNING
+	//Wait until we are getting close to ending the shield
+	wait duration - BUBBLE_BUNKER_DURATION_WARNING
 
-	// if ( IsValid( oldEffects.friendlyColoredFX ) )
-		// EffectStop( oldEffects.friendlyColoredFX )
-	// if ( IsValid( oldEffects.enemyColoredFX ) )
-		// EffectStop( oldEffects.enemyColoredFX )
+	if ( IsValid( oldEffects.friendlyColoredFX ) )
+		EffectStop( oldEffects.friendlyColoredFX )
+	if ( IsValid( oldEffects.enemyColoredFX ) )
+		EffectStop( oldEffects.enemyColoredFX )
 
-	// int startAttachID = projectile.LookupAttachment( "fx_beam" )
-	// vector beamFXOrigin = projectile.GetAttachmentOrigin( startAttachID )
+	int startAttachID = projectile.LookupAttachment( "fx_beam" )
+	vector beamFXOrigin = projectile.GetAttachmentOrigin( startAttachID )
 
-	// FriendlyEnemyFXStruct effects = CreateFriendlyEnemyFX( projectile, BUBBLE_BUNKER_BEAM_END_FX, beamFXOrigin, <-90,0,0>, team)
+	FriendlyEnemyFXStruct effects = CreateFriendlyEnemyFX( projectile, BUBBLE_BUNKER_BEAM_END_FX, beamFXOrigin, <-90,0,0>, team)
 
-	// OnThreadEnd(
-		// function() : ( effects, projectile )
-		// {
-			// if ( IsValid( effects.friendlyColoredFX ) )
-				// EffectStop( effects.friendlyColoredFX )
-			// if ( IsValid( effects.enemyColoredFX ) )
-				// EffectStop( effects.enemyColoredFX )
+	OnThreadEnd(
+		function() : ( effects, projectile )
+		{
+			if ( IsValid( effects.friendlyColoredFX ) )
+				EffectStop( effects.friendlyColoredFX )
+			if ( IsValid( effects.enemyColoredFX ) )
+				EffectStop( effects.enemyColoredFX )
 
-			// if ( IsValid( projectile ) )
-				// StopSoundOnEntity( projectile, BUBBLE_BUNKER_SOUND_ENDING )
-		// }
-	// )
+			if ( IsValid( projectile ) )
+				StopSoundOnEntity( projectile, BUBBLE_BUNKER_SOUND_ENDING )
+		}
+	)
 
-	// EmitSoundOnEntity( projectile, BUBBLE_BUNKER_SOUND_ENDING )
+	EmitSoundOnEntity( projectile, BUBBLE_BUNKER_SOUND_ENDING )
 
-	// //wait rest of shield life duration
-	// wait BUBBLE_BUNKER_DURATION_WARNING
-
+	//wait rest of shield life duration
+	wait BUBBLE_BUNKER_DURATION_WARNING
 }
 #endif

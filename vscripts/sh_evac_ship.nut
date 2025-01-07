@@ -50,7 +50,7 @@ global const string EVAC_DROPSHIP_TARGETNAME = "evac_dropship"
 	const string SFX_STRING_EVACSHIP_FLYOUT = "goblin_shadowsquad_evac_flyout"
 #endif //SERVER
 
-global const int	EVAC_SHIP_PASSENGERS_MAX = 6
+global const int	EVAC_SHIP_PASSENGERS_MAX = 1
 const float DEFAULT_TIME_UNTIL_SHIP_ARRIVES = 60
 const float DEFAULT_TIME_UNTIL_SHIP_DEPARTS = 30
 const float DEFAULT_EVAC_RADIUS = 256
@@ -315,9 +315,9 @@ void function EvacShipSequence( EvacShipData evacShipData )
 	wait bufferTime
 	evacShip.MakeVisible()
 	evacShip.Solid()
-	Highlight_SetEnemyHighlight( evacShip, "dropship_enemy" )
-	Highlight_SetFriendlyHighlight( evacShip, "dropship_friendly" )
-	Highlight_SetNeutralHighlight( evacShip, "dropship_friendly" )
+	// Highlight_SetEnemyHighlight( evacShip, "dropship_enemy" )
+	// Highlight_SetFriendlyHighlight( evacShip, "dropship_friendly" )
+	// Highlight_SetNeutralHighlight( evacShip, "dropship_friendly" )
 	EmitSoundOnEntity( evacShip, SFX_STRING_EVACSHIP_FLYIN )
 	thread JetwashFX( evacShip )
 	waitthread PlayAnimTeleport( evacShip, animArrive, animOrigin, animAngles )
@@ -401,6 +401,8 @@ void function OnTriggerEvacTrigger( entity trigger, entity ent, entity caller, v
 #if SERVER
 void function OnTriggerEnterEvacTrigger( entity trigger, entity ent )
 {
+	printt( "on player trigger enter " )
+	
 		string failMsg
 		if ( !IsValid( ent ) )
 		{
@@ -540,6 +542,10 @@ void function PlayerBoardsEvacShip( entity player, EvacShipData evacShipData )
 
 	if ( !player.IsInvulnerable() )
 		player.SetInvulnerable()
+	
+		
+	Message_New( player, "The danger is behind you... for now. You made it out alive.", 10 )
+	
 	
 	//fixme Cafe
 	//if crypto in evac trigger while flying around in his drone, get out
@@ -797,12 +803,12 @@ bool function CanPlayerBoardEvacShip( entity player, EvacShipData evacShipData  
 		return false
 	}
 
-	if ( evacShipData.evacShip.GetShieldHealth() >= evacShipData.evacShip.GetShieldHealthMax() )
-	{
-		printf( "%s() - player can't board evac ship - it is full: '%s'", FUNC_NAME(), string( player ) )
-		Remote_CallFunction_NonReplay( player, "EvacShip_ServerCallback_DisplayShipFullHint" )
-		return false
-	}
+	// if ( evacShipData.evacShip.GetShieldHealth() >= evacShipData.evacShip.GetShieldHealthMax() )
+	// {
+		// printf( "%s() - player can't board evac ship - it is full: '%s'", FUNC_NAME(), string( player ) )
+		// // Remote_CallFunction_NonReplay( player, "EvacShip_ServerCallback_DisplayShipFullHint" )
+		// return false
+	// }
 
 	return true
 }

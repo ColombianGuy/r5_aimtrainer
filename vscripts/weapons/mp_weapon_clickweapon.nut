@@ -882,6 +882,8 @@ void function FS_LG_HandleLaserForPlayer( entity player )
 		}catch(e420)
 		{
 			printt("skipped set hand mover parented, 2 early")
+			wait 1
+			continue
 		}
 		
 		if( !EffectDoesExist( file.beamsFxs[ player ] ) && player.GetPlayerNetBool( "isPlayerShootingFlowstateLightningGun" ) && !wasPlayerShooting && isAuto )

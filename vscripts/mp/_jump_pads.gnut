@@ -193,8 +193,18 @@ void function JumpPad_CreatedCallback( entity jumpPad )
 	trigger.SetOrigin( origin )
 	trigger.SetAngles( angles )
 	trigger.SetTriggerType( TT_JUMP_PAD )
-	trigger.SetLaunchScaleValues( JUMP_PAD_PUSH_VELOCITY, 1.7 )
-	trigger.SetViewPunchValues( JUMP_PAD_VIEW_PUNCH_SOFT, JUMP_PAD_VIEW_PUNCH_HARD, JUMP_PAD_VIEW_PUNCH_RAND )
+
+	
+	if( !GetCurrentPlaylistVarBool( "flowstate_disable_doublejump_jumppad", false ) )
+	{
+		trigger.SetLaunchScaleValues( JUMP_PAD_PUSH_VELOCITY, 1.7 )
+		trigger.SetViewPunchValues( JUMP_PAD_VIEW_PUNCH_SOFT, JUMP_PAD_VIEW_PUNCH_HARD, JUMP_PAD_VIEW_PUNCH_RAND )
+	} else
+	{
+		trigger.SetLaunchScaleValues( 950.0, 1.25 )
+		trigger.SetViewPunchValues( 25.0, 4.0, 4.0 )
+	}
+	
 	trigger.UsePointCollision()
 	trigger.kv.triggerFilterNonCharacter = "0"
 	DispatchSpawn( trigger )
@@ -294,7 +304,9 @@ void function OnJumpPadAreaEnter( entity trigger, entity ent )
 	if( !IsValid( ent ) || !ent.IsPlayer() )
 		return
 
-	ent.kv.gravity = 0.75 //seems to be a thing in retail
+	if( !GetCurrentPlaylistVarBool( "flowstate_disable_doublejump_jumppad", false ) )
+		ent.kv.gravity = 0.75 //seems to be a thing in retail
+	
 	TrackingVision_CreatePOI( eTrackingVisionNetworkedPOITypes.PLAYER_TRAVERSAL_LAUNCH_PAD, ent, ent.GetOrigin(), ent.GetTeam(), ent )
 
 	thread JumpPad_PlayLaunchAnim( trigger )
@@ -309,6 +321,9 @@ void function OnJumpPadAreaEnter( entity trigger, entity ent )
 		ent.p.lastJumpPadChatterTime = Time()
 	}
 
+	if( GetCurrentPlaylistVarBool( "flowstate_disable_doublejump_jumppad", false ) )
+		return
+	
 	thread function () : ( ent )
 	{
 		bool crouch = ent.IsInputCommandHeld( IN_DUCKTOGGLE ) || ent.IsInputCommandHeld( IN_DUCK ) || ent.IsCrouched()
@@ -372,7 +387,7 @@ void function JumpPadPushEnt( entity trigger, entity ent, vector origin, vector 
 			entity jumpPad = trigger.GetOwner()
 			if ( IsValid( jumpPad ) )
 			{
-				if ( !Bleedout_IsBleedingOut( ent ) && Gamemode() != eGamemodes.fs_duckhunt )
+				if ( !Bleedout_IsBleedingOut( ent ) && Gamemode() != eGamemodes.fs_duckhunt && !GetCurrentPlaylistVarBool( "flowstate_disable_doublejump_jumppad", false ) )
 				{
 					thread JumpPad_GiveDoubleJump( ent )
 				}

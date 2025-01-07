@@ -31,8 +31,8 @@ WeaponData
 
 		energysword
 		{
-			"viewmodel"   									"mdl/Weapons/ptpov_energy_sword/ptpov_energy_sword.rmdl"
-			"playermodel" 									"mdl/Weapons/w_energy_sword/w_energy_sword.rmdl"
+			// "viewmodel"   									"mdl/Weapons/ptpov_energy_sword/ptpov_energy_sword.rmdl"
+			// "playermodel" 									"mdl/Weapons/w_energy_sword/w_energy_sword.rmdl"
 			
 			"melee_angle"									"10"
 			"melee_attack_animtime"							"0.5"

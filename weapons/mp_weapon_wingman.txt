@@ -32,6 +32,8 @@ WeaponData
 	"viewmodel"   									"mdl/weapons/b3wing/ptpov_b3wing.rmdl"
 	"playermodel" 									"mdl/weapons/b3wing/w_b3wing.rmdl"
 	
+	"OnProjectileCollision"                         "OnProjectileCollision_Generic"
+
     // FX - Muzzle Flash
 	"fx_muzzle_flash_view"							""
 	"fx_muzzle_flash_world"							""
@@ -236,9 +238,36 @@ WeaponData
 
 	Mods
 	{
+		shock_rounds
+		{
+		
+		}
+		
+		funny_selector
+		{
+			"projectile_ricochet_max_count"					"9999"
+			"bolt_bounce_frac" 								"1"
+			"projectile_damages_owner"						"1"
+		}
+		
 	    gold
         {
         }
+		
+		fullauto_rounds
+		{
+			"damage_near_value"   							"25"
+			"damage_far_value"								"25"
+			"damage_very_far_value"							"25"
+			"damage_near_value_titanarmor"					"25"
+			"damage_far_value_titanarmor" 					"25"
+			"damage_very_far_value_titanarmor" 				"25"
+			
+			"fire_rate"                                "3.5"
+			"is_semi_auto"				                "0"
+			"viewkick_pitch_base"                        "-5"
+		}
+		
         hopup_headshot_dmg
         {
         	"damage_headshot_scale"			"2.25"

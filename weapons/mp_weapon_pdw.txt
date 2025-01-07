@@ -242,11 +242,31 @@ WeaponData
 
 	Mods
 	{
+		barrel_synchronizer
+		{
+			"ammo_clip_size"   								"10"
+			
+			"damage_near_value"   							"30"
+			"damage_far_value"								"30"
+			"damage_very_far_value"							"30"
+			"damage_near_value_titanarmor"					"30"
+			"damage_far_value_titanarmor" 					"30"
+			"damage_very_far_value_titanarmor" 				"30"
+			
+			"fire_rate"   									"8"
+			
+			"fire_sound_1_player_1p"						"weapon_prowler_singleshot_1p"
+			"fire_sound_1_player_3p"						"weapon_prowler_singleshot_3p"
+			
+			"tracer_effect"   								"P_wpn_tracer_pulse"
+			"impact_effect_table" 							"pulse_bullet"
+		}
+		
         hopup_selectfire
-       {
+        {
         // This mod is only used to indicate that the hop-up is active
         // When player changes fire modes, we activate "altfire_selectfire"
-       }
+        }
 
        // autofire
        altfire_selectfire

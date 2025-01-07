@@ -43,4 +43,6 @@ classes
 	import npc_dummie_octane.txt
 	
 	import npc_supressorturret.txt
+	
+	import npc_nextbot.txt
 }

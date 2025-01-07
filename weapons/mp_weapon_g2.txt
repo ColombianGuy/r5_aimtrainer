@@ -278,7 +278,13 @@
 			"low_ammo_fraction"              "0.3"
 		}
 
-                  
+		fullauto_rounds
+		{
+			"fire_rate"                                "5"
+			"is_semi_auto"				                "0"
+			"viewkick_pitch_base"                        "2.0"
+		}
+		
 		hopup_double_tap
 		{
             //exists to allow altfire_double_tap toggle mod

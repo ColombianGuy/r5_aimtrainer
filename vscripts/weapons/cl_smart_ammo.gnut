@@ -235,6 +235,17 @@ void function SmartAmmo_LockedOntoWarningHUD_Update()
 		//	RuiSetBool( file.lockon_hud, "westLock", false )
 		//	RuiSetBool( file.lockon_hud, "eastLock", false )
 		//}
+		else if ( StatusEffect_GetSeverity( player, eStatusEffect.split_timeline ) > 0.0 )
+		{
+			RuiSetString( file.lockon_hud, "lockMessage", "#SPLIT_TIMELINE_STATUS" )
+			RuiSetGameTime( file.lockon_hud, "lockEndTime", Time() + ( SPLIT_TIMELINE_DURATION * StatusEffect_GetSeverity( player, eStatusEffect.split_timeline) ) )
+			RuiSetBool( file.lockon_hud, "isVisible", true )
+			RuiSetBool( file.lockon_hud, "northLock", false )
+			RuiSetBool( file.lockon_hud, "southLock", false )
+			RuiSetBool( file.lockon_hud, "westLock", false )
+			RuiSetBool( file.lockon_hud, "eastLock", false )
+			RuiSetFloat3( file.lockon_hud, "borderColor", borderColor )
+		}
 		else if ( StatusEffect_GetSeverity( player, eStatusEffect.hunt_mode ) > 0.0 )
 		{
 			RuiSetString( file.lockon_hud, "lockMessage", "#HUNT_MODE_STATUS" )
@@ -312,6 +323,39 @@ void function SmartAmmo_LockedOntoWarningHUD_Update()
 
 			//SrgbToLinear( <255,237,76> / 255.0 ) // can't get the ultimate highlight color from bakery becase it takes way too long to do every frame.
 			RuiSetFloat3( file.lockon_hud, "borderColor", SrgbToLinear( < 255, 120, 32 > / 255.0 ) )
+		}
+		else if ( StatusEffect_GetSeverity( player, eStatusEffect.fireproof ) > 0.0 )
+		{
+			RuiSetString( file.lockon_hud, "lockMessage", "#FIREPROOF_STATUS" )
+			RuiSetGameTime( file.lockon_hud, "lockEndTime", Time() + StatusEffect_GetTimeRemaining( player, eStatusEffect.fireproof) )
+			RuiSetBool( file.lockon_hud, "isVisible", true )
+			RuiSetBool( file.lockon_hud, "northLock", false )
+			RuiSetBool( file.lockon_hud, "southLock", false )
+			RuiSetBool( file.lockon_hud, "westLock", false )
+			RuiSetBool( file.lockon_hud, "eastLock", false )
+			RuiSetFloat3( file.lockon_hud, "borderColor", borderColor )
+		}
+		else if ( StatusEffect_GetSeverity( player, eStatusEffect.protection ) > 0.0 )
+		{
+			RuiSetString( file.lockon_hud, "lockMessage", "#PROTECTION_STATUS" )
+			RuiSetGameTime( file.lockon_hud, "lockEndTime", Time() + StatusEffect_GetTimeRemaining( player, eStatusEffect.protection) )
+			RuiSetBool( file.lockon_hud, "isVisible", true )
+			RuiSetBool( file.lockon_hud, "northLock", false )
+			RuiSetBool( file.lockon_hud, "southLock", false )
+			RuiSetBool( file.lockon_hud, "westLock", false )
+			RuiSetBool( file.lockon_hud, "eastLock", false )
+			RuiSetFloat3( file.lockon_hud, "borderColor", borderColor )
+		}
+		else if ( StatusEffect_GetSeverity( player, eStatusEffect.burning ) > 0.0 )
+		{
+			RuiSetString( file.lockon_hud, "lockMessage", "#BURNING_STATUS" )
+			RuiSetGameTime( file.lockon_hud, "lockEndTime", Time() + StatusEffect_GetTimeRemaining( player, eStatusEffect.burning) )
+			RuiSetBool( file.lockon_hud, "isVisible", true )
+			RuiSetBool( file.lockon_hud, "northLock", false )
+			RuiSetBool( file.lockon_hud, "southLock", false )
+			RuiSetBool( file.lockon_hud, "westLock", false )
+			RuiSetBool( file.lockon_hud, "eastLock", false )
+			RuiSetFloat3( file.lockon_hud, "borderColor", borderColor )
 		}
 		else if ( StatusEffect_GetSeverity( player, eStatusEffect.device_blocked ) )
 		{

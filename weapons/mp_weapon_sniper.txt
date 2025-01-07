@@ -32,6 +32,7 @@
 	// Script - Callbacks
 	"OnClientAnimEvent"                        "OnClientAnimEvent_weapon_sniper"
 	"OnWeaponPrimaryAttack"					   "OnWeaponPrimaryAttack_Vinson" // effectively doesnt change anything outside of 4d. just cant be set in a weapon mod, so its done here.
+	"OnProjectileCollision"                         "OnProjectileCollision_Generic"
 
 	// Behavior - Firing
 	//
@@ -282,7 +283,14 @@
 	    {
 	    }
 
-
+		funny_selector
+		{
+			"projectile_ricochet_max_count"					"999"
+			"bolt_bounce_frac" 								"1"
+			"projectile_bounce_damage_reduction_scale"		"0"
+			"projectile_speed_reduction_factor"	 			"0"
+			"projectile_damages_owner"						"1"
+		}
 
         // HACK must define "script_optic_toggle_name" for this to work
 		"optic_toggle"
