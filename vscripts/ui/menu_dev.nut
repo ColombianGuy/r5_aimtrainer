@@ -1095,19 +1095,15 @@ void function SetupChangeCharacterModel()
 {
 	#if UI
 		//Custom by @CafeFPS :)
-		SetupDevCommand( "TF2 Ash [Custom]", "Flowstate_AssignCustomCharacterFromMenu 6")
-		SetupDevCommand( "TF2 Blisk [Custom]", "Flowstate_AssignCustomCharacterFromMenu 1")
-		SetupDevCommand( "TF2 Jack Cooper [Custom]", "Flowstate_AssignCustomCharacterFromMenu 8")
-		SetupDevCommand( "Ballistic [Custom]", "Flowstate_AssignCustomCharacterFromMenu 12")
-		SetupDevCommand( "Fade [Custom]", "Flowstate_AssignCustomCharacterFromMenu 2")
-		SetupDevCommand( "Rhapsody [Custom]", "Flowstate_AssignCustomCharacterFromMenu 5")
-		SetupDevCommand( "Crewmate [Custom - 3p only]", "Flowstate_AssignCustomCharacterFromMenu 3")
-		//SetupDevCommand( "Peter Griffing [Custom]", "Flowstate_AssignCustomCharacterFromMenu 4")
-		//SetupDevCommand( "CJ [Custom - 3p only]", "Flowstate_AssignCustomCharacterFromMenu 7")
-		SetupDevCommand( "MRVN [Custom - 3p only]", "Flowstate_AssignCustomCharacterFromMenu 13")
-		//SetupDevCommand( "Satoru Gojo [Custom]", "Flowstate_AssignCustomCharacterFromMenu 14" )
-		//SetupDevCommand( "Naruto [Custom]", "Flowstate_AssignCustomCharacterFromMenu 15" )
-		SetupDevCommand( "Pete [Custom]", "Flowstate_AssignCustomCharacterFromMenu 16" )
+		SetupDevCommand( "TF2 Ash", "Flowstate_AssignCustomCharacterFromMenu 6")
+		SetupDevCommand( "TF2 Blisk", "Flowstate_AssignCustomCharacterFromMenu 1")
+		SetupDevCommand( "TF2 Jack Cooper", "Flowstate_AssignCustomCharacterFromMenu 8")
+		SetupDevCommand( "Ballistic", "Flowstate_AssignCustomCharacterFromMenu 12")
+		SetupDevCommand( "Fade", "Flowstate_AssignCustomCharacterFromMenu 2")
+		SetupDevCommand( "Rhapsody", "Flowstate_AssignCustomCharacterFromMenu 5")
+		SetupDevCommand( "Crewmate [3p only]", "Flowstate_AssignCustomCharacterFromMenu 3")
+		SetupDevCommand( "MRVN [3p only]", "Flowstate_AssignCustomCharacterFromMenu 13")
+		SetupDevCommand( "Pete", "Flowstate_AssignCustomCharacterFromMenu 16" )
 	#endif
 }
 
