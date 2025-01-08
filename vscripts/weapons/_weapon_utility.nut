@@ -3,8 +3,6 @@ untyped
 //TODO: Should split this up into server, client and shared versions and just globalize_all_functions
 global function WeaponUtility_Init
 
-global function OnProjectileCollision_Generic
-
 global function ApplyVectorSpread
 global function DebugDrawMissilePath
 global function DegreesToTarget
@@ -2665,11 +2663,6 @@ void function AddToTrackedEnts( entity player, entity ent )
 	{
 		AddToScriptManagedEntArray( player.s.activeTrapArrayId, ent )
 	}
-}
-
-void function OnProjectileCollision_Generic( entity projectile, vector pos, vector normal, entity hitEnt, int hitbox, bool isCritical )
-{
-//	TODO: fix this cafe
 }
 
 void function PROTO_CleanupTrackedProjectiles( entity player )
