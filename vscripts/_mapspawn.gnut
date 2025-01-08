@@ -253,7 +253,7 @@ void function CodeCallback_MapSpawn() // original script entry point
 	PrecacheModel( $"mdl/props/charm/charm_nessy_ghost.rmdl" )
 	PrecacheModel( $"mdl/props/charm/charm_clown.rmdl" )
 	PrecacheModel( $"mdl/props/charm/charm_witch.rmdl" )
-	
+
 	//PrecacheParticleSystem( $"train_far_beam_far_blink" ) //why are we precaching a worlds edge asset here? - LorryLeKral
 	
 	//Lobby Models
@@ -269,14 +269,162 @@ void function CodeCallback_MapSpawn() // original script entry point
 	PrecacheModel( $"mdl/robots/marvin/marvin.rmdl" )
 	PrecacheModel( $"mdl/weapons/sentry_turret/sentry_turret.rmdl" )
 	
+	//////////////////////
+	//CUSTOM - By @CafeFPS
+	
+	PrecacheWeapon( $"mp_ability_emote_projector" )
+	PrecacheWeapon( $"mp_weapon_vctblue_primary" )
+	PrecacheWeapon( $"melee_vctblue" )
+	PrecacheWeapon( $"mp_weapon_flamethrower" )
 	PrecacheWeapon( $"mp_ability_phase_chamber" )
 	PrecacheWeapon( $"mp_weapon_ringflare" )
-	PrecacheWeapon( $"mp_weapon_melee_survival" )
 	PrecacheWeapon( $"mp_weapon_melee_halo" )
 	PrecacheWeapon( $"melee_pilot_emptyhanded_halo" )
+	
+	// baton
+	// PrecacheWeapon( $"melee_lifeline_baton" )
+	// PrecacheWeapon( $"mp_weapon_lifeline_baton_primary" )
+	// gloves
+	// PrecacheWeapon( $"mp_weapon_gloves_primary" )
+	// PrecacheWeapon( $"melee_gloves" )
+	// karambit
+	PrecacheWeapon( $"mp_weapon_karambit_primary" )
+	PrecacheWeapon( $"melee_karambit" )
 
+	// PrecacheWeapon( $"mp_ability_tank" )
+	// PrecacheWeapon( $"mp_weapon_rhapsody_ultimate" )
+	// PrecacheWeapon( $"mp_ability_rhapsody_tactical" )
+	// PrecacheModel( $"mdl/humans/class/light/pilot_light_support_rework.rmdl" )
+	// PrecacheModel( $"mdl/Weapons/arms/pov_pilot_light_support_rework.rmdl" )
+
+	switch( GameRules_GetGameMode() )
+	{
+		case CUSTOM_CTF:
+			PrecacheWeapon( $"melee_flagpole" )
+			PrecacheWeapon( $"mp_weapon_flagpole_primary" )
+			break
+		case fs_prophunt:
+			PrecacheWeapon( $"mp_weapon_flashbang_fakeultimate" )
+			PrecacheWeapon( $"mp_weapon_changeprops_fakeultimate" )
+			break
+		case "flowstate_pkknockback":
+			PrecacheWeapon( $"mp_ability_selfpushback" )
+			break
+		case fs_dm:
+			break
+		case fs_aimtrainer:
+			break
+		default:		
+			break
+	}
+	
+	//PrecacheModel( $"mdl/Humans/pilots/w_blisk.rmdl" )
+	//PrecacheModel( $"mdl/Humans/pilots/pov_blisk.rmdl" )
+	PrecacheModel( $"mdl/Humans/pilots/w_phantom.rmdl" )
+	PrecacheModel( $"mdl/Humans/pilots/ptpov_phantom.rmdl" )
+	PrecacheModel( $"mdl/Humans/pilots/w_amogino.rmdl" )
+	//PrecacheModel( $"mdl/Humans/pilots/ptpov_amogino.rmdl" )
+	PrecacheModel( $"mdl/Humans/pilots/w_rhapsody.rmdl" )
+	PrecacheModel( $"mdl/Humans/pilots/ptpov_rhapsody.rmdl" )
+	//PrecacheModel( $"mdl/Humans/pilots/w_ash_legacy.rmdl" )
+	//PrecacheModel( $"mdl/Humans/pilots/pov_ash_legacy.rmdl" )
+	//PrecacheModel( $"mdl/Humans/pilots/w_jackcooper.rmdl" )
+	//PrecacheModel( $"mdl/Humans/pilots/ptpov_jackcooper.rmdl" )
+
+	PrecacheWeapon( $"mp_weapon_turret" )
+	PrecacheWeapon( $"melee_titan_sword" )
+	PrecacheWeapon( $"mp_weapon_titan_sword" )
+	PrecacheWeapon( $"npc_weapon_turret_volt" )
+
+	if( GetCurrentPlaylistVarBool( "enable_oddball_gamemode", false ) )
+	{
+		PrecacheWeapon( $"mp_weapon_oddball_primary" )
+		PrecacheWeapon( $"melee_oddball" )
+	}
+
+	if( GetCurrentPlaylistVarBool( "is_halo_gamemode", false ) )
+	{
+		PrecacheParticleSystem( $"P_snow_atmo_512" )
+		PrecacheWeapon( $"mp_ability_grapple_master_chief" )
+		PrecacheWeapon( $"mp_weapon_bubble_bunker_master_chief" )
+	
+		//TODO create a single model with different skins. Cafe
+		PrecacheModel( $"mdl/Humans/pilots/w_master_chief.rmdl" )
+		PrecacheModel( $"mdl/Humans/pilots/ptpov_master_chief.rmdl" )
+
+		PrecacheModel( $"mdl/Humans/pilots/w_master_chief.rmdl" )
+		PrecacheModel( $"mdl/Humans/pilots/ptpov_master_chief.rmdl" )
+		
+		PrecacheModel( $"mdl/Humans/pilots/w_master_chief_blue.rmdl" )
+		PrecacheModel( $"mdl/Humans/pilots/ptpov_master_chief_blue.rmdl" )
+		
+		PrecacheModel( $"mdl/Humans/pilots/w_master_chief_pink.rmdl" )
+		PrecacheModel( $"mdl/Humans/pilots/ptpov_master_chief_pink.rmdl" )
+		
+		PrecacheModel( $"mdl/Humans/pilots/w_master_chief_orange.rmdl" )
+		PrecacheModel( $"mdl/Humans/pilots/ptpov_master_chief_orange.rmdl" )
+		
+		PrecacheModel( $"mdl/Humans/pilots/w_master_chief_red.rmdl" )
+		PrecacheModel( $"mdl/Humans/pilots/ptpov_master_chief_red.rmdl" )
+		
+		PrecacheModel( $"mdl/Humans/pilots/w_master_chief_purple.rmdl" )
+		PrecacheModel( $"mdl/Humans/pilots/ptpov_master_chief_purple.rmdl" )
+		
+		PrecacheModel( $"mdl/Humans/pilots/w_master_chief_yellow.rmdl" )
+		PrecacheModel( $"mdl/Humans/pilots/ptpov_master_chief_yellow.rmdl" )
+
+		PrecacheModel( $"mdl/Humans/pilots/w_master_chief_white.rmdl" )
+		PrecacheModel( $"mdl/Humans/pilots/ptpov_master_chief_white.rmdl" )
+		
+		PrecacheModel( $"mdl/flowstate_custom/w_haloelite.rmdl" )
+		PrecacheModel( $"mdl/flowstate_custom/ptpov_haloelite.rmdl" )
+	}
+	
+	PrecacheWeapon( $"mp_ability_phase_rewind" )
+	PrecacheWeapon( $"mp_ability_space_elevator_tac" )
+	PrecacheModel( $"mdl/Weapons/lightsaber/w_lightsaber.rmdl" )
+	PrecacheModel( $"mdl/Weapons/lightsaber/ptpov_lightsaber.rmdl" )
+	PrecacheModel( $"mdl/Humans/pilots/ballistic_base_w.rmdl" )
+	PrecacheModel( $"mdl/Humans/pilots/ballistic_base_v.rmdl" )
+
+	PrecacheModel( $"mdl/flowstate_custom/w_marvin.rmdl" )
+	//PrecacheModel( $"mdl/flowstate_custom/evac_tower_balloon.rmdl" )
+	//PrecacheModel( $"mdl/flowstate_custom/evac_tower_weight.rmdl" )
+	PrecacheModel( $"mdl/flowstate_custom/w_pete_mri.rmdl" )
+	PrecacheModel( $"mdl/flowstate_custom/ptpov_pete_mri.rmdl" )
+
+	PrecacheModel( $"mdl/techart/mshop/characters/legends/catalyst/catalyst_base_w.rmdl" )
+	PrecacheModel( $"mdl/techart/mshop/characters/legends/catalyst/catalyst_base_v.rmdl" )
+	PrecacheModel( $"mdl/Humans/class/medium/pilot_medium_valkyrie.rmdl" )
+	PrecacheModel( $"mdl/Weapons/arms/pov_pilot_medium_valkyrie.rmdl" )
+	PrecacheModel( $"mdl/Humans/class/medium/pilot_medium_nova_01.rmdl" )
+	PrecacheModel( $"mdl/Weapons/arms/pov_pilot_medium_nova_base_01.rmdl" )
+	PrecacheModel( $"mdl/techart/mshop/characters/legends/ash/ash_base_v.rmdl" )
+	PrecacheModel( $"mdl/techart/mshop/characters/legends/ash/ash_base_w.rmdl" )
+	
+	//S0 Dev Protos
+	PrecacheModel( $"mdl/flowstate_custom/pilot_medium_stim_dev.rmdl" )
+	PrecacheWeapon( $"mp_weapon_concussive_breach" )
+	PrecacheWeapon( $"mp_weapon_grenade_flashbang" )
+	PrecacheWeapon( $"mp_weapon_shotgun_kick" )
+	PrecacheWeapon( $"mp_ability_haunt" )
+	PrecacheWeapon( $"mp_ability_dodge_roll" )
+	PrecacheWeapon( $"mp_ability_maelstrom_javelin" )
+	PrecacheWeapon( $"mp_ability_sonic_shout" )
+	PrecacheWeapon( $"mp_ability_riot_shield" )
+	PrecacheWeapon( $"mp_ability_spotter_sight" )
+	PrecacheWeapon( $"mp_ability_loot_compass" )
+	PrecacheWeapon( $"mp_weapon_cover_wall" )
+	PrecacheWeapon( $"mp_ability_ground_slam" )
+	PrecacheWeapon( $"mp_ability_split_timeline" )
+	PrecacheWeapon( $"mp_weapon_debris_trap" )
+	PrecacheWeapon( $"mp_weapon_grenade_barrier" )
+	
+	//END CUSTOM BY @CafeFPS
+	////////////////////////
+	
+	PrecacheWeapon( $"mp_weapon_melee_survival" )
 	PrecacheWeapon( $"mp_turretweapon_blaster" )
-
 	PrecacheWeapon( $"mp_weapon_mdlspawner" )
 	PrecacheWeapon( $"mp_weapon_alternator_smg" )
 	PrecacheWeapon( $"mp_weapon_bubble_bunker" )
@@ -335,13 +483,7 @@ void function CodeCallback_MapSpawn() // original script entry point
 	PrecacheWeapon( $"npc_weapon_energy_shotgun" )
 	PrecacheWeapon( $"npc_weapon_hemlok" )
 	PrecacheWeapon( $"npc_weapon_lstar" )
-	PrecacheWeapon( $"mp_ability_emote_projector" )
-	//PrecacheWeapon( $"mp_weapon_3030" )
-	PrecacheWeapon( $"mp_weapon_vctblue_primary" )
-	PrecacheWeapon( $"melee_vctblue" )
-	PrecacheWeapon( $"mp_weapon_flamethrower" )
-	
-	
+	//PrecacheWeapon( $"mp_weapon_3030" )	
 	
 	// TITANFALL ASSET PRECACHE SECTION - LorryLeKral
 	PrecacheWeapon( $"mp_weapon_epg" )
@@ -362,27 +504,6 @@ void function CodeCallback_MapSpawn() // original script entry point
 	PrecacheWeapon( $"mp_weapon_droneplasma" )//remove these from here later!!! -kral
 	PrecacheWeapon( $"mp_weapon_dronerocket" )
 
-	switch( GameRules_GetGameMode() )
-	{
-		case CUSTOM_CTF:
-			PrecacheWeapon( $"melee_flagpole" )
-			PrecacheWeapon( $"mp_weapon_flagpole_primary" )
-			break
-		case fs_prophunt:
-			PrecacheWeapon( $"mp_weapon_flashbang_fakeultimate" )
-			PrecacheWeapon( $"mp_weapon_changeprops_fakeultimate" )
-			break
-		case fs_dm:
-			break
-		case fs_aimtrainer:
-			break
-		default:
-			LoadModelsFromEditor()
-
-			//PrecacheWeapon( $"mp_weapon_grenade_gravity" )			
-			break
-	}
-	
 	if ( GetCurrentPlaylistVarBool( "movement_map_enable", false ) )
 	{
 		_CheckPoints_Init()
@@ -390,29 +511,14 @@ void function CodeCallback_MapSpawn() // original script entry point
 	}
 
 	PrecacheWeapon( $"mp_ability_cloak" )
-	PrecacheWeapon( $"mp_ability_phase_rewind" )
-	PrecacheWeapon( $"mp_ability_space_elevator_tac" )
 	PrecacheWeapon( $"mp_weapon_melee_boxing_ring" )
 	PrecacheWeapon( $"melee_boxing_ring" )
 	PrecacheWeapon( $"mp_ability_silence" )
 	PrecacheWeapon( $"mp_ability_revenant_death_totem" )
 
-	//PrecacheModel( $"mdl/Humans/pilots/w_blisk.rmdl" )
-	//PrecacheModel( $"mdl/Humans/pilots/pov_blisk.rmdl" )
-	PrecacheModel( $"mdl/Humans/pilots/w_phantom.rmdl" )
-	PrecacheModel( $"mdl/Humans/pilots/ptpov_phantom.rmdl" )
-	PrecacheModel( $"mdl/Humans/pilots/w_amogino.rmdl" )
-	//PrecacheModel( $"mdl/Humans/pilots/ptpov_amogino.rmdl" )
-	PrecacheModel( $"mdl/Humans/pilots/w_rhapsody.rmdl" )
-	PrecacheModel( $"mdl/Humans/pilots/ptpov_rhapsody.rmdl" )
-	//PrecacheModel( $"mdl/Humans/pilots/w_ash_legacy.rmdl" )
-	//PrecacheModel( $"mdl/Humans/pilots/pov_ash_legacy.rmdl" )
-	//PrecacheModel( $"mdl/Humans/pilots/w_jackcooper.rmdl" )
-	//PrecacheModel( $"mdl/Humans/pilots/ptpov_jackcooper.rmdl" )
 	PrecacheModel( $"mdl/Humans/class/medium/pilot_medium_loba.rmdl" )
 	PrecacheModel( $"mdl/Weapons/arms/pov_pilot_medium_loba.rmdl" )
 	PrecacheModel( $"mdl/fx/loba_staff_holo_stand.rmdl" )
-
 
 	PrecacheModel( $"mdl/dev/empty_model_revenant.rmdl" )
 	PrecacheModel( $"mdl/humans/class/heavy/pilot_heavy_revenant.rmdl" )
@@ -422,32 +528,6 @@ void function CodeCallback_MapSpawn() // original script entry point
 	PrecacheModel( $"mdl/Weapons/revenant_grenade/ptpov_revenant_grenade.rmdl" )
 	PrecacheModel( $"mdl/weapons_r5/misc_revenant_grenade/projectile_revenant_grenade.rmdl" )
 
-	PrecacheModel( $"mdl/Weapons/lightsaber/w_lightsaber.rmdl" )
-	PrecacheModel( $"mdl/Weapons/lightsaber/ptpov_lightsaber.rmdl" )
-	PrecacheModel( $"mdl/Humans/pilots/ballistic_base_w.rmdl" )
-	PrecacheModel( $"mdl/Humans/pilots/ballistic_base_v.rmdl" )
-	PrecacheModel( $"mdl/flowstate_custom/w_marvin.rmdl" )
-	//PrecacheModel( $"mdl/flowstate_custom/evac_tower_balloon.rmdl" )
-	//PrecacheModel( $"mdl/flowstate_custom/evac_tower_weight.rmdl" )
-	PrecacheModel( $"mdl/flowstate_custom/w_pete_mri.rmdl" )
-	PrecacheModel( $"mdl/flowstate_custom/ptpov_pete_mri.rmdl" )
-	//PrecacheModel( $"mdl/domestic/nessy_doll.rmdl" )
-
-	PrecacheModel( $"mdl/techart/mshop/characters/legends/catalyst/catalyst_base_w.rmdl" )
-	PrecacheModel( $"mdl/techart/mshop/characters/legends/catalyst/catalyst_base_v.rmdl" )
-	PrecacheModel( $"mdl/Humans/class/medium/pilot_medium_valkyrie.rmdl" )
-	PrecacheModel( $"mdl/Weapons/arms/pov_pilot_medium_valkyrie.rmdl" )
-	PrecacheModel( $"mdl/Humans/class/medium/pilot_medium_nova_01.rmdl" )
-	PrecacheModel( $"mdl/Weapons/arms/pov_pilot_medium_nova_base_01.rmdl" )
-	PrecacheModel( $"mdl/techart/mshop/characters/legends/ash/ash_base_v.rmdl" )
-	PrecacheModel( $"mdl/techart/mshop/characters/legends/ash/ash_base_w.rmdl" )
-	
-	//PrecacheModel( $"mdl/robots/spectre/imc_spectre.rmdl" )
-	//PrecacheModel( $"mdl/robots/stalker/robot_stalker.rmdl" )
-	//PrecacheModel( $"mdl/Humans/grunts/imc_grunt_lmg_corpse.rmdl" )
-	PrecacheModel( $"mdl/creatures/prowler/prowler_apex.rmdl" )
-	//PrecacheModel( $"mdl/creatures/spider/spider.rmdl" )
-	
 	PrecacheModel( $"mdl/Weapons/loba_rings/ptpov_loba_rings.rmdl" )
 	PrecacheModel( $"mdl/Weapons/loba_rings/w_loba_rings.rmdl" )
 	PrecacheModel( $"mdl/Weapons/p2011/ptpov_p2011_loba.rmdl" )
@@ -457,56 +537,14 @@ void function CodeCallback_MapSpawn() // original script entry point
 	PrecacheModel( $"mdl/props/loba_mirror/loba_mirror.rmdl" )
 	PrecacheModel( $"mdl/props/loba_loot_stick/loba_loot_stick.rmdl" )
 	PrecacheModel( $"mdl/Weapons/p2011/w_p2011_loba_prop_version.rmdl" )
-
-	PrecacheWeapon( $"mp_weapon_turret" )
-	PrecacheWeapon( $"mp_weapon_satchel" )
-	PrecacheWeapon( $"melee_titan_sword" )
-	PrecacheWeapon( $"mp_weapon_titan_sword" )
-	PrecacheWeapon( $"npc_weapon_turret_volt" )
-
-	if( GetCurrentPlaylistVarBool( "enable_oddball_gamemode", false ) )
-	{
-		PrecacheWeapon( $"mp_weapon_oddball_primary" )
-		PrecacheWeapon( $"melee_oddball" )
-	}
-
-	if( GetCurrentPlaylistVarBool( "is_halo_gamemode", false ) )
-	{
-		PrecacheParticleSystem( $"P_snow_atmo_512" )
-		PrecacheWeapon( $"mp_ability_grapple_master_chief" )
-		PrecacheWeapon( $"mp_weapon_bubble_bunker_master_chief" )
 	
-		//tried to move this to skins logic but it has a lot of textures, uvs would need to be redone to reduce the amount of materials on each model. Colombia
-		PrecacheModel( $"mdl/Humans/pilots/w_master_chief.rmdl" )
-		PrecacheModel( $"mdl/Humans/pilots/ptpov_master_chief.rmdl" )
-
-		PrecacheModel( $"mdl/Humans/pilots/w_master_chief.rmdl" )
-		PrecacheModel( $"mdl/Humans/pilots/ptpov_master_chief.rmdl" )
-		
-		PrecacheModel( $"mdl/Humans/pilots/w_master_chief_blue.rmdl" )
-		PrecacheModel( $"mdl/Humans/pilots/ptpov_master_chief_blue.rmdl" )
-		
-		PrecacheModel( $"mdl/Humans/pilots/w_master_chief_pink.rmdl" )
-		PrecacheModel( $"mdl/Humans/pilots/ptpov_master_chief_pink.rmdl" )
-		
-		PrecacheModel( $"mdl/Humans/pilots/w_master_chief_orange.rmdl" )
-		PrecacheModel( $"mdl/Humans/pilots/ptpov_master_chief_orange.rmdl" )
-		
-		PrecacheModel( $"mdl/Humans/pilots/w_master_chief_red.rmdl" )
-		PrecacheModel( $"mdl/Humans/pilots/ptpov_master_chief_red.rmdl" )
-		
-		PrecacheModel( $"mdl/Humans/pilots/w_master_chief_purple.rmdl" )
-		PrecacheModel( $"mdl/Humans/pilots/ptpov_master_chief_purple.rmdl" )
-		
-		PrecacheModel( $"mdl/Humans/pilots/w_master_chief_yellow.rmdl" )
-		PrecacheModel( $"mdl/Humans/pilots/ptpov_master_chief_yellow.rmdl" )
-
-		PrecacheModel( $"mdl/Humans/pilots/w_master_chief_white.rmdl" )
-		PrecacheModel( $"mdl/Humans/pilots/ptpov_master_chief_white.rmdl" )
-		
-		PrecacheModel( $"mdl/flowstate_custom/w_haloelite.rmdl" )
-		PrecacheModel( $"mdl/flowstate_custom/ptpov_haloelite.rmdl" )
-	}
+	//PrecacheModel( $"mdl/robots/spectre/imc_spectre.rmdl" )
+	//PrecacheModel( $"mdl/robots/stalker/robot_stalker.rmdl" )
+	//PrecacheModel( $"mdl/Humans/grunts/imc_grunt_lmg_corpse.rmdl" )
+	PrecacheModel( $"mdl/creatures/prowler/prowler_apex.rmdl" )
+	//PrecacheModel( $"mdl/creatures/spider/spider.rmdl" )
+	
+	PrecacheWeapon( $"mp_weapon_satchel" )
 
 	SV_CL_Shared_Init()
 	ClientCommands_Init()
@@ -562,6 +600,7 @@ void function CodeCallback_MapSpawn() // original script entry point
 	}
 	
 	thread FS_RestartServerAfterSomeTimeWithoutPlayers()
+	
 	FS_ResetMapLightning()
 }
 
