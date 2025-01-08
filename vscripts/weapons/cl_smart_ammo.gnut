@@ -235,17 +235,18 @@ void function SmartAmmo_LockedOntoWarningHUD_Update()
 		//	RuiSetBool( file.lockon_hud, "westLock", false )
 		//	RuiSetBool( file.lockon_hud, "eastLock", false )
 		//}
-		else if ( StatusEffect_GetSeverity( player, eStatusEffect.split_timeline ) > 0.0 )
-		{
-			RuiSetString( file.lockon_hud, "lockMessage", "#SPLIT_TIMELINE_STATUS" )
-			RuiSetGameTime( file.lockon_hud, "lockEndTime", Time() + ( SPLIT_TIMELINE_DURATION * StatusEffect_GetSeverity( player, eStatusEffect.split_timeline) ) )
-			RuiSetBool( file.lockon_hud, "isVisible", true )
-			RuiSetBool( file.lockon_hud, "northLock", false )
-			RuiSetBool( file.lockon_hud, "southLock", false )
-			RuiSetBool( file.lockon_hud, "westLock", false )
-			RuiSetBool( file.lockon_hud, "eastLock", false )
-			RuiSetFloat3( file.lockon_hud, "borderColor", borderColor )
-		}
+		
+		// else if ( StatusEffect_GetSeverity( player, eStatusEffect.split_timeline ) > 0.0 )
+		// {
+			// RuiSetString( file.lockon_hud, "lockMessage", "#SPLIT_TIMELINE_STATUS" )
+			// RuiSetGameTime( file.lockon_hud, "lockEndTime", Time() + ( SPLIT_TIMELINE_DURATION * StatusEffect_GetSeverity( player, eStatusEffect.split_timeline) ) )
+			// RuiSetBool( file.lockon_hud, "isVisible", true )
+			// RuiSetBool( file.lockon_hud, "northLock", false )
+			// RuiSetBool( file.lockon_hud, "southLock", false )
+			// RuiSetBool( file.lockon_hud, "westLock", false )
+			// RuiSetBool( file.lockon_hud, "eastLock", false )
+			// RuiSetFloat3( file.lockon_hud, "borderColor", borderColor )
+		// }
 		else if ( StatusEffect_GetSeverity( player, eStatusEffect.hunt_mode ) > 0.0 )
 		{
 			RuiSetString( file.lockon_hud, "lockMessage", "#HUNT_MODE_STATUS" )
