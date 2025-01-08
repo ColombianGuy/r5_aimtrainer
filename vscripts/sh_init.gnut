@@ -78,6 +78,7 @@ void function SV_CL_Init()
 	MinimapShared_Init()
 	NetworkMarkerShared_Init()
 	PlayerLeechingShared_Init()
+
 	// TriggerFunctions_Init()
 	InitWeaponScripts()
 	Death_Package_Init()
@@ -173,20 +174,18 @@ void function SV_CL_Init()
 	ShWarpGates_Init()
 
 	Sh_Loot_Vault_Panel_Init()
-	ChargePylons_Init()
 
 	ShLootDrones_Init()
 	Sh_EvacShip_Init()
 	ShLootRollers_Init()
 
-	MpWeaponGuidedMissile_Init()
 	CharacterSelectNewMenu_Init()
+	// MpWeaponLifelineBatonPrimary_Init()
 
 	//ShHoverBike_Init()
 	//ShHoverVehicle_Init()
 	Sh_SkydiveLaunchers_Init()
 	ShLootBin_Init()
-
 	ShFlyers_Init()
 
 	ShGameModeShadowSquad_Init()
@@ -197,17 +196,43 @@ void function SV_CL_Init()
 	Sh_PassiveVoices_Init()
 	ShPassiveAdrenaline_Init()
 	
-	//R5R Sword
-	MpWeaponTitanSword_Init()
-	MpWeaponPortalGun_Init()
+	// Custom - Made by @CafeFPS
+	MpWeaponTitanSword_Init() //Flowstate Sword
+	MpWeaponFlameThrower_Init()
+	// MpUltimatePhaseChamber_Init()
+	// MpWeaponPortalGun_Init() //It needs rework
+	MpNextBots_Init()
+	// MpAbilityTank_Init()
+	// MpWeaponGuidedMissile_Init()
+	ChargePylons_Init()
+	MpWeaponRingFlare_Init()
+	if( Playlist() != ePlaylists.fs_1v1 && Playlist() != ePlaylists.fs_lgduels_1v1  && Playlist() != ePlaylists.fs_scenarios )
+		MpWeaponEmoteProjector_Init()
+	MpSpaceElevatorAbility_Init()
+	Clickweapon_Init() //Lightning Gun
+	///////////////////// END CUSTOM
+	
+	// S0 Dev PROTOS - Ported by @CafeFPS
+	// MpWeaponConcussiveBreach_Init()
+	// MpWeaponGrenadeFlashbang_Init()
+	// ShPassiveShotgunKick_Init()
+	// MpAbilityMaelstromJavelin_Init()
+	// MpAbilitySonicShoutWeapon_Init()
+	// MpAbilityRiotShield_Init()
+	// MpAbilitySpotterSight_Init()
+	// MpAbilityLootCompass_Init()
+	// MpWeaponCoverWall_Init()
+	// MpWeaponGroundSlam_Init()
+	// MpAbilitySplitTimelineWeapon_Init()
+	// MpWeaponDebrisTrap_Init()
+	// MpWeaponGrenadeBarrier_Init()
+	///////////////////// END DEV PROTOS
 
 	WeaponMastiff_Init()
 	WorldDrawAsset_Init()
 
-	MpWeaponFlameThrower_Init()
 	MpWeaponSentinel_Init()
 	ProtoBatteryCharger_Init()
-	// MpUltimatePhaseChamber_Init()
 	ShIncapShield_Init()
 	
 	Sh_Squads_Init()
