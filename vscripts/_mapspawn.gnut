@@ -268,7 +268,9 @@ void function CodeCallback_MapSpawn() // original script entry point
 	PrecacheModel( $"mdl/weapons_r5/loot/_master/w_loot_wep_ammo_sniper.rmdl" )
 	PrecacheModel( $"mdl/robots/marvin/marvin.rmdl" )
 	PrecacheModel( $"mdl/weapons/sentry_turret/sentry_turret.rmdl" )
-
+	
+	PrecacheWeapon( $"mp_ability_phase_chamber" )
+	PrecacheWeapon( $"mp_weapon_ringflare" )
 	PrecacheWeapon( $"mp_weapon_melee_survival" )
 	PrecacheWeapon( $"mp_weapon_melee_halo" )
 	PrecacheWeapon( $"melee_pilot_emptyhanded_halo" )

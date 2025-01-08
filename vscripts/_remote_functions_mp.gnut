@@ -250,8 +250,8 @@ void function RemoteFunctions_Init_Begin()
 	Remote_RegisterUntypedFunction_deprecated( "fs_NewBoxShowMessage" )
 		
 	// Ringflare
-	// Remote_RegisterClientFunction( "EnterTriggerRF", "entity")
-	// Remote_RegisterClientFunction( "ExitTriggerRF", "entity")
+	Remote_RegisterClientFunction( "EnterTriggerRF", "entity")
+	Remote_RegisterClientFunction( "ExitTriggerRF", "entity")
 	
 	//Evo shield mod
 	if( GetCurrentPlaylistVarBool( "flowstate_evo_shields", false ) )
@@ -663,7 +663,7 @@ void function RemoteFunctions_Init_Begin()
 	RegisterServerVar( "winningTeam", null )
 
 	//Fade REVISIT
-	//Remote_RegisterClientFunction( "ServerCallback_SonarPhaseChamber", "entity", "entity", "float", 0.0, 32000.0, 32 )
+	Remote_RegisterClientFunction( "ServerCallback_SonarPhaseChamber", "entity", "entity", "float", 0.0, 32000.0, 32 )
 	
 	// Attack/Defend based game modes
 	RegisterNetworkedVariable( "attackingTeam", SNDC_GLOBAL, SNVT_INT, TEAM_UNASSIGNED )
