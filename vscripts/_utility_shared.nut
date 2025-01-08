@@ -151,17 +151,12 @@ void function InitWeaponScripts()
 	//		PrecacheProjectileEntity( "crossbow_bolt" )
 	//	#endif
 
-	if( Playlist() != ePlaylists.fs_1v1 && Playlist() != ePlaylists.fs_lgduels_1v1  && Playlist() != ePlaylists.fs_scenarios )
-		MpWeaponEmoteProjector_Init()
-
 	MpWeaponDoubletake_Init()
 	//MpWeaponGrenadeGravity_Init()
-	MpSpaceElevatorAbility_Init()
 	MpAbilityShifter_Init()
 	MpWeaponDefender_Init()
 	MpWeaponDmr_Init()
 	MpWeaponSmartPistol_Init()
-	//MpWeaponGuidedMissile_Init()
 	SonarGrenade_Init()
 	MpWeaponSniper_Init()
 	MpWeaponLSTAR_Init()
@@ -204,8 +199,7 @@ void function InitWeaponScripts()
 	MpWeaponTrophy_Init()
 
 	MpWeaponBasicBolt_Init()
-	
-	Clickweapon_Init() //cafe
+
 	WeaponMastiff_Init() //mkos
 
 	#if SERVER
