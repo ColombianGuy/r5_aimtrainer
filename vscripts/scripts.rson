@@ -969,9 +969,9 @@ Scripts:
 	weapons/mp_weapon_titan_sword_slam.nut
 	weapons/mp_weapon_titan_sword_launcher.nut
 	weapons/mp_weapon_titan_sword_super.nut
-	weapons/mp_weapon_grenade_cryonade.nut
+	// weapons/mp_weapon_grenade_cryonade.nut
 	weapons/mp_ability_phase_chamber.nut
-	weapons/mp_ability_tank.nut
+	// weapons/mp_ability_tank.nut
 	mp/sh_nextbots.gnut
 	weapons/mp_ability_emote_projector.nut
 	weapons/mp_weapon_raygun.nut
