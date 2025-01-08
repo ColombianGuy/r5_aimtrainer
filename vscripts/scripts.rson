@@ -1116,12 +1116,9 @@ Scripts:
 	custom_maps/_custom_ithurtsmap.nut
 	custom_maps/_custom_rankupmap.nut
 
-	//map editor props
-	_place_map_editor_props_here.nut
-	_mapeditor.gnut
-
     // ReMap Live
     mp/levels/mp_rr_remap.nut
+	_mapeditor.gnut
 	
     mp/_movement_recorder_deprecated.nut
 ]

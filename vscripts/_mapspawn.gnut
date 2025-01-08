@@ -504,12 +504,6 @@ void function CodeCallback_MapSpawn() // original script entry point
 	PrecacheWeapon( $"mp_weapon_droneplasma" )//remove these from here later!!! -kral
 	PrecacheWeapon( $"mp_weapon_dronerocket" )
 
-	if ( GetCurrentPlaylistVarBool( "movement_map_enable", false ) )
-	{
-		_CheckPoints_Init()
-		LoadMovementMap()
-	}
-
 	PrecacheWeapon( $"mp_ability_cloak" )
 	PrecacheWeapon( $"mp_weapon_melee_boxing_ring" )
 	PrecacheWeapon( $"melee_boxing_ring" )
@@ -766,84 +760,4 @@ entity function CreateMapEditorProp(asset a, vector pos, vector ang, bool mantle
     e.SetModelScale( scale )
     
 	return e
-}
-
-void function _CheckPoints_Init()
-{
-	AddClientCommandCallback( "cpTeleport", ClientCommand_TeleportToCurrentCp )
-	AddClientCommandCallback( "cpAdd", ClientCommand_AddOneToCpCount )
-	AddClientCommandCallback( "cpSub", ClientCommand_SubtractOneToCpCount)
-
-    AddCallback_OnClientConnected( Player_Init )
-}
-
-void function Player_Init( entity player ) {
-
-	thread function() : ( player )
-	{
-		while( !IsValid( player ) )
-			WaitFrame()
-		
-		wait 0.5 //!FIXME
-		if(!IsValid(player)) return
-		file.cp_table[player] <- 0
-		DecideRespawnPlayer(player, true)
-		player.UnfreezeControlsOnServer()
-		thread AutoTeleport(player)
-	}()
-}
-
-void function AutoTeleport(entity player) {
-	wait 0.5
-	if(!IsValid(player)) return
-	
-    player.SetOrigin(file.cps_pos[0])
-    player.SetAngles(file.cps_ang[0])
-}
-
-bool function ClientCommand_TeleportToCurrentCp(entity player, array<string> args)
-{
-
-	if( !IsValid( player ) )
-		return true
-	
-    player.SetOrigin(file.cps_pos[file.cp_table[player]])
-	player.SetAngles(file.cps_ang[file.cp_table[player]])
-			
-    return true
-}
-
-bool function ClientCommand_AddOneToCpCount(entity player, array<string> args)
-{
-	if( !IsValid( player ) )
-		return true
-	
-	file.cp_table[player] = (file.cp_table[player] + 1) % 7
-
-	// player.SetOrigin(file.cps_pos[file.current_cp])
-	// player.SetAngles(file.cps_ang[file.current_cp])
-
-    player.SetOrigin(file.cps_pos[file.cp_table[player]])
-	player.SetAngles(file.cps_ang[file.cp_table[player]])
-
-	return true
-}
-
-bool function ClientCommand_SubtractOneToCpCount(entity player, array<string> args)
-{
-	if( !IsValid( player ) )
-		return true
-	
-	// if (file.current_cp > 0) {
-	// 	file.current_cp = file.current_cp - 1
-	// } else {
-	// 	file.current_cp = 6
-	// }
-
-    file.cp_table[player] = (file.cp_table[player] + 6) % 7
-
-	player.SetOrigin(file.cps_pos[file.cp_table[player]])
-	player.SetAngles(file.cps_ang[file.cp_table[player]])
-
-	return true
 }
