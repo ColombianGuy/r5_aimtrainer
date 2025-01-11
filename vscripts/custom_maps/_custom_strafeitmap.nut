@@ -212,7 +212,6 @@ function strafeitmap_load() {
 
     prop = MapEditor_CreateProp( $"mdl/thunderdome/thunderdome_cage_frame_16x128_01.rmdl", < 9310.19, -22484.41, 46076.96 >, < -90, -60, 0 >, true, 50000, -1, 1 )
     prop.kv.solid = 3; Highlight_SetNeutralHighlight( prop, PROP_INTERACT_COLOR )
-    prop = MapEditor_CreateProp( $"mdl/props/charm/charm_nessy.rmdl", < 13203.31, -22006.29, 46426.46 >, < 25.66, 136.1, 93.68 >, true, 300, -1, 10 )
     prop = MapEditor_CreateProp( $"mdl/props/charm/charm_nessy.rmdl", < 13203.31, -22006.29, 46427.46 >, < 0, 30, -30 >, true, 300, -1, 10 )
     prop = MapEditor_CreateProp( $"mdl/timeshift/timeshift_bench_01.rmdl", < 13231.84, -22033.7, 46389.53 >, < 0, 30, 0 >, true, 300, -1, 1 )
     prop = MapEditor_CreateProp( $"mdl/thunderdome/thunderdome_cage_frame_128_01.rmdl", < 7933.11, -25113.76, 46573.76 >, < 0, -105, 0 >, true, 50000, -1, 1 )
