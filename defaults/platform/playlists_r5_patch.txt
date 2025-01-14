@@ -3978,6 +3978,54 @@ playlists
 			} } }
 		}
 
+		fs_strafeitmovementmappractice
+		{
+			inherit fs_survival
+			vars
+			{
+				visible											1
+			
+				name										   	"Strafe It Movement Map [Practice Map]"
+				
+				// match teams will not fill with more than one party, up to max_teams of size max_team_size (or less) -- not exceeding max_players
+				max_team_size									120
+				max_players										120
+				min_players										1
+
+				// Skip intros:
+				waiting_for_players_spawning_enabled		   	1
+				waiting_for_players_countdown_seconds		  	0
+				waiting_for_players_timeout_seconds				1
+				character_select_time_max					  	0.0
+				character_select_time_min					  	0.0
+				survival_enable_gladiator_intros			   	0
+				jump_from_plane_enabled							0
+
+				// No circle:
+				sur_circle_start_paused							1
+				
+				// Can change loadouts:
+				dev_loadout_changeable_at_any_time			 	1
+				sur_dev_unrestricted_character_changes		 	1
+				
+				// Bots:
+				sur_bots_spawn_with_random_weapons			 	1
+				match_ending_enabled						   	0
+				
+				//Flowstate by CafeFPS
+				
+				survival_shields								1
+				survival_infinite_ammo							1
+
+				is_practice_map									1
+			}
+			gamemodes { survival { maps {
+				mp_rr_desertlands_64k_x_64k						1
+				mp_rr_desertlands_64k_x_64k_nx				 	1
+				mp_rr_desertlands_64k_x_64k_tt				 	1	
+			} } }
+		}
+
 		survival_firingrange
 		{
 			inherit fs_survival

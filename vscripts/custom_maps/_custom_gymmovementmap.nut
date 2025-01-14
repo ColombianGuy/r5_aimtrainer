@@ -67,13 +67,15 @@ function Gymmovementmap_precache() {
     PrecacheModel($"mdl/thunderdome/thunderdome_cage_wall_256x128_02.rmdl")
     PrecacheModel($"mdl/slum_city/slumcity_girdering_256x16_dirty_d.rmdl")
     PrecacheModel($"mdl/ola/sewer_staircase_96_double.rmdl")
+    file.characters = GetAllCharacters()
 }
 
 struct {
     vector first_cp = < 11500.01, -3531.309, 15243.27 >
-        table < entity, vector > cp_table = {}
+    table < entity, vector > cp_table = {}
     table < entity, vector > cp_angle = {}
     table < entity, bool > last_cp = {}
+    array<ItemFlavor> characters
 }
 file
 
@@ -94,36 +96,29 @@ function Gymmovementmap_player_setup(entity player) {
     if (!IsValidPlayer(player))
 		return
 
-	CharacterSelect_AssignCharacter( ToEHI( player ), GetAllCharacters()[8] )
-
-	ItemFlavor playerCharacter = LoadoutSlot_GetItemFlavor( ToEHI( player ), Loadout_CharacterClass() )
-	asset characterSetFile = CharacterClass_GetSetFile( playerCharacter )
-	player.SetPlayerSettingsWithMods( characterSetFile, [] )
-	player.TakeOffhandWeapon(OFFHAND_TACTICAL)
-	player.TakeOffhandWeapon(OFFHAND_ULTIMATE)
-	TakeAllPassives(player)
-    player.SetPlayerNetBool("pingEnabled", false)
-    player.SetPersistentVar("gen", 0)
-
     file.cp_table[player] <- file.first_cp
-    file.cp_angle[player] <-  < 0, 180, 0 >
+    file.cp_angle[player] <- <0,180,0>
     file.last_cp[player] <- false
 
-    player.SetOrigin(file.cp_table[player])
-    player.SetAngles(file.cp_angle[player])
-    LocalMsg(player, "#FS_STRING_VAR", "", 9, 5.0, "Gym Map", "By: Loy Takian", "", false)
-    TakeAllPassives(player)
-    TakeAllWeapons(player)
-    if (!player.HasPassive(ePassives.PAS_PILOT_BLOOD))
-        GivePassive(player, ePassives.PAS_PILOT_BLOOD)
-    thread Gymmovementmap_SpawnInfoText(player)
-}
+    player.SetPersistentVar("gen", 0)
 
-void
-function Gymmovementmap_SpawnInfoText(entity player) {
-    FlagWait("EntitiesDidLoad")
-    wait 1
-    CreatePanelText(player, "Gym Map", "Made by: Loy", < 11425.01, -3531.51, 15322 > , < 0, 180, 0 > , false, 2)
+    LocalMsg(player, "#FS_STRING_VAR", "", 9, 5.0, "Gym Map", "By: Loy Takian", "", false)
+
+    thread
+    (
+        void
+        function() : (player) {
+            wait 3.0 
+            CharacterSelect_AssignCharacter( ToEHI( player ), file.characters[8] )
+            ItemFlavor playerCharacter = LoadoutSlot_GetItemFlavor( ToEHI( player ), Loadout_CharacterClass() )
+            asset characterSetFile = CharacterClass_GetSetFile( playerCharacter )
+            player.SetPlayerSettingsWithMods( characterSetFile, [] )
+            player.TakeOffhandWeapon(OFFHAND_TACTICAL)
+            player.TakeOffhandWeapon(OFFHAND_ULTIMATE)
+            player.SetOrigin(file.cp_table[player])
+            player.SetAngles(file.cp_angle[player]) 
+        }
+    )()
 }
 
 void
@@ -137,6 +132,7 @@ function Gymmovementmap_load() {
     array < entity > ClipNoGrappleNoClimb;
 
     // Props
+    MapEditor_CreateTextInfoPanel("Gym Map", "Made by: Loy", < 11425.01, -3531.51, 15322 > , < 0, 180, 0 > , false, 2)
     MapEditor_CreateProp( $"mdl/Weapons/projectiles/projectile_grapple_hook_anchor_bolt.rmdl", < 5703.629, -10734.05, 15885.22 >, < -90, 0, 0 >, true, 50000, -1, 2 )
     MapEditor_CreateProp( $"mdl/utilities/wall_Waterpipe.rmdl", < -3068.821, -10335.58, 17407.2 >, < 0, 179.9999, 0 >, true, 50000, -1, 1 )
     MapEditor_CreateProp( $"mdl/utilities/wall_Waterpipe.rmdl", < -3271.321, -10568.9, 17407.45 >, < 0, -89.9997, 0 >, true, 50000, -1, 1 )

@@ -41,6 +41,7 @@ function mantlemap_precache() {
     PrecacheModel($"mdl/floating_village/lagoon_window_metal_shutters_open_80x128.rmdl")
     PrecacheModel($"mdl/desertlands/desertlands_large_liquid_tank_01.rmdl")
     PrecacheModel($"mdl/fx/energy_ring_edge.rmdl")
+    file.characters = GetAllCharacters()
 }
 
 
@@ -48,6 +49,7 @@ struct {
     array < entity > door_list
     table < entity, vector > cp_table = {}
     vector first_cp = < 2015.6, -6767, 18139 >
+    array<ItemFlavor> characters
 }
 file
 
@@ -62,47 +64,6 @@ void
 function MantleJumpMapEntitiesDidLoad() {
     thread mantlemap_load()
     thread mantlemap_reset_doors()
-}
-
-void
-function mantlemap_SpawnInfoText(entity player) {
-    CreatePanelText(player, "12", "", < 2808.018, -28037.01, 23739.73 > , < 0, -179.9997, 0 > , false, 1)
-    CreatePanelText(player, "11", "", < 1471.772, 10931.9, 24457.32 > , < 0, 89.986, 0 > , false, 1)
-    CreatePanelText(player, "9", "", < 1936.201, -26709.17, 21599.13 > , < 0, 0, 0 > , false, 1)
-    CreatePanelText(player, "17", "", < 1937.939, 12683.44, 30704.32 > , < 0, -89.9993, 0 > , false, 1)
-    CreatePanelText(player, "Hard", "Course", < 2089.4, -7017.9, 18365.4 > , <- 15, -90.0001, 0 > , false, 1)
-    CreatePanelText(player, "14", "", < 1255.536, 12189.64, 27790.52 > , < 0, 90, 0 > , false, 1)
-    CreatePanelText(player, "12", "", < 1254.773, 11273.9, 25557.85 > , < 0, 89.986, 0 > , false, 1)
-    CreatePanelText(player, "Loy and Treeree", "Made by:", < 2216, -6772.2, 18288.4 > , < 0, -0.0001, 0 > , false, 1)
-    CreatePanelText(player, "8", "", < 1968.266, -25003.8, 21001.33 > , < 0, 0, 0 > , false, 1)
-    CreatePanelText(player, "2", "", < 3090.481, 11751.27, 15211.33 > , < 0, -90, 0 > , false, 1)
-    CreatePanelText(player, "18", "", < 1979.999, 13474.49, 31602 > , < 0, 89.986, 0 > , false, 1)
-    CreatePanelText(player, "10", "", < 1262.772, 10591.9, 23353.32 > , < 0, 89.986, 0 > , false, 1)
-    CreatePanelText(player, "1", "", < 3088.958, 12428.77, 14204.52 > , < 0, -90, 0 > , false, 1)
-    CreatePanelText(player, "6", "", < 1513.766, 10177.18, 19229.32 > , < 0, 179.998, 0 > , false, 1)
-    CreatePanelText(player, "7", "", < 1603.318, 9425.265, 20230.32 > , < 0, -90.0021, 0 > , false, 1)
-    CreatePanelText(player, "13", "", < 1255.536, 11566.54, 26758.52 > , < 0, 90, 0 > , false, 1)
-    CreatePanelText(player, "10", "", < 3058.363, -27627.1, 22115.23 > , < 0.0001, -90.0066, 0 > , false, 1)
-    CreatePanelText(player, "16", "", < 1937.937, 12864.44, 29869.52 > , < 0, 90, 0 > , false, 1)
-    CreatePanelText(player, "14", "", < 5490.953, -28042.9, 25540.73 > , < 0, 0.0004, 0 > , false, 1)
-    CreatePanelText(player, "3", "", < 919.191, -19924.7, 17935.63 > , < 0, -90, 0 > , false, 1)
-    CreatePanelText(player, "4", "", < 2453.969, 10792.12, 17230.32 > , < 0, 179.9999, 0 > , false, 1)
-    CreatePanelText(player, "15", "", < 1768.841, 12357.96, 28827.62 > , < 0, 0, 0 > , false, 1)
-    CreatePanelText(player, "7", "", < 1609.794, -24807.92, 19455.93 > , < 0, -90.0001, 0 > , false, 1)
-    CreatePanelText(player, "13", "", < 3511.953, -28098.9, 25309.73 > , < 0, 0.0004, 0 > , false, 1)
-    CreatePanelText(player, "5", "", < 2266.317, 10082.27, 18228.32 > , < 0, -90.002, 0 > , false, 1)
-    CreatePanelText(player, "6", "", < 1608.996, -23639.72, 19372.13 > , < 0, -90.0001, 0 > , false, 1)
-    CreatePanelText(player, "2", "", < 924.0396, -19279.3, 16767.73 > , < 0, 90, 0 > , false, 1)
-    CreatePanelText(player, "15", "", < 5313.953, -29838.89, 27516.73 > , < 0, -89.9996, 0 > , false, 1)
-    CreatePanelText(player, "4", "", < 922, -22078.9, 17974.53 > , < 0, -90, 0 > , false, 1)
-    CreatePanelText(player, "19", "", < 1920.812, 15773.8, 31816.7 > , < 0, 89.986, 0 > , false, 1)
-    CreatePanelText(player, "9", "", < 1462.706, 10455.62, 22277.32 > , < 0, 179.9838, 0 > , false, 1)
-    CreatePanelText(player, "8", "", < 1599.416, 10266.69, 21202.32 > , < 0, 90.0198, 0 > , false, 1)
-    CreatePanelText(player, "1", "", < 417.5096, -19512.2, 15237 > , < 0, -90, 0 > , false, 1)
-    CreatePanelText(player, "Easy", "Course", < 1993.801, -6364.4, 18217.2 > , < 0, 89.9999, 0 > , false, 1)
-    CreatePanelText(player, "3", "", < 3090.481, 11049.27, 16217.35 > , < 0, -90, 0 > , false, 1)
-    CreatePanelText(player, "11", "", < 4172.018, -27979.01, 23481.73 > , < 0, -179.9997, 0 > , false, 1)
-    CreatePanelText(player, "5", "", < 1609.001, -22377.32, 19372.23 > , < 0, -90.0001, 0 > , false, 1)
 }
 
 void
@@ -130,23 +91,30 @@ void
 function mantlemap_player_setup(entity player) {
     if (!IsValidPlayer(player))
 		return
+    
+    file.cp_table[player] <- file.first_cp
+
+    player.SetPersistentVar("gen", 0)
 
 	CharacterSelect_AssignCharacter( ToEHI( player ), GetAllCharacters()[8] )
 
-	ItemFlavor playerCharacter = LoadoutSlot_GetItemFlavor( ToEHI( player ), Loadout_CharacterClass() )
-	asset characterSetFile = CharacterClass_GetSetFile( playerCharacter )
-	player.SetPlayerSettingsWithMods( characterSetFile, [] )
-	player.TakeOffhandWeapon(OFFHAND_TACTICAL)
-	player.TakeOffhandWeapon(OFFHAND_ULTIMATE)
-	TakeAllPassives(player)
-    player.SetPlayerNetBool("pingEnabled", false)
-    player.SetPersistentVar("gen", 0)
-    player.SetOrigin(file.first_cp)
-    TakeAllPassives(player)
-    TakeAllWeapons(player)
-    player.SetAngles( < 0, 0, 0 > )
     LocalMsg(player, "#FS_STRING_VAR", "", 9, 5.0, "Mantle Jump Map", "By: Loy & Treeree", "", false)
-    mantlemap_SpawnInfoText(player)
+	
+    thread
+    (
+        void
+        function() : (player) {
+            wait 3.0 
+            CharacterSelect_AssignCharacter( ToEHI( player ), file.characters[8] )
+            ItemFlavor playerCharacter = LoadoutSlot_GetItemFlavor( ToEHI( player ), Loadout_CharacterClass() )
+            asset characterSetFile = CharacterClass_GetSetFile( playerCharacter )
+            player.SetPlayerSettingsWithMods( characterSetFile, [] )
+            player.TakeOffhandWeapon(OFFHAND_TACTICAL)
+            player.TakeOffhandWeapon(OFFHAND_ULTIMATE)
+            player.SetOrigin(file.cp_table[player])
+            player.SetAngles(< 0, 0, 0 >) 
+        }
+    )()
 }
 
 void
@@ -155,6 +123,44 @@ function mantlemap_load() { // Props Array
     array < entity > ClipInvisibleNoGrappleNoClimbArray;
 
     // Props
+    MapEditor_CreateTextInfoPanel("12", "", < 2808.018, -28037.01, 23739.73 > , < 0, -179.9997, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("11", "", < 1471.772, 10931.9, 24457.32 > , < 0, 89.986, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("9", "", < 1936.201, -26709.17, 21599.13 > , < 0, 0, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("17", "", < 1937.939, 12683.44, 30704.32 > , < 0, -89.9993, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("Hard", "Course", < 2089.4, -7017.9, 18365.4 > , <- 15, -90.0001, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("14", "", < 1255.536, 12189.64, 27790.52 > , < 0, 90, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("12", "", < 1254.773, 11273.9, 25557.85 > , < 0, 89.986, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("Loy and Treeree", "Made by:", < 2216, -6772.2, 18288.4 > , < 0, -0.0001, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("8", "", < 1968.266, -25003.8, 21001.33 > , < 0, 0, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("2", "", < 3090.481, 11751.27, 15211.33 > , < 0, -90, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("18", "", < 1979.999, 13474.49, 31602 > , < 0, 89.986, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("10", "", < 1262.772, 10591.9, 23353.32 > , < 0, 89.986, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("1", "", < 3088.958, 12428.77, 14204.52 > , < 0, -90, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("6", "", < 1513.766, 10177.18, 19229.32 > , < 0, 179.998, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("7", "", < 1603.318, 9425.265, 20230.32 > , < 0, -90.0021, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("13", "", < 1255.536, 11566.54, 26758.52 > , < 0, 90, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("10", "", < 3058.363, -27627.1, 22115.23 > , < 0.0001, -90.0066, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("16", "", < 1937.937, 12864.44, 29869.52 > , < 0, 90, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("14", "", < 5490.953, -28042.9, 25540.73 > , < 0, 0.0004, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("3", "", < 919.191, -19924.7, 17935.63 > , < 0, -90, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("4", "", < 2453.969, 10792.12, 17230.32 > , < 0, 179.9999, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("15", "", < 1768.841, 12357.96, 28827.62 > , < 0, 0, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("7", "", < 1609.794, -24807.92, 19455.93 > , < 0, -90.0001, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("13", "", < 3511.953, -28098.9, 25309.73 > , < 0, 0.0004, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("5", "", < 2266.317, 10082.27, 18228.32 > , < 0, -90.002, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("6", "", < 1608.996, -23639.72, 19372.13 > , < 0, -90.0001, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("2", "", < 924.0396, -19279.3, 16767.73 > , < 0, 90, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("15", "", < 5313.953, -29838.89, 27516.73 > , < 0, -89.9996, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("4", "", < 922, -22078.9, 17974.53 > , < 0, -90, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("19", "", < 1920.812, 15773.8, 31816.7 > , < 0, 89.986, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("9", "", < 1462.706, 10455.62, 22277.32 > , < 0, 179.9838, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("8", "", < 1599.416, 10266.69, 21202.32 > , < 0, 90.0198, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("1", "", < 417.5096, -19512.2, 15237 > , < 0, -90, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("Easy", "Course", < 1993.801, -6364.4, 18217.2 > , < 0, 89.9999, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("3", "", < 3090.481, 11049.27, 16217.35 > , < 0, -90, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("11", "", < 4172.018, -27979.01, 23481.73 > , < 0, -179.9997, 0 > , false, 1)
+    MapEditor_CreateTextInfoPanel("5", "", < 1609.001, -22377.32, 19372.23 > , < 0, -90.0001, 0 > , false, 1)
+
     MapEditor_CreateProp($"mdl/fx/ar_marker_big_arrow_down.rmdl", < 3279.9, -28034, 24126.73 > , <- 30.0001, 0, 0 > , true, 250, -1, 1)
     MapEditor_CreateProp($"mdl/fx/ar_marker_big_arrow_down.rmdl", < 3300, -28034, 24709.73 > , <- 30.0001, 0, 0 > , true, 250, -1, 1)
     MapEditor_CreateProp($"mdl/fx/ar_marker_big_arrow_down.rmdl", < 2686, -28034, 23840.73 > , <- 30, -179.9997, 0 > , true, 250, -1, 1)

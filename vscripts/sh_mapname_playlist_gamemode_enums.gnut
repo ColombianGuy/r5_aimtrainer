@@ -120,6 +120,7 @@ global enum ePlaylists
 	fs_realistic_ttv, //45
 	fs_1v1_coaching, //46
 	fs_haloMod_survival, //47
+	fs_strafeitmovementmappractice //48
 	
 	_PLAYLISTS_COUNT //LAST
 }

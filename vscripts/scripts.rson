@@ -1118,7 +1118,8 @@ Scripts:
 
     // ReMap Live
     mp/levels/mp_rr_remap.nut
-	_mapeditor.gnut
+	  _mapeditor.gnut
+    custom_maps/_custom_strafeitmap.nut
 	
     mp/_movement_recorder_deprecated.nut
 ]
