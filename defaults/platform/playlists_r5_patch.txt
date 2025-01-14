@@ -18,12 +18,17 @@ playlists
 				///////////////////////////////////////////////////////////////////////////////////
 
 				///////////////////////////////////////////////////////////////////////////////////
-				//// General Flowstate Custom Settings										///////
+				//// General Flowstate Custom Settings by @CafeFPS							///////
 				///////////////////////////////////////////////////////////////////////////////////
 
+				flowstate_enable_weapons_locked_sets			1 //Enables predefined white, blue, purple weapons.
+				flowstate_disable_doublejump_jumppad			0 //Disables double jump in Octane's jumppad
 				
-				flowstate_see_enemies_in_minimap				0
-				replay_disabled									1 //Only works in survival modes
+				flowstate_change_ring_close_speeds_dynamically	0 //Survival modes only. Changes the ring close speeds dynamically based on the amount of players connected (wip)
+				flowstate_allow_friendly_damage					0 //Enables Friendly damage
+				
+				flowstate_see_enemies_in_minimap				0 //Radar
+				replay_disabled									1 //For Survival modes
 				
 				enable_grapple_recovers_banner						0
 				gibraltar_fast_revive								1
@@ -37,6 +42,8 @@ playlists
 				
 				lifeline_shield_revive_enabled						0 //Enables Lifeline's Season 3 shield
 				circular_hud										0 //Pilot HUD
+				
+				//Retail Bleedout system
 				bleedout_enable										0 //Not required to be enabled it here
 				bleedout_can_force_bleedout_timeout					0 //Hold crouch key to die
 				bleedout_has_infinite_self_res						0 //Players will have infinite self res
@@ -55,9 +62,7 @@ playlists
 				force_plane_to_spawn_without_players 			0
 				flyers_to_spawn 								8		//Retail value: 8
 				evil_flyers										0
-				
-				survival_plane_jump_duration					60.0
-				survival_plane_jump_delay						5.0
+
 				register_damage_to_ai 							1
 				register_dummie_kill_as_actual_kill 			1
 				dummies_have_random_shields 					1
@@ -128,9 +133,67 @@ playlists
 				/////////////////////////////////////////////////////////////////////////////////// 
 
 				//custom_grenade_list							"mp_weapon_decoy_grenade"
-				//custom_weapon_list							"mp_weapon_flamethrower mp_weapon_epg sp_weapon_arc_tool mp_weapon_wingman_n" //mp_weapon_smart_pistol mp_weapon_heatwave mp_weapon_guidedmissile"
 
+				custom_hopup_list "funny_selector incendiary_rounds fullauto_rounds shock_rounds barrel_synchronizer blood_harvest"
+				shock_rounds_name                 "Shock Rounds"
+				shock_rounds_desc                 "Applies a stun effect when enemy shields broke"
+				shock_rounds_tier                    5
+				shock_rounds_icon                    "rui/pilot_loadout/mods/hopup_autofire"
+				shock_rounds_model                "mdl/weapons_r5/loot/_master/w_loot_wep_mods_chip.rmdl"
+				shock_rounds_slot                                    "hopup"
+				shock_rounds_low_chance                0
+				shock_rounds_med_chance                0
+				shock_rounds_high_chance               0
+				
+				barrel_synchronizer_name                 "Barrel Synchronizer"
+				barrel_synchronizer_desc                 "Allows the weapon to fire two bullets simultaneously, but at half the fire rate"
+				barrel_synchronizer_tier                    5
+				barrel_synchronizer_icon                    "rui/pilot_loadout/mods/hopup_autofire"
+				barrel_synchronizer_model                "mdl/weapons_r5/loot/_master/w_loot_wep_mods_chip.rmdl"
+				barrel_synchronizer_slot                                    "hopup"
+				barrel_synchronizer_low_chance                0
+				barrel_synchronizer_med_chance                0
+				barrel_synchronizer_high_chance               0
+				
+				blood_harvest_name                 "Blood Harvest"
+				blood_harvest_desc                 "Steals a portion of health from enemies at the cost of damage"
+				blood_harvest_tier                    5
+				blood_harvest_icon                    "rui/pilot_loadout/mods/hopup_autofire"
+				blood_harvest_model                "mdl/weapons_r5/loot/_master/w_loot_wep_mods_chip.rmdl"
+				blood_harvest_slot                                    "hopup"
+				blood_harvest_low_chance                0
+				blood_harvest_med_chance                0
+				blood_harvest_high_chance               0
+				
+				fullauto_rounds_name                 "Slamfire Bolt"
+				fullauto_rounds_desc                 "Enables full-auto fire with increased recoil, boosting close-range damage at the cost of control"
+				fullauto_rounds_tier                    5
+				fullauto_rounds_icon                    "rui/pilot_loadout/mods/hopup_autofire"
+				fullauto_rounds_model                "mdl/weapons_r5/loot/_master/w_loot_wep_mods_chip.rmdl"
+				fullauto_rounds_slot                                    "hopup"
+				fullauto_rounds_low_chance                0
+				fullauto_rounds_med_chance                0
+				fullauto_rounds_high_chance               0
+				
+				funny_selector_name                 "Ricochet Rounds"
+				funny_selector_desc                 "Bullets bounce once off surfaces, hitting enemies from unexpected angles"
+				funny_selector_tier                    5
+				funny_selector_icon                    "rui/pilot_loadout/mods/hopup_autofire"
+				funny_selector_model                "mdl/weapons_r5/loot/_master/w_loot_wep_mods_chip.rmdl"
+				funny_selector_slot                                    "hopup"
+				funny_selector_low_chance                0
+				funny_selector_med_chance                0
+				funny_selector_high_chance               0
 
+				incendiary_rounds_name                 "Incendiary Rounds"
+				incendiary_rounds_desc                 "Adds a burn effect to shots, dealing damage over time to targets hit"
+				incendiary_rounds_tier                    5
+				incendiary_rounds_icon                    "rui/pilot_loadout/mods/hopup_autofire"
+				incendiary_rounds_model                "mdl/weapons_r5/loot/_master/w_loot_wep_mods_chip.rmdl"
+				incendiary_rounds_slot                                    "hopup"
+				incendiary_rounds_low_chance                0
+				incendiary_rounds_med_chance                0
+				incendiary_rounds_high_chance               0
 				///////////////////////////////////////////////////////////////////////////////////
 				//// Character (a.k.a. Legend) Configuration								///////
 				///////////////////////////////////////////////////////////////////////////////////
@@ -378,9 +441,9 @@ playlists
 
 
 				///////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////											///////////////////////////////////
-////////////////////////////////////  	SECTION 2: SERVER-WIDE CONFIGURATION	///////////////////////////////////
-////////////////////////////////////											///////////////////////////////////
+				///////////////////////////////////////////////////////////////////////////////////
+				//////////////////////	SECTION 2: SERVER-WIDE CONFIGURATION	///////////////////
+				///////////////////////////////////////////////////////////////////////////////////
 				///////////////////////////////////////////////////////////////////////////////////
 				
 				///////////////////////////////////////////////////////////////////////////////////
@@ -687,7 +750,7 @@ playlists
 				// match teams will not fill with more than one party, up to max_teams of size max_team_size (or less) -- not exceeding max_players
 				max_teams										2
 				max_players										6
-				min_players										1
+				min_players										6
 
 				// Skip intros:
 				waiting_for_players_spawning_enabled			1
@@ -723,7 +786,9 @@ playlists
 				
 				flowstate_modified_movement						0 // 0 = Apex || 1 = Titanfall 2 || 2 = Titanfall 2 High Air Accel || 3 = Titanfall 2 Low Grav || 4 = CSGO || 5 = CSGO High Air Accel || 6 = Surf || 7 = Half-Life 1 || 8 = Halo || 9 = Superglide Boost || 10 = Instagib || 11 = Fun Mode || 12 = Halo Movement NEW
 				drop_loot_on_death								1
-				deathbox_ondeath_enabled						0			
+				deathbox_ondeath_enabled						0
+
+				flowstate_enable_weapons_locked_sets			1 //Enables predefined white, blue, purple weapons.
 			}
 			gamemodes { fs_snd { maps {
 				mp_rr_arena_empty								1
@@ -2905,8 +2970,6 @@ playlists
 				max_team_size									3
 				max_players										60
 				min_players										45
-				
-				// waiting_for_players_timeout_seconds			40
 
 				// debug
 				
@@ -2945,7 +3008,7 @@ playlists
 				//Disable r5r.dev stuff
 				disable_chat_monitor							1
 				disable_r5rdev_clientstats						1
-				flowstate_rat_wipe_notification					1
+				flowstate_rat_wipe_notification					0
 				enable_motd 									0
 				survival_infinite_ammo			 				0
 				
@@ -2957,12 +3020,14 @@ playlists
 				
 				survival_server_restart_after_end				1
 				survival_server_restart_after_end_time			30
+				flowstate_change_ring_close_speeds_dynamically	1
 			}
 			gamemodes { survival { maps {
 				mp_rr_desertlands_64k_x_64k						1
 				mp_rr_desertlands_64k_x_64k_nx				 	1
 				mp_rr_canyonlands_64k_x_64k						1
 				mp_rr_canyonlands_mu1						  	1
+				mp_rr_canyonlands_mu2						  	1
 				mp_rr_canyonlands_mu1_night						1
 				mp_rr_desertlands_mu2						  	1
 			} } }
@@ -2988,8 +3053,8 @@ playlists
 				// match teams will not fill with more than one party, up to max_teams of size max_team_size (or less) -- not exceeding max_players
 				max_teams						   				2
 				max_team_size									4
-				max_players										16
-				min_players										4
+				max_players										8
+				min_players										8
 				
 				default_shield_hp				  				125
 				survival_shields				   				1
@@ -4188,7 +4253,7 @@ playlists
 				sur_circle_start_paused							1
 				
 				survival_shields								1
-				survival_infinite_ammo							1
+				survival_infinite_ammo							0
 
 				// Can change loadouts:
 				dev_loadout_changeable_at_any_time			 	1
