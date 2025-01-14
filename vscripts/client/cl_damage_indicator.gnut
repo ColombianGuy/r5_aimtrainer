@@ -560,8 +560,9 @@ asset function GetIndicatorModel( entity grenade )
     else if ( grenade.GetTargetName() == CARE_PACKAGE_PROXY )
         return GRENADE_INDICATOR_GENERIC
 	
-	else if ( grenade.GetModelName() == $"mdl/weapons/shuriken/w_shuriken.rmdl" )
-		return GRENADE_INDICATOR_EMP_MODEL
+	//Commented until the asset GRENADE_INDICATOR_EMP_MODEL is added again. Cafe
+	// else if ( grenade.GetModelName() == $"mdl/weapons/shuriken/w_shuriken.rmdl" )
+		// return GRENADE_INDICATOR_EMP_MODEL
 	
 	if ( grenade instanceof C_PlayerWaypoint )
 	{

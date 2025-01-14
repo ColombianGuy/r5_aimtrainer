@@ -182,13 +182,20 @@ int function PilotShieldModifyDamage( entity player, var damageInfo )
 	entity attacker = DamageInfo_GetAttacker( damageInfo )
 	
 	bool bPermDamage = false
-
+	
+	entity weapon = DamageInfo_GetWeapon( damageInfo )
+	
 	if ( startingShieldHealth > 0 && remainingShieldHealth <= 0 )
 	{
 		//normalDamage = 0 // Uncomment to clear spill over damage		
 		if ( IsValid( attacker ) && attacker.IsPlayer() && attacker != player )
 			EmitSoundOnEntityOnlyToPlayer( attacker, attacker, SOUND_SHIELD_BREAK_1P_VS_3P )
 
+		if( IsValid( weapon ) && weapon.HasMod( "shock_rounds" ) )
+		{
+			EMP_DamagedPlayerOrNPC( player, damageInfo )
+		}
+		
 		array< entity > excludePlayers
 		if ( player.IsPlayer() )
 		{

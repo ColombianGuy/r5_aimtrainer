@@ -566,6 +566,7 @@ void function CodeCallback_OnMeleePressed( entity attacker, entity meleeInputWea
 			eyeTraceHitPos = eyeTrace.endPos
 		}
 
+		
 		if ( doorLungeEnabled && IsValid( lungeTarget ) && IsDoor( lungeTarget ) && lungeTarget.e.canBeMeleed && lungeTarget.DoesShareRealms( attacker ) )
 		{
 			meleeAttackWeapon.AddMod( "proto_door_kick" )
@@ -576,6 +577,9 @@ void function CodeCallback_OnMeleePressed( entity attacker, entity meleeInputWea
 				attacker.Lunge_SetSmoothTime( 0.7 )
 				attacker.Lunge_EnableFlying()
 			}
+		} else if( PlayerHasPassive( attacker, ePassives.PAS_SHOTGUN_KICK ) )
+		{
+			meleeAttackWeapon.AddMod( "proto_door_kick" )
 		}
 		else if ( meleeAttackWeapon.HasMod( "proto_door_kick" ) )
 		{

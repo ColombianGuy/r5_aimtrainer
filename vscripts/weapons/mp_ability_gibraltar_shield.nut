@@ -25,6 +25,8 @@ const string SOUND_PILOT_GUN_SHIELD_BREAK_3P = "Gibraltar_GunShield_Destroyed_3P
 const bool PILOT_GUN_SHIELD_DRAIN_AMMO = false
 const float PILOT_GUN_SHIELD_DRAIN_AMMO_RATE = 1.0
 
+global string GIBRALTAR_GUN_SHIELD_NAME = "gibraltar_gun_shield"
+
 const PLAYER_GUN_SHIELD_WALL_RADIUS = 18
 const PLAYER_GUN_SHIELD_WALL_HEIGHT = 32
 const PLAYER_GUN_SHIELD_WALL_FOV = 85

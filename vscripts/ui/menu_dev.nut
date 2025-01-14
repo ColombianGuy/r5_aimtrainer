@@ -295,7 +295,11 @@ void function SetupDefaultDevCommandsMP()
 		SetupDevMenu( "Equip Weapons", SetDevMenu_Weapons )
 		SetupDevMenu( "Equip Titanfall Weapons", SetDevMenu_R2Weapons )
 		SetupDevMenu( "Equip Throwables", SetDevMenu_Throwables )
-
+		
+		SetupDevMenu( "Custom: Weapons (All)", SetDevMenu_SurvivalLoot, "weapon_custom" )
+		SetupDevMenu( "Custom: Attachments", SetDevMenu_SurvivalLoot, "attachment_custom" )
+		SetupDevMenu( "Custom: Player Models", SetDevMenu_CustomPRModel )
+		
 		if ( IsSurvivalMenuEnabled() )
 		{
 			SetupDevMenu( "Change Character", SetDevMenu_SurvivalCharacter )
@@ -327,10 +331,6 @@ void function SetupDefaultDevCommandsMP()
 		SetupDevCommand( "Enable God Mode", "script EnableDemigod( gp()[0] )" )
 		SetupDevCommand( "Disable God Mode", "script DisableDemigod( gp()[0] )" )
 		SetupDevCommand( "Toggle Third Person Mode", "ToggleThirdPerson" )
-		
-		//SetupDevMenu( "Custom: Weapons", SetDevMenu_SurvivalLoot, "weapon_custom" )
-		//SetupDevMenu( "Custom: Attachments", SetDevMenu_SurvivalLoot, "attachment_custom" )
-		SetupDevMenu( "Custom: Player Models", SetDevMenu_CustomPRModel )
 
 		SetupDevMenu( "Prototypes", SetDevMenu_Prototypes )
 	}
@@ -1095,19 +1095,15 @@ void function SetupChangeCharacterModel()
 {
 	#if UI
 		//Custom by @CafeFPS :)
-		SetupDevCommand( "TF2 Ash [Custom]", "Flowstate_AssignCustomCharacterFromMenu 6")
-		SetupDevCommand( "TF2 Blisk [Custom]", "Flowstate_AssignCustomCharacterFromMenu 1")
-		SetupDevCommand( "TF2 Jack Cooper [Custom]", "Flowstate_AssignCustomCharacterFromMenu 8")
-		SetupDevCommand( "Ballistic [Custom]", "Flowstate_AssignCustomCharacterFromMenu 12")
-		SetupDevCommand( "Fade [Custom]", "Flowstate_AssignCustomCharacterFromMenu 2")
-		SetupDevCommand( "Rhapsody [Custom]", "Flowstate_AssignCustomCharacterFromMenu 5")
-		SetupDevCommand( "Crewmate [Custom - 3p only]", "Flowstate_AssignCustomCharacterFromMenu 3")
-		//SetupDevCommand( "Peter Griffing [Custom]", "Flowstate_AssignCustomCharacterFromMenu 4")
-		//SetupDevCommand( "CJ [Custom - 3p only]", "Flowstate_AssignCustomCharacterFromMenu 7")
-		SetupDevCommand( "MRVN [Custom - 3p only]", "Flowstate_AssignCustomCharacterFromMenu 13")
-		//SetupDevCommand( "Satoru Gojo [Custom]", "Flowstate_AssignCustomCharacterFromMenu 14" )
-		//SetupDevCommand( "Naruto [Custom]", "Flowstate_AssignCustomCharacterFromMenu 15" )
-		SetupDevCommand( "Pete [Custom]", "Flowstate_AssignCustomCharacterFromMenu 16" )
+		SetupDevCommand( "TF2 Ash", "Flowstate_AssignCustomCharacterFromMenu 6")
+		SetupDevCommand( "TF2 Blisk", "Flowstate_AssignCustomCharacterFromMenu 1")
+		SetupDevCommand( "TF2 Jack Cooper", "Flowstate_AssignCustomCharacterFromMenu 8")
+		SetupDevCommand( "Ballistic", "Flowstate_AssignCustomCharacterFromMenu 12")
+		SetupDevCommand( "Fade", "Flowstate_AssignCustomCharacterFromMenu 2")
+		SetupDevCommand( "Rhapsody", "Flowstate_AssignCustomCharacterFromMenu 5")
+		SetupDevCommand( "Crewmate [3p only]", "Flowstate_AssignCustomCharacterFromMenu 3")
+		SetupDevCommand( "MRVN [3p only]", "Flowstate_AssignCustomCharacterFromMenu 13")
+		SetupDevCommand( "Pete", "Flowstate_AssignCustomCharacterFromMenu 16" )
 	#endif
 }
 
@@ -1192,7 +1188,7 @@ void function SetupTitanfallWeapons()
 	SetupDevCommand( "Titanfall 2: Sidewinder", "give mp_weapon_smr" )
 	SetupDevCommand( "Titanfall 2: Archer", "give mp_weapon_rocket_launcher" )
 	SetupDevCommand( "Titanfall 2: Softball", "give mp_weapon_softball" )
-	SetupDevCommand( "Titanfall 2: Car", "give mp_weapon_car" )
+	SetupDevCommand( "Titanfall 2: Car", "give mp_weapon_car_r2" )
 	SetupDevCommand( "Titanfall 2: MGL", "give mp_weapon_mgl" )
 	SetupDevCommand( "Titanfall 2: ColdWar", "give mp_weapon_pulse_lmg" )
 	SetupDevCommand( "Titanfall 2: Thunderbolt", "give mp_weapon_arc_launcher" )

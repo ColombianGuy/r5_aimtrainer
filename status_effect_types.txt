@@ -3,6 +3,13 @@
 //enum eStatusEffect
 //{
 /////////////////////////////
+	area_loot_scan
+	fireproof
+	protection
+	satellite_detected
+	split_timeline
+	placing_cover_wall
+	spotter_sight
 	rev_shell_targeted
 	ring_flare
 	cryonade

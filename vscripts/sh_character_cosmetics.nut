@@ -50,6 +50,13 @@ global function CharacterSkin_WaitForAndApplyFromLoadout
 global function DEV_TestCharacterSkinData
 #endif
 
+#if DEVELOPER
+global function FS_TestCharacterSkinData
+global function FS_TestLegendarySkinData
+#endif
+
+global function FS_ReturnCharacterItemFlavorFromModel
+global function FS_ReturnAllLegendarySkinsForCharacter
 
 //////////////////////
 //////////////////////
@@ -96,7 +103,6 @@ void function ShCharacterCosmetics_LevelInit()
 
 	AddCallback_OnItemFlavorRegistered( eItemType.character, OnItemFlavorRegistered_Character )
 }
-
 
 void function OnItemFlavorRegistered_Character( ItemFlavor characterClass )
 {
@@ -786,3 +792,72 @@ void function DEV_TestCharacterSkinData()
 	model.Destroy()
 }
 #endif // DEVELOPER && CLIENT
+
+array< ItemFlavor > function FS_ReturnAllLegendarySkinsForCharacter( ItemFlavor character )
+{
+	array< ItemFlavor > skins = clone GetValidItemFlavorsForLoadoutSlot( ToEHI( null ), Loadout_CharacterSkin( character ) )
+	
+	if( skins.len() == 0 )
+		return []
+	
+	asset baseModel = GetGlobalSettingsAsset( ItemFlavor_GetAsset( skins[0] ), "bodyModel" ) // Legendary are always at the end, so we can safely say that the first skin is the base one
+	
+	for ( int i = skins.len() - 1; i >= 0; i-- )
+	{
+		if ( GetGlobalSettingsAsset( ItemFlavor_GetAsset( skins[i] ), "bodyModel" ) == baseModel )
+			skins.remove( i )
+	}
+	
+	return skins
+}
+
+void function FS_TestCharacterSkinData()
+{
+	foreach ( character in GetAllCharacters() )
+	{
+		array<ItemFlavor> characterSkins = GetValidItemFlavorsForLoadoutSlot( ToEHI( null ), Loadout_CharacterSkin( character ) )
+
+		foreach ( skin in characterSkins )
+		{
+			printt( GetGlobalSettingsAsset( ItemFlavor_GetAsset( skin ), "armsModel" ), GetGlobalSettingsAsset( ItemFlavor_GetAsset( skin ), "bodyModel" ) )
+		}
+		
+	}
+	
+}
+
+void function FS_TestLegendarySkinData()
+{
+	foreach ( character in GetAllCharacters() )
+	{
+		array<ItemFlavor> characterSkins = FS_ReturnAllLegendarySkinsForCharacter( character ) 
+
+		foreach ( skin in characterSkins )
+		{
+			printt( GetGlobalSettingsAsset( ItemFlavor_GetAsset( skin ), "armsModel" ), GetGlobalSettingsAsset( ItemFlavor_GetAsset( skin ), "bodyModel" ) )
+		}
+		
+	}
+	
+}
+
+ItemFlavor ornull function FS_ReturnCharacterItemFlavorFromModel( asset model, bool isPovModel = false )
+{
+	printt( "Getting item flavor for: ", model )
+
+	foreach ( character in GetAllCharacters() )
+	{
+		array<ItemFlavor> characterSkins = GetValidItemFlavorsForLoadoutSlot( ToEHI( null ), Loadout_CharacterSkin( character ) )
+
+		foreach ( skin in characterSkins )
+		{
+			asset compareModel = isPovModel == true ? GetGlobalSettingsAsset( ItemFlavor_GetAsset( skin ), "armsModel" ) : GetGlobalSettingsAsset( ItemFlavor_GetAsset( skin ), "bodyModel" )
+
+			if( compareModel.tolower() == model )
+				return character
+		}
+		
+	}
+	
+	return null
+}
