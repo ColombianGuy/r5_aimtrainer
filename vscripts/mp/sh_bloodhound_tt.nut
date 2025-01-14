@@ -48,6 +48,7 @@ const string REWARD_DOOR_SOUND = "Loba_Ultimate_Staff_VaultAlarm"
 
 const int PROWLER_TEAM = 104
 const string PROWLER_MDL = "mdl/Creatures/prowler/prowler_apex.rmdl"
+const string SPOTLIGHT_MDL = $"mdl/fx/prowler_hatch_tt_beam.rmdl"
 const string SPOTLIGHT_FX = "P_prowler_hatch_light"
 
 const string SPOTLIGHT_ACTIVATE_SFX = "Desertlands_Emit_Bloodhound_TT_Spotlight"
@@ -265,6 +266,7 @@ void function Bloodhound_TT_Init()
 	AddCallback_EntitiesDidLoad( EntitiesDidLoad )
 
 	AddSpawnCallback( "prop_dynamic", ArenaDoorSpawned )
+	PrecacheModel( SPOTLIGHT_MDL )
 
 	AddSpawnCallback_ScriptName( STORY_PROP_HUNT_SCRIPTNAME, SpawnStoryProps_Server )
 	AddSpawnCallback_ScriptName( STORY_PROP_SPIRITUAL_SCRIPTNAME, SpawnStoryProps_Server )
@@ -1219,11 +1221,13 @@ void function LightShow_CreateSpotLightFX( int spotlightIdx, bool playSound )
 		EmitSoundOnEntity( data.hatchModel, SPOTLIGHT_ACTIVATE_SFX )
 
 	data.hatchModel.SetSkin( 1 )
+	//entity SpotLight = CreatePropDynamic( $"mdl/fx/prowler_hatch_tt_beam.rmdl", data.hatchModel.GetOrigin(), data.hatchModel.GetAngles() + <0,270,0> )
+	//SpotLight.SetParent(data.hatchModel)
 
 	WaitFrame()
 
 	data.hatchModel.kv.intensity = 1
-	data.fxEnt = StartParticleEffectOnEntity_ReturnEntity( data.hatchModel, GetParticleSystemIndex( $"P_prowler_hatch_light" ), FX_PATTACH_POINT_FOLLOW, data.hatchModel.LookupAttachment( "FX_LIGHT" ) )
+	//data.fxEnt = StartParticleEffectOnEntity_ReturnEntity( data.hatchModel, GetParticleSystemIndex( $"P_prowler_hatch_light" ), FX_PATTACH_POINT_FOLLOW, data.hatchModel.LookupAttachment( "FX_LIGHT" ) )
 }
 
 
@@ -1241,7 +1245,7 @@ void function LightShow_TurnOffSpotlight( int spotlightIdx )
 		}
 	)
 
-	EffectStop( data.fxEnt )
+	//EffectStop( data.fxEnt )
 	PROTO_FadeModelIntensityOverTime( data.hatchModel, SPOTLIGHT_FADE_OUT_TIME, 1, 0 )
 }
 
