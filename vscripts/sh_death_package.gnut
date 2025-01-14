@@ -154,7 +154,7 @@ void function Death_Package_Init()
 		PrecacheModel( GRENADE_INDICATOR_TICK_MODEL )
 		PrecacheModel( GRENADE_INDICATOR_BOMB )
 		PrecacheModel( GRENADE_INDICATOR_GENERIC )
-		PrecacheModel( GRENADE_INDICATOR_EMP_MODEL )
+		// PrecacheModel( GRENADE_INDICATOR_EMP_MODEL )
 		PrecacheModel( GRENADE_INDICATOR_STALKER_MODEL )
 
 		PrecacheModel( DAMAGEARROW_MODEL )
