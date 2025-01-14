@@ -998,10 +998,6 @@ string function GetWeaponClassNameWithLockedSet( entity weapon )
 		case eWeaponLockedSet.PURPLESET:
 			result += WEAPON_LOCKEDSET_SUFFIX_PURPLESET
 			break
-
-		case eWeaponLockedSet.GOLD:
-			result += WEAPON_LOCKEDSET_SUFFIX_GOLD
-			break
 	}
 
 	return result
@@ -4630,15 +4626,6 @@ LootData function SURVIVAL_GetLootDataFromWeapon( entity weapon )
 {
 	LootData data
 	string ref = IsValid( weapon ) ? GetWeaponClassNameWithLockedSet( weapon ) : ""
-
-	if ( IsValid( weapon ) )
-	{
-		if ( weapon.HasMod( "gold" ) )
-		{
-			ref = ref + "_gold"
-		}
-
-	}
 
 	if ( SURVIVAL_Loot_IsRefValid( ref ) )
 		data = SURVIVAL_Loot_GetLootDataByRef( ref )
