@@ -8,7 +8,7 @@ WeaponData
 	"description" 									"#WPN_CAR_DESC"
 	"longdesc"										"#WPN_CAR_LONGDESC"
 	"weapon_type_flags"								"WPT_PRIMARY"
-	"ammo_pool_type"								"bullet"
+	"ammo_pool_type"								"highcal"
 	"menu_icon"										"r2_ui/menus/loadout_icons/primary_weapon/primary_car"
 	"hud_icon"										"r2_ui/menus/loadout_icons/primary_weapon/primary_car"
 	"fire_mode"   									"automatic"
@@ -364,28 +364,24 @@ WeaponData
 
 	Mods
 	{
-		"bullets_mag_l1"
+		"highcal_mag_l1"
 		{
 			"ammo_clip_size" "22"
-
 		}
 
-		"bullets_mag_l2"
+		"highcal_mag_l2"
 		{
 			"ammo_clip_size" "24"
-
 		}
 
-		"bullets_mag_l3"
+		"highcal_mag_l3"
 		{
 			"ammo_clip_size" "27"
-
 		}
 
-		"bullets_mag_l4"
+		"highcal_mag_l4"
 		{
 			"ammo_clip_size" "27"
-
         }
 		
 		optic_cq_holosight
