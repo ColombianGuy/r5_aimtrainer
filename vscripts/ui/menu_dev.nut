@@ -296,17 +296,13 @@ void function SetupDefaultDevCommandsMP()
 		SetupDevMenu( "Equip Titanfall Weapons", SetDevMenu_R2Weapons )
 		SetupDevMenu( "Equip Throwables", SetDevMenu_Throwables )
 
-		if ( IsSurvivalMenuEnabled() )
-		{
-			SetupDevMenu( "Change Character", SetDevMenu_SurvivalCharacter )
-		}
-		
 		SetupDevMenu( "Custom: Weapons (All)", SetDevMenu_SurvivalLoot, "weapon_custom" )
 		SetupDevMenu( "Custom: Attachments", SetDevMenu_SurvivalLoot, "attachment_custom" )
 		SetupDevMenu( "Custom: Player Models", SetDevMenu_CustomPRModel )
 		
 		if ( IsSurvivalMenuEnabled() )
 		{
+			SetupDevMenu( "Change Character", SetDevMenu_SurvivalCharacter )
 			SetupDevMenu( "Survival", SetDevMenu_Survival )
 			SetupDevMenu( "Survival: Weapons", SetDevMenu_SurvivalLoot, "main_weapon" )
 			SetupDevMenu( "Survival: Attachments", SetDevMenu_SurvivalLoot, "attachment" )
