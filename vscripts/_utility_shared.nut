@@ -5112,8 +5112,8 @@ string function GetAttachmentPointStyle( string attachmentPoint, string weaponNa
 				return "mag_shotgun"
 			if ( weaponData.ammoType == SNIPER_AMMO )
 				return "mag_sniper"
-            if ( weaponData.ref == "mp_weapon_car" )
-                return "mag_car"
+            // if ( weaponData.ref == "mp_weapon_car" )
+                // return "mag_car"
 
 			break
 
