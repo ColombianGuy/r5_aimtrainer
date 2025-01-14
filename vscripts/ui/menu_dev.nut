@@ -295,6 +295,11 @@ void function SetupDefaultDevCommandsMP()
 		SetupDevMenu( "Equip Weapons", SetDevMenu_Weapons )
 		SetupDevMenu( "Equip Titanfall Weapons", SetDevMenu_R2Weapons )
 		SetupDevMenu( "Equip Throwables", SetDevMenu_Throwables )
+
+		if ( IsSurvivalMenuEnabled() )
+		{
+			SetupDevMenu( "Change Character", SetDevMenu_SurvivalCharacter )
+		}
 		
 		SetupDevMenu( "Custom: Weapons (All)", SetDevMenu_SurvivalLoot, "weapon_custom" )
 		SetupDevMenu( "Custom: Attachments", SetDevMenu_SurvivalLoot, "attachment_custom" )
@@ -302,7 +307,6 @@ void function SetupDefaultDevCommandsMP()
 		
 		if ( IsSurvivalMenuEnabled() )
 		{
-			SetupDevMenu( "Change Character", SetDevMenu_SurvivalCharacter )
 			SetupDevMenu( "Survival", SetDevMenu_Survival )
 			SetupDevMenu( "Survival: Weapons", SetDevMenu_SurvivalLoot, "main_weapon" )
 			SetupDevMenu( "Survival: Attachments", SetDevMenu_SurvivalLoot, "attachment" )
@@ -1094,7 +1098,6 @@ void function SetupChangeSurvivalCharacterClass()
 void function SetupChangeCharacterModel()
 {
 	#if UI
-		//Custom by @CafeFPS :)
 		SetupDevCommand( "TF2 Ash", "Flowstate_AssignCustomCharacterFromMenu 6")
 		SetupDevCommand( "TF2 Blisk", "Flowstate_AssignCustomCharacterFromMenu 1")
 		SetupDevCommand( "TF2 Jack Cooper", "Flowstate_AssignCustomCharacterFromMenu 8")
@@ -1172,9 +1175,10 @@ void function SetupWeapons()
 	SetupDevCommand( "Dev: Dev Cubemap ", "give weapon_cubemap" )
 	
 	// Custom
+	SetupDevCommand( "-> Custom weapons, created by @CafeFPS", "give mp" )
 	SetupDevCommand( "Custom: Flame Thrower ", "give mp_weapon_flamethrower" )
+	SetupDevCommand( "Custom: Raygun ", "give mp_weapon_raygun" )
 	SetupDevCommand( "Custom: Flowstate Sword", "playerRequestsSword")
-	SetupDevCommand( "Custom: Suppressor Turret", "give mp_weapon_turret")
 	#endif
 }
 
@@ -1284,8 +1288,12 @@ void function SetupAbilities()
 	
 	SetupDevCommand( "Dev: 3Dash", "give mp_ability_3dash" )
 	SetupDevCommand( "Dev: Cloak", "give mp_ability_cloak" )
-	SetupDevCommand( "Dev: Gravity Lift", "give mp_ability_space_elevator_tac" )
-	SetupDevCommand( "Dev: Phase Rewind", "give mp_ability_phase_rewind" )
+	SetupDevCommand( "-> Custom abilities, created by @CafeFPS", "give mp" )
+	SetupDevCommand( "Custom: Gravity Lift", "give mp_ability_space_elevator_tac" )
+	SetupDevCommand( "Custom: Phase Rewind", "give mp_ability_phase_rewind" )
+	SetupDevCommand( "Custom: Suppressor Turret", "give mp_weapon_turret")
+	SetupDevCommand( "Custom: Phase Chamber", "give mp_ability_phase_chamber")
+	SetupDevCommand( "Custom: Ring Flare", "give mp_weapon_ringflare")
 	//SetupDevCommand( "Gravity Star", "give mp_weapon_grenade_gravity" )
 	#endif
 }
