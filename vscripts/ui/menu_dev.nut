@@ -1172,7 +1172,7 @@ void function SetupWeapons()
 	
 	// Custom
 	SetupDevCommand( "-> Custom weapons, created by @CafeFPS", "give mp" )
-	SetupDevCommand( "Custom: Flame Thrower ", "give mp_weapon_flamethrower" )
+	SetupDevCommand( "Custom: Flame Thrower (Model by @LorryLeKral)", "give mp_weapon_flamethrower" )
 	SetupDevCommand( "Custom: Raygun ", "give mp_weapon_raygun" )
 	SetupDevCommand( "Custom: Flowstate Sword", "playerRequestsSword")
 	#endif
@@ -1284,13 +1284,15 @@ void function SetupAbilities()
 	
 	SetupDevCommand( "Dev: 3Dash", "give mp_ability_3dash" )
 	SetupDevCommand( "Dev: Cloak", "give mp_ability_cloak" )
+	
+	//SetupDevCommand( "Gravity Star", "give mp_weapon_grenade_gravity" )
+	
 	SetupDevCommand( "-> Custom abilities, created by @CafeFPS", "give mp" )
 	SetupDevCommand( "Custom: Gravity Lift", "give mp_ability_space_elevator_tac" )
 	SetupDevCommand( "Custom: Phase Rewind", "give mp_ability_phase_rewind" )
-	SetupDevCommand( "Custom: Suppressor Turret", "give mp_weapon_turret")
+	SetupDevCommand( "Custom: Suppressor Turret ( ft. @Julefox )", "give mp_weapon_turret")
 	SetupDevCommand( "Custom: Phase Chamber", "give mp_ability_phase_chamber")
 	SetupDevCommand( "Custom: Ring Flare", "give mp_weapon_ringflare")
-	//SetupDevCommand( "Gravity Star", "give mp_weapon_grenade_gravity" )
 	#endif
 }
 
