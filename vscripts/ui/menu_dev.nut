@@ -1094,15 +1094,15 @@ void function SetupChangeSurvivalCharacterClass()
 void function SetupChangeCharacterModel()
 {
 	#if UI
-		SetupDevCommand( "TF2 Ash", "Flowstate_AssignCustomCharacterFromMenu 6")
-		SetupDevCommand( "TF2 Blisk", "Flowstate_AssignCustomCharacterFromMenu 1")
-		SetupDevCommand( "TF2 Jack Cooper", "Flowstate_AssignCustomCharacterFromMenu 8")
-		SetupDevCommand( "Ballistic", "Flowstate_AssignCustomCharacterFromMenu 12")
-		SetupDevCommand( "Fade", "Flowstate_AssignCustomCharacterFromMenu 2")
-		SetupDevCommand( "Rhapsody", "Flowstate_AssignCustomCharacterFromMenu 5")
-		SetupDevCommand( "Crewmate [3p only]", "Flowstate_AssignCustomCharacterFromMenu 3")
-		SetupDevCommand( "MRVN [3p only]", "Flowstate_AssignCustomCharacterFromMenu 13")
-		SetupDevCommand( "Pete", "Flowstate_AssignCustomCharacterFromMenu 16" )
+		SetupDevCommand( "TF2 Ash (by @LorryLeKral)", "Flowstate_AssignCustomCharacterFromMenu 6")
+		SetupDevCommand( "TF2 Blisk (by @LorryLeKral)", "Flowstate_AssignCustomCharacterFromMenu 1")
+		SetupDevCommand( "TF2 Jack Cooper (by @LorryLeKral)", "Flowstate_AssignCustomCharacterFromMenu 8")
+		SetupDevCommand( "Ballistic (by @CafeFPS)", "Flowstate_AssignCustomCharacterFromMenu 12")
+		SetupDevCommand( "Fade (by @CafeFPS)", "Flowstate_AssignCustomCharacterFromMenu 2")
+		SetupDevCommand( "Rhapsody (by @CafeFPS)", "Flowstate_AssignCustomCharacterFromMenu 5")
+		SetupDevCommand( "Crewmate [3p only] (by bobblet)", "Flowstate_AssignCustomCharacterFromMenu 3")
+		SetupDevCommand( "MRVN [3p only] (by @CafeFPS)", "Flowstate_AssignCustomCharacterFromMenu 13")
+		SetupDevCommand( "Pete (by @CafeFPS)", "Flowstate_AssignCustomCharacterFromMenu 16" )
 	#endif
 }
 
