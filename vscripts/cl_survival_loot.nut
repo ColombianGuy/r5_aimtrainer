@@ -1710,7 +1710,8 @@ bool function ShouldAppendLootLevel( LootData data )
 	switch ( data.lootType )
 	{
 		case eLootType.MAINWEAPON:
-			return false
+			return GetLockedSetFromName( data.ref ) != eWeaponLockedSet.INVALID
+		break
 
 		case eLootType.AMMO:
 			return false
