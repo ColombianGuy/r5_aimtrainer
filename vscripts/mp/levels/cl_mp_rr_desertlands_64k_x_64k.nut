@@ -7,7 +7,10 @@ void function ClientCodeCallback_MapInit()
 	DesertlandsTrainAnnouncer_Init()
 	ClLaserMesh_Init()
 	Desertlands_MapInit_Common()
-	MapZones_RegisterDataTable( $"datatable/map_zones/zones_mp_rr_desertlands_64k_x_64k.rpak")
+	if (MapName() == eMaps.mp_rr_desertlands_64k_x_64k_tt )
+		MapZones_RegisterDataTable( $"datatable/map_zones/zones_mp_rr_desertlands_64k_x_64k_tt.rpak")
+	else
+		MapZones_RegisterDataTable( $"datatable/map_zones/zones_mp_rr_desertlands_64k_x_64k.rpak")
 
 	AddCreateCallback( "trigger_cylinder_heavy", Geyser_OnJumpPadCreated )
 

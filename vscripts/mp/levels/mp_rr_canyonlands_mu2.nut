@@ -30,17 +30,19 @@ void function CodeCallback_MapInit()
 		
 	//PrecacheModel( $"mdl/props/quest_s05/object.rmdl" )
 	//PrecacheModel( $"mdl/props/quest_s05/object_eyes.rmdl" )
-	PrecacheModel( $"mdl/props/quest_s05/object_body.rmdl" )
+	//PrecacheModel( $"mdl/props/quest_s05/object_body.rmdl" )
 
-	PrecacheModel( $"mdl/levels_terrain/mp_rr_canyonlands/crypto_holo_map_01.rmdl")
-	PrecacheModel( $"mdl/levels_terrain/mp_rr_canyonlands/crypto_holo_map_02.rmdl")
-	PrecacheModel( $"mdl/levels_terrain/mp_rr_canyonlands/crypto_holo_map_03.rmdl")
-	PrecacheModel( $"mdl/levels_terrain/mp_rr_canyonlands/crypto_holo_map_04.rmdl")
-	PrecacheModel( $"mdl/levels_terrain/mp_rr_canyonlands/crypto_holo_map_05.rmdl")
 	if (MapName() == eMaps.mp_rr_canyonlands_mu2_mv )
 		MapZones_RegisterDataTable( $"datatable/map_zones/zones_mp_rr_canyonlands_mu2_mv.rpak" )
 	else if (MapName() == eMaps.mp_rr_canyonlands_mu2_tt )
+	{
+		PrecacheModel( $"mdl/levels_terrain/mp_rr_canyonlands/crypto_holo_map_01.rmdl")
+		PrecacheModel( $"mdl/levels_terrain/mp_rr_canyonlands/crypto_holo_map_02.rmdl")
+		PrecacheModel( $"mdl/levels_terrain/mp_rr_canyonlands/crypto_holo_map_03.rmdl")
+		PrecacheModel( $"mdl/levels_terrain/mp_rr_canyonlands/crypto_holo_map_04.rmdl")
+		PrecacheModel( $"mdl/levels_terrain/mp_rr_canyonlands/crypto_holo_map_05.rmdl")
 		MapZones_RegisterDataTable( $"datatable/map_zones/zones_mp_rr_canyonlands_mu2_tt.rpak" )
+	}
 	else
 		MapZones_RegisterDataTable( $"datatable/map_zones/zones_mp_rr_canyonlands_mu2.rpak" )
 }

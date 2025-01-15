@@ -31,15 +31,9 @@ void function CodeCallback_MapInit()
 	SURVIVAL_SetAirburstHeight( 8000 )
 	SURVIVAL_SetMapCenter( <0, 0, 0> )
     SURVIVAL_SetMapDelta( 4900 )
-
-
-	PrecacheModel($"mdl/levels_terrain/mp_rr_canyonlands/crypto_holo_map_01.rmdl")
-	PrecacheModel($"mdl/levels_terrain/mp_rr_canyonlands/crypto_holo_map_02.rmdl")
-	PrecacheModel($"mdl/levels_terrain/mp_rr_canyonlands/crypto_holo_map_03.rmdl")
-	PrecacheModel($"mdl/levels_terrain/mp_rr_canyonlands/crypto_holo_map_04.rmdl")
-	PrecacheModel($"mdl/levels_terrain/mp_rr_canyonlands/crypto_holo_map_05.rmdl")
 	
-	thread InitCryptoMap()
+	if (MapName() == eMaps.mp_rr_canyonlands_mu2_tt )
+		thread InitCryptoMap()
 
 	MapZones_RegisterDataTable( $"datatable/map_zones/zones_mp_rr_canyonlands_mu2.rpak" )
 	
