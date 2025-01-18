@@ -79,7 +79,10 @@ global enum eMinimapObject_prop_script
 	BOMB,
 	FLAG_MIL,
 	FLAG_IMC,
-	COUNT
+	COUNT,
+	RISING_WALL_DOWN,
+	RISING_WALL_MOVING,
+	RISING_WALL_UP
 }
 
 global enum eMinimapObject_npc

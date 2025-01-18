@@ -128,9 +128,9 @@ void function ClRisingWalls_Init()
 
 	AddCreateCallback( "info_target", OnRisableWallHelperSpawned )
 
-	//RegisterMinimapPackage( "prop_script", eMinimapObject_prop_script.RISING_WALL_DOWN, MINIMAP_OBJECT_RUI, MinimapPackage_RisingWall_Down, FULLMAP_OBJECT_RUI, MinimapPackage_RisingWall_Down )
-	//RegisterMinimapPackage( "prop_script", eMinimapObject_prop_script.RISING_WALL_MOVING, MINIMAP_OBJECT_RUI, MinimapPackage_RisingWall_Moving, FULLMAP_OBJECT_RUI, MinimapPackage_RisingWall_Moving )
-	//RegisterMinimapPackage( "prop_script", eMinimapObject_prop_script.RISING_WALL_UP, MINIMAP_OBJECT_RUI, MinimapPackage_RisingWall_Up, FULLMAP_OBJECT_RUI, MinimapPackage_RisingWall_Up )
+	RegisterMinimapPackage( "prop_dynamic", eMinimapObject_prop_script.RISING_WALL_DOWN, MINIMAP_OBJECT_RUI, MinimapPackage_RisingWall_Down, FULLMAP_OBJECT_RUI, MinimapPackage_RisingWall_Down )
+	RegisterMinimapPackage( "prop_dynamic", eMinimapObject_prop_script.RISING_WALL_MOVING, MINIMAP_OBJECT_RUI, MinimapPackage_RisingWall_Moving, FULLMAP_OBJECT_RUI, MinimapPackage_RisingWall_Moving )
+	RegisterMinimapPackage( "prop_dynamic", eMinimapObject_prop_script.RISING_WALL_UP, MINIMAP_OBJECT_RUI, MinimapPackage_RisingWall_Up, FULLMAP_OBJECT_RUI, MinimapPackage_RisingWall_Up )
 }
 #endif // CLIENT
 
@@ -234,7 +234,7 @@ void function OnRisableWallHelperSpawned( entity helper )
 		data.moverTop.SetParent( data.moverBase )
 		//data.moverBase.SetPusherMovesNearbyVehicles( true )
 
-		//SURVIVAL_AddRisingWallToMinimap( data, eMinimapObject_prop_script.RISING_WALL_DOWN )
+		SURVIVAL_AddRisingWallToMinimap( data, eMinimapObject_prop_script.RISING_WALL_DOWN )
 	#endif // SERVER
 
 	file.risableWallEHandleDataGroups[ helperEHI ] <- data
@@ -390,10 +390,10 @@ void function OnRisableWallPanelActivate( RisableWallData data, entity helper, e
 		//data.moverBase.DisallowObjectPlacement()
 		//data.moverFlap.DisallowObjectPlacement()
 
-		//foreach ( player in GetPlayerArray() )
-			//data.minimapObjLowered.Minimap_Hide( 0, player )
+		foreach ( player in GetPlayerArray() )
+			data.minimapObjLowered.Minimap_Hide( 0, player )
 
-		//SURVIVAL_AddRisingWallToMinimap( data, eMinimapObject_prop_script.RISING_WALL_MOVING )
+		SURVIVAL_AddRisingWallToMinimap( data, eMinimapObject_prop_script.RISING_WALL_MOVING )
 	#endif // SERVER
 
 	foreach ( brush in wallBrushes )
@@ -473,10 +473,10 @@ void function OnRisableWallPanelActivate( RisableWallData data, entity helper, e
 		foreach( mover in movers )
 			mover.AllowZiplines()
 
-		//foreach ( player in GetPlayerArray() )
-			//data.minimapObjMoving.Minimap_Hide( 0, player )
+		foreach ( player in GetPlayerArray() )
+			data.minimapObjMoving.Minimap_Hide( 0, player )
 
-		//SURVIVAL_AddRisingWallToMinimap( data, eMinimapObject_prop_script.RISING_WALL_UP )
+		SURVIVAL_AddRisingWallToMinimap( data, eMinimapObject_prop_script.RISING_WALL_UP )
 	#endif // SERVER
 
 	AddToAllowedAirdropDynamicEntities( data.topWallBrush )
