@@ -134,7 +134,10 @@ void function Desertlands_MapInit_Common()
 {
 	printt( "Desertlands_MapInit_Common" )
 
-	MapZones_RegisterDataTable( $"datatable/map_zones/zones_mp_rr_desertlands_mu2.rpak" )
+	if (MapName() == eMaps.mp_rr_desertlands_mu3 )
+		MapZones_RegisterDataTable( $"datatable/map_zones/zones_mp_rr_desertlands_mu3.rpak" )
+	else
+		MapZones_RegisterDataTable( $"datatable/map_zones/zones_mp_rr_desertlands_mu2.rpak" )
 
 	FlagInit( "PlayConveyerStartFX", true )
 	FlagInit( "PlayConveyerEndFX", true )
