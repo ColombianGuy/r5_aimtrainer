@@ -35,6 +35,7 @@ const float RING_TV_KNOCKOUT_TIME_ELAPSED_CAN_OVERRIDE = 4.0
 
 const asset RING_CSV_DIALOGUE = $"datatable/dialogue/oly_path_tt_ring_announcer_dialogue.rpak"
 const string BOXING_RING_MODEL = "mdl/test/davis_test/pathfinder_tt_ring_shield.rmdl"
+const string BOXING_RING_FX = "mdl/fx/pathfinder_tt_fill_fx.rmdl"
 global const string BOXING_RING_SCRIPTNAME = "pathfinder_tt_ring_shield"
 
 const string FLAG_ARENA_LIGHTS_01 = "arena_lights_01"
@@ -250,9 +251,11 @@ void function InitPathTTBoxingRingEntities()
 			return
 		}
 
-		entity ringShieldTarget = ringShieldTargets[ 0 ]
+		entity ringShieldTarget = ringShieldTargets[ 0 ] //TODO: Used FX model instead actually FX until we figure out how to port efct assets, remove this model after fixing particles -LorryLeKral
 		entity ringShield = CreatePropScript( GetAssetFromString( BOXING_RING_MODEL ), ringShieldTarget.GetOrigin(), ringShieldTarget.GetAngles(), SOLID_VPHYSICS, 1 )
-		//ringShield.kv.CollisionGroup = TRACE_COLLISION_GROUP_NONE
+		entity ringFx = CreatePropScript( GetAssetFromString( BOXING_RING_FX ), ringShieldTarget.GetOrigin(), ringShieldTarget.GetAngles(), 0, 50000 )
+		ringFx.kv.rendercolor = "104 198 223 255"
+		ringFx.kv.solid = 0
 		ringShield.kv.CollisionGroup = TRACE_COLLISION_GROUP_BLOCK_WEAPONS
 		ringShield.kv.contents = int( ringShield.kv.contents ) | CONTENTS_NOGRAPPLE | CONTENTS_BLOCKLOS
 		ringShield.kv.renderamt = 10
