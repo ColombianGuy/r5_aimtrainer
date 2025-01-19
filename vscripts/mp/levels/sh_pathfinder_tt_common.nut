@@ -1448,9 +1448,9 @@ void function Boxing_WeaponStatusCheck( entity player, var rui, int slot )
 //CHECK IF THE TT EXISTS IN THE MAP
 bool function IsPathTTEnabled()
 {
-	if ( GetCurrentPlaylistVarBool( "path_tt_enabled", true ) )
+	if (MapName() == eMaps.mp_rr_olympus_tt )
 	{
-		return true//HasEntWithScriptName( "path_tt_jumbo_screen_ko" )
+		return true
 	}
 
 	return false
