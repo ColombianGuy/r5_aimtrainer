@@ -27,13 +27,13 @@ struct {
 void function CodeCallback_MapInit()
 {
 	printt( "----------------------------" )
-	printt( "Welcome to Olympus MU1" )
-	printt( "-- textures and models port: AyeZee" )
-	printt( "-- models collision and engine fixes: rexx & Amos" )
-	printt( "-- map scripts: CafeFPS" )
+	printt( "Welcome to Olympus" )
+	printt( "-- Map Assets, models, textures and more: LorryLeKral (Lorry)" )
+	printt( "-- Model Conversion and Engine Improvements: AmosModz" )
+	printt( "-- Map Scripts: CafeFPS, LorryLeKral" )
 	printt( "----------------------------" )
 
-	SetVictorySequencePlatformModel( $"mdl/rocks/victory_platform.rmdl", < 0, 0, -10 >, < 0, 0, 0 > )
+	SetVictorySequencePlatformModel( $"mdl/levels_terrain/mp_rr_olympus/floating_victory_platform_01.rmdl", < 0, 0, -10 >, < 0, 0, 0 > )
 
 	Olympus_MapInit_Common()
 	SURVIVAL_SetPlaneHeight( 12500 )
@@ -43,7 +43,10 @@ void function CodeCallback_MapInit()
 
 
 	PathTT_Init()
-	MapZones_RegisterDataTable( $"datatable/map_zones/zones_mp_rr_olympus_mu1.rpak" )
+	if (MapName() == eMaps.mp_rr_olympus )
+		MapZones_RegisterDataTable( $"datatable/map_zones/zones_mp_rr_olympus.rpak" )
+	else
+		MapZones_RegisterDataTable( $"datatable/map_zones/zones_mp_rr_olympus_mu1.rpak" )
 	
 	//Clean up unused ents
 	AddCallback_EntitiesDidLoad( Olympus_OnEntitiesDidLoad )
@@ -114,7 +117,8 @@ void function Olympus_OnEntitiesDidLoad()
 	if( Gamemode() == eGamemodes.SURVIVAL )
 	{
 		SpawnWeaponsonRacks()
-		SetupKeyForShipVault()
+		if (MapName() == eMaps.mp_rr_olympus_mu1 )
+			SetupKeyForShipVault()
 	}
 }
 

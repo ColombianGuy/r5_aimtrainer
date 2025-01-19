@@ -59,9 +59,9 @@ void function Olympus_MapInit_Common()
 		AddCallback_EntitiesDidLoad( EntitiesDidLoad )
 	#endif
 
-	//#if CLIENT
-	//	SetMinimapBackgroundTileImage( $"overviews/mp_rr_olympus_bg" )
-	//#endif
+	#if CLIENT
+		//SetMinimapBackgroundTileImage( $"overviews/mp_rr_olympus_bg" )
+	#endif
 }
 
 #if SERVER && DEVELOPER

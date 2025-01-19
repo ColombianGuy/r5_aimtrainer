@@ -65,6 +65,7 @@ global enum eMaps
 	mp_rr_canyonlands_mu2_mv, //30
 	mp_rr_canyonlands_mu2_ufo, //31
 	mp_rr_desertlands_mu3, //32
+	mp_rr_olympus, //33
 	
 	
 	_MAP_COUNT //LAST

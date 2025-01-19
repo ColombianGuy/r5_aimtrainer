@@ -17,7 +17,10 @@ void function ClientCodeCallback_MapInit()
 
 void function MinimapLabelsCloudcity()
 {
-	MapZones_RegisterDataTable( $"datatable/map_zones/zones_mp_rr_olympus_mu1.rpak" )
+	if (MapName() == eMaps.mp_rr_olympus )
+		MapZones_RegisterDataTable( $"datatable/map_zones/zones_mp_rr_olympus.rpak" )
+	else
+		MapZones_RegisterDataTable( $"datatable/map_zones/zones_mp_rr_olympus_mu1.rpak" )
 
 	SURVIVAL_AddMinimapLevelLabel( GetZoneMiniMapNameForZoneId( MapZones_GetZoneIdForTriggerName( "Z_01_A" ) ), 0.24, 0.39, 0.7 )// OASIS
 	SURVIVAL_AddMinimapLevelLabel( GetZoneMiniMapNameForZoneId( MapZones_GetZoneIdForTriggerName( "Z_02_B" ) ), 0.28, 0.26, 0.7 )// CARRIER
