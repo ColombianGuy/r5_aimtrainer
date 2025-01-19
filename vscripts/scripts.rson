@@ -34,6 +34,7 @@ Scripts:
 When: "SERVER || CLIENT"
 Scripts:
 [
+	mp/levels/sh_pathfinder_tt_common.nut
 	flowstate_globals.gnut
 	sh_damage_history.gnut // needs to come before _entitystructs
 ]

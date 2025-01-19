@@ -267,6 +267,9 @@ void function RemoteFunctions_Init_Begin()
 	if( MapName() == eMaps.mp_rr_arena_composite ) //TEMP. To free up buffer space. Currently only used in composite. Cafe
 		Remote_RegisterClientFunction( "ServerCallback_SpawnClientSideDynamicLight", "vector", -32000.0, 32000.0, 32, "vector", -32000.0, 32000.0, 32, "int", 0, 255, "float", 0.0, 32000.0, 8, "float", 0.0, 32000.0, 8 )
 
+	if( MapName() == eMaps.mp_rr_olympus_tt )
+		PathTT_OnNetworkRegistration()
+
 	// R5R Sword
 	RegisterNetworkedVariable( "isPlayerBlocking", SNDC_PLAYER_EXCLUSIVE, SNVT_BOOL, false )
 	if( Playlist() != ePlaylists.fs_scenarios )

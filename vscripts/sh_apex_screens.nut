@@ -5,6 +5,9 @@ global function SvApexScreens_ShowCircleState
 global function SvApexScreens_ForceShowSquad
 global function SvApexScreens_HighlightPlayerForImpressiveKill
 global function SvApexScreens_HighlightPlayerForKillSpree
+global function SvApexScreens_SetEventTimeA
+global function SvApexScreens_SetEventTimeB
+global function SvApexScreens_SetEventIntA
 #endif
 
 #if SERVER && DEVELOPER
@@ -24,6 +27,7 @@ global function ServerToClient_ApexScreenRefreshAll
 //global function ClApexScreens_Lobby_SetMode
 //global function ClApexScreens_Lobby_SetCardOwner
 global function ClApexScreens_OnStaticPropRuiVisibilityChange
+global function ClApexScreens_AddScreenOverride
 #endif
 
 #if CLIENT && DEVELOPER
@@ -108,7 +112,7 @@ global enum eApexScreenMods
 
 
 #if CLIENT
-struct ScreenOverrideInfo
+global struct ScreenOverrideInfo
 {
 	asset  ruiAsset
 	string scriptNameRequired = ""
@@ -117,6 +121,7 @@ struct ScreenOverrideInfo
 	//
 	bool bindStartTimeVarToEventTimeA
 	bool bindStartTimeVarToEventTimeB
+	bool bindEventIntA
 
 	struct
 	{
@@ -126,6 +131,7 @@ struct ScreenOverrideInfo
 		table<string, asset>  images
 		table<string, string> strings
 		table<string, vector> float3s
+		table<string, vector> float2s
 		table<string, float>  gametimes
 	} vars
 }
@@ -221,6 +227,7 @@ struct {
 #if SERVER || CLIENT
 const string NV_ApexScreensEventTimeA = "NV_ApexScreensEventTimeA"
 const string NV_ApexScreensEventTimeB = "NV_ApexScreensEventTimeB"
+const string NV_ApexScreensEventIntA = "NV_ApexScreensEventIntA"
 void function ShApexScreens_Init()
 {
 	#if SERVER
@@ -290,8 +297,22 @@ void function ShApexScreens_Init()
 }
 #endif
 
-
 #if CLIENT || SERVER
+void function SvApexScreens_SetEventTimeA( float time )
+{
+	//SetGlobalNetTime( NV_ApexScreensEventTimeA, time )
+}
+
+void function SvApexScreens_SetEventTimeB( float time )
+{
+	//SetGlobalNetTime( NV_ApexScreensEventTimeB, time )
+}
+
+void function SvApexScreens_SetEventIntA( int val )
+{
+	//SetGlobalNetInt( NV_ApexScreensEventIntA, val )
+}
+
 asset function CastStringToAsset( string val )
 {
 	return GetKeyValueAsAsset( { kn = val }, "kn" )
@@ -377,6 +398,12 @@ void function SetupScreenOverrides()
 		s_screenOverrides[newInfo.scriptNameRequired] <- newInfo
 	}
 }
+
+void function ClApexScreens_AddScreenOverride( ScreenOverrideInfo newInfo )
+{
+	s_screenOverrides[newInfo.scriptNameRequired] <- newInfo
+}
+
 #endif //
 
 ////
