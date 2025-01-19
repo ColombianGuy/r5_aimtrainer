@@ -43,10 +43,12 @@ void function CodeCallback_MapInit()
 
 
 	PathTT_Init()
-	if (MapName() == eMaps.mp_rr_olympus )
-		MapZones_RegisterDataTable( $"datatable/map_zones/zones_mp_rr_olympus.rpak" )
-	else
+	if (MapName() == eMaps.mp_rr_olympus_mu1 )
 		MapZones_RegisterDataTable( $"datatable/map_zones/zones_mp_rr_olympus_mu1.rpak" )
+	else if (MapName() == eMaps.mp_rr_olympus_tt )
+		MapZones_RegisterDataTable( $"datatable/map_zones/zones_mp_rr_olympus_tt.rpak" )
+	else
+		MapZones_RegisterDataTable( $"datatable/map_zones/zones_mp_rr_olympus.rpak" )
 	
 	//Clean up unused ents
 	AddCallback_EntitiesDidLoad( Olympus_OnEntitiesDidLoad )

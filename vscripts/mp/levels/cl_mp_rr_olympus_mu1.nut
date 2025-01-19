@@ -17,25 +17,28 @@ void function ClientCodeCallback_MapInit()
 
 void function MinimapLabelsCloudcity()
 {
-	if (MapName() == eMaps.mp_rr_olympus )
-		MapZones_RegisterDataTable( $"datatable/map_zones/zones_mp_rr_olympus.rpak" )
-	else
+	if (MapName() == eMaps.mp_rr_olympus_mu1 )
 		MapZones_RegisterDataTable( $"datatable/map_zones/zones_mp_rr_olympus_mu1.rpak" )
+	else if (MapName() == eMaps.mp_rr_olympus_tt )
+		MapZones_RegisterDataTable( $"datatable/map_zones/zones_mp_rr_olympus_tt.rpak" )
+	else
+		MapZones_RegisterDataTable( $"datatable/map_zones/zones_mp_rr_olympus.rpak" )
 
-	SURVIVAL_AddMinimapLevelLabel( GetZoneMiniMapNameForZoneId( MapZones_GetZoneIdForTriggerName( "Z_01_A" ) ), 0.24, 0.39, 0.7 )// OASIS
-	SURVIVAL_AddMinimapLevelLabel( GetZoneMiniMapNameForZoneId( MapZones_GetZoneIdForTriggerName( "Z_02_B" ) ), 0.28, 0.26, 0.7 )// CARRIER
-	SURVIVAL_AddMinimapLevelLabel( GetZoneMiniMapNameForZoneId( MapZones_GetZoneIdForTriggerName( "Z_02_A" ) ), 0.37, 0.20, 0.7 )// DOCKS
-	SURVIVAL_AddMinimapLevelLabel( GetZoneMiniMapNameForZoneId( MapZones_GetZoneIdForTriggerName( "Z_03_A" ) ), 0.50, 0.30, 0.7 )// POWER GRID
-	SURVIVAL_AddMinimapLevelLabel( GetZoneMiniMapNameForZoneId( MapZones_GetZoneIdForTriggerName( "Z_04_A" ) ), 0.64, 0.26, 0.7 )// RIFT
-	SURVIVAL_AddMinimapLevelLabel( GetZoneMiniMapNameForZoneId( MapZones_GetZoneIdForTriggerName( "Z_05_A" ) ), 0.44, 0.41, 0.7 )// TURBINE
-	SURVIVAL_AddMinimapLevelLabel( GetZoneMiniMapNameForZoneId( MapZones_GetZoneIdForTriggerName( "Z_08_A" ) ), 0.59, 0.44, 0.7 )// ENERGY DEPOT
-	SURVIVAL_AddMinimapLevelLabel( GetZoneMiniMapNameForZoneId( MapZones_GetZoneIdForTriggerName( "Z_09_A" ) ), 0.76, 0.44, 0.7 )// GARDEN
-	SURVIVAL_AddMinimapLevelLabel( GetZoneMiniMapNameForZoneId( MapZones_GetZoneIdForTriggerName( "Z_07_A" ) ), 0.49, 0.55, 0.7 )// HAMMOND LABS
-	SURVIVAL_AddMinimapLevelLabel( GetZoneMiniMapNameForZoneId( MapZones_GetZoneIdForTriggerName( "Z_14_B" ) ), 0.77, 0.55, 0.7 )// GROW TOWERS
-	SURVIVAL_AddMinimapLevelLabel( GetZoneMiniMapNameForZoneId( MapZones_GetZoneIdForTriggerName( "Z_13_C" ) ), 0.57, 0.68, 0.7 )// SOLAR ARRAY
-	SURVIVAL_AddMinimapLevelLabel( GetZoneMiniMapNameForZoneId( MapZones_GetZoneIdForTriggerName( "Z_15_A" ) ), 0.83, 0.75, 0.7 )// ORBITAL CANNON
-	SURVIVAL_AddMinimapLevelLabel( GetZoneMiniMapNameForZoneId( MapZones_GetZoneIdForTriggerName( "Z_12_A" ) ), 0.53, 0.88, 0.7 )// BONSAI PLAZA
-	SURVIVAL_AddMinimapLevelLabel( GetZoneMiniMapNameForZoneId( MapZones_GetZoneIdForTriggerName( "Z_11_A" ) ), 0.18, 0.71, 0.7 )// HYDROPHONCIS
-	SURVIVAL_AddMinimapLevelLabel( GetZoneMiniMapNameForZoneId( MapZones_GetZoneIdForTriggerName( "Z_10_A" ) ), 0.09, 0.62, 0.7 )// ELYSIUM
-	SURVIVAL_AddMinimapLevelLabel( GetZoneMiniMapNameForZoneId( MapZones_GetZoneIdForTriggerName( "Z_06_B" ) ), 0.31, 0.52, 0.7 )// ESTATES
+		SURVIVAL_AddMinimapLevelLabel( GetZoneMiniMapNameForZoneId( MapZones_GetZoneIdForTriggerName( "Z_12_A" ) ), 0.51, 0.85, 0.6 ) //Downtown
+		SURVIVAL_AddMinimapLevelLabel( GetZoneMiniMapNameForZoneId( MapZones_GetZoneIdForTriggerName( "Z_15_A" ) ), 0.80, 0.72, 0.6 ) //RND
+		SURVIVAL_AddMinimapLevelLabel( GetZoneMiniMapNameForZoneId( MapZones_GetZoneIdForTriggerName( "Z_13_C" ) ), 0.58, 0.68, 0.6 ) //Solar Wave
+		SURVIVAL_AddMinimapLevelLabel( GetZoneMiniMapNameForZoneId( MapZones_GetZoneIdForTriggerName( "Z_07_A" ) ), 0.51, 0.55, 0.6 ) //Labs
+		SURVIVAL_AddMinimapLevelLabel( GetZoneMiniMapNameForZoneId( MapZones_GetZoneIdForTriggerName( "Z_09_A" ) ), 0.78, 0.44, 0.6 ) //Gardens
+		SURVIVAL_AddMinimapLevelLabel( GetZoneMiniMapNameForZoneId( MapZones_GetZoneIdForTriggerName( "Z_08_A" ) ), 0.60, 0.44, 0.6 ) //UNDERBELLY
+		SURVIVAL_AddMinimapLevelLabel( GetZoneMiniMapNameForZoneId( MapZones_GetZoneIdForTriggerName( "Z_05_A" ) ), 0.44, 0.41, 0.6 ) //Turbine
+		SURVIVAL_AddMinimapLevelLabel( GetZoneMiniMapNameForZoneId( MapZones_GetZoneIdForTriggerName( "Z_06_B" ) ), 0.32, 0.53, 0.6 ) //Estate
+		SURVIVAL_AddMinimapLevelLabel( GetZoneMiniMapNameForZoneId( MapZones_GetZoneIdForTriggerName( "Z_10_A" ) ), 0.09, 0.63, 0.6 ) //Marina
+		SURVIVAL_AddMinimapLevelLabel( GetZoneMiniMapNameForZoneId( MapZones_GetZoneIdForTriggerName( "Z_11_A" ) ), 0.19, 0.71, 0.6 ) //Hydroponics
+		SURVIVAL_AddMinimapLevelLabel( GetZoneMiniMapNameForZoneId( MapZones_GetZoneIdForTriggerName( "Z_01_A" ) ), 0.23, 0.39, 0.6 ) //Highrises
+		SURVIVAL_AddMinimapLevelLabel( GetZoneMiniMapNameForZoneId( MapZones_GetZoneIdForTriggerName( "Z_02_B" ) ), 0.28, 0.27, 0.6 ) //Ship
+		SURVIVAL_AddMinimapLevelLabel( GetZoneMiniMapNameForZoneId( MapZones_GetZoneIdForTriggerName( "Z_03_A" ) ), 0.5, 0.3, 0.6 )   //Power Grid
+		SURVIVAL_AddMinimapLevelLabel( GetZoneMiniMapNameForZoneId( MapZones_GetZoneIdForTriggerName( "Z_04_A" ) ), 0.65, 0.26, 0.6 ) //Rift
+		SURVIVAL_AddMinimapLevelLabel( GetZoneMiniMapNameForZoneId( MapZones_GetZoneIdForTriggerName( "Z_14_B" ) ), 0.78, 0.56, 0.6 ) //Grow Towers
+		SURVIVAL_AddMinimapLevelLabel( GetZoneMiniMapNameForZoneId( MapZones_GetZoneIdForTriggerName( "Z_02_A" ) ), 0.37, 0.20, 0.6 ) //Docks
+		SURVIVAL_AddMinimapLevelLabel( GetZoneMiniMapNameForZoneId( MapZones_GetZoneIdForTriggerName( "Z_02_C" ) ), 0.37, 0.3, 0.6 ) //Docks
 }
