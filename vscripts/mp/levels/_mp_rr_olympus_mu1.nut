@@ -122,6 +122,16 @@ void function Olympus_OnEntitiesDidLoad()
 		if (MapName() == eMaps.mp_rr_olympus_mu1 )
 			SetupKeyForShipVault()
 	}
+
+	PrecacheModel( $"mdl/fx/oly_sphere_edges.rmdl" )		
+	PrecacheModel( $"mdl/fx/oly_sphere_inner_LG.rmdl" )		
+	PrecacheModel( $"mdl/fx/oly_sphere_main_LG.rmdl" )		
+	PrecacheModel( $"mdl/fx/oly_sphere_ring_nrg.rmdl" )	
+	
+	entity sphereedge = CreatePropDynamic( $"mdl/fx/oly_sphere_edges.rmdl", <6290.46, 24305.8, -5529.8>, <0, 0, 0> )
+	entity sphereinner = CreatePropDynamic( $"mdl/fx/oly_sphere_inner_LG.rmdl", <6290.46, 24305.8, -5529.8>, <0, 0, 0> )
+	entity spherering = CreatePropDynamic( $"mdl/fx/oly_sphere_ring_nrg.rmdl", <6290.46, 24305.8, -5529.8>, <0, 0, 0> )
+	entity mainlg = CreatePropDynamic( $"mdl/fx/oly_sphere_main_LG.rmdl", <6290.46, 24305.8, -5529.8>, <0, 0, 0> )
 }
 
 void function SpawnWeaponsonRacks()

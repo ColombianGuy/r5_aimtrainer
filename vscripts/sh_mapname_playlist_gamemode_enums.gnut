@@ -67,6 +67,7 @@ global enum eMaps
 	mp_rr_desertlands_mu3, //32
 	mp_rr_olympus, //33
 	mp_rr_olympus_tt, //34
+	mp_rr_canyonlands_mu3, //34
 	
 	
 	_MAP_COUNT //LAST
